@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 C:\\Documents and Settings\\Paulo\\Desktop\\TerraParser.g 2009-03-02 19:46:41
+// $ANTLR 3.1.1 C:\\Documents and Settings\\Paulo\\Desktop\\TerraParser.g 2009-03-02 21:42:24
  
 package br.com.maisha.terra; 
 import java.util.HashMap;
@@ -578,7 +578,7 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "property"
-    // C:\\Documents and Settings\\Paulo\\Desktop\\TerraParser.g:64:1: property : ( NEWLINE | PROPERTY ATTRIBUITION ( NUMBER | NAME ) );
+    // C:\\Documents and Settings\\Paulo\\Desktop\\TerraParser.g:64:1: property : ( NEWLINE | PROPERTY ATTRIBUITION value );
     public final TerraParser.property_return property() throws RecognitionException {
         TerraParser.property_return retval = new TerraParser.property_return();
         retval.start = input.LT(1);
@@ -588,15 +588,15 @@ public class TerraParser extends Parser {
         Token NEWLINE20=null;
         Token PROPERTY21=null;
         Token ATTRIBUITION22=null;
-        Token set23=null;
+        TerraParser.value_return value23 = null;
+
 
         Object NEWLINE20_tree=null;
         Object PROPERTY21_tree=null;
         Object ATTRIBUITION22_tree=null;
-        Object set23_tree=null;
 
         try {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\TerraParser.g:64:9: ( NEWLINE | PROPERTY ATTRIBUITION ( NUMBER | NAME ) )
+            // C:\\Documents and Settings\\Paulo\\Desktop\\TerraParser.g:64:9: ( NEWLINE | PROPERTY ATTRIBUITION value )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -626,7 +626,7 @@ public class TerraParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\TerraParser.g:64:21: PROPERTY ATTRIBUITION ( NUMBER | NAME )
+                    // C:\\Documents and Settings\\Paulo\\Desktop\\TerraParser.g:64:21: PROPERTY ATTRIBUITION value
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -638,19 +638,14 @@ public class TerraParser extends Parser {
                     ATTRIBUITION22_tree = (Object)adaptor.create(ATTRIBUITION22);
                     adaptor.addChild(root_0, ATTRIBUITION22_tree);
 
-                    set23=(Token)input.LT(1);
-                    if ( input.LA(1)==NUMBER||input.LA(1)==NAME ) {
-                        input.consume();
-                        adaptor.addChild(root_0, (Object)adaptor.create(set23));
-                        state.errorRecovery=false;
-                    }
-                    else {
-                        MismatchedSetException mse = new MismatchedSetException(null,input);
-                        throw mse;
-                    }
+                    pushFollow(FOLLOW_value_in_property161);
+                    value23=value();
 
+                    state._fsp--;
 
-                    		Property p = new Property((PROPERTY21!=null?PROPERTY21.getText():null));
+                    adaptor.addChild(root_0, value23.getTree());
+
+                    		Property p = new Property((PROPERTY21!=null?PROPERTY21.getText():null), (value23!=null?input.toString(value23.start,value23.stop):null));
                     		props.add(p);
                     	
 
@@ -675,6 +670,61 @@ public class TerraParser extends Parser {
         return retval;
     }
     // $ANTLR end "property"
+
+    public static class value_return extends ParserRuleReturnScope {
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "value"
+    // C:\\Documents and Settings\\Paulo\\Desktop\\TerraParser.g:70:1: value : ( NUMBER | NAME ) ;
+    public final TerraParser.value_return value() throws RecognitionException {
+        TerraParser.value_return retval = new TerraParser.value_return();
+        retval.start = input.LT(1);
+
+        Object root_0 = null;
+
+        Token set24=null;
+
+        Object set24_tree=null;
+
+        try {
+            // C:\\Documents and Settings\\Paulo\\Desktop\\TerraParser.g:70:7: ( ( NUMBER | NAME ) )
+            // C:\\Documents and Settings\\Paulo\\Desktop\\TerraParser.g:70:9: ( NUMBER | NAME )
+            {
+            root_0 = (Object)adaptor.nil();
+
+            set24=(Token)input.LT(1);
+            if ( input.LA(1)==NUMBER||input.LA(1)==NAME ) {
+                input.consume();
+                adaptor.addChild(root_0, (Object)adaptor.create(set24));
+                state.errorRecovery=false;
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                throw mse;
+            }
+
+
+            }
+
+            retval.stop = input.LT(-1);
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+        }
+        return retval;
+    }
+    // $ANTLR end "value"
 
     // Delegated rules
 
@@ -703,6 +753,7 @@ public class TerraParser extends Parser {
     public static final BitSet FOLLOW_NEWLINE_in_property153 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_PROPERTY_in_property157 = new BitSet(new long[]{0x0000000000000200L});
     public static final BitSet FOLLOW_ATTRIBUITION_in_property159 = new BitSet(new long[]{0x0000000000090000L});
-    public static final BitSet FOLLOW_set_in_property161 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_value_in_property161 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_value174 = new BitSet(new long[]{0x0000000000000002L});
 
 }
