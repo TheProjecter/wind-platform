@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: spring-osgi-io
+Bundle-SymbolicName: org.springframework.bundle.osgi.io
+Bundle-Version: 1.1.2
+Bundle-ClassPath: spring-osgi-io-1.1.2.jar
+Bundle-Vendor: Spring Framework
+Export-Package: org.springframework.osgi.io;uses:="org.springframework.core.io.support,org.osgi.framework,org.apache.commons.logging,org.springframework.osgi.io.internal.resolver,org.springframework.core.io,org.springframework.util";version="1.1.2",org.springframework.osgi.io.internal.resolver;uses:="org.osgi.service.packageadmin,org.osgi.framework,org.springframework.util";version="1.1.2"
+Spring-DM-Version: 1.1.2
+Implementation-Vendor: Spring Dynamic Modules Framework
+Implementation-Version: 1.1.2
+Built-By: costin
+Build-Jdk: 1.5.0_15
+Import-Package: org.apache.commons.logging,org.osgi.framework;version="1.3",org.osgi.service.packageadmin;resolution:=optional;version="1.2",org.springframework.core.io;version="2.5.4",org.springframework.core.io.support;version="2.5.4",org.springframework.osgi.io;version="1.1.2",org.springframework.osgi.io.internal.resolver;version="1.1.2",org.springframework.util;version="2.5.4"
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0
+Implementation-Title: Spring Dynamic Modules Framework
+Private-Package: org.springframework.osgi.io.internal
+Bundle-DocURL: http://www.springframework.org
+Implementation-Vendor-Id: org.springframework.osgi
+Bundle-Description: Spring/OSGi IO abstract classes. Provides Resource, ResourceLoader and ResourcePatternResolver for OSGi environments.
+Created-By: Apache Maven Bundle Plugin
+Tool: Bnd-0.0.238
+Ignore-Package: org.springframework.osgi.io.internal
+Bnd-LastModified: 1223012500406
+Spring-Version: 2.5.5
