@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DM2 Plug-in
+Bundle-SymbolicName: DM2
+Bundle-Version: 1.0.0
+Bundle-Activator: dm2.Activator
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: dm1,
+ org.osgi.framework;version="1.3.0"
