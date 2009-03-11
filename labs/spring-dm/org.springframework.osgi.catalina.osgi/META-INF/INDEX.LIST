@@ -1,0 +1,8 @@
+JarIndex-Version: 1.0
+
+servlets-default.jar
+org
+org/apache
+org/apache/catalina
+org/apache/catalina/servlets
+
