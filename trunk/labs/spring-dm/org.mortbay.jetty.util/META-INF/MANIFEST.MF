@@ -1,0 +1,41 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Jetty Utilities
+Bundle-SymbolicName: org.mortbay.jetty.util
+Bundle-Version: 6.1.9
+Bundle-ClassPath: jetty-util-6.1.9.jar
+Bundle-Vendor: Mort Bay Consulting
+Export-Package: org.mortbay.util;uses:="org.mortbay.log,
+ org.mortbay.thread";version="6.1.9",
+ org.mortbay.log;uses:="org.mortbay.util,
+ org.slf4j";version="6.1.9",
+ org.mortbay.component;uses:="org.mortbay.util,
+ org.mortbay.log";version="6.1.9",
+ org.mortbay.thread;uses:="org.mortbay.log,
+ org.mortbay.component";version="6.1.9",
+ org.mortbay.servlet;uses:="org.mortbay.log,
+ org.mortbay.util,
+ javax.servlet.http,
+ javax.servlet,
+ org.mortbay.util.ajax";version="6.1.9",
+ org.mortbay.util.ajax;uses:="org.mortbay.log,
+ org.mortbay.util,
+ javax.servlet.http,
+ javax.servlet";version="6.1.9"
+implementation-version: 6.1.9
+Bundle-RequiredExcutionEnvironment: J2SE-1.4
+mode: development
+package: org.mortbay
+Built-By: jesse
+Build-Jdk: 1.5.0_13
+Import-Package: javax.servlet,javax.servlet.http,org.slf4j;resolution:=optional
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0
+url: http://jetty.mortbay.org
+Originally-Created-By: 1.5.0_13 (Apple Inc.)
+Archiver-Version: Plexus Archiver
+Bundle-DocURL: http://jetty.mortbay.org
+Bundle-Description: Utility classes for Jetty
+Created-By: 1.5.0_13 (Apple Inc.)
+Tool: Bnd-0.0.238
+Ignore-Package: org.mortbay.log,org.mortbay.util,org.mortbay.component,org.mortbay.thread,org.mortbay.servlet,org.mortbay.util.ajax
+Bnd-LastModified: 1207061885015
