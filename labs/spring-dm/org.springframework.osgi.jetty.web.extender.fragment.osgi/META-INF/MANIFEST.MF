@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Built-By: costin
+Created-By: Apache Maven Bundle Plugin
+Import-Package: org.springframework.osgi.web.deployer.jetty
+Implementation-Vendor-Id: org.springframework.osgi
+Bnd-LastModified: 1214998035187
+Bundle-Version: 1.0.0
+Bundle-Name: jetty.web.extender.fragment.osgi
+Bundle-Description: Jetty Spring-DM Web Fragment (OSGi version)
+Build-Jdk: 1.5.0_15
+Private-Package: !*
+Bundle-ManifestVersion: 2
+Fragment-Host: org.springframework.bundle.osgi.web.extender
+Bundle-SymbolicName: org.springframework.osgi.jetty.web.extender.fragm
+ ent.osgi
+Implementation-Title: Spring Dynamic Modules Framework
+Jetty-Version: 6.1.9
+Tool: Bnd-0.0.227
+Implementation-Version: 1.0.0
+Embed-Dependency: *;scope=provided;type=!pom;inline=true
+Implementation-Vendor: Spring Dynamic Modules Framework
+
