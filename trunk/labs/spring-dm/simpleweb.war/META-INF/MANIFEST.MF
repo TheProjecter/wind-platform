@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-Version: 1.0
+Bundle-SymbolicName: simpleweb.war
+Bundle-Name: Simple Web MVC Bundle
+Bundle-Vendor: Spring Framework
+Bundle-ManifestVersion: 2
+Bundle-ClassPath: WEB-INF/classes/
+Import-Package: javax.servlet.http,
+ javax.servlet.jsp,
+ org.springframework.osgi.web.context.support;version="1.1.2",
+ org.springframework.stereotype,
+ org.springframework.web.bind.annotation,
+ org.springframework.web.context,
+ org.springframework.web.servlet,
+ org.springframework.web.servlet.view
+Require-Bundle: org.springframework.bundle.spring.web,
+ javax.servlet,
+ javax.servlet.jsp
+
