@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry exported="true" kind="lib" path="jetty.start.osgi-1.0.0.jar" sourcepath="org.springframework.osgi.jetty.start.osgisrc.zip"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
