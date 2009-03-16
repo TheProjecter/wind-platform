@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.pde.ui.EquinoxLauncher">
+<booleanAttribute key="append.args" value="true"/>
+<booleanAttribute key="automaticAdd" value="true"/>
+<booleanAttribute key="automaticValidate" value="false"/>
+<stringAttribute key="bad_container_name" value="\simpleweb.war\l"/>
+<stringAttribute key="bootstrap" value=""/>
+<stringAttribute key="checked" value="[NONE]"/>
+<booleanAttribute key="clearConfig" value="false"/>
+<stringAttribute key="configLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.pde.core/DM1"/>
+<booleanAttribute key="default_auto_start" value="true"/>
+<intAttribute key="default_start_level" value="4"/>
+<booleanAttribute key="includeOptional" value="true"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -ws ${target.ws} -arch ${target.arch} -nl ${target.nl} -console"/>
+<stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Declipse.ignoreApp=true -Dosgi.noShutdown=true"/>
+<stringAttribute key="pde.version" value="3.3"/>
+<booleanAttribute key="show_selected_only" value="false"/>
+<stringAttribute key="target_bundles" value="org.eclipse.equinox.common@default:default,org.springframework.osgi.commons-el.osgi@default:default,org.springframework.bundle.spring.aop@default:default,org.eclipse.equinox.app@default:default,org.springframework.osgi.jsp-api.osgi@default:default,org.springframework.bundle.osgi.core@default:default,org.springframework.bundle.spring.beans@default:default,org.springframework.bundle.spring.core@default:default,com.springsource.org.aopalliance@default:default,com.springsource.org.apache.commons.logging@default:default,org.springframework.osgi.catalina.start.osgi@default:default,org.springframework.bundle.osgi.extender@default:default,org.springframework.osgi.jasper.osgi@default:default,org.eclipse.osgi@:,org.springframework.osgi.catalina.osgi@default:default,org.springframework.bundle.osgi.web@default:default,org.springframework.bundle.osgi.io@default:default,org.eclipse.osgi.services@default:default,org.springframework.bundle.spring.webmvc@default:default,org.springframework.bundle.osgi.web.extender@default:default,org.springframework.bundle.spring.context@default:default,org.springframework.bundle.spring.web@default:default,javax.servlet.jsp@default:default,javax.servlet@default:default,org.eclipse.equinox.registry@default:default"/>
+<booleanAttribute key="tracing" value="false"/>
+<booleanAttribute key="useDefaultConfigArea" value="true"/>
+<stringAttribute key="workspace_bundles" value="simpleweb.war*1.0.0@5:default"/>
+</launchConfiguration>
