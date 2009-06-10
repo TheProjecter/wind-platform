@@ -33,4 +33,14 @@ public class Property extends TerraClass {
 		this.value = value;
 	}
 
+	/**
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getPropName()).append(": ").append(getValue());
+		return sb.toString();
+	}
+
 }

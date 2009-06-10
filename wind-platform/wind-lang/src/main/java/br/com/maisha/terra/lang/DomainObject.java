@@ -17,7 +17,7 @@ public class DomainObject extends TerraClass {
 	private List<Attribute> atts = new ArrayList<Attribute>();
 
 	private List<Import> imports = new ArrayList<Import>();
-	
+
 	public DomainObject(String ref, String label) {
 		super();
 		this.ref = ref;
@@ -59,9 +59,18 @@ public class DomainObject extends TerraClass {
 	public void setImports(List<Import> imports) {
 		this.imports = imports;
 	}
-	
-	
-	
-	
+
+	/**
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getRef());
+		sb.append(" [");
+		sb.append(getLabel());
+		sb.append("]");
+		return sb.toString();
+	}
 
 }

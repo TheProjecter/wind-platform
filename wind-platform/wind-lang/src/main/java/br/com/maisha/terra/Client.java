@@ -1,7 +1,8 @@
 package br.com.maisha.terra;
 
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.List;
 import java.util.Map;
@@ -10,28 +11,23 @@ import org.antlr.runtime.ANTLRReaderStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 
-import br.com.maisha.terra.lang.TerraClass;
+import br.com.maisha.terra.lang.DomainObject;
 
 public class Client {
 
-	public static void main(String[] args) throws IOException,
-			RecognitionException {
-		new Client().processFile(args[0]);
+	public Map<String, List<DomainObject>> Parse() throws Exception {
 
+		InputStream is = this.getClass().getResourceAsStream("/sample.do");
+		Map<String, List<DomainObject>> mem = getAST(new InputStreamReader(is));
+		return mem;
 	}
 
-	private void processFile(String filePath) throws IOException,
-			RecognitionException {
-		Map<String, List<TerraClass>> mem = getAST(new FileReader(filePath));
-		System.out.println(mem);
-	}
-
-	private Map<String, List<TerraClass>> getAST(Reader reader)
+	private Map<String, List<DomainObject>> getAST(Reader reader)
 			throws IOException, RecognitionException {
 		TerraParser tokenParser = new TerraParser(getTokenStream(reader));
 		TerraParser.domain_object_return parserResult = tokenParser
 				.domain_object();
-		Map<String, List<TerraClass>> mem = tokenParser.memory;
+		Map<String, List<DomainObject>> mem = tokenParser.memory;
 		reader.close();
 		return tokenParser.memory;
 	}
