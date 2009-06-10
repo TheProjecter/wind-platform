@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: wind_lang
+Bundle-SymbolicName: wind_lang
+Bundle-Version: 1.0.0
+Export-Package: br.com.maisha.terra,
+ br.com.maisha.terra.lang
+Require-Bundle: wind_lib;bundle-version="1.0.0"

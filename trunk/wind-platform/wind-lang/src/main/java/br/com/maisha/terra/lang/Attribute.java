@@ -70,4 +70,15 @@ public class Attribute extends TerraClass {
 		props.add(p);
 	}
 
+	/**
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getType());
+		sb.append(" ").append(getRef());
+		sb.append(" [").append(getLabel()).append("]");
+		return sb.toString();
+	}
 }
