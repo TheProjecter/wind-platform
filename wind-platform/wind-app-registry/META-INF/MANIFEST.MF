@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Wind_app_registry Plug-in
+Bundle-SymbolicName: wind_app_registry; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: br.com.maisha.wind.lifecycle.rcp.Activator
+Require-Bundle: org.eclipse.rap.ui,
+ wind_lang;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: javax.servlet;version="2.4.0",
+ javax.servlet.http;version="2.4.0"
