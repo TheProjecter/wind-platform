@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.rap.ui.entrypoint">
+      <entrypoint
+            class="br.com.maisha.wind.lifecycle.rcp.Application"
+            parameter="hello"
+            id="wind_app_registry.Application">
+      </entrypoint>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="RAP Perspective"
+            class="br.com.maisha.wind.lifecycle.rcp.Perspective"
+            id="wind_app_registry.perspective">
+      </perspective>
+   </extension>
+
+</plugin>
