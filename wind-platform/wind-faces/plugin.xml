@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.rap.ui.entrypoint">
+      <entrypoint
+            class="br.com.maisha.wind.faces.rcp.Application"
+            parameter="view"
+            id="wind_faces.Application">
+      </entrypoint>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="RAP Perspective"
+            class="br.com.maisha.wind.faces.rcp.Perspective"
+            id="wind_faces.perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="View"
+            class="br.com.maisha.wind.faces.view.View"
+            id="wind_faces.view">
+      </view>
+      
+      <view
+            name="Module Overview"
+            class="br.com.maisha.wind.faces.view.ModuleOverview"
+            id="br.com.maisha.wind.faces.view.ModuleOverview">
+      </view>
+   </extension>
+
+</plugin>
