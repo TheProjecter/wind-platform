@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Wind_faces Plug-in
+Bundle-SymbolicName: wind_faces; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: br.com.maisha.wind.faces.rcp.Activator
+Require-Bundle: org.eclipse.rap.ui,
+ wind_lang;bundle-version="1.0.0",
+ wind_lib;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: javax.servlet;version="2.4.0",
+ javax.servlet.http;version="2.4.0"
