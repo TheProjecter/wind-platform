@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Wind_common Plug-in
+Bundle-SymbolicName: wind_common; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: br.com.maisha.wind.common.Activator
+Require-Bundle: org.eclipse.rap.ui,
+ org.springframework.beans;bundle-version="2.5.6",
+ org.springframework.context;bundle-version="2.5.6",
+ org.springframework.core;bundle-version="2.5.6"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: javax.servlet;version="2.4.0",
+ javax.servlet.http;version="2.4.0"
