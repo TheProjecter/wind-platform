@@ -1,13 +1,14 @@
 package br.com.maisha.wind.sample;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+
+import br.com.maisha.wind.lifecycle.WindActivator;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends AbstractUIPlugin {
+public class Activator extends WindActivator {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "wind_sample";

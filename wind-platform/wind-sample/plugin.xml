@@ -2,21 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
 
-   <extension
-         point="org.eclipse.rap.ui.entrypoint">
-      <entrypoint
-            class="br.com.maisha.wind.sample.Application"
-            parameter="hello"
-            id="wind_sample.Application">
-      </entrypoint>
-   </extension>
-   <extension
-         point="org.eclipse.ui.perspectives">
-      <perspective
-            name="RAP Perspective"
-            class="br.com.maisha.wind.sample.Perspective"
-            id="wind_sample.perspective">
-      </perspective>
-   </extension>
+
+
 
 </plugin>
