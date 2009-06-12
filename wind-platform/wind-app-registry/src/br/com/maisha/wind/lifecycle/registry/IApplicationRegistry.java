@@ -10,10 +10,8 @@ import br.com.maisha.wind.lifecycle.model.WindApplication;
  * running on the platform.
  * 
  * <p/>
- * The most common implementation perhaps will be based on ehcache. While we
- * don't decide that, you get a HashMap impl.
+ * The most common implementation {@link ApplicationRegistry} based on HashMap.
  * 
- * TODO Impl a decent registry with cache.
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
