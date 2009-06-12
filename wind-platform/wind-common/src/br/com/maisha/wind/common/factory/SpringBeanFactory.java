@@ -17,10 +17,10 @@ import br.com.maisha.wind.common.component.Component;
 public class SpringBeanFactory implements ApplicationContextAware {
 
 	/** */
-	private static final SpringBeanFactory instance = new SpringBeanFactory();
+	private static SpringBeanFactory instance;
 
 	/** */
-	private static Map<Class<? extends Component>, Component> componentRegistry = new HashMap<Class<? extends Component>, Component>();
+	private Map<Class<? extends Component>, Component> componentRegistry = new HashMap<Class<? extends Component>, Component>();
 
 	/**
 	 * 
@@ -29,6 +29,7 @@ public class SpringBeanFactory implements ApplicationContextAware {
 	@SuppressWarnings("unchecked")
 	public void setApplicationContext(ApplicationContext ctx)
 			throws BeansException {
+		instance = this;
 		Map<String, Component> components = ctx.getBeansOfType(Component.class);
 		for (Component cpt : components.values()) {
 			registerComponent(cpt);
@@ -59,7 +60,7 @@ public class SpringBeanFactory implements ApplicationContextAware {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T extends Component> T getService(Class<T> itf) {
+	public <T extends Component> T getService(Class<T> itf) {
 		return (T) componentRegistry.get(itf);
 
 	}
