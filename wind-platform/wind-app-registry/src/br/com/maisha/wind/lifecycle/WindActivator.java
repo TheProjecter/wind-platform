@@ -1,15 +1,12 @@
 package br.com.maisha.wind.lifecycle;
 
+import java.net.URL;
+
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleEvent;
-import org.osgi.framework.BundleListener;
-import org.osgi.framework.FrameworkEvent;
-import org.osgi.framework.FrameworkListener;
 
 import br.com.maisha.wind.common.factory.SpringBeanFactory;
 import br.com.maisha.wind.lifecycle.mgmt.IApplicationManager;
-import br.com.maisha.wind.lifecycle.rcp.Activator;
 
 /**
  * This class must be inherited by all bundles who wants to become a wind
@@ -28,12 +25,11 @@ public class WindActivator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 
-	
-		
 		IApplicationManager appManager = SpringBeanFactory.getInstance()
 				.getService(IApplicationManager.class);
 
-		System.out.println("appManager"+appManager);
+		URL appCfg = context.getBundle().getEntry("/META-INF/wind-app.cfg.xml");
+		appManager.registerApplication(appCfg.openStream());
 	}
 
 	/**

@@ -10,14 +10,27 @@ Require-Bundle: org.eclipse.rap.ui,
  org.springframework.context;bundle-version="2.5.6",
  org.springframework.core;bundle-version="2.5.6",
  wind_lang;bundle-version="1.0.0",
- wind_common;bundle-version="1.0.0"
+ wind_common;bundle-version="1.0.0",
+ wind_lib;bundle-version="1.0.0",
+ com.springsource.org.apache.commons.digester;bundle-version="1.8.1"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.servlet;version="2.4.0",
  javax.servlet.http;version="2.4.0"
 Bundle-ClassPath: .
-Export-Package: br.com.maisha.wind.lifecycle,
- br.com.maisha.wind.lifecycle.mgmt,
- br.com.maisha.wind.lifecycle.model,
- br.com.maisha.wind.lifecycle.rcp,
- br.com.maisha.wind.lifecycle.registry
+Export-Package: br.com.maisha.wind.lifecycle;uses:="org.eclipse.ui.plugin,org.osgi.framework",
+ br.com.maisha.wind.lifecycle.mgmt;
+  uses:="br.com.maisha.wind.common.component,
+   br.com.maisha.wind.lifecycle.model,
+   br.com.maisha.wind.lifecycle.registry,
+   br.com.maisha.terra",
+ br.com.maisha.wind.lifecycle.model;uses:="br.com.maisha.terra.lang",
+ br.com.maisha.wind.lifecycle.rcp;
+  uses:="org.eclipse.jface.action,
+   org.eclipse.jface.resource,
+   org.eclipse.ui.application,
+   org.eclipse.ui,
+   org.eclipse.rwt.lifecycle,
+   org.eclipse.ui.plugin,
+   org.osgi.framework",
+ br.com.maisha.wind.lifecycle.registry;uses:="br.com.maisha.wind.common.component,br.com.maisha.wind.lifecycle.model"
