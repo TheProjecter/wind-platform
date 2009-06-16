@@ -1,0 +1,6 @@
+#summary Defines some not-so-obvius terms used in the documentation.
+#labels Phase-Requirements,glossary
+
+  * *Platform module* is a infrastructure module that serves the platform for a specific purpose. Examples of platform modules are wind-faces, wind-lang, wind-common, etc.
+
+  * *Application Module* is any application that runs on the platform.
