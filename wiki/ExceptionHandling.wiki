@@ -3,7 +3,7 @@
 
 = Introduction =
 
-This pages describes and discusses how to properly treat exceptions when coding [Glossary platform modules] or application modules. 
+This pages describes and discusses how to properly treat exceptions when coding [Glossary platform modules] or [Glossary application modules]. 
 
 
 = When to throw and when to catch =
