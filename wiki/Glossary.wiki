@@ -1,6 +1,10 @@
 #summary Defines some not-so-obvius terms used in the documentation.
 #labels Phase-Requirements,glossary
 
+  * *Terra* is a domain specific language design to express domain objects that follows Domain Driven Design.
+
+  * *Wind* is a runtime environment. A platform that runs and realizes Terra Language.
+
   * *Platform module* is a infrastructure module that serves the platform for a specific purpose. Examples of platform modules are wind-faces, wind-lang, wind-common, etc.
 
   * *Application Module* is any application that runs on the platform.
