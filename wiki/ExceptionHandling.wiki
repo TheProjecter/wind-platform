@@ -1,0 +1,10 @@
+#summary Describes how to deal with exception in the platform.
+#labels Phase-Implementation,wind-common,exception
+
+= Introduction =
+
+This pages describes and discusses how to properly treat exceptions when coding platform modules or application modules. 
+
+
+= When to throw and when to catch =
+All exceptions should be thrown to the presentation layer (i.e wind-faces module). There it will be presented to the user, logged, or both. An utility class (br.com.maisha.commom.exception.ExceptionHandler) from wind-commom module, may help to catch an exception.
