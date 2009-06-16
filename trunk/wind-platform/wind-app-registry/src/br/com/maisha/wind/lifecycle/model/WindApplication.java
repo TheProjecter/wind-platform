@@ -18,6 +18,9 @@ public class WindApplication {
 	/** Application identifier. */
 	private String appId;
 
+	/** Application name. */
+	private String name;
+
 	/** Domain Objects living at this application. */
 	private List<DomainObject> domainObjects = new ArrayList<DomainObject>();
 
@@ -44,6 +47,16 @@ public class WindApplication {
 	/** @see #domainObjects */
 	public void addDomainObject(DomainObject dObj) {
 		this.domainObjects.add(dObj);
+	}
+
+	/** @see #name */
+	public String getName() {
+		return name;
+	}
+
+	/** @see #name */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

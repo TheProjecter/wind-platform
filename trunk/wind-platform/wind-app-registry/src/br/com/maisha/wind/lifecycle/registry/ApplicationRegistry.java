@@ -52,10 +52,4 @@ public class ApplicationRegistry implements IApplicationRegistry {
 	private ApplicationRegistry() {
 
 	}
-
-	private static final ApplicationRegistry instance = new ApplicationRegistry();
-
-	public static final ApplicationRegistry getInstance() {
-		return instance;
-	}
 }

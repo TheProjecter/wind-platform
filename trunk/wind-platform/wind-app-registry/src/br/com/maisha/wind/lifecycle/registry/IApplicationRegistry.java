@@ -3,6 +3,7 @@ package br.com.maisha.wind.lifecycle.registry;
 import java.util.List;
 
 import br.com.maisha.terra.lang.DomainObject;
+import br.com.maisha.wind.common.component.Component;
 import br.com.maisha.wind.lifecycle.model.WindApplication;
 
 /**
@@ -16,7 +17,7 @@ import br.com.maisha.wind.lifecycle.model.WindApplication;
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
-public interface IApplicationRegistry {
+public interface IApplicationRegistry extends Component {
 
 	/**
 	 * Places the given application into the registry.
