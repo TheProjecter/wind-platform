@@ -1,8 +1,12 @@
 Manifest-Version: 1.0
+Spring-Context: *;create-asynchronously:=false
 Bundle-ManifestVersion: 2
 Bundle-Name: wind_lang
 Bundle-SymbolicName: wind_lang
 Bundle-Version: 1.0.0
 Export-Package: br.com.maisha.terra,
  br.com.maisha.terra.lang
-Require-Bundle: wind_lib;bundle-version="1.0.0"
+Require-Bundle: wind_lib;bundle-version="1.0.0",
+ wind_common;bundle-version="1.0.0"
+Import-Package: org.apache.commons.logging;version="1.0.4",
+ org.apache.commons.logging.impl;version="1.0.4"
