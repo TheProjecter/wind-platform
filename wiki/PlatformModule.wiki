@@ -1,0 +1,6 @@
+#summary An overview of all platform modules
+#labels Phase-Design
+
+= Introduction =
+
+Here are presented in a few words what each platform module is meant to be.
