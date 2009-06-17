@@ -1,7 +1,5 @@
 package br.com.maisha.wind.lifecycle;
 
-import java.net.URL;
-
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -27,9 +25,7 @@ public class WindActivator extends AbstractUIPlugin {
 
 		IApplicationManager appManager = SpringBeanFactory.getInstance()
 				.getService(IApplicationManager.class);
-
-		URL appCfg = context.getBundle().getEntry("/META-INF/wind-app.cfg.xml");
-		appManager.registerApplication(appCfg.openStream());
+		appManager.registerApplication(context);
 	}
 
 	/**
