@@ -11,7 +11,6 @@ options {
 @header { 
 package br.com.maisha.terra; 
 import java.util.HashMap;
-import br.com.maisha.terra.lang.TerraClass;
 import br.com.maisha.terra.lang.Import;
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
@@ -19,8 +18,7 @@ import br.com.maisha.terra.lang.Property;
 }
 
 @members {
-/** Map variable name to Integer object holding value */
-public HashMap<String, List<TerraClass>> memory = new HashMap<String, List<TerraClass>>();
+public DomainObject domainObject = null;
 private List<Attribute> atts = new ArrayList<Attribute>();
 private List<Property> props = new ArrayList<Property>();
 private List<Import> imports = new ArrayList<Import>();
@@ -30,13 +28,9 @@ private List<Import> imports = new ArrayList<Import>();
 
 domain_object
 	:	(import_declaration)*  DOMAIN_OBJECT NAME STRING_LITERAL LEFT_BRACKET body RIGHT_BRACKET{
-		List<TerraClass> l = memory.get("domain_object"); 
-		if(l == null) l = new ArrayList<TerraClass>();
-		DomainObject domainObj = new DomainObject($NAME.text, $STRING_LITERAL.text);
-		l.add(domainObj);
-		memory.put("domain_object", l);
-		domainObj.setAtts(atts);
-		domainObj.setImports(imports);
+		domainObject = new DomainObject($NAME.text, $STRING_LITERAL.text);
+		domainObject.setAtts(atts);
+		domainObject.setImports(imports);
 		atts = new ArrayList<Attribute>();
 	}
 	;
