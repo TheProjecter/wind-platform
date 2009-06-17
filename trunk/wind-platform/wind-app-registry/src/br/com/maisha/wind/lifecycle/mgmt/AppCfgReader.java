@@ -24,7 +24,7 @@ public class AppCfgReader implements IAppCfgReader {
 		d.addObjectCreate("app", WindApplication.class);
 		d.addSetProperties("app", "name", "name");
 		d.addSetProperties("app", "appId", "appId");
-
+		
 		WindApplication app = (WindApplication) d.parse(is);
 
 		return app;

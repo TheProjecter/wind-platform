@@ -1,6 +1,6 @@
 package br.com.maisha.wind.lifecycle.mgmt;
 
-import java.io.InputStream;
+import org.osgi.framework.BundleContext;
 
 import br.com.maisha.wind.common.component.Component;
 
@@ -15,6 +15,6 @@ public interface IApplicationManager extends Component {
 	 * 
 	 * @return
 	 */
-	void registerApplication(InputStream appCfg);
+	void registerApplication(BundleContext context);
 
 }
