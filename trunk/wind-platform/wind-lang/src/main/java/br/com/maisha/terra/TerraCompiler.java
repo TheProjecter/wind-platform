@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.List;
-import java.util.Map;
 
 import org.antlr.runtime.ANTLRReaderStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -36,8 +34,7 @@ public class TerraCompiler implements ITerraCompiler {
 	 * @see br.com.maisha.terra.ITerraCompiler#compile(java.io.InputStream)
 	 */
 	public DomainObject compile(InputStream is) throws Exception {
-		getAST(new InputStreamReader(is));
-		return null;
+		return getAST(new InputStreamReader(is));
 	}
 
 	/**
@@ -47,14 +44,13 @@ public class TerraCompiler implements ITerraCompiler {
 	 * @throws IOException
 	 * @throws RecognitionException
 	 */
-	private Map<String, List<DomainObject>> getAST(Reader reader)
-			throws IOException, RecognitionException {
+	private DomainObject getAST(Reader reader) throws IOException,
+			RecognitionException {
 		TerraParser tokenParser = new TerraParser(getTokenStream(reader));
-		TerraParser.domain_object_return parserResult = tokenParser
-				.domain_object();
-		Map<String, List<DomainObject>> mem = tokenParser.memory;
+		tokenParser.domain_object();
+		DomainObject obj = tokenParser.domainObject;
 		reader.close();
-		return tokenParser.memory;
+		return obj;
 	}
 
 	/**

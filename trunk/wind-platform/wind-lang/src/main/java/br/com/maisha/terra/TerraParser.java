@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g 2009-06-08 21:51:26
+// $ANTLR 3.1.2 C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g 2009-06-16 20:40:52
  
 package br.com.maisha.terra; 
 import java.util.HashMap;
@@ -71,8 +71,7 @@ public class TerraParser extends Parser {
     public String getGrammarFileName() { return "C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g"; }
 
 
-    /** Map variable name to Integer object holding value */
-    public HashMap<String, List<DomainObject>> memory = new HashMap<String, List<DomainObject>>();
+    public DomainObject domainObject = null;
     private List<Attribute> atts = new ArrayList<Attribute>();
     private List<Property> props = new ArrayList<Property>();
     private List<Import> imports = new ArrayList<Import>();
@@ -84,7 +83,7 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "domain_object"
-    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:30:1: domain_object : ( import_declaration )* DOMAIN_OBJECT NAME STRING_LITERAL LEFT_BRACKET body RIGHT_BRACKET ;
+    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:29:1: domain_object : ( import_declaration )* DOMAIN_OBJECT NAME STRING_LITERAL LEFT_BRACKET body RIGHT_BRACKET ;
     public final TerraParser.domain_object_return domain_object() throws RecognitionException {
         TerraParser.domain_object_return retval = new TerraParser.domain_object_return();
         retval.start = input.LT(1);
@@ -108,12 +107,12 @@ public class TerraParser extends Parser {
         Object RIGHT_BRACKET7_tree=null;
 
         try {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:31:2: ( ( import_declaration )* DOMAIN_OBJECT NAME STRING_LITERAL LEFT_BRACKET body RIGHT_BRACKET )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:31:4: ( import_declaration )* DOMAIN_OBJECT NAME STRING_LITERAL LEFT_BRACKET body RIGHT_BRACKET
+            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:30:2: ( ( import_declaration )* DOMAIN_OBJECT NAME STRING_LITERAL LEFT_BRACKET body RIGHT_BRACKET )
+            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:30:4: ( import_declaration )* DOMAIN_OBJECT NAME STRING_LITERAL LEFT_BRACKET body RIGHT_BRACKET
             {
             root_0 = (Object)adaptor.nil();
 
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:31:4: ( import_declaration )*
+            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:30:4: ( import_declaration )*
             loop1:
             do {
                 int alt1=2;
@@ -126,7 +125,7 @@ public class TerraParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:31:5: import_declaration
+            	    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:30:5: import_declaration
             	    {
             	    pushFollow(FOLLOW_import_declaration_in_domain_object58);
             	    import_declaration1=import_declaration();
@@ -170,13 +169,9 @@ public class TerraParser extends Parser {
             adaptor.addChild(root_0, RIGHT_BRACKET7_tree);
 
 
-            		List<DomainObject> l = memory.get("domain_object"); 
-            		if(l == null) l = new ArrayList<DomainObject>();
-            		DomainObject domainObj = new DomainObject((NAME3!=null?NAME3.getText():null), (STRING_LITERAL4!=null?STRING_LITERAL4.getText():null));
-            		l.add(domainObj);
-            		memory.put("domain_object", l);
-            		domainObj.setAtts(atts);
-            		domainObj.setImports(imports);
+            		domainObject = new DomainObject((NAME3!=null?NAME3.getText():null), (STRING_LITERAL4!=null?STRING_LITERAL4.getText():null));
+            		domainObject.setAtts(atts);
+            		domainObject.setImports(imports);
             		atts = new ArrayList<Attribute>();
             	
 
@@ -206,7 +201,7 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "import_declaration"
-    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:43:1: import_declaration : IMPORT NAME ( NEWLINE )+ ;
+    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:38:1: import_declaration : IMPORT NAME ( NEWLINE )+ ;
     public final TerraParser.import_declaration_return import_declaration() throws RecognitionException {
         TerraParser.import_declaration_return retval = new TerraParser.import_declaration_return();
         retval.start = input.LT(1);
@@ -222,8 +217,8 @@ public class TerraParser extends Parser {
         Object NEWLINE10_tree=null;
 
         try {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:44:2: ( IMPORT NAME ( NEWLINE )+ )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:44:4: IMPORT NAME ( NEWLINE )+
+            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:39:2: ( IMPORT NAME ( NEWLINE )+ )
+            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:39:4: IMPORT NAME ( NEWLINE )+
             {
             root_0 = (Object)adaptor.nil();
 
@@ -235,7 +230,7 @@ public class TerraParser extends Parser {
             NAME9_tree = (Object)adaptor.create(NAME9);
             adaptor.addChild(root_0, NAME9_tree);
 
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:44:16: ( NEWLINE )+
+            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:39:16: ( NEWLINE )+
             int cnt2=0;
             loop2:
             do {
@@ -249,7 +244,7 @@ public class TerraParser extends Parser {
 
                 switch (alt2) {
             	case 1 :
-            	    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:44:16: NEWLINE
+            	    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:39:16: NEWLINE
             	    {
             	    NEWLINE10=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_import_declaration90); 
             	    NEWLINE10_tree = (Object)adaptor.create(NEWLINE10);
@@ -299,7 +294,7 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "body"
-    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:50:1: body : ( attr )+ ;
+    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:45:1: body : ( attr )+ ;
     public final TerraParser.body_return body() throws RecognitionException {
         TerraParser.body_return retval = new TerraParser.body_return();
         retval.start = input.LT(1);
@@ -311,12 +306,12 @@ public class TerraParser extends Parser {
 
 
         try {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:50:6: ( ( attr )+ )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:50:11: ( attr )+
+            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:45:6: ( ( attr )+ )
+            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:45:11: ( attr )+
             {
             root_0 = (Object)adaptor.nil();
 
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:50:11: ( attr )+
+            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:45:11: ( attr )+
             int cnt3=0;
             loop3:
             do {
@@ -330,7 +325,7 @@ public class TerraParser extends Parser {
 
                 switch (alt3) {
             	case 1 :
-            	    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:50:11: attr
+            	    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:45:11: attr
             	    {
             	    pushFollow(FOLLOW_attr_in_body107);
             	    attr11=attr();
@@ -378,7 +373,7 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "attr"
-    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:52:1: attr : ( NEWLINE | TYPE NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET );
+    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:47:1: attr : ( NEWLINE | TYPE NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET );
     public final TerraParser.attr_return attr() throws RecognitionException {
         TerraParser.attr_return retval = new TerraParser.attr_return();
         retval.start = input.LT(1);
@@ -402,7 +397,7 @@ public class TerraParser extends Parser {
         Object RIGHT_BRACKET18_tree=null;
 
         try {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:52:6: ( NEWLINE | TYPE NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET )
+            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:47:6: ( NEWLINE | TYPE NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET )
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -420,7 +415,7 @@ public class TerraParser extends Parser {
             }
             switch (alt4) {
                 case 1 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:52:8: NEWLINE
+                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:47:8: NEWLINE
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -432,7 +427,7 @@ public class TerraParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:52:18: TYPE NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET
+                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:47:18: TYPE NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -498,7 +493,7 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "attr_body"
-    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:61:1: attr_body : ( property )+ ;
+    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:56:1: attr_body : ( property )+ ;
     public final TerraParser.attr_body_return attr_body() throws RecognitionException {
         TerraParser.attr_body_return retval = new TerraParser.attr_body_return();
         retval.start = input.LT(1);
@@ -510,12 +505,12 @@ public class TerraParser extends Parser {
 
 
         try {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:61:11: ( ( property )+ )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:61:14: ( property )+
+            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:56:11: ( ( property )+ )
+            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:56:14: ( property )+
             {
             root_0 = (Object)adaptor.nil();
 
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:61:14: ( property )+
+            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:56:14: ( property )+
             int cnt5=0;
             loop5:
             do {
@@ -529,7 +524,7 @@ public class TerraParser extends Parser {
 
                 switch (alt5) {
             	case 1 :
-            	    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:61:14: property
+            	    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:56:14: property
             	    {
             	    pushFollow(FOLLOW_property_in_attr_body145);
             	    property19=property();
@@ -577,7 +572,7 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "property"
-    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:63:1: property : ( NEWLINE | PROPERTY ATTRIBUITION value );
+    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:58:1: property : ( NEWLINE | PROPERTY ATTRIBUITION value );
     public final TerraParser.property_return property() throws RecognitionException {
         TerraParser.property_return retval = new TerraParser.property_return();
         retval.start = input.LT(1);
@@ -595,7 +590,7 @@ public class TerraParser extends Parser {
         Object ATTRIBUITION22_tree=null;
 
         try {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:63:9: ( NEWLINE | PROPERTY ATTRIBUITION value )
+            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:58:9: ( NEWLINE | PROPERTY ATTRIBUITION value )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -613,7 +608,7 @@ public class TerraParser extends Parser {
             }
             switch (alt6) {
                 case 1 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:63:11: NEWLINE
+                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:58:11: NEWLINE
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -625,7 +620,7 @@ public class TerraParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:63:21: PROPERTY ATTRIBUITION value
+                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:58:21: PROPERTY ATTRIBUITION value
                     {
                     root_0 = (Object)adaptor.nil();
 
@@ -676,7 +671,7 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "value"
-    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:69:1: value : ( NUMBER | NAME ) ;
+    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:64:1: value : ( NUMBER | NAME ) ;
     public final TerraParser.value_return value() throws RecognitionException {
         TerraParser.value_return retval = new TerraParser.value_return();
         retval.start = input.LT(1);
@@ -688,8 +683,8 @@ public class TerraParser extends Parser {
         Object set24_tree=null;
 
         try {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:69:7: ( ( NUMBER | NAME ) )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:69:9: ( NUMBER | NAME )
+            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:64:7: ( ( NUMBER | NAME ) )
+            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraParser.g:64:9: ( NUMBER | NAME )
             {
             root_0 = (Object)adaptor.nil();
 
