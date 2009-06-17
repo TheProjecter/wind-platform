@@ -14,4 +14,5 @@ Import-Package: javax.servlet;version="2.4.0",
  javax.servlet.http;version="2.4.0"
 Export-Package: br.com.maisha.wind.common,
  br.com.maisha.wind.common.component,
+ br.com.maisha.wind.common.exception,
  br.com.maisha.wind.common.factory
