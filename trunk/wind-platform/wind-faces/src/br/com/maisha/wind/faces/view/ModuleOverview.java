@@ -1,6 +1,7 @@
 package br.com.maisha.wind.faces.view;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
-import br.com.maisha.terra.Client;
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 
@@ -90,12 +90,7 @@ public class ModuleOverview extends ViewPart {
 		private Map<String, List<DomainObject>> map = null;
 
 		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
-			Client c = new Client();
-			try {
-				map = c.Parse();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			map = new HashMap<String, List<DomainObject>>();
 		}
 
 		public void dispose() {
