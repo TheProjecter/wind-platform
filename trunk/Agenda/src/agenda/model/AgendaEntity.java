@@ -13,7 +13,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
- *
+ * TODO javadoc
  * @author Paulo Freitas (pfreitas1@gmail.com)
  */
 @Entity
