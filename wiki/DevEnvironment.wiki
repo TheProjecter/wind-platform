@@ -1,0 +1,9 @@
+#How to configure a development environment.
+
+= How to configure a Dev Environment =
+
+1. Download and install current Eclipse for Plugin Development.
+2. Install RAP. When Eclipse restarts, install RAP Target Platform from welcome screen.
+3. Install M2 Maven Plugin.
+
+Simple like that!
