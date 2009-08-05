@@ -6,5 +6,6 @@
   # Install RAP. When Eclipse restarts, install RAP Target Platform from welcome screen.
   # Install M2 Maven Plugin.
   # Install Subversive Plugin.
+  # Checkout projects from wind-platform
 
 Simple like that!
