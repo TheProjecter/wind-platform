@@ -1,0 +1,49 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Apache Commons Digester
+Bundle-SymbolicName: com.springsource.org.apache.commons.digester
+Bundle-Version: 1.8.1
+Bundle-Vendor: SpringSource
+Export-Package: org.apache.commons.digester;version="1.8.1";uses:="javax.xml.parsers,
+ org.apache.commons.logging,
+ org.w3c.dom,
+ org.xml.sax",
+ org.apache.commons.digester.parser;version="1.8.1";uses:="javax.xml.parsers,
+ org.xml.sax",
+ org.apache.commons.digester.plugins;version="1.8.1";uses:="org.apache.commons.digester,
+ org.apache.commons.logging,
+ org.xml.sax",
+ org.apache.commons.digester.plugins.strategies;version="1.8.1";uses:="org.apache.commons.digester,
+ org.apache.commons.digester.plugins",
+ org.apache.commons.digester.substitution;version="1.8.1";uses:="org.xml.sax",
+ org.apache.commons.digester.xmlrules;version="1.8.1";uses:="org.apache.commons.digester,
+ org.xml.sax"
+Bundle-Description: The Digester package lets you configure an XML to Java object mapping module    which triggers certain actions called rules whenever a particular     pattern of nested XML elements is recognized.
+Build-Jdk: 1.4.2_09
+Specification-Version: 1.8.1
+Implementation-Title: Commons Digester
+Tool: Bnd-0.0.238
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+Implementation-Vendor: The Apache Software Foundation
+Specification-Vendor: The Apache Software Foundation
+X-Compile-Target-JDK: 1.2
+X-Compile-Source-JDK: 1.2
+Bundle-Classpath: com.springsource.org.apache.commons.digester-1.8.1.jar
+Bundle-DocURL: http://commons.apache.org/digester/
+Bnd-LastModified: 1230712360437
+Built-By: rahul
+Implementation-Vendor-Id: org.apache
+Created-By: 1.4.2_09 (Sun Microsystems Inc.)
+Specification-Title: Commons Digester
+Implementation-Version: 1.8.1
+Archiver-Version: Plexus Archiver
+Import-Package: javax.xml.parsers;version=0,
+ org.apache.commons.beanutils;version="[1.8.0,2.0.0)",
+ org.apache.commons.collections;version="[3.2.1,4.0.0)",
+ org.apache.commons.logging;version="[1.1.1,2.0.0)",
+ org.apache.commons.logging.impl;version="[1.1.1,2.0.0)",
+ org.w3c.dom;version=0,
+ org.xml.sax;version=0,
+ org.xml.sax.helpers;version=0
+Require-Bundle: wind_terra;bundle-version="1.0.0"
+Eclipse-BuddyPolicy: dependent
