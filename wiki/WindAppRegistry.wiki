@@ -2,9 +2,9 @@
 
 = Introduction =
 
-In this section will be presented the platform's application registry, how it holds app data, how it communicate to the other modules. 
+In this section will be presented the platform's application registry, how it holds app data and how it communicate to the other modules. 
+
 Wind App Registry basicaly is a repository that holds metadata of all running applications. All changes in the model causes the fire of events to the registered listeners. Then the listener is reponsible to react to change in it's own way.
 
 
 = Details =
-
