@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Wind_terra
+Bundle-SymbolicName: wind_terra
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: br.com.maisha.terra.rcp.Activator
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.osgi.framework;version="1.3.0"
+Require-Bundle: wind_common;bundle-version="1.0.0",
+ wind_lib;bundle-version="1.0.0",
+ com.springsource.javassist;bundle-version="3.9.0",
+ com.springsource.org.apache.commons.lang;bundle-version="2.4.0"
+Export-Package: br.com.maisha.terra,
+ br.com.maisha.terra.lang
