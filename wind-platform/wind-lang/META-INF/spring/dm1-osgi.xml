@@ -7,4 +7,8 @@
     <osgi:service id="langOsgiCompiler" ref="langCompiler"
         interface="br.com.maisha.terra.ITerraCompiler">
     </osgi:service>
+    
+    <osgi:service id="classMakerOsgi" ref="classMaker"
+        interface="br.com.maisha.terra.IClassMaker">
+    </osgi:service>
 </beans>
