@@ -1,6 +1,6 @@
 domain_object location "Localizacao" {
 
-string code "Code"{
+String code "Code"{
 x: 0
 y: 1
 required: true
@@ -17,7 +17,7 @@ x:1
 y:2
 }
 
-string source "Airport Name"{
+String source "Airport Name"{
 x: 0
 y: 3
 required: true

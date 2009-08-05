@@ -7,7 +7,7 @@
 	<bean name="factory" scope="singleton"
 		class="br.com.maisha.wind.common.factory.SpringBeanFactory" />
 
-	<bean name="appRegistry" scope="singleton"
+	<bean name="appRegistry" scope="singleton" 
 		class="br.com.maisha.wind.lifecycle.registry.ApplicationRegistry" />
 
 	<bean name="appCfgReader" class="br.com.maisha.wind.lifecycle.mgmt.AppCfgReader" />
@@ -16,6 +16,7 @@
 		<property name="langCompiler" ref="appRegistryLangCompiler" />
 		<property name="registry" ref="appRegistry" />
 		<property name="appCfgReader" ref="appCfgReader" />
+		<property name="classMaker" ref="appRegistryClassMaker" />
 	</bean>
 
 </beans>

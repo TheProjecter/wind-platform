@@ -1,7 +1,7 @@
 import location
 domain_object airbus "A380" {
 
-string code "Code"{
+String code "Code"{
 x: 0
 y: 1
 required: true
@@ -18,14 +18,14 @@ x:1
 y:2
 }
 
-string source "Source"{
+String source "Source"{
 x: 0
 y: 3
 required: true
 }
 
 
-string destiny "Destiny"{
+String destiny "Destiny"{
 x: 0
 y: 4
 required: true
