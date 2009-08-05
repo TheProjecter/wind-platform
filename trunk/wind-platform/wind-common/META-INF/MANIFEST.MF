@@ -1,4 +1,5 @@
-Manifest-Version: 1.0
+Manifest-Version: 2.0
+Spring-Context: *;create-asynchronously:=false
 Bundle-ManifestVersion: 2
 Bundle-Name: Wind_common Plug-in
 Bundle-SymbolicName: wind_common; singleton:=true

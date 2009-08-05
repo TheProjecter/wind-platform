@@ -6,7 +6,10 @@ import java.util.Enumeration;
 
 import org.osgi.framework.BundleContext;
 
+import br.com.maisha.terra.ClassMaker;
+import br.com.maisha.terra.IClassMaker;
 import br.com.maisha.terra.ITerraCompiler;
+import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.wind.lifecycle.model.WindApplication;
 import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
 
@@ -19,6 +22,9 @@ public class ApplicationManager implements IApplicationManager {
 
 	/** Reference to the terra language compiler. */
 	private ITerraCompiler langCompiler;
+
+	/** */
+	private IClassMaker classMaker;
 
 	/** The application registry. */
 	private IApplicationRegistry registry;
@@ -33,20 +39,22 @@ public class ApplicationManager implements IApplicationManager {
 	@SuppressWarnings("unchecked")
 	public void registerApplication(BundleContext context) {
 		try {
-			
+
 			// reads it's configuration file
 			URL appCfg = context.getBundle().getEntry(
 					"/META-INF/wind-app.cfg.xml");
 			WindApplication app = appCfgReader.read(appCfg.openStream());
 
 			// compile it's domain objects
-			Enumeration<URL> e = context.getBundle().findEntries("/", "*.do",
+			Enumeration<URL> e = context.getBundle().findEntries("/bin", "*.do",
 					true);
 			while (e.hasMoreElements()) {
 				URL dObjURL = e.nextElement();
 				InputStream dObjIptStream = dObjURL.openStream();
 				if (dObjIptStream != null) {
-					app.addDomainObject(langCompiler.compile(dObjIptStream));
+					DomainObject dObj = langCompiler.compile(dObjIptStream);
+					app.addDomainObject(dObj);
+					classMaker.make(dObj);
 				} else {
 					// TODO throws exception
 				}
@@ -54,7 +62,7 @@ public class ApplicationManager implements IApplicationManager {
 
 			// register the application
 			registry.register(app);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace(); // TODO
 		}
@@ -74,5 +82,10 @@ public class ApplicationManager implements IApplicationManager {
 	/** @see #registry */
 	public void setRegistry(IApplicationRegistry registry) {
 		this.registry = registry;
+	}
+
+	/** @see ClassMaker */
+	public void setClassMaker(IClassMaker classMaker) {
+		this.classMaker = classMaker;
 	}
 }
