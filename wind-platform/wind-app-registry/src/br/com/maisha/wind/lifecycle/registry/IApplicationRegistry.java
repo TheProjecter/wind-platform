@@ -44,20 +44,4 @@ public interface IApplicationRegistry extends Component {
 	 * @return All objects that belongs to the given application.
 	 */
 	List<DomainObject> getAllObjects(String appId);
-
-	/**
-	 * Adds a {@link IMetadataListener} to this registry.
-	 * 
-	 * @param listener
-	 *            The listener.
-	 */
-	void addMetadataListener(IMetadataListener listener);
-
-	/**
-	 * Removes a {@link IMetadataListener} listener of this registry.
-	 * 
-	 * @param listener
-	 *            The listener.
-	 */
-	void removeMetadataListener(IMetadataListener listener);
 }
