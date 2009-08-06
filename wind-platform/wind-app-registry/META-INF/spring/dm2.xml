@@ -10,6 +10,9 @@
 	<bean name="appRegistry" scope="singleton" 
 		class="br.com.maisha.wind.lifecycle.registry.ApplicationRegistry" />
 
+	<bean name="appModelListenerRegistry" scope="singleton" 
+		class="br.com.maisha.wind.lifecycle.registry.AppModelListenerRegistry" />
+
 	<bean name="appCfgReader" class="br.com.maisha.wind.lifecycle.mgmt.AppCfgReader" />
 
 	<bean name="appRegistryApplicationManager" class="br.com.maisha.wind.lifecycle.mgmt.ApplicationManager">
