@@ -3,10 +3,12 @@ package br.com.maisha.wind.faces.rcp;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleEvent;
+import org.osgi.framework.BundleListener;
 
 import br.com.maisha.wind.common.factory.SpringBeanFactory;
-import br.com.maisha.wind.faces.IPresentationProvider;
-import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
+import br.com.maisha.wind.faces.FacesAppModelListener;
+import br.com.maisha.wind.lifecycle.registry.IAppModelListenerRegistry;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -35,6 +37,21 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+
+		// register app model listener when this bundle got started...
+		context.addBundleListener(new BundleListener() {
+			public void bundleChanged(BundleEvent event) {
+				if (event.getType() == BundleEvent.STARTED) {
+					IAppModelListenerRegistry modelListenerReg = SpringBeanFactory
+							.getInstance().getService(
+									IAppModelListenerRegistry.class);
+
+					modelListenerReg
+							.registerAppModelListener(new FacesAppModelListener());
+				}
+			}
+		});
+
 	}
 
 	/*
