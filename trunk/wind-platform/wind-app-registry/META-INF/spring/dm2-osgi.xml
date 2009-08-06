@@ -5,11 +5,15 @@
                       http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
 
 	<osgi:reference id="appRegistryLangCompiler" interface="br.com.maisha.terra.ITerraCompiler" />
-	
+
 	<osgi:reference id="appRegistryClassMaker" interface="br.com.maisha.terra.IClassMaker" />
 
 	<osgi:service id="appRegistryOsgi" ref="appRegistry"
 		interface="br.com.maisha.wind.lifecycle.registry.IApplicationRegistry">
+	</osgi:service>
+
+	<osgi:service id="appModelListenerRegistryOsgi" ref="appModelListenerRegistry"
+		interface="br.com.maisha.wind.lifecycle.registry.IAppModelListenerRegistry">
 	</osgi:service>
 
 </beans>
