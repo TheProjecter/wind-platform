@@ -8,7 +8,8 @@ Bundle-Activator: br.com.maisha.wind.common.Activator
 Require-Bundle: org.eclipse.rap.ui,
  org.springframework.beans;bundle-version="2.5.6",
  org.springframework.context;bundle-version="2.5.6",
- org.springframework.core;bundle-version="2.5.6"
+ org.springframework.core;bundle-version="2.5.6",
+ org.apache.log4j;bundle-version="1.2.13"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.servlet;version="2.4.0",
