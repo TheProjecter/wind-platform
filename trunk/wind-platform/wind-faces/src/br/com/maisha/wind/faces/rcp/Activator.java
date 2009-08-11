@@ -3,10 +3,10 @@ package br.com.maisha.wind.faces.rcp;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleEvent;
-import org.osgi.framework.BundleListener;
+import org.osgi.framework.FrameworkEvent;
+import org.osgi.framework.FrameworkListener;
 
-import br.com.maisha.wind.common.factory.SpringBeanFactory;
+import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.faces.FacesAppModelListener;
 import br.com.maisha.wind.lifecycle.registry.IAppModelListenerRegistry;
 
@@ -38,13 +38,16 @@ public class Activator extends AbstractUIPlugin {
 		super.start(context);
 		plugin = this;
 
-		// register app model listener when this bundle got started...
-		context.addBundleListener(new BundleListener() {
-			public void bundleChanged(BundleEvent event) {
-				if (event.getType() == BundleEvent.STARTED) {
-					IAppModelListenerRegistry modelListenerReg = SpringBeanFactory
+		// register app model listener when framework got started...
+		context.addFrameworkListener(new FrameworkListener() {
+			@Override
+			public void frameworkEvent(FrameworkEvent event) {
+				if (event.getType() == FrameworkEvent.STARTED) {
+					System.out.println("### FrameworkEvent.STARTED");
+
+					IAppModelListenerRegistry modelListenerReg = ServiceProvider
 							.getInstance().getService(
-									IAppModelListenerRegistry.class);
+									IAppModelListenerRegistry.class, getBundle().getBundleContext());
 
 					modelListenerReg
 							.registerAppModelListener(new FacesAppModelListener());
