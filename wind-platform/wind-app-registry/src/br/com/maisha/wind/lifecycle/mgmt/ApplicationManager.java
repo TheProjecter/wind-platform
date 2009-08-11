@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Enumeration;
 
+import org.apache.log4j.Logger;
 import org.osgi.framework.BundleContext;
 
 import br.com.maisha.terra.ClassMaker;
@@ -19,6 +20,9 @@ import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
  * 
  */
 public class ApplicationManager implements IApplicationManager {
+
+	private static final Logger log = Logger
+			.getLogger(ApplicationManager.class);
 
 	/** Reference to the terra language compiler. */
 	private ITerraCompiler langCompiler;
@@ -40,14 +44,16 @@ public class ApplicationManager implements IApplicationManager {
 	public void registerApplication(BundleContext context) {
 		try {
 
+			log.debug("@@@@ aaaaaaa");
+			
 			// reads it's configuration file
 			URL appCfg = context.getBundle().getEntry(
 					"/META-INF/wind-app.cfg.xml");
 			WindApplication app = appCfgReader.read(appCfg.openStream());
 
 			// compile it's domain objects
-			Enumeration<URL> e = context.getBundle().findEntries("/bin", "*.do",
-					true);
+			Enumeration<URL> e = context.getBundle().findEntries("/bin",
+					"*.do", true);
 			while (e.hasMoreElements()) {
 				URL dObjURL = e.nextElement();
 				InputStream dObjIptStream = dObjURL.openStream();
