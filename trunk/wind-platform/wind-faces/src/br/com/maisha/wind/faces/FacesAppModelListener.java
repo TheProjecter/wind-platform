@@ -1,6 +1,10 @@
 package br.com.maisha.wind.faces;
 
+import org.apache.log4j.Logger;
+
+import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener;
+import br.com.maisha.wind.lifecycle.rcp.Activator;
 
 /**
  * 
@@ -8,6 +12,10 @@ import br.com.maisha.wind.common.listener.IAppRegistryListener;
  * 
  */
 public class FacesAppModelListener implements IAppRegistryListener {
+
+	/** Log ref. */
+	private static final Logger log = Logger
+			.getLogger(FacesAppModelListener.class);
 
 	/**
 	 * 
@@ -18,8 +26,12 @@ public class FacesAppModelListener implements IAppRegistryListener {
 	 */
 	public void modelChanged(Object oldValue, Object newValue, LevelType level,
 			ChangeType change) {
-		System.out.println("Model changeddd" + newValue);
+		log.debug("		Model changed... rendering");
 
+		IPresentationProvider presProvider = ServiceProvider.getInstance()
+				.getService(IPresentationProvider.class,
+						Activator.getDefault().getBundle().getBundleContext());
+
+		presProvider.render(newValue, level, change);
 	}
-
 }

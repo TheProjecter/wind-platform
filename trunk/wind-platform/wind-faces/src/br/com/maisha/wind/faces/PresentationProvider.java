@@ -1,6 +1,13 @@
 package br.com.maisha.wind.faces;
 
-import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
+import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
+import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
+import br.com.maisha.wind.faces.render.IRender;
 
 /**
  * 
@@ -9,11 +16,41 @@ import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
  */
 public class PresentationProvider implements IPresentationProvider {
 
-	/** */
-	private IApplicationRegistry registry;
+	/** Log ref. */
+	private static final Logger log = Logger
+			.getLogger(PresentationProvider.class);
 
-	/** @see #registry */
-	public void setRegistry(IApplicationRegistry registry) {
-		this.registry = registry;
+	/** */
+	private List<IRender> render = new ArrayList<IRender>();
+
+	/**
+	 * 
+	 * @see br.com.maisha.wind.faces.IPresentationProvider#render(java.lang.Object)
+	 */
+	public void render(Object model, LevelType level, ChangeType change) {
+		for (IRender r : render) {
+			if (r.getModelLevel() == level) {
+				log.debug("		Call render [" + r + "]");
+				r.render(model);
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @see br.com.maisha.wind.faces.IPresentationProvider#registerRender(br.com.maisha.wind.faces.render.IRender)
+	 */
+	public void registerRender(IRender render) {
+		log.debug("		Render registered: " + render);
+		this.render.add(render);
+	}
+
+	/**
+	 * 
+	 * @see br.com.maisha.wind.faces.IPresentationProvider#removeRender(br.com.maisha.wind.faces.render.IRender)
+	 */
+	public void removeRender(IRender render) {
+		log.debug("		Render removed: " + render);
+		this.render.remove(render);
 	}
 }
