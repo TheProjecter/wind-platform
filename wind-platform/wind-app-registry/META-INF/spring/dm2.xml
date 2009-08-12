@@ -20,6 +20,7 @@
 		<property name="registry" ref="appRegistry" />
 		<property name="appCfgReader" ref="appCfgReader" />
 		<property name="classMaker" ref="appRegistryClassMaker" />
+		<property name="modelListeners" ref="appModelListenerRegistry" />
 	</bean>
 
 </beans>

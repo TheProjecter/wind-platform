@@ -1,10 +1,9 @@
 package br.com.maisha.wind.faces.rcp;
 
+import org.apache.log4j.Logger;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.FrameworkEvent;
-import org.osgi.framework.FrameworkListener;
 
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.faces.FacesAppModelListener;
@@ -14,6 +13,9 @@ import br.com.maisha.wind.lifecycle.registry.IAppModelListenerRegistry;
  * The activator class controls the plug-in life cycle
  */
 public class Activator extends AbstractUIPlugin {
+
+	/** Log ref. */
+	private static final Logger log = Logger.getLogger(Activator.class);
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "wind_faces";
@@ -35,26 +37,17 @@ public class Activator extends AbstractUIPlugin {
 	 * )
 	 */
 	public void start(BundleContext context) throws Exception {
+		log.info("		Wind Faces Starting... ");
 		super.start(context);
 		plugin = this;
 
 		// register app model listener when framework got started...
-		context.addFrameworkListener(new FrameworkListener() {
-			@Override
-			public void frameworkEvent(FrameworkEvent event) {
-				if (event.getType() == FrameworkEvent.STARTED) {
-					System.out.println("### FrameworkEvent.STARTED");
-
-					IAppModelListenerRegistry modelListenerReg = ServiceProvider
-							.getInstance().getService(
-									IAppModelListenerRegistry.class, getBundle().getBundleContext());
-
-					modelListenerReg
-							.registerAppModelListener(new FacesAppModelListener());
-				}
-			}
-		});
-
+		IAppModelListenerRegistry modelListenerReg = ServiceProvider
+				.getInstance().getService(IAppModelListenerRegistry.class,
+						getBundle().getBundleContext());
+		modelListenerReg.registerAppModelListener(new FacesAppModelListener());
+		
+		log.info("		Wind Faces Started ");
 	}
 
 	/*
@@ -65,8 +58,10 @@ public class Activator extends AbstractUIPlugin {
 	 * )
 	 */
 	public void stop(BundleContext context) throws Exception {
+		log.info("		Wind Faces Stopping... ");
 		plugin = null;
 		super.stop(context);
+		log.info("		Wind Faces Stopped ");
 	}
 
 	/**

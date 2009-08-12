@@ -15,9 +15,9 @@
 	<osgi:service id="appModelListenerRegistryOsgi" ref="appModelListenerRegistry"
 		interface="br.com.maisha.wind.lifecycle.registry.IAppModelListenerRegistry">
 	</osgi:service>
-	
-	
-		<osgi:service id="appRegistryApplicationManagerOsgi" ref="appRegistryApplicationManager"
+
+
+	<osgi:service id="appRegistryApplicationManagerOsgi" ref="appRegistryApplicationManager"
 		interface="br.com.maisha.wind.lifecycle.mgmt.IApplicationManager">
 	</osgi:service>
 

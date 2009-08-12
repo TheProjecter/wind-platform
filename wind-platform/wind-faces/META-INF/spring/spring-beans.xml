@@ -7,8 +7,11 @@
 
 
 	<bean name="presentationProvider" scope="singleton"
-		class="br.com.maisha.wind.faces.PresentationProvider">
-	</bean>
+		class="br.com.maisha.wind.faces.PresentationProvider" />
+
+
+	<bean name="menuRenderer" class="br.com.maisha.wind.faces.render.MenuRender" />
+
 
 </beans>
 

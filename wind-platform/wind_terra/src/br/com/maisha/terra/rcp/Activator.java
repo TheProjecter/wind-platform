@@ -16,7 +16,8 @@ public class Activator implements BundleActivator {
 	 * )
 	 */
 	public void start(BundleContext context) throws Exception {
-		log.debug("		Wind Terra Started");
+		log.info("		Wind Terra Starting... ");
+		log.info("		Wind Terra Started");
 	}
 
 	/*
@@ -26,7 +27,7 @@ public class Activator implements BundleActivator {
 	 * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
-		System.out.println(" 	Wind Terra Stopped");
+		log.info("		Wind Terra Stopped");
 	}
 
 }

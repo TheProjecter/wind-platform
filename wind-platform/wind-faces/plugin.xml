@@ -10,6 +10,8 @@
             id="wind_faces.Application">
       </entrypoint>
    </extension>
+   
+   <!-- Perspectives -->
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
@@ -18,6 +20,8 @@
             id="wind_faces.perspective">
       </perspective>
    </extension>
+   
+   <!-- Views -->
    <extension
          point="org.eclipse.ui.views">
       <view
