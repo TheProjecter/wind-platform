@@ -30,6 +30,12 @@
             id="wind_faces.view">
       </view>
       
+	  <view
+            name="Edition View"
+            class="br.com.maisha.wind.faces.view.EditionView"
+            id="wind_faces.edition_view">
+      </view>
+      
       <view
             name="Module Overview"
             class="br.com.maisha.wind.faces.view.ModuleOverview"
