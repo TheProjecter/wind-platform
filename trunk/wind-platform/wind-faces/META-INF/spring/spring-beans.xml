@@ -11,6 +11,7 @@
 		<property name="render">
 			<list>
 				<ref bean="menuRenderer" />
+				<ref bean="editionRenderer" />
 			</list>
 		</property>
 	</bean>
@@ -20,6 +21,10 @@
 		<property name="presentationProvider">
 			<ref bean="presentationProvider" />
 		</property>
+	</bean>
+
+	<bean name="editionRenderer" class="br.com.maisha.wind.faces.view.EditionView">
+
 	</bean>
 
 
