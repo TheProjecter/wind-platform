@@ -11,19 +11,28 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
  */
 public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
-    public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
-        super(configurer);
-    }
+	private WindFacesActionBarAdvisor actionBarAdvisor;
 
-    public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {
-        return new ApplicationActionBarAdvisor(configurer);
-    }
-    
-    public void preWindowOpen() {
-        IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
-        configurer.setInitialSize(new Point(400, 300));
-        configurer.setShowCoolBar(false);
-        configurer.setShowStatusLine(false);
-        configurer.setTitle("RAP with a View");
-    }
+	public ApplicationWorkbenchWindowAdvisor(
+			IWorkbenchWindowConfigurer configurer) {
+		super(configurer);
+	}
+
+	public ActionBarAdvisor createActionBarAdvisor(
+			IActionBarConfigurer configurer) {
+		actionBarAdvisor = new WindFacesActionBarAdvisor(configurer);
+		return actionBarAdvisor;
+	}
+
+	public void preWindowOpen() {
+		IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
+		configurer.setInitialSize(new Point(400, 300));
+		configurer.setShowCoolBar(true);
+		configurer.setShowStatusLine(true);
+		configurer.setTitle("RAP with a View");
+	}
+	
+	public WindFacesActionBarAdvisor getActionBarAdvisor() {
+		return actionBarAdvisor;
+	}
 }

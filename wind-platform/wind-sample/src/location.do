@@ -1,4 +1,4 @@
-domain_object location "Localizacao" {
+domain_object location "Location" {
 
 String code "Code"{
 x: 0

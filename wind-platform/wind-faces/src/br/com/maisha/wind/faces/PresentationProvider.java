@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.eclipse.ui.PlatformUI;
 
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
+import br.com.maisha.wind.faces.rcp.Application;
 import br.com.maisha.wind.faces.render.IRender;
 
 /**
@@ -28,10 +30,12 @@ public class PresentationProvider implements IPresentationProvider {
 	 * @see br.com.maisha.wind.faces.IPresentationProvider#render(java.lang.Object)
 	 */
 	public void render(Object model, LevelType level, ChangeType change) {
-		for (IRender r : render) {
-			if (r.getModelLevel() == level) {
-				log.debug("		Call render [" + r + "]");
-				r.render(model);
+		if (Application.getApp() != null && PlatformUI.isWorkbenchRunning()) {
+			for (IRender r : render) {
+				if (r.getModelLevel() == level) {
+					log.debug("		Call render [" + r + "]");
+					r.render(model);
+				}
 			}
 		}
 	}
@@ -52,5 +56,10 @@ public class PresentationProvider implements IPresentationProvider {
 	public void removeRender(IRender render) {
 		log.debug("		Render removed: " + render);
 		this.render.remove(render);
+	}
+
+	/** @see PresentationProvider#render */
+	public void setRender(List<IRender> render) {
+		this.render = render;
 	}
 }

@@ -1,5 +1,5 @@
 import location
-domain_object airbus "A380" {
+domain_object airbus "A 380" {
 
 String code "Code"{
 x: 0
