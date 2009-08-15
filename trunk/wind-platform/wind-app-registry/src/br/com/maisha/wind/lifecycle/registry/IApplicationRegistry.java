@@ -37,6 +37,13 @@ public interface IApplicationRegistry extends Component {
 	WindApplication retrieve(String appId);
 
 	/**
+	 * Gets all application registered under this.
+	 * 
+	 * @return A list containing all application's metadata.
+	 */
+	List<WindApplication> retrieve();
+
+	/**
 	 * Convenience method for obtaining all objects of a given application.
 	 * 
 	 * @param appId

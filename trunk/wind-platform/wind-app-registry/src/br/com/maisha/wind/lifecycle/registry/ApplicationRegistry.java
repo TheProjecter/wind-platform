@@ -1,9 +1,12 @@
 package br.com.maisha.wind.lifecycle.registry;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
 
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.wind.lifecycle.model.WindApplication;
@@ -16,9 +19,14 @@ import br.com.maisha.wind.lifecycle.model.WindApplication;
  */
 public class ApplicationRegistry implements IApplicationRegistry {
 
+	/** Log ref. */
+	private static final Logger log = Logger
+			.getLogger(ApplicationRegistry.class);
+
 	/** HashMap registry. */
 	private Map<String, WindApplication> registry = new HashMap<String, WindApplication>();
 
+	/* Avoid instantiation. */
 	private ApplicationRegistry() {
 	}
 
@@ -39,8 +47,14 @@ public class ApplicationRegistry implements IApplicationRegistry {
 	 * @see br.com.maisha.wind.lifecycle.registry.IApplicationRegistry#register(br.com.maisha.wind.lifecycle.model.WindApplication)
 	 */
 	public void register(WindApplication app) {
+		if (registry.containsKey(app.getAppId())) {
+			log.error("Registry already contains an application "
+					+ "registered under the given id [" + app.getAppId()
+					+ "] ... " + "choose a different one!");
+			return;
+		}
 		this.registry.put(app.getAppId(), app);
-
+		log.debug("		Application [" + app.getAppId() + "] registered...");
 	}
 
 	/**
@@ -49,6 +63,14 @@ public class ApplicationRegistry implements IApplicationRegistry {
 	 */
 	public WindApplication retrieve(String appId) {
 		return this.registry.get(appId);
+	}
+
+	/**
+	 * 
+	 * @see br.com.maisha.wind.lifecycle.registry.IApplicationRegistry#retrieve()
+	 */
+	public List<WindApplication> retrieve() {
+		return new ArrayList<WindApplication>(registry.values());
 	}
 
 }

@@ -40,13 +40,6 @@ public class Activator extends AbstractUIPlugin {
 		log.info("		Wind Faces Starting... ");
 		super.start(context);
 		plugin = this;
-
-		// register app model listener when framework got started...
-		IAppModelListenerRegistry modelListenerReg = ServiceProvider
-				.getInstance().getService(IAppModelListenerRegistry.class,
-						getBundle().getBundleContext());
-		modelListenerReg.registerAppModelListener(new FacesAppModelListener());
-		
 		log.info("		Wind Faces Started ");
 	}
 

@@ -10,6 +10,8 @@ import java.io.Reader;
 import org.antlr.runtime.ANTLRReaderStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.log4j.Logger;
 
 import br.com.maisha.terra.lang.DomainObject;
 
@@ -20,11 +22,15 @@ import br.com.maisha.terra.lang.DomainObject;
  */
 public class TerraCompiler implements ITerraCompiler {
 
+	/** Log ref. */
+	private static final Logger log = Logger.getLogger(TerraCompiler.class);
+
 	/**
 	 * 
 	 * @see br.com.maisha.terra.ITerraCompiler#compile(java.io.File)
 	 */
 	public DomainObject compile(File f) throws Exception {
+		log.debug("Compiling file [" + f.getAbsolutePath() + "]");
 		InputStream is = new FileInputStream(f);
 		return compile(is);
 	}
@@ -49,6 +55,8 @@ public class TerraCompiler implements ITerraCompiler {
 		TerraParser tokenParser = new TerraParser(getTokenStream(reader));
 		tokenParser.domain_object();
 		DomainObject obj = tokenParser.domainObject;
+		log.debug("Domain Object compiled: "
+				+ ToStringBuilder.reflectionToString(obj));
 		reader.close();
 		return obj;
 	}

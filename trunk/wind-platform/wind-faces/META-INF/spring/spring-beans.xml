@@ -7,7 +7,13 @@
 
 
 	<bean name="presentationProvider" scope="singleton"
-		class="br.com.maisha.wind.faces.PresentationProvider" />
+		class="br.com.maisha.wind.faces.PresentationProvider">
+		<property name="render">
+			<list>
+				<ref bean="menuRenderer" />
+			</list>
+		</property>
+	</bean>
 
 
 	<bean name="menuRenderer" class="br.com.maisha.wind.faces.render.MenuRender" />
