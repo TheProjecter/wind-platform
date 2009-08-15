@@ -16,7 +16,11 @@
 	</bean>
 
 
-	<bean name="menuRenderer" class="br.com.maisha.wind.faces.render.MenuRender" />
+	<bean name="menuRenderer" class="br.com.maisha.wind.faces.render.MenuRender">
+		<property name="presentationProvider">
+			<ref bean="presentationProvider" />
+		</property>
+	</bean>
 
 
 </beans>

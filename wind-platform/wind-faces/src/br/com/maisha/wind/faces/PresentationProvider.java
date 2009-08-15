@@ -12,6 +12,7 @@ import br.com.maisha.wind.faces.rcp.Application;
 import br.com.maisha.wind.faces.render.IRender;
 
 /**
+ * Implementacao default de {@link IPresentationProvider}
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
@@ -22,7 +23,7 @@ public class PresentationProvider implements IPresentationProvider {
 	private static final Logger log = Logger
 			.getLogger(PresentationProvider.class);
 
-	/** */
+	/** Lista de renderizadores resgistrados neste Presentation Provider. */
 	private List<IRender> render = new ArrayList<IRender>();
 
 	/**
@@ -61,5 +62,13 @@ public class PresentationProvider implements IPresentationProvider {
 	/** @see PresentationProvider#render */
 	public void setRender(List<IRender> render) {
 		this.render = render;
+	}
+
+	/**
+	 * 
+	 * @see br.com.maisha.wind.faces.IPresentationProvider#processMenu(java.lang.String)
+	 */
+	public void processMenu(String menuId) {
+		log.debug("Processing menu click at [" + menuId + "]");
 	}
 }

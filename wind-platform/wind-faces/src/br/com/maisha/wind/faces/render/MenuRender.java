@@ -15,11 +15,12 @@ import br.com.maisha.wind.faces.rcp.RCPUtil;
 import br.com.maisha.wind.lifecycle.model.WindApplication;
 
 /**
+ * Creates the Application Menus for all registered Wind Applications.
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
-public class MenuRender implements IRender {
+public class MenuRender extends BaseRender {
 
 	/** Log ref. */
 	private static final Logger log = Logger.getLogger(MenuRender.class);
@@ -66,14 +67,18 @@ public class MenuRender implements IRender {
 	}
 
 	/**
+	 * Create an Action for the given {@link DomainObject}.
 	 * 
 	 * @param object
-	 * @return
+	 *            Domain Object to be represented by the action.
+	 * @return An action wrapped in an ActionContributionItem to be inserted in
+	 *         a menu.
 	 */
 	private IContributionItem createMenu(DomainObject object) {
+		final String objRef = object.getRef();
 		IAction action = new Action(object.getLabel()) {
 			public void run() {
-				log.info("RUNNING ACTIONN!!!!");
+				getPresentationProvider().processMenu(objRef);
 			}
 		};
 		action.setId(object.getRef());
