@@ -6,10 +6,13 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.ui.PlatformUI;
 
+import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
+import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.rcp.Application;
 import br.com.maisha.wind.faces.render.IRender;
+import br.com.maisha.wind.lifecycle.mgmt.IApplicationManager;
 
 /**
  * Implementacao default de {@link IPresentationProvider}
@@ -66,9 +69,15 @@ public class PresentationProvider implements IPresentationProvider {
 
 	/**
 	 * 
-	 * @see br.com.maisha.wind.faces.IPresentationProvider#processMenu(java.lang.String)
+	 * @see br.com.maisha.wind.faces.IPresentationProvider#processMenu(java.lang.String,
+	 *      java.lang.String)
 	 */
-	public void processMenu(String menuId) {
-		log.debug("Processing menu click at [" + menuId + "]");
+	public void processMenu(String appId, String objectId) {
+		log.debug("Processing menu click at [" + objectId + "]");
+		IApplicationManager appMgr = ServiceProvider.getInstance().getService(
+				IApplicationManager.class,
+				Activator.getDefault().getBundle().getBundleContext());
+
+		appMgr.openObject(appId, objectId);
 	}
 }
