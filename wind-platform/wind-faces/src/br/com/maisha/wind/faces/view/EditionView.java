@@ -81,7 +81,7 @@ public class EditionView extends ViewPart implements IRender {
 	 * 
 	 */
 	private void createUserInterface(DomainObject model) {
-
+		
 	}
 
 }

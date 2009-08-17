@@ -56,7 +56,7 @@ public class MenuRender extends BaseRender {
 
 		// adds it's objects
 		for (DomainObject object : app.getDomainObjects()) {
-			appMm.add(createMenu(object));
+			appMm.add(createMenu(app.getAppId(), object));
 		}
 
 		// insert into the bar
@@ -69,16 +69,18 @@ public class MenuRender extends BaseRender {
 	/**
 	 * Create an Action for the given {@link DomainObject}.
 	 * 
+	 * @param appId
 	 * @param object
 	 *            Domain Object to be represented by the action.
 	 * @return An action wrapped in an ActionContributionItem to be inserted in
 	 *         a menu.
 	 */
-	private IContributionItem createMenu(DomainObject object) {
+	private IContributionItem createMenu(String appId, DomainObject object) {
 		final String objRef = object.getRef();
+		final String applicationId = appId;
 		IAction action = new Action(object.getLabel()) {
 			public void run() {
-				getPresentationProvider().processMenu(objRef);
+				getPresentationProvider().processMenu(applicationId, objRef);
 			}
 		};
 		action.setId(object.getRef());

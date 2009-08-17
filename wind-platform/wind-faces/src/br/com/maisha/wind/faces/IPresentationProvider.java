@@ -51,9 +51,10 @@ public interface IPresentationProvider extends Component {
 	/**
 	 * Process the click of the menu identified by the given Id.
 	 * 
-	 * @param menuId
+	 * @param appId
+	 * @param objectId
 	 *            Id of the menu that was clicked.
 	 */
-	void processMenu(String menuId);
+	void processMenu(String appId, String objectId);
 
 }
