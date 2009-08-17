@@ -41,6 +41,9 @@ public class ApplicationManager implements IApplicationManager {
 	/** Listeners for model changes. */
 	private IAppModelListenerRegistry modelListeners;
 
+	/** Current DomainObject opened for edition. */
+	private DomainObject openedObject;
+
 	/**
 	 * 
 	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#loadApplication()
@@ -90,6 +93,29 @@ public class ApplicationManager implements IApplicationManager {
 			e.printStackTrace(); // TODO
 		}
 
+	}
+
+	/**
+	 * 
+	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#openObject(java.lang.String,
+	 *      java.lang.String)
+	 */
+	public void openObject(String appId, String objectId) {
+		DomainObject obj = registry.getObject(appId, objectId);
+		openedObject = obj;
+		modelListeners.fireEvent(null, openedObject, LevelType.Object,
+				ChangeType.ObjectOpened);
+	}
+
+	/**
+	 * 
+	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#closeObject(java.lang.String,
+	 *      java.lang.String)
+	 */
+	public void closeObject(String appId, String objectId) {
+		openedObject = null;
+		modelListeners.fireEvent(null, null, LevelType.Object,
+				ChangeType.ObjectClosed);
 	}
 
 	/** @see ApplicationManager#appCfgReader */

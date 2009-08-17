@@ -73,4 +73,21 @@ public class ApplicationRegistry implements IApplicationRegistry {
 		return new ArrayList<WindApplication>(registry.values());
 	}
 
+	/**
+	 * 
+	 * @see br.com.maisha.wind.lifecycle.registry.IApplicationRegistry#getObject(java.lang.String,
+	 *      java.lang.String)
+	 */
+	public DomainObject getObject(String appId, String objectId) {
+		WindApplication app = retrieve(appId);
+		if (app != null) {
+			for (DomainObject obj : app.getDomainObjects()) {
+				if (objectId.equals(obj.getRef())) {
+					return obj;
+				}
+			}
+		}
+		return null;
+	}
+
 }

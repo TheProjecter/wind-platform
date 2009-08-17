@@ -51,4 +51,12 @@ public interface IApplicationRegistry extends Component {
 	 * @return All objects that belongs to the given application.
 	 */
 	List<DomainObject> getAllObjects(String appId);
+
+	/**
+	 * 
+	 * @param appId
+	 * @param objectId
+	 * @return
+	 */
+	DomainObject getObject(String appId, String objectId);
 }
