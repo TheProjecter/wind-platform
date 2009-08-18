@@ -11,21 +11,29 @@
 		<property name="render">
 			<list>
 				<ref bean="menuRenderer" />
-				<ref bean="editionRenderer" />
 			</list>
+		</property>
+		<property name="attrRender">
+			<map>
+				<entry key="text" value-ref="textAttrRender" />
+			</map>
 		</property>
 	</bean>
 
 
+	<!-- Model Renders -->
 	<bean name="menuRenderer" class="br.com.maisha.wind.faces.render.MenuRender">
 		<property name="presentationProvider">
 			<ref bean="presentationProvider" />
 		</property>
 	</bean>
 
-	<bean name="editionRenderer" class="br.com.maisha.wind.faces.view.EditionView">
 
-	</bean>
+	<!-- Attribute Renders -->
+	<bean name="textAttrRender" class="br.com.maisha.wind.faces.render.attr.TextAttrRender" />
+
+
+
 
 
 </beans>

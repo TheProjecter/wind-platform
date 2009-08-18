@@ -4,6 +4,7 @@ import br.com.maisha.wind.common.component.Component;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.faces.render.IRender;
+import br.com.maisha.wind.faces.render.attr.IAttributeRender;
 
 /**
  * The Presentation Provider is responsible for the conversation between the
@@ -56,5 +57,12 @@ public interface IPresentationProvider extends Component {
 	 *            Id of the menu that was clicked.
 	 */
 	void processMenu(String appId, String objectId);
+
+	/**
+	 * 
+	 * @param key
+	 * @return
+	 */
+	IAttributeRender getAttributeRender(String key);
 
 }
