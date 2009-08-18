@@ -1,7 +1,9 @@
 package br.com.maisha.wind.faces;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.ui.PlatformUI;
@@ -12,6 +14,7 @@ import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.rcp.Application;
 import br.com.maisha.wind.faces.render.IRender;
+import br.com.maisha.wind.faces.render.attr.IAttributeRender;
 import br.com.maisha.wind.lifecycle.mgmt.IApplicationManager;
 
 /**
@@ -28,6 +31,9 @@ public class PresentationProvider implements IPresentationProvider {
 
 	/** Lista de renderizadores resgistrados neste Presentation Provider. */
 	private List<IRender> render = new ArrayList<IRender>();
+
+	/** */
+	private Map<String, IAttributeRender> attrRender = new HashMap<String, IAttributeRender>();
 
 	/**
 	 * 
@@ -62,11 +68,6 @@ public class PresentationProvider implements IPresentationProvider {
 		this.render.remove(render);
 	}
 
-	/** @see PresentationProvider#render */
-	public void setRender(List<IRender> render) {
-		this.render = render;
-	}
-
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.IPresentationProvider#processMenu(java.lang.String,
@@ -79,5 +80,23 @@ public class PresentationProvider implements IPresentationProvider {
 				Activator.getDefault().getBundle().getBundleContext());
 
 		appMgr.openObject(appId, objectId);
+	}
+
+	/**
+	 * 
+	 * @see br.com.maisha.wind.faces.IPresentationProvider#getAttributeRender(java.lang.String)
+	 */
+	public IAttributeRender getAttributeRender(String key) {
+		return this.attrRender.get(key);
+	}
+
+	/** @see PresentationProvider#render */
+	public void setRender(List<IRender> render) {
+		this.render = render;
+	}
+
+	/** @see PresentationProvider#attrRender */
+	public void setAttrRender(Map<String, IAttributeRender> attrRender) {
+		this.attrRender = attrRender;
 	}
 }
