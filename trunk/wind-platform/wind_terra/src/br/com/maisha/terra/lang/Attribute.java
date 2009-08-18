@@ -19,6 +19,7 @@ public class Attribute extends TerraClass {
 	/** */
 	private String label;
 
+	/** TODO change it to be a hashmap. */
 	private List<Property> props = new ArrayList<Property>();
 
 	/**
@@ -68,6 +69,23 @@ public class Attribute extends TerraClass {
 
 	public void addProperty(Property p) {
 		props.add(p);
+	}
+
+	/**
+	 * TODO change props to be a hashmap!!
+	 * 
+	 * @param propName
+	 * @return
+	 */
+	public String getPropertyValue(String propName) {
+		if (props != null && propName != null) {
+			for (Property p : props) {
+				if (propName.equals(p.getPropName())) {
+					return p.getValue();
+				}
+			}
+		}
+		return null;
 	}
 
 	/**
