@@ -10,6 +10,7 @@ import org.eclipse.ui.part.ViewPart;
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.Property;
+import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.faces.IPresentationProvider;
@@ -103,7 +104,7 @@ public class EditionView extends ViewPart implements IRender {
 	 */
 	private void createAttributeUI(Attribute attr) {
 		String presentationType = attr
-				.getPropertyValue(Property.PRESENTATION_TYPE_PROP_NAME);
+				.getPropertyValue(PropertyInfo.PRESENTATION_TYPE);
 
 		IAttributeRender attrRender = presProvider
 				.getAttributeRender(presentationType);
