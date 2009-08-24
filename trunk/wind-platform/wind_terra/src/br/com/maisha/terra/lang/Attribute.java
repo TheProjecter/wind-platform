@@ -74,14 +74,16 @@ public class Attribute extends TerraClass {
 	/**
 	 * TODO change props to be a hashmap!!
 	 * 
-	 * @param propName
+	 * @param <T>
+	 * @param pInfo
 	 * @return
 	 */
-	public String getPropertyValue(String propName) {
-		if (props != null && propName != null) {
+	@SuppressWarnings("unchecked")
+	public <T> T getPropertyValue(PropertyInfo<T> pInfo) {
+		if (props != null && pInfo.getPropName() != null) {
 			for (Property p : props) {
-				if (propName.equals(p.getPropName())) {
-					return p.getValue();
+				if (pInfo.getPropName().equals(p.getPropName())) {
+					return (T) p.getValue();
 				}
 			}
 		}
