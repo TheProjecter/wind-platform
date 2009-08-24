@@ -4,8 +4,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
-	<bean name="factory" scope="singleton"
-		class="br.com.maisha.wind.common.factory.SpringBeanFactory" />
 
 	<bean name="appRegistry" scope="singleton" 
 		class="br.com.maisha.wind.lifecycle.registry.ApplicationRegistry" />
