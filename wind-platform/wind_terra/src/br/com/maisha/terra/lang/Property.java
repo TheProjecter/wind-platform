@@ -7,7 +7,6 @@ package br.com.maisha.terra.lang;
  */
 public class Property extends TerraClass {
 
-
 	/** */
 	public static enum PresentationType {
 		TEXT("text"), RADIO("radio"), CHECKBOX("checkbox"), COMBO("combo"), LIST(
@@ -26,9 +25,9 @@ public class Property extends TerraClass {
 
 	private String propName;
 
-	private String value;
+	private Object value;
 
-	public Property(String propName, String value) {
+	public Property(String propName, Object value) {
 		super();
 		this.propName = propName;
 		this.value = value;
@@ -42,11 +41,11 @@ public class Property extends TerraClass {
 		this.propName = propName;
 	}
 
-	public String getValue() {
+	public Object getValue() {
 		return value;
 	}
 
-	public void setValue(String value) {
+	public void setValue(Object value) {
 		this.value = value;
 	}
 

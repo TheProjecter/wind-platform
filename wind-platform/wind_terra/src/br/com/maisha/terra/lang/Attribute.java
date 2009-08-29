@@ -1,7 +1,7 @@
 package br.com.maisha.terra.lang;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 
@@ -19,8 +19,8 @@ public class Attribute extends TerraClass {
 	/** */
 	private String label;
 
-	/** TODO change it to be a hashmap. */
-	private List<Property> props = new ArrayList<Property>();
+	/** */
+	private Map<String, Property> properties = new HashMap<String, Property>();
 
 	/**
 	 * 
@@ -59,20 +59,15 @@ public class Attribute extends TerraClass {
 		this.label = label;
 	}
 
-	public List<Property> getProps() {
-		return props;
+	public Map<String, Property> getProperties() {
+		return properties;
 	}
 
-	public void setProps(List<Property> props) {
-		this.props = props;
-	}
-
-	public void addProperty(Property p) {
-		props.add(p);
+	public void setProperties(Map<String, Property> properties) {
+		this.properties = properties;
 	}
 
 	/**
-	 * TODO change props to be a hashmap!!
 	 * 
 	 * @param <T>
 	 * @param pInfo
@@ -80,12 +75,10 @@ public class Attribute extends TerraClass {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> T getPropertyValue(PropertyInfo<T> pInfo) {
-		if (props != null && pInfo.getPropName() != null) {
-			for (Property p : props) {
-				if (pInfo.getPropName().equals(p.getPropName())) {
-					return (T) p.getValue();
-				}
-			}
+		if (properties != null && pInfo.getPropName() != null) {
+			Property p = properties.get(pInfo.getPropName());
+			if (p != null)
+				return (T) p.getValue();
 		}
 		return null;
 	}
