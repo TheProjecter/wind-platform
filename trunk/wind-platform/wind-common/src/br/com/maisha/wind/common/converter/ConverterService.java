@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 /**
  * TODO javadoc!
+ * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
@@ -33,6 +34,10 @@ public class ConverterService implements IConverterService {
 	public <T> T convert(Class<T> type, Object value) {
 		Class<?> fromType = value.getClass();
 
+		if(fromType.equals(type)){
+			return (T) value;
+		}
+		
 		try {
 			ConverterKey key = new ConverterKey();
 			key.setFrom(fromType);
@@ -45,10 +50,16 @@ public class ConverterService implements IConverterService {
 				return null;
 			}
 
+			log.debug("Converting [" + value + "] from [" + fromType + "] to ["
+					+ type + "]");
+
 			Method m = method.getMethod();
 			Object ref = method.getRef();
+			T result = (T) m.invoke(ref, value);
 
-			return (T) m.invoke(ref, value);
+			log.debug("Converted [" + result + "]");
+
+			return result;
 		} catch (Exception e) {
 			// TODO handle
 			log.error(e.getMessage(), e);
@@ -60,25 +71,33 @@ public class ConverterService implements IConverterService {
 	/**
 	 * TODO javadoc
 	 */
+	@SuppressWarnings("unused")
 	private void setupConverters() {
 		for (IConverter conv : converters) {
-			for (Method m : conv.getClass().getMethods()) {
-				if (m.isAnnotationPresent(Converter.class)) {
-					Converter cInfo = m.getAnnotation(Converter.class);
-					Class<?> fromType = cInfo.fromType();
-					Class<?> toType = cInfo.toType();
+			processConverter(conv);
+		}
+	}
 
-					ConverterKey key = new ConverterKey();
-					key.setFrom(fromType);
-					key.setTo(toType);
+	/**
+	 * TODO improve this name!!
+	 */
+	private void processConverter(IConverter conv) {
+		for (Method m : conv.getClass().getMethods()) {
+			if (m.isAnnotationPresent(Converter.class)) {
+				Converter cInfo = m.getAnnotation(Converter.class);
+				Class<?> fromType = cInfo.fromType();
+				Class<?> toType = cInfo.toType();
 
-					ConverterMethod method = new ConverterMethod();
-					method.setKey(key);
-					method.setMethod(m);
-					method.setRef(conv);
+				ConverterKey key = new ConverterKey();
+				key.setFrom(fromType);
+				key.setTo(toType);
 
-					convertersRegistry.put(key, method);
-				}
+				ConverterMethod method = new ConverterMethod();
+				method.setKey(key);
+				method.setMethod(m);
+				method.setRef(conv);
+
+				convertersRegistry.put(key, method);
 			}
 		}
 	}
@@ -89,6 +108,7 @@ public class ConverterService implements IConverterService {
 	 */
 	public void registerConverter(IConverter converter) {
 		if (!converters.contains(converter)) {
+			processConverter(converter);
 			converters.add(converter);
 		} else {
 			log.warn("Converter [" + converter + "] already registered");

@@ -49,9 +49,20 @@ public class StringConverter implements IConverter {
 		try {
 			return new Double(value);
 		} catch (Exception e) {
-			log.error("Error while converting [" + value + "] to Integer", e);
+			log.error("Error while converting [" + value + "] to Double", e);
 			return .0; // TODO
 		}
+	}
+
+	@Converter(fromType = String.class, toType = Boolean.class)
+	public Boolean toBool(String value) {
+		try {
+			return new Boolean(value);
+		} catch (Exception e) {
+			log.error("Error while converting [" + value + "] to Boolean", e);
+			return false; //TODO
+		}
+
 	}
 
 }
