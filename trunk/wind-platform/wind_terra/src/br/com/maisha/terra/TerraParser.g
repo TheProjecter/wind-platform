@@ -11,16 +11,21 @@ options {
 @header { 
 package br.com.maisha.terra; 
 import java.util.HashMap;
+import java.util.Map;
 import br.com.maisha.terra.lang.Import;
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.Property;
+import br.com.maisha.terra.lang.PropertyInfo;
+import br.com.maisha.terra.rcp.Activator;
+import br.com.maisha.wind.common.converter.IConverterService;
+import br.com.maisha.wind.common.factory.ServiceProvider;
 }
 
 @members {
 public DomainObject domainObject = null;
 private List<Attribute> atts = new ArrayList<Attribute>();
-private List<Property> props = new ArrayList<Property>();
+private Map<String, Property> props = new HashMap<String, Property>();
 private List<Import> imports = new ArrayList<Import>();
 }
 
@@ -46,9 +51,9 @@ body	:    attr+  ;
 
 attr	: NEWLINE | TYPE NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET {
 		Attribute att = new Attribute($TYPE.text, $NAME.text, $STRING_LITERAL.text);
-		att.setProps(props);
+		att.setProperties(props);
 		atts.add(att);
-		props = new ArrayList<Property>();
+		props = new HashMap<String, Property>();
 
 	}
 	;
@@ -56,8 +61,15 @@ attr	: NEWLINE | TYPE NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET {
 attr_body :  property+;
 
 property:	NEWLINE | PROPERTY ATTRIBUITION value {
-		Property p = new Property($PROPERTY.text, $value.text);
-		props.add(p);
+		IConverterService convService = ServiceProvider.getInstance()
+				.getService(IConverterService.class,
+						Activator.getDefault().getBundle().getBundleContext());
+						
+		Class<?> type = PropertyInfo.getPropertyInfo($PROPERTY.text).getType();
+		Object propValue = convService.convert(type, $value.text);
+		
+		Property p = new Property($PROPERTY.text, propValue);
+		props.put($PROPERTY.text, p);
 	}
 	;
 	

@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g 2009-06-17 20:24:13
+// $ANTLR 3.1.2 /home/paulofreitas/Desktop/lang/TerraLexer.g 2009-08-24 22:23:09
  package br.com.maisha.terra; 
 
 import org.antlr.runtime.*;
@@ -44,15 +44,15 @@ public class TerraLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g"; }
+    public String getGrammarFileName() { return "/home/paulofreitas/Desktop/lang/TerraLexer.g"; }
 
     // $ANTLR start "ASSIGN"
     public final void mASSIGN() throws RecognitionException {
         try {
             int _type = ASSIGN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:5:7: ( '=' )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:5:9: '='
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:5:7: ( '=' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:5:9: '='
             {
             match('='); 
 
@@ -71,8 +71,8 @@ public class TerraLexer extends Lexer {
         try {
             int _type = LEFT_PAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:6:11: ( '(' )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:6:13: '('
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:6:11: ( '(' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:6:13: '('
             {
             match('('); 
 
@@ -91,8 +91,8 @@ public class TerraLexer extends Lexer {
         try {
             int _type = RIGHT_PAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:7:12: ( ')' )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:7:14: ')'
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:7:12: ( ')' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:7:14: ')'
             {
             match(')'); 
 
@@ -111,8 +111,8 @@ public class TerraLexer extends Lexer {
         try {
             int _type = LEFT_BRACKET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:8:13: ( '{' )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:8:15: '{'
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:8:13: ( '{' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:8:15: '{'
             {
             match('{'); 
 
@@ -131,8 +131,8 @@ public class TerraLexer extends Lexer {
         try {
             int _type = RIGHT_BRACKET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:9:14: ( '}' )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:9:16: '}'
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:9:14: ( '}' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:9:16: '}'
             {
             match('}'); 
 
@@ -151,8 +151,8 @@ public class TerraLexer extends Lexer {
         try {
             int _type = ATTRIBUITION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:11:13: ( ':' )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:11:14: ':'
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:11:13: ( ':' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:11:14: ':'
             {
             match(':'); 
 
@@ -171,8 +171,8 @@ public class TerraLexer extends Lexer {
         try {
             int _type = DOMAIN_OBJECT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:12:14: ( 'domain_object' )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:12:15: 'domain_object'
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:12:14: ( 'domain_object' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:12:15: 'domain_object'
             {
             match("domain_object"); 
 
@@ -192,8 +192,8 @@ public class TerraLexer extends Lexer {
         try {
             int _type = IMPORT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:13:7: ( 'import' )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:13:8: 'import'
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:13:7: ( 'import' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:13:8: 'import'
             {
             match("import"); 
 
@@ -213,7 +213,7 @@ public class TerraLexer extends Lexer {
         try {
             int _type = TYPE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:14:6: ( 'int' | 'double' | 'float' | 'long' | 'short' | 'boolean' | 'String' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:14:6: ( 'int' | 'double' | 'float' | 'long' | 'short' | 'boolean' | 'String' )
             int alt1=7;
             switch ( input.LA(1) ) {
             case 'i':
@@ -260,7 +260,7 @@ public class TerraLexer extends Lexer {
 
             switch (alt1) {
                 case 1 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:14:8: 'int'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:14:8: 'int'
                     {
                     match("int"); 
 
@@ -268,7 +268,7 @@ public class TerraLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:14:16: 'double'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:14:16: 'double'
                     {
                     match("double"); 
 
@@ -276,7 +276,7 @@ public class TerraLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:14:27: 'float'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:14:27: 'float'
                     {
                     match("float"); 
 
@@ -284,7 +284,7 @@ public class TerraLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:14:37: 'long'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:14:37: 'long'
                     {
                     match("long"); 
 
@@ -292,7 +292,7 @@ public class TerraLexer extends Lexer {
                     }
                     break;
                 case 5 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:14:46: 'short'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:14:46: 'short'
                     {
                     match("short"); 
 
@@ -300,7 +300,7 @@ public class TerraLexer extends Lexer {
                     }
                     break;
                 case 6 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:14:56: 'boolean'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:14:56: 'boolean'
                     {
                     match("boolean"); 
 
@@ -308,7 +308,7 @@ public class TerraLexer extends Lexer {
                     }
                     break;
                 case 7 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:14:68: 'String'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:14:68: 'String'
                     {
                     match("String"); 
 
@@ -330,26 +330,26 @@ public class TerraLexer extends Lexer {
         try {
             int _type = PROPERTY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:15:9: ( 'x' | 'y' | 'colspan' | 'rowspan' | 'presentation_type' | 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'disabled' | 'visible' | 'icon' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:9: ( 'x' | 'y' | 'colspan' | 'rowspan' | 'presentation_type' | 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'disabled' | 'visible' | 'icon' )
             int alt2=14;
             alt2 = dfa2.predict(input);
             switch (alt2) {
                 case 1 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:15:11: 'x'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:11: 'x'
                     {
                     match('x'); 
 
                     }
                     break;
                 case 2 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:15:17: 'y'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:17: 'y'
                     {
                     match('y'); 
 
                     }
                     break;
                 case 3 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:15:23: 'colspan'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:23: 'colspan'
                     {
                     match("colspan"); 
 
@@ -357,7 +357,7 @@ public class TerraLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:15:35: 'rowspan'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:35: 'rowspan'
                     {
                     match("rowspan"); 
 
@@ -365,7 +365,7 @@ public class TerraLexer extends Lexer {
                     }
                     break;
                 case 5 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:15:47: 'presentation_type'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:47: 'presentation_type'
                     {
                     match("presentation_type"); 
 
@@ -373,7 +373,7 @@ public class TerraLexer extends Lexer {
                     }
                     break;
                 case 6 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:15:69: 'validation'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:69: 'validation'
                     {
                     match("validation"); 
 
@@ -381,7 +381,7 @@ public class TerraLexer extends Lexer {
                     }
                     break;
                 case 7 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:15:84: 'required'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:84: 'required'
                     {
                     match("required"); 
 
@@ -389,7 +389,7 @@ public class TerraLexer extends Lexer {
                     }
                     break;
                 case 8 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:15:97: 'max_length'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:97: 'max_length'
                     {
                     match("max_length"); 
 
@@ -397,7 +397,7 @@ public class TerraLexer extends Lexer {
                     }
                     break;
                 case 9 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:15:112: 'min_length'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:112: 'min_length'
                     {
                     match("min_length"); 
 
@@ -405,7 +405,7 @@ public class TerraLexer extends Lexer {
                     }
                     break;
                 case 10 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:15:127: 'range'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:127: 'range'
                     {
                     match("range"); 
 
@@ -413,7 +413,7 @@ public class TerraLexer extends Lexer {
                     }
                     break;
                 case 11 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:15:137: 'mask'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:137: 'mask'
                     {
                     match("mask"); 
 
@@ -421,7 +421,7 @@ public class TerraLexer extends Lexer {
                     }
                     break;
                 case 12 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:15:146: 'disabled'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:146: 'disabled'
                     {
                     match("disabled"); 
 
@@ -429,7 +429,7 @@ public class TerraLexer extends Lexer {
                     }
                     break;
                 case 13 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:15:159: 'visible'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:159: 'visible'
                     {
                     match("visible"); 
 
@@ -437,7 +437,7 @@ public class TerraLexer extends Lexer {
                     }
                     break;
                 case 14 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:15:171: 'icon'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:171: 'icon'
                     {
                     match("icon"); 
 
@@ -459,19 +459,19 @@ public class TerraLexer extends Lexer {
         try {
             int _type = NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:17:7: ( INTEGER | FLOAT )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:17:7: ( INTEGER | FLOAT )
             int alt3=2;
             alt3 = dfa3.predict(input);
             switch (alt3) {
                 case 1 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:17:9: INTEGER
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:17:9: INTEGER
                     {
                     mINTEGER(); 
 
                     }
                     break;
                 case 2 :
-                    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:17:19: FLOAT
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:17:19: FLOAT
                     {
                     mFLOAT(); 
 
@@ -490,12 +490,12 @@ public class TerraLexer extends Lexer {
     // $ANTLR start "FLOAT"
     public final void mFLOAT() throws RecognitionException {
         try {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:18:15: ( INTEGER '.' ( '0' .. '9' )+ )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:18:17: INTEGER '.' ( '0' .. '9' )+
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:18:15: ( INTEGER '.' ( '0' .. '9' )+ )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:18:17: INTEGER '.' ( '0' .. '9' )+
             {
             mINTEGER(); 
             match('.'); 
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:18:29: ( '0' .. '9' )+
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:18:29: ( '0' .. '9' )+
             int cnt4=0;
             loop4:
             do {
@@ -509,7 +509,7 @@ public class TerraLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:18:29: '0' .. '9'
+            	    // /home/paulofreitas/Desktop/lang/TerraLexer.g:18:29: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -537,11 +537,11 @@ public class TerraLexer extends Lexer {
     // $ANTLR start "INTEGER"
     public final void mINTEGER() throws RecognitionException {
         try {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:19:17: ( '0' .. '9' ( '0' .. '9' )* )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:19:19: '0' .. '9' ( '0' .. '9' )*
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:19:17: ( '0' .. '9' ( '0' .. '9' )* )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:19:19: '0' .. '9' ( '0' .. '9' )*
             {
             matchRange('0','9'); 
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:19:28: ( '0' .. '9' )*
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:19:28: ( '0' .. '9' )*
             loop5:
             do {
                 int alt5=2;
@@ -554,7 +554,7 @@ public class TerraLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:19:28: '0' .. '9'
+            	    // /home/paulofreitas/Desktop/lang/TerraLexer.g:19:28: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -580,11 +580,11 @@ public class TerraLexer extends Lexer {
         try {
             int _type = NAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:20:5: ( LETTER ( LETTER | DIGIT | '_' )* )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:20:7: LETTER ( LETTER | DIGIT | '_' )*
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:20:5: ( LETTER ( LETTER | DIGIT | '_' )* )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:20:7: LETTER ( LETTER | DIGIT | '_' )*
             {
             mLETTER(); 
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:20:14: ( LETTER | DIGIT | '_' )*
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:20:14: ( LETTER | DIGIT | '_' )*
             loop6:
             do {
                 int alt6=2;
@@ -597,7 +597,7 @@ public class TerraLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:
+            	    // /home/paulofreitas/Desktop/lang/TerraLexer.g:
             	    {
             	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -633,11 +633,11 @@ public class TerraLexer extends Lexer {
         try {
             int _type = STRING_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:21:15: ( '\"' ( NONCONTROL_CHAR )* '\"' )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:21:17: '\"' ( NONCONTROL_CHAR )* '\"'
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:21:15: ( '\"' ( NONCONTROL_CHAR )* '\"' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:21:17: '\"' ( NONCONTROL_CHAR )* '\"'
             {
             match('\"'); 
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:21:21: ( NONCONTROL_CHAR )*
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:21:21: ( NONCONTROL_CHAR )*
             loop7:
             do {
                 int alt7=2;
@@ -650,7 +650,7 @@ public class TerraLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:21:21: NONCONTROL_CHAR
+            	    // /home/paulofreitas/Desktop/lang/TerraLexer.g:21:21: NONCONTROL_CHAR
             	    {
             	    mNONCONTROL_CHAR(); 
 
@@ -677,8 +677,8 @@ public class TerraLexer extends Lexer {
     // $ANTLR start "NONCONTROL_CHAR"
     public final void mNONCONTROL_CHAR() throws RecognitionException {
         try {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:23:25: ( LETTER | DIGIT | SYMBOL | SPACE )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:23:25: ( LETTER | DIGIT | SYMBOL | SPACE )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:
             {
             if ( input.LA(1)=='\t'||(input.LA(1)>=' ' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='~') ) {
                 input.consume();
@@ -701,8 +701,8 @@ public class TerraLexer extends Lexer {
     // $ANTLR start "LETTER"
     public final void mLETTER() throws RecognitionException {
         try {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:24:16: ( LOWER | UPPER )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:24:16: ( LOWER | UPPER )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -725,8 +725,8 @@ public class TerraLexer extends Lexer {
     // $ANTLR start "LOWER"
     public final void mLOWER() throws RecognitionException {
         try {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:25:15: ( 'a' .. 'z' )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:25:17: 'a' .. 'z'
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:25:15: ( 'a' .. 'z' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:25:17: 'a' .. 'z'
             {
             matchRange('a','z'); 
 
@@ -741,8 +741,8 @@ public class TerraLexer extends Lexer {
     // $ANTLR start "UPPER"
     public final void mUPPER() throws RecognitionException {
         try {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:26:15: ( 'A' .. 'Z' )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:26:17: 'A' .. 'Z'
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:26:15: ( 'A' .. 'Z' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:26:17: 'A' .. 'Z'
             {
             matchRange('A','Z'); 
 
@@ -757,8 +757,8 @@ public class TerraLexer extends Lexer {
     // $ANTLR start "DIGIT"
     public final void mDIGIT() throws RecognitionException {
         try {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:27:15: ( '0' .. '9' )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:27:17: '0' .. '9'
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:27:15: ( '0' .. '9' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:27:17: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -773,8 +773,8 @@ public class TerraLexer extends Lexer {
     // $ANTLR start "SPACE"
     public final void mSPACE() throws RecognitionException {
         try {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:28:15: ( ' ' | '\\t' )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:28:15: ( ' ' | '\\t' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:
             {
             if ( input.LA(1)=='\t'||input.LA(1)==' ' ) {
                 input.consume();
@@ -797,8 +797,8 @@ public class TerraLexer extends Lexer {
     // $ANTLR start "SYMBOL"
     public final void mSYMBOL() throws RecognitionException {
         try {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:30:16: ( '!' | '#' .. '/' | ':' .. '@' | '[' .. '`' | '{' .. '~' )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:30:16: ( '!' | '#' .. '/' | ':' .. '@' | '[' .. '`' | '{' .. '~' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:
             {
             if ( input.LA(1)=='!'||(input.LA(1)>='#' && input.LA(1)<='/')||(input.LA(1)>=':' && input.LA(1)<='@')||(input.LA(1)>='[' && input.LA(1)<='`')||(input.LA(1)>='{' && input.LA(1)<='~') ) {
                 input.consume();
@@ -823,10 +823,10 @@ public class TerraLexer extends Lexer {
         try {
             int _type = NEWLINE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:34:8: ( ( ( '\\r' )? '\\n' )+ )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:34:10: ( ( '\\r' )? '\\n' )+
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:34:8: ( ( ( '\\r' )? '\\n' )+ )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:34:10: ( ( '\\r' )? '\\n' )+
             {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:34:10: ( ( '\\r' )? '\\n' )+
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:34:10: ( ( '\\r' )? '\\n' )+
             int cnt9=0;
             loop9:
             do {
@@ -840,9 +840,9 @@ public class TerraLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:34:11: ( '\\r' )? '\\n'
+            	    // /home/paulofreitas/Desktop/lang/TerraLexer.g:34:11: ( '\\r' )? '\\n'
             	    {
-            	    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:34:11: ( '\\r' )?
+            	    // /home/paulofreitas/Desktop/lang/TerraLexer.g:34:11: ( '\\r' )?
             	    int alt8=2;
             	    int LA8_0 = input.LA(1);
 
@@ -851,7 +851,7 @@ public class TerraLexer extends Lexer {
             	    }
             	    switch (alt8) {
             	        case 1 :
-            	            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:34:11: '\\r'
+            	            // /home/paulofreitas/Desktop/lang/TerraLexer.g:34:11: '\\r'
             	            {
             	            match('\r'); 
 
@@ -890,10 +890,10 @@ public class TerraLexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:35:11: ( ( SPACE )+ )
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:35:13: ( SPACE )+
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:35:11: ( ( SPACE )+ )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:35:13: ( SPACE )+
             {
-            // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:35:13: ( SPACE )+
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:35:13: ( SPACE )+
             int cnt10=0;
             loop10:
             do {
@@ -907,7 +907,7 @@ public class TerraLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:35:13: SPACE
+            	    // /home/paulofreitas/Desktop/lang/TerraLexer.g:35:13: SPACE
             	    {
             	    mSPACE(); 
 
@@ -936,110 +936,110 @@ public class TerraLexer extends Lexer {
     // $ANTLR end "WHITESPACE"
 
     public void mTokens() throws RecognitionException {
-        // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:1:8: ( ASSIGN | LEFT_PAREN | RIGHT_PAREN | LEFT_BRACKET | RIGHT_BRACKET | ATTRIBUITION | DOMAIN_OBJECT | IMPORT | TYPE | PROPERTY | NUMBER | NAME | STRING_LITERAL | NEWLINE | WHITESPACE )
+        // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:8: ( ASSIGN | LEFT_PAREN | RIGHT_PAREN | LEFT_BRACKET | RIGHT_BRACKET | ATTRIBUITION | DOMAIN_OBJECT | IMPORT | TYPE | PROPERTY | NUMBER | NAME | STRING_LITERAL | NEWLINE | WHITESPACE )
         int alt11=15;
         alt11 = dfa11.predict(input);
         switch (alt11) {
             case 1 :
-                // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:1:10: ASSIGN
+                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:10: ASSIGN
                 {
                 mASSIGN(); 
 
                 }
                 break;
             case 2 :
-                // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:1:17: LEFT_PAREN
+                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:17: LEFT_PAREN
                 {
                 mLEFT_PAREN(); 
 
                 }
                 break;
             case 3 :
-                // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:1:28: RIGHT_PAREN
+                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:28: RIGHT_PAREN
                 {
                 mRIGHT_PAREN(); 
 
                 }
                 break;
             case 4 :
-                // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:1:40: LEFT_BRACKET
+                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:40: LEFT_BRACKET
                 {
                 mLEFT_BRACKET(); 
 
                 }
                 break;
             case 5 :
-                // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:1:53: RIGHT_BRACKET
+                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:53: RIGHT_BRACKET
                 {
                 mRIGHT_BRACKET(); 
 
                 }
                 break;
             case 6 :
-                // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:1:67: ATTRIBUITION
+                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:67: ATTRIBUITION
                 {
                 mATTRIBUITION(); 
 
                 }
                 break;
             case 7 :
-                // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:1:80: DOMAIN_OBJECT
+                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:80: DOMAIN_OBJECT
                 {
                 mDOMAIN_OBJECT(); 
 
                 }
                 break;
             case 8 :
-                // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:1:94: IMPORT
+                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:94: IMPORT
                 {
                 mIMPORT(); 
 
                 }
                 break;
             case 9 :
-                // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:1:101: TYPE
+                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:101: TYPE
                 {
                 mTYPE(); 
 
                 }
                 break;
             case 10 :
-                // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:1:106: PROPERTY
+                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:106: PROPERTY
                 {
                 mPROPERTY(); 
 
                 }
                 break;
             case 11 :
-                // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:1:115: NUMBER
+                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:115: NUMBER
                 {
                 mNUMBER(); 
 
                 }
                 break;
             case 12 :
-                // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:1:122: NAME
+                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:122: NAME
                 {
                 mNAME(); 
 
                 }
                 break;
             case 13 :
-                // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:1:127: STRING_LITERAL
+                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:127: STRING_LITERAL
                 {
                 mSTRING_LITERAL(); 
 
                 }
                 break;
             case 14 :
-                // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:1:142: NEWLINE
+                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:142: NEWLINE
                 {
                 mNEWLINE(); 
 
                 }
                 break;
             case 15 :
-                // C:\\Documents and Settings\\Paulo\\Desktop\\antlr\\TerraLexer.g:1:150: WHITESPACE
+                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:150: WHITESPACE
                 {
                 mWHITESPACE(); 
 
@@ -1068,8 +1068,8 @@ public class TerraLexer extends Lexer {
     static final String DFA2_specialS =
         "\23\uffff}>";
     static final String[] DFA2_transitionS = {
-            "\1\3\1\10\4\uffff\1\11\3\uffff\1\7\2\uffff\1\5\1\uffff\1\4"+
-            "\3\uffff\1\6\1\uffff\1\1\1\2",
+            "\1\3\1\10\4\uffff\1\11\3\uffff\1\7\2\uffff\1\5\1\uffff\1\4\3"+
+            "\uffff\1\6\1\uffff\1\1\1\2",
             "",
             "",
             "",
@@ -1184,23 +1184,23 @@ public class TerraLexer extends Lexer {
     static final String DFA11_eofS =
         "\u009f\uffff";
     static final String DFA11_minS =
-        "\1\11\6\uffff\1\151\1\143\1\154\1\157\1\150\1\157\1\164\2\60\1"+
-        "\157\1\141\1\162\2\141\5\uffff\1\155\1\163\1\160\1\164\2\157\1\156"+
-        "\2\157\1\162\1\uffff\1\154\1\167\1\161\1\156\1\145\1\154\2\163\1"+
-        "\156\1\141\1\142\1\141\1\157\1\60\1\156\1\141\1\147\1\162\1\154"+
-        "\1\151\2\163\1\165\1\147\1\163\2\151\1\137\1\153\1\137\1\151\1\154"+
-        "\1\142\1\162\1\uffff\1\60\1\164\1\60\1\164\1\145\1\156\2\160\1\151"+
-        "\2\145\1\144\1\142\1\154\1\60\1\154\1\156\1\145\1\154\1\164\2\60"+
-        "\1\141\1\147\2\141\1\162\1\60\1\156\1\141\1\154\2\145\1\137\1\60"+
-        "\1\145\1\60\1\156\1\60\2\156\1\145\2\164\1\145\2\156\1\157\1\144"+
-        "\1\uffff\3\60\1\144\1\141\1\151\1\60\2\147\1\142\2\60\1\164\1\157"+
-        "\2\164\1\152\1\151\1\156\2\150\1\145\1\157\3\60\1\143\1\156\1\164"+
-        "\1\137\1\60\1\164\1\uffff\1\171\1\160\1\145\1\60";
+        "\1\11\6\uffff\1\151\1\143\1\154\1\157\1\150\1\157\1\164\2\60\1\157"+
+        "\1\141\1\162\2\141\5\uffff\1\155\1\163\1\160\1\164\2\157\1\156\2"+
+        "\157\1\162\1\uffff\1\154\1\167\1\161\1\156\1\145\1\154\2\163\1\156"+
+        "\1\141\1\142\1\141\1\157\1\60\1\156\1\141\1\147\1\162\1\154\1\151"+
+        "\2\163\1\165\1\147\1\163\2\151\1\137\1\153\1\137\1\151\1\154\1\142"+
+        "\1\162\1\uffff\1\60\1\164\1\60\1\164\1\145\1\156\2\160\1\151\2\145"+
+        "\1\144\1\142\1\154\1\60\1\154\1\156\1\145\1\154\1\164\2\60\1\141"+
+        "\1\147\2\141\1\162\1\60\1\156\1\141\1\154\2\145\1\137\1\60\1\145"+
+        "\1\60\1\156\1\60\2\156\1\145\2\164\1\145\2\156\1\157\1\144\1\uffff"+
+        "\3\60\1\144\1\141\1\151\1\60\2\147\1\142\2\60\1\164\1\157\2\164"+
+        "\1\152\1\151\1\156\2\150\1\145\1\157\3\60\1\143\1\156\1\164\1\137"+
+        "\1\60\1\164\1\uffff\1\171\1\160\1\145\1\60";
     static final String DFA11_maxS =
-        "\1\175\6\uffff\1\157\1\156\1\154\1\157\1\150\1\157\1\164\2\172"+
-        "\2\157\1\162\2\151\5\uffff\1\165\1\163\1\160\1\164\2\157\1\156\2"+
-        "\157\1\162\1\uffff\1\154\1\167\1\161\1\156\1\145\1\154\1\163\1\170"+
-        "\1\156\1\141\1\142\1\141\1\157\1\172\1\156\1\141\1\147\1\162\1\154"+
+        "\1\175\6\uffff\1\157\1\156\1\154\1\157\1\150\1\157\1\164\2\172\2"+
+        "\157\1\162\2\151\5\uffff\1\165\1\163\1\160\1\164\2\157\1\156\2\157"+
+        "\1\162\1\uffff\1\154\1\167\1\161\1\156\1\145\1\154\1\163\1\170\1"+
+        "\156\1\141\1\142\1\141\1\157\1\172\1\156\1\141\1\147\1\162\1\154"+
         "\1\151\2\163\1\165\1\147\1\163\2\151\1\137\1\153\1\137\1\151\1\154"+
         "\1\142\1\162\1\uffff\1\172\1\164\1\172\1\164\1\145\1\156\2\160\1"+
         "\151\2\145\1\144\1\142\1\154\1\172\1\154\1\156\1\145\1\154\1\164"+
@@ -1215,11 +1215,11 @@ public class TerraLexer extends Lexer {
     static final String DFA11_specialS =
         "\u009f\uffff}>";
     static final String[] DFA11_transitionS = {
-            "\1\31\1\30\2\uffff\1\30\22\uffff\1\31\1\uffff\1\27\5\uffff"+
-            "\1\2\1\3\6\uffff\12\25\1\6\2\uffff\1\1\3\uffff\22\26\1\15\7"+
-            "\26\6\uffff\1\26\1\14\1\20\1\7\1\26\1\11\2\26\1\10\2\26\1\12"+
-            "\1\24\2\26\1\22\1\26\1\21\1\13\2\26\1\23\1\26\1\16\1\17\1\26"+
-            "\1\4\1\uffff\1\5",
+            "\1\31\1\30\2\uffff\1\30\22\uffff\1\31\1\uffff\1\27\5\uffff\1"+
+            "\2\1\3\6\uffff\12\25\1\6\2\uffff\1\1\3\uffff\22\26\1\15\7\26"+
+            "\6\uffff\1\26\1\14\1\20\1\7\1\26\1\11\2\26\1\10\2\26\1\12\1"+
+            "\24\2\26\1\22\1\26\1\21\1\13\2\26\1\23\1\26\1\16\1\17\1\26\1"+
+            "\4\1\uffff\1\5",
             "",
             "",
             "",
