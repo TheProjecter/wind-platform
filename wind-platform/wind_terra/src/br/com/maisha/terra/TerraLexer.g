@@ -11,7 +11,7 @@ RIGHT_BRACKET: '}';
 ATTRIBUITION:':';
 DOMAIN_OBJECT:'domain_object';
 IMPORT:'import';
-TYPE	:	'int' | 'double' | 'float' | 'long' | 'short' | 'boolean' | 'string';
+TYPE	:	'int' | 'double' | 'float' | 'long' | 'short' | 'boolean' | 'String';
 PROPERTY:	'x' | 'y' | 'colspan' | 'rowspan' | 'presentation_type' | 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'disabled' | 'visible' | 'icon' ;
 
 NUMBER: INTEGER | FLOAT;
