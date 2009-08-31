@@ -21,7 +21,9 @@ public class DomainObject extends TerraClass {
 	public DomainObject(String ref, String label) {
 		super();
 		this.ref = ref;
-		this.label = label;
+		if (!label.trim().isEmpty()) {
+			this.label = label.substring(1, label.length() - 1);
+		}
 	}
 
 	public String getRef() {

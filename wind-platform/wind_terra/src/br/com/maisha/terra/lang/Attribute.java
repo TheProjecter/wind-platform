@@ -32,7 +32,10 @@ public class Attribute extends TerraClass {
 		super();
 		this.type = type;
 		this.ref = ref;
-		this.label = label;
+
+		if (!label.trim().isEmpty()) {
+			this.label = label.substring(1, label.length() - 1);
+		}
 	}
 
 	public String getType() {
@@ -77,8 +80,10 @@ public class Attribute extends TerraClass {
 	public <T> T getPropertyValue(PropertyInfo<T> pInfo) {
 		if (properties != null && pInfo.getPropName() != null) {
 			Property p = properties.get(pInfo.getPropName());
-			if (p != null)
-				return (T) p.getValue();
+			if (p == null) {
+				return pInfo.getDefaultValue();
+			}
+			return (T) p.getValue();
 		}
 		return null;
 	}
