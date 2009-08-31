@@ -4,7 +4,7 @@ String code "Code"{
 x: 0
 y: 1
 required: true
-mask: AA99
+mask: LLNN
 }
 
 double weight "City"{

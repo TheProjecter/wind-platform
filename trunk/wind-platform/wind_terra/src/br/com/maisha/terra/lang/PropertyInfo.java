@@ -5,6 +5,7 @@ import java.util.Map;
 
 /**
  * TODO javadoc!
+ * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  * @param <T>
@@ -16,59 +17,67 @@ public class PropertyInfo<T> {
 
 	/** Descricao da propriedade "x". */
 	public static final PropertyInfo<Integer> X = new PropertyInfo<Integer>(
-			"x", Integer.class);
+			"x", null, Integer.class);
 
 	/** Descricao da propriedade y */
 	public static final PropertyInfo<Integer> Y = new PropertyInfo<Integer>(
-			"y", Integer.class);
+			"y", null, Integer.class);
 
 	/** Descricao da propriedade colspan */
 	public static final PropertyInfo<Integer> COL_SPAN = new PropertyInfo<Integer>(
-			"colspan", Integer.class);
+			"colspan", 0, Integer.class);
 
 	/** Descricao da propriedade rowspan */
 	public static final PropertyInfo<Integer> ROW_SPAN = new PropertyInfo<Integer>(
-			"rowspan", Integer.class);
+			"rowspan", 0, Integer.class);
 
 	/** Descricao da propriedade "presentation_type". */
 	public static final PropertyInfo<String> PRESENTATION_TYPE = new PropertyInfo<String>(
-			"presentation_type", String.class);
+			"presentation_type", "", String.class);
 
 	/** Descricao da propriedade validation */
 	public static final PropertyInfo<String> VALIDATION = new PropertyInfo<String>(
-			"validation", String.class);
+			"validation", "", String.class);
 
 	/** Descricao da propriedade required */
 	public static final PropertyInfo<Boolean> REQUIRED = new PropertyInfo<Boolean>(
-			"required", Boolean.class);
+			"required", false, Boolean.class);
 
 	/** Descricao da propriedade max_length */
 	public static final PropertyInfo<Integer> MAX_LENGTH = new PropertyInfo<Integer>(
-			"max_length", Integer.class);
+			"max_length", null, Integer.class);
 
 	/** Descricao da propriedade min_length */
 	public static final PropertyInfo<Integer> MIN_LENGTH = new PropertyInfo<Integer>(
-			"min_length", Integer.class);
+			"min_length", null, Integer.class);
 
 	/** Descricao da propriedade range */
 	public static final PropertyInfo<String> RANGE = new PropertyInfo<String>(
-			"range", String.class);
+			"range", "", String.class);
 
 	/** Descricao da propriedade mask */
 	public static final PropertyInfo<String> MASK = new PropertyInfo<String>(
-			"mask", String.class);
+			"mask", "", String.class);
 
 	/** Descricao da propriedade disabled */
 	public static final PropertyInfo<Boolean> DISABLED = new PropertyInfo<Boolean>(
-			"disabled", Boolean.class);
+			"disabled", false, Boolean.class);
 
 	/** Descricao da propriedade visible */
 	public static final PropertyInfo<Boolean> VISIBLE = new PropertyInfo<Boolean>(
-			"visible", Boolean.class);
+			"visible", true, Boolean.class);
 
 	/** Descricao da propriedade icon */
 	public static final PropertyInfo<String> ICON = new PropertyInfo<String>(
-			"icon", String.class);
+			"icon", "", String.class);
+	
+	/** Descricao da propriedade width */
+	public static final PropertyInfo<Integer> WIDTH = new PropertyInfo<Integer>(
+			"width", null, Integer.class);
+	
+	/** Descricao da propriedade height */
+	public static final PropertyInfo<Integer> HEIGHT = new PropertyInfo<Integer>(
+			"height", null, Integer.class);
 
 	/** Nome da propriedade. */
 	private String propName;
@@ -76,15 +85,19 @@ public class PropertyInfo<T> {
 	/** Tipo do valor. */
 	private Class<?> type;
 
+	/** Valor default desta propriedade. */
+	private T defaultValue;
+
 	/**
 	 * Construtor.
 	 * 
 	 * @param propName
 	 *            Nome da propriedade.
 	 */
-	public PropertyInfo(String propName, Class<?> type) {
+	public PropertyInfo(String propName, T defaultValue, Class<?> type) {
 		this.propName = propName;
 		this.type = type;
+		this.defaultValue = defaultValue;
 		if (PropertyInfo.pInfoMap == null) {
 			PropertyInfo.pInfoMap = new HashMap<String, PropertyInfo<?>>();
 		}
@@ -112,12 +125,24 @@ public class PropertyInfo<T> {
 		this.propName = propName;
 	}
 
+	/** @see #type */
 	public Class<?> getType() {
 		return type;
 	}
 
+	/** @see #type */
 	public void setType(Class<?> type) {
 		this.type = type;
+	}
+
+	/** @see #defaultValue */
+	public T getDefaultValue() {
+		return defaultValue;
+	}
+
+	/** @see #defaultValue */
+	public void setDefaultValue(T defaultValue) {
+		this.defaultValue = defaultValue;
 	}
 
 }

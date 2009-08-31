@@ -1,5 +1,8 @@
 package br.com.maisha.wind.faces.view;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 import org.apache.log4j.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -93,8 +96,30 @@ public class EditionView extends ViewPart implements IRender {
 	 * 
 	 */
 	private void createUserInterface(DomainObject model) {
+
+		// sort by x,y position
+		Collections.sort(model.getAtts(), new Comparator<Attribute>() {
+
+			public int compare(Attribute one, Attribute other) {
+				Integer xOne = one.getPropertyValue(PropertyInfo.X);
+				Integer xOther = other.getPropertyValue(PropertyInfo.X);
+
+				Integer yOne = one.getPropertyValue(PropertyInfo.Y);
+				Integer yOther = other.getPropertyValue(PropertyInfo.Y);
+
+				if (yOne.compareTo(yOther) == 0) {
+					return xOne.compareTo(xOther);
+				}
+				return yOne.compareTo(yOther);
+
+			}
+		});
+
+		// render
 		for (Attribute attr : model.getAtts()) {
-			createAttributeUI(attr);
+			if (attr.getPropertyValue(PropertyInfo.VISIBLE)) {
+				createAttributeUI(attr);
+			}
 		}
 	}
 
