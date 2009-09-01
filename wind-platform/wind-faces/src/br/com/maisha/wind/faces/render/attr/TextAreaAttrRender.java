@@ -12,21 +12,23 @@ import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Property.PresentationType;
 
 /**
+ * TODO javadoc
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
-public class TextAttrRender extends BaseAttrRender {
+public class TextAreaAttrRender extends BaseAttrRender {
 
 	/** Log ref. */
-	private static final Logger log = Logger.getLogger(TextAttrRender.class);
+	private static final Logger log = Logger
+			.getLogger(TextAreaAttrRender.class);
 
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.attr.IAttributeRender#getPresentationType()
 	 */
 	public PresentationType getPresentationType() {
-		return Property.PresentationType.TEXT;
+		return Property.PresentationType.TEXTAREA;
 	}
 
 	/**
@@ -41,18 +43,14 @@ public class TextAttrRender extends BaseAttrRender {
 
 		createLabel(parent, attr);
 
-		Text text = new Text(parent, SWT.BORDER | SWT.SINGLE);
+		Text text = new Text(parent, SWT.MULTI | SWT.BORDER | SWT.V_SCROLL
+				| SWT.H_SCROLL);
 		text.setData(attr.getRef());
 		text.setToolTipText(attr.getLabel());
 
 		Integer maxLength = attr.getPropertyValue(PropertyInfo.MAX_LENGTH);
 		if (maxLength != null) {
 			text.setTextLimit(maxLength);
-		}
-
-		String mask = attr.getPropertyValue(PropertyInfo.MASK);
-		if (mask.trim().length() > 0) {
-			text.addListener(SWT.Verify, new MaskListener(mask, false));
 		}
 
 		GridData gd = getLayoutData();
@@ -65,4 +63,5 @@ public class TextAttrRender extends BaseAttrRender {
 		text.setEnabled(!attr.getPropertyValue(PropertyInfo.DISABLED));
 
 	}
+
 }
