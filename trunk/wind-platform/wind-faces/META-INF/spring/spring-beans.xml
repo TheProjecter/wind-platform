@@ -16,6 +16,7 @@
 		<property name="attrRender">
 			<map>
 				<entry key="text" value-ref="textAttrRender" />
+				<entry key="textarea" value-ref="textAreaAttrRender" />
 			</map>
 		</property>
 	</bean>
@@ -31,6 +32,7 @@
 
 	<!-- Attribute Renders -->
 	<bean name="textAttrRender" class="br.com.maisha.wind.faces.render.attr.TextAttrRender" />
+	<bean name="textAreaAttrRender" class="br.com.maisha.wind.faces.render.attr.TextAreaAttrRender" />
 
 
 

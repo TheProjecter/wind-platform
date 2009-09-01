@@ -39,7 +39,16 @@ x: 2
 y: 4
 required: true
 width: 250
-colspan: 2
+colspan: 3
+}
+
+String maintenanceReport "Report"{
+x: 1
+y: 5
+required: true
+presentation_type: textarea
+width: 300
+height: 80
 }
 
 
