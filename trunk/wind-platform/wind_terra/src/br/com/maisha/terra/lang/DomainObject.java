@@ -18,6 +18,8 @@ public class DomainObject extends TerraClass {
 
 	private List<Import> imports = new ArrayList<Import>();
 
+	private List<Operation> operations = new ArrayList<Operation>();
+
 	public DomainObject(String ref, String label) {
 		super();
 		this.ref = ref;
@@ -60,6 +62,14 @@ public class DomainObject extends TerraClass {
 
 	public void setImports(List<Import> imports) {
 		this.imports = imports;
+	}
+
+	public List<Operation> getOperations() {
+		return operations;
+	}
+
+	public void setOperations(List<Operation> operations) {
+		this.operations = operations;
 	}
 
 	/**
