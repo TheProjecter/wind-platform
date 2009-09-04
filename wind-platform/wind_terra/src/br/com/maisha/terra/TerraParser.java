@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/paulofreitas/Desktop/lang/TerraParser.g 2009-09-01 21:47:29
+// $ANTLR 3.1.2 /home/paulofreitas/Desktop/lang/TerraParser.g 2009-09-04 19:54:50
  
 package br.com.maisha.terra; 
 import java.util.HashMap;
@@ -24,35 +24,37 @@ import org.antlr.runtime.tree.*;
 
 public class TerraParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ASSIGN", "LEFT_PAREN", "RIGHT_PAREN", "LEFT_BRACKET", "RIGHT_BRACKET", "ATTRIBUITION", "DOMAIN_OBJECT", "IMPORT", "TYPE", "PROPERTY", "OPERATION", "OP_TYPE", "INTEGER", "FLOAT", "NUMBER", "LETTER", "DIGIT", "NAME", "NONCONTROL_CHAR", "STRING_LITERAL", "SYMBOL", "SPACE", "LOWER", "UPPER", "NEWLINE", "WHITESPACE"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ASSIGN", "LEFT_PAREN", "RIGHT_PAREN", "LEFT_BRACKET", "RIGHT_BRACKET", "ATTRIBUITION", "DOMAIN_OBJECT", "IMPORT", "TYPE", "PROPERTY", "ATTRIBUTE_PROPERTY", "OPERATION_PROPERTY", "OPERATION", "OP_TYPE", "INTEGER", "FLOAT", "NUMBER", "LETTER", "DIGIT", "NAME", "NONCONTROL_CHAR", "STRING_LITERAL", "SYMBOL", "SPACE", "LOWER", "UPPER", "NEWLINE", "WHITESPACE"
     };
-    public static final int INTEGER=16;
+    public static final int INTEGER=18;
     public static final int DOMAIN_OBJECT=10;
-    public static final int SYMBOL=24;
-    public static final int LETTER=19;
+    public static final int SYMBOL=26;
+    public static final int LETTER=21;
+    public static final int ATTRIBUTE_PROPERTY=14;
     public static final int LEFT_BRACKET=7;
-    public static final int NUMBER=18;
-    public static final int WHITESPACE=29;
+    public static final int NUMBER=20;
+    public static final int WHITESPACE=31;
     public static final int ATTRIBUITION=9;
-    public static final int FLOAT=17;
+    public static final int FLOAT=19;
+    public static final int OPERATION_PROPERTY=15;
     public static final int EOF=-1;
-    public static final int SPACE=25;
+    public static final int SPACE=27;
     public static final int TYPE=12;
     public static final int RIGHT_PAREN=6;
-    public static final int NAME=21;
+    public static final int NAME=23;
     public static final int IMPORT=11;
-    public static final int STRING_LITERAL=23;
-    public static final int NEWLINE=28;
-    public static final int NONCONTROL_CHAR=22;
+    public static final int STRING_LITERAL=25;
+    public static final int NEWLINE=30;
+    public static final int NONCONTROL_CHAR=24;
     public static final int PROPERTY=13;
     public static final int RIGHT_BRACKET=8;
     public static final int ASSIGN=4;
     public static final int LEFT_PAREN=5;
-    public static final int DIGIT=20;
-    public static final int LOWER=26;
-    public static final int OPERATION=14;
-    public static final int OP_TYPE=15;
-    public static final int UPPER=27;
+    public static final int DIGIT=22;
+    public static final int LOWER=28;
+    public static final int OPERATION=16;
+    public static final int OP_TYPE=17;
+    public static final int UPPER=29;
 
     // delegates
     // delegators
@@ -530,7 +532,7 @@ public class TerraParser extends Parser {
                 int alt5=2;
                 int LA5_0 = input.LA(1);
 
-                if ( (LA5_0==PROPERTY||LA5_0==NEWLINE) ) {
+                if ( ((LA5_0>=PROPERTY && LA5_0<=ATTRIBUTE_PROPERTY)||LA5_0==NEWLINE) ) {
                     alt5=1;
                 }
 
@@ -585,7 +587,7 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "property"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:68:1: property : ( NEWLINE | PROPERTY ATTRIBUITION value );
+    // /home/paulofreitas/Desktop/lang/TerraParser.g:68:1: property : ( NEWLINE | attr_prop_name ATTRIBUITION value );
     public final TerraParser.property_return property() throws RecognitionException {
         TerraParser.property_return retval = new TerraParser.property_return();
         retval.start = input.LT(1);
@@ -593,24 +595,24 @@ public class TerraParser extends Parser {
         Object root_0 = null;
 
         Token NEWLINE20=null;
-        Token PROPERTY21=null;
         Token ATTRIBUITION22=null;
+        TerraParser.attr_prop_name_return attr_prop_name21 = null;
+
         TerraParser.value_return value23 = null;
 
 
         Object NEWLINE20_tree=null;
-        Object PROPERTY21_tree=null;
         Object ATTRIBUITION22_tree=null;
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:68:9: ( NEWLINE | PROPERTY ATTRIBUITION value )
+            // /home/paulofreitas/Desktop/lang/TerraParser.g:68:9: ( NEWLINE | attr_prop_name ATTRIBUITION value )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
             if ( (LA6_0==NEWLINE) ) {
                 alt6=1;
             }
-            else if ( (LA6_0==PROPERTY) ) {
+            else if ( ((LA6_0>=PROPERTY && LA6_0<=ATTRIBUTE_PROPERTY)) ) {
                 alt6=2;
             }
             else {
@@ -633,14 +635,16 @@ public class TerraParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/paulofreitas/Desktop/lang/TerraParser.g:68:21: PROPERTY ATTRIBUITION value
+                    // /home/paulofreitas/Desktop/lang/TerraParser.g:68:21: attr_prop_name ATTRIBUITION value
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    PROPERTY21=(Token)match(input,PROPERTY,FOLLOW_PROPERTY_in_property160); 
-                    PROPERTY21_tree = (Object)adaptor.create(PROPERTY21);
-                    adaptor.addChild(root_0, PROPERTY21_tree);
+                    pushFollow(FOLLOW_attr_prop_name_in_property160);
+                    attr_prop_name21=attr_prop_name();
 
+                    state._fsp--;
+
+                    adaptor.addChild(root_0, attr_prop_name21.getTree());
                     ATTRIBUITION22=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_property162); 
                     ATTRIBUITION22_tree = (Object)adaptor.create(ATTRIBUITION22);
                     adaptor.addChild(root_0, ATTRIBUITION22_tree);
@@ -656,11 +660,11 @@ public class TerraParser extends Parser {
                     				.getService(IConverterService.class,
                     						Activator.getDefault().getBundle().getBundleContext());
                     						
-                    		Class<?> type = PropertyInfo.getPropertyInfo((PROPERTY21!=null?PROPERTY21.getText():null)).getType();
+                    		Class<?> type = PropertyInfo.getPropertyInfo((attr_prop_name21!=null?input.toString(attr_prop_name21.start,attr_prop_name21.stop):null)).getType();
                     		Object propValue = convService.convert(type, (value23!=null?input.toString(value23.start,value23.stop):null));
                     		
-                    		Property p = new Property((PROPERTY21!=null?PROPERTY21.getText():null), propValue);
-                    		props.put((PROPERTY21!=null?PROPERTY21.getText():null), p);
+                    		Property p = new Property((attr_prop_name21!=null?input.toString(attr_prop_name21.start,attr_prop_name21.stop):null), propValue);
+                    		props.put((attr_prop_name21!=null?input.toString(attr_prop_name21.start,attr_prop_name21.stop):null), p);
                     	
 
                     }
@@ -685,6 +689,61 @@ public class TerraParser extends Parser {
     }
     // $ANTLR end "property"
 
+    public static class attr_prop_name_return extends ParserRuleReturnScope {
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "attr_prop_name"
+    // /home/paulofreitas/Desktop/lang/TerraParser.g:80:1: attr_prop_name : ( PROPERTY | ATTRIBUTE_PROPERTY );
+    public final TerraParser.attr_prop_name_return attr_prop_name() throws RecognitionException {
+        TerraParser.attr_prop_name_return retval = new TerraParser.attr_prop_name_return();
+        retval.start = input.LT(1);
+
+        Object root_0 = null;
+
+        Token set24=null;
+
+        Object set24_tree=null;
+
+        try {
+            // /home/paulofreitas/Desktop/lang/TerraParser.g:80:15: ( PROPERTY | ATTRIBUTE_PROPERTY )
+            // /home/paulofreitas/Desktop/lang/TerraParser.g:
+            {
+            root_0 = (Object)adaptor.nil();
+
+            set24=(Token)input.LT(1);
+            if ( (input.LA(1)>=PROPERTY && input.LA(1)<=ATTRIBUTE_PROPERTY) ) {
+                input.consume();
+                adaptor.addChild(root_0, (Object)adaptor.create(set24));
+                state.errorRecovery=false;
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                throw mse;
+            }
+
+
+            }
+
+            retval.stop = input.LT(-1);
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+        }
+        return retval;
+    }
+    // $ANTLR end "attr_prop_name"
+
     public static class value_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
@@ -698,9 +757,9 @@ public class TerraParser extends Parser {
 
         Object root_0 = null;
 
-        Token set24=null;
+        Token set25=null;
 
-        Object set24_tree=null;
+        Object set25_tree=null;
 
         try {
             // /home/paulofreitas/Desktop/lang/TerraParser.g:81:7: ( ( NUMBER | NAME ) )
@@ -708,10 +767,10 @@ public class TerraParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            set24=(Token)input.LT(1);
+            set25=(Token)input.LT(1);
             if ( input.LA(1)==NUMBER||input.LA(1)==NAME ) {
                 input.consume();
-                adaptor.addChild(root_0, (Object)adaptor.create(set24));
+                adaptor.addChild(root_0, (Object)adaptor.create(set25));
                 state.errorRecovery=false;
             }
             else {
@@ -753,23 +812,23 @@ public class TerraParser extends Parser {
 
         Object root_0 = null;
 
-        Token NEWLINE25=null;
-        Token OPERATION26=null;
-        Token OP_TYPE27=null;
-        Token NAME28=null;
-        Token STRING_LITERAL29=null;
-        Token LEFT_BRACKET30=null;
-        Token RIGHT_BRACKET32=null;
-        TerraParser.op_body_return op_body31 = null;
+        Token NEWLINE26=null;
+        Token OPERATION27=null;
+        Token OP_TYPE28=null;
+        Token NAME29=null;
+        Token STRING_LITERAL30=null;
+        Token LEFT_BRACKET31=null;
+        Token RIGHT_BRACKET33=null;
+        TerraParser.op_body_return op_body32 = null;
 
 
-        Object NEWLINE25_tree=null;
-        Object OPERATION26_tree=null;
-        Object OP_TYPE27_tree=null;
-        Object NAME28_tree=null;
-        Object STRING_LITERAL29_tree=null;
-        Object LEFT_BRACKET30_tree=null;
-        Object RIGHT_BRACKET32_tree=null;
+        Object NEWLINE26_tree=null;
+        Object OPERATION27_tree=null;
+        Object OP_TYPE28_tree=null;
+        Object NAME29_tree=null;
+        Object STRING_LITERAL30_tree=null;
+        Object LEFT_BRACKET31_tree=null;
+        Object RIGHT_BRACKET33_tree=null;
 
         try {
             // /home/paulofreitas/Desktop/lang/TerraParser.g:84:10: ( NEWLINE | OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body RIGHT_BRACKET )
@@ -794,9 +853,9 @@ public class TerraParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    NEWLINE25=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_operation192); 
-                    NEWLINE25_tree = (Object)adaptor.create(NEWLINE25);
-                    adaptor.addChild(root_0, NEWLINE25_tree);
+                    NEWLINE26=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_operation198); 
+                    NEWLINE26_tree = (Object)adaptor.create(NEWLINE26);
+                    adaptor.addChild(root_0, NEWLINE26_tree);
 
 
                     }
@@ -806,38 +865,38 @@ public class TerraParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    OPERATION26=(Token)match(input,OPERATION,FOLLOW_OPERATION_in_operation196); 
-                    OPERATION26_tree = (Object)adaptor.create(OPERATION26);
-                    adaptor.addChild(root_0, OPERATION26_tree);
+                    OPERATION27=(Token)match(input,OPERATION,FOLLOW_OPERATION_in_operation202); 
+                    OPERATION27_tree = (Object)adaptor.create(OPERATION27);
+                    adaptor.addChild(root_0, OPERATION27_tree);
 
-                    OP_TYPE27=(Token)match(input,OP_TYPE,FOLLOW_OP_TYPE_in_operation198); 
-                    OP_TYPE27_tree = (Object)adaptor.create(OP_TYPE27);
-                    adaptor.addChild(root_0, OP_TYPE27_tree);
+                    OP_TYPE28=(Token)match(input,OP_TYPE,FOLLOW_OP_TYPE_in_operation204); 
+                    OP_TYPE28_tree = (Object)adaptor.create(OP_TYPE28);
+                    adaptor.addChild(root_0, OP_TYPE28_tree);
 
-                    NAME28=(Token)match(input,NAME,FOLLOW_NAME_in_operation200); 
-                    NAME28_tree = (Object)adaptor.create(NAME28);
-                    adaptor.addChild(root_0, NAME28_tree);
+                    NAME29=(Token)match(input,NAME,FOLLOW_NAME_in_operation206); 
+                    NAME29_tree = (Object)adaptor.create(NAME29);
+                    adaptor.addChild(root_0, NAME29_tree);
 
-                    STRING_LITERAL29=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_operation202); 
-                    STRING_LITERAL29_tree = (Object)adaptor.create(STRING_LITERAL29);
-                    adaptor.addChild(root_0, STRING_LITERAL29_tree);
+                    STRING_LITERAL30=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_operation208); 
+                    STRING_LITERAL30_tree = (Object)adaptor.create(STRING_LITERAL30);
+                    adaptor.addChild(root_0, STRING_LITERAL30_tree);
 
-                    LEFT_BRACKET30=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_operation204); 
-                    LEFT_BRACKET30_tree = (Object)adaptor.create(LEFT_BRACKET30);
-                    adaptor.addChild(root_0, LEFT_BRACKET30_tree);
+                    LEFT_BRACKET31=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_operation210); 
+                    LEFT_BRACKET31_tree = (Object)adaptor.create(LEFT_BRACKET31);
+                    adaptor.addChild(root_0, LEFT_BRACKET31_tree);
 
-                    pushFollow(FOLLOW_op_body_in_operation206);
-                    op_body31=op_body();
+                    pushFollow(FOLLOW_op_body_in_operation212);
+                    op_body32=op_body();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, op_body31.getTree());
-                    RIGHT_BRACKET32=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_operation208); 
-                    RIGHT_BRACKET32_tree = (Object)adaptor.create(RIGHT_BRACKET32);
-                    adaptor.addChild(root_0, RIGHT_BRACKET32_tree);
+                    adaptor.addChild(root_0, op_body32.getTree());
+                    RIGHT_BRACKET33=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_operation214); 
+                    RIGHT_BRACKET33_tree = (Object)adaptor.create(RIGHT_BRACKET33);
+                    adaptor.addChild(root_0, RIGHT_BRACKET33_tree);
 
 
-                    		Operation op = new Operation((OP_TYPE27!=null?OP_TYPE27.getText():null), (NAME28!=null?NAME28.getText():null), (STRING_LITERAL29!=null?STRING_LITERAL29.getText():null));
+                    		Operation op = new Operation((OP_TYPE28!=null?OP_TYPE28.getText():null), (NAME29!=null?NAME29.getText():null), (STRING_LITERAL30!=null?STRING_LITERAL30.getText():null));
                     		op.setProperties(op_props);
                     		ops.add(op);
                     		op_props = new HashMap<String, Property>();
@@ -878,7 +937,7 @@ public class TerraParser extends Parser {
 
         Object root_0 = null;
 
-        TerraParser.op_prop_return op_prop33 = null;
+        TerraParser.op_prop_return op_prop34 = null;
 
 
 
@@ -895,7 +954,7 @@ public class TerraParser extends Parser {
                 int alt8=2;
                 int LA8_0 = input.LA(1);
 
-                if ( (LA8_0==PROPERTY||LA8_0==NEWLINE) ) {
+                if ( (LA8_0==PROPERTY||LA8_0==OPERATION_PROPERTY||LA8_0==NEWLINE) ) {
                     alt8=1;
                 }
 
@@ -904,12 +963,12 @@ public class TerraParser extends Parser {
             	case 1 :
             	    // /home/paulofreitas/Desktop/lang/TerraParser.g:92:11: op_prop
             	    {
-            	    pushFollow(FOLLOW_op_prop_in_op_body220);
-            	    op_prop33=op_prop();
+            	    pushFollow(FOLLOW_op_prop_in_op_body226);
+            	    op_prop34=op_prop();
 
             	    state._fsp--;
 
-            	    adaptor.addChild(root_0, op_prop33.getTree());
+            	    adaptor.addChild(root_0, op_prop34.getTree());
 
             	    }
             	    break;
@@ -950,32 +1009,32 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "op_prop"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:94:1: op_prop : ( NEWLINE | PROPERTY ATTRIBUITION value );
+    // /home/paulofreitas/Desktop/lang/TerraParser.g:94:1: op_prop : ( NEWLINE | op_prop_name ATTRIBUITION value );
     public final TerraParser.op_prop_return op_prop() throws RecognitionException {
         TerraParser.op_prop_return retval = new TerraParser.op_prop_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token NEWLINE34=null;
-        Token PROPERTY35=null;
-        Token ATTRIBUITION36=null;
-        TerraParser.value_return value37 = null;
+        Token NEWLINE35=null;
+        Token ATTRIBUITION37=null;
+        TerraParser.op_prop_name_return op_prop_name36 = null;
+
+        TerraParser.value_return value38 = null;
 
 
-        Object NEWLINE34_tree=null;
-        Object PROPERTY35_tree=null;
-        Object ATTRIBUITION36_tree=null;
+        Object NEWLINE35_tree=null;
+        Object ATTRIBUITION37_tree=null;
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:94:8: ( NEWLINE | PROPERTY ATTRIBUITION value )
+            // /home/paulofreitas/Desktop/lang/TerraParser.g:94:8: ( NEWLINE | op_prop_name ATTRIBUITION value )
             int alt9=2;
             int LA9_0 = input.LA(1);
 
             if ( (LA9_0==NEWLINE) ) {
                 alt9=1;
             }
-            else if ( (LA9_0==PROPERTY) ) {
+            else if ( (LA9_0==PROPERTY||LA9_0==OPERATION_PROPERTY) ) {
                 alt9=2;
             }
             else {
@@ -990,42 +1049,44 @@ public class TerraParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    NEWLINE34=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_op_prop228); 
-                    NEWLINE34_tree = (Object)adaptor.create(NEWLINE34);
-                    adaptor.addChild(root_0, NEWLINE34_tree);
+                    NEWLINE35=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_op_prop234); 
+                    NEWLINE35_tree = (Object)adaptor.create(NEWLINE35);
+                    adaptor.addChild(root_0, NEWLINE35_tree);
 
 
                     }
                     break;
                 case 2 :
-                    // /home/paulofreitas/Desktop/lang/TerraParser.g:94:20: PROPERTY ATTRIBUITION value
+                    // /home/paulofreitas/Desktop/lang/TerraParser.g:94:20: op_prop_name ATTRIBUITION value
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    PROPERTY35=(Token)match(input,PROPERTY,FOLLOW_PROPERTY_in_op_prop232); 
-                    PROPERTY35_tree = (Object)adaptor.create(PROPERTY35);
-                    adaptor.addChild(root_0, PROPERTY35_tree);
-
-                    ATTRIBUITION36=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_op_prop234); 
-                    ATTRIBUITION36_tree = (Object)adaptor.create(ATTRIBUITION36);
-                    adaptor.addChild(root_0, ATTRIBUITION36_tree);
-
-                    pushFollow(FOLLOW_value_in_op_prop236);
-                    value37=value();
+                    pushFollow(FOLLOW_op_prop_name_in_op_prop238);
+                    op_prop_name36=op_prop_name();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, value37.getTree());
+                    adaptor.addChild(root_0, op_prop_name36.getTree());
+                    ATTRIBUITION37=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_op_prop240); 
+                    ATTRIBUITION37_tree = (Object)adaptor.create(ATTRIBUITION37);
+                    adaptor.addChild(root_0, ATTRIBUITION37_tree);
+
+                    pushFollow(FOLLOW_value_in_op_prop242);
+                    value38=value();
+
+                    state._fsp--;
+
+                    adaptor.addChild(root_0, value38.getTree());
 
                     		IConverterService convService = ServiceProvider.getInstance()
                     				.getService(IConverterService.class,
                     						Activator.getDefault().getBundle().getBundleContext());
                     						
-                    		Class<?> type = PropertyInfo.getPropertyInfo((PROPERTY35!=null?PROPERTY35.getText():null)).getType();
-                    		Object propValue = convService.convert(type, (value37!=null?input.toString(value37.start,value37.stop):null));
+                    		Class<?> type = PropertyInfo.getPropertyInfo((op_prop_name36!=null?input.toString(op_prop_name36.start,op_prop_name36.stop):null)).getType();
+                    		Object propValue = convService.convert(type, (value38!=null?input.toString(value38.start,value38.stop):null));
                     		
-                    		Property p = new Property((PROPERTY35!=null?PROPERTY35.getText():null), propValue);
-                    		op_props.put((PROPERTY35!=null?PROPERTY35.getText():null), p);
+                    		Property p = new Property((op_prop_name36!=null?input.toString(op_prop_name36.start,op_prop_name36.stop):null), propValue);
+                    		op_props.put((op_prop_name36!=null?input.toString(op_prop_name36.start,op_prop_name36.stop):null), p);
                     	
 
                     }
@@ -1050,47 +1111,104 @@ public class TerraParser extends Parser {
     }
     // $ANTLR end "op_prop"
 
+    public static class op_prop_name_return extends ParserRuleReturnScope {
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "op_prop_name"
+    // /home/paulofreitas/Desktop/lang/TerraParser.g:107:1: op_prop_name : ( PROPERTY | OPERATION_PROPERTY );
+    public final TerraParser.op_prop_name_return op_prop_name() throws RecognitionException {
+        TerraParser.op_prop_name_return retval = new TerraParser.op_prop_name_return();
+        retval.start = input.LT(1);
+
+        Object root_0 = null;
+
+        Token set39=null;
+
+        Object set39_tree=null;
+
+        try {
+            // /home/paulofreitas/Desktop/lang/TerraParser.g:107:14: ( PROPERTY | OPERATION_PROPERTY )
+            // /home/paulofreitas/Desktop/lang/TerraParser.g:
+            {
+            root_0 = (Object)adaptor.nil();
+
+            set39=(Token)input.LT(1);
+            if ( input.LA(1)==PROPERTY||input.LA(1)==OPERATION_PROPERTY ) {
+                input.consume();
+                adaptor.addChild(root_0, (Object)adaptor.create(set39));
+                state.errorRecovery=false;
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                throw mse;
+            }
+
+
+            }
+
+            retval.stop = input.LT(-1);
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+        }
+        return retval;
+    }
+    // $ANTLR end "op_prop_name"
+
     // Delegated rules
 
 
  
 
     public static final BitSet FOLLOW_import_declaration_in_domain_object58 = new BitSet(new long[]{0x0000000000000C00L});
-    public static final BitSet FOLLOW_DOMAIN_OBJECT_in_domain_object63 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_NAME_in_domain_object65 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_DOMAIN_OBJECT_in_domain_object63 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_NAME_in_domain_object65 = new BitSet(new long[]{0x0000000002000000L});
     public static final BitSet FOLLOW_STRING_LITERAL_in_domain_object67 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_LEFT_BRACKET_in_domain_object69 = new BitSet(new long[]{0x0000000010005100L});
+    public static final BitSet FOLLOW_LEFT_BRACKET_in_domain_object69 = new BitSet(new long[]{0x0000000040011100L});
     public static final BitSet FOLLOW_body_in_domain_object71 = new BitSet(new long[]{0x0000000000000100L});
     public static final BitSet FOLLOW_RIGHT_BRACKET_in_domain_object74 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IMPORT_in_import_declaration87 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_NAME_in_import_declaration89 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_NEWLINE_in_import_declaration91 = new BitSet(new long[]{0x0000000010000002L});
-    public static final BitSet FOLLOW_attr_in_body109 = new BitSet(new long[]{0x0000000010005002L});
-    public static final BitSet FOLLOW_operation_in_body113 = new BitSet(new long[]{0x0000000010005002L});
-    public static final BitSet FOLLOW_TYPE_in_attr125 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_NAME_in_attr127 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_IMPORT_in_import_declaration87 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_NAME_in_import_declaration89 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_NEWLINE_in_import_declaration91 = new BitSet(new long[]{0x0000000040000002L});
+    public static final BitSet FOLLOW_attr_in_body109 = new BitSet(new long[]{0x0000000040011002L});
+    public static final BitSet FOLLOW_operation_in_body113 = new BitSet(new long[]{0x0000000040011002L});
+    public static final BitSet FOLLOW_TYPE_in_attr125 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_NAME_in_attr127 = new BitSet(new long[]{0x0000000002000000L});
     public static final BitSet FOLLOW_STRING_LITERAL_in_attr129 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_LEFT_BRACKET_in_attr131 = new BitSet(new long[]{0x0000000010002000L});
+    public static final BitSet FOLLOW_LEFT_BRACKET_in_attr131 = new BitSet(new long[]{0x0000000040006000L});
     public static final BitSet FOLLOW_attr_body_in_attr133 = new BitSet(new long[]{0x0000000000000100L});
     public static final BitSet FOLLOW_RIGHT_BRACKET_in_attr135 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_property_in_attr_body148 = new BitSet(new long[]{0x0000000010002002L});
+    public static final BitSet FOLLOW_property_in_attr_body148 = new BitSet(new long[]{0x0000000040006002L});
     public static final BitSet FOLLOW_NEWLINE_in_property156 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PROPERTY_in_property160 = new BitSet(new long[]{0x0000000000000200L});
-    public static final BitSet FOLLOW_ATTRIBUITION_in_property162 = new BitSet(new long[]{0x0000000000240000L});
+    public static final BitSet FOLLOW_attr_prop_name_in_property160 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_ATTRIBUITION_in_property162 = new BitSet(new long[]{0x0000000000900000L});
     public static final BitSet FOLLOW_value_in_property164 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_value177 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_operation192 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OPERATION_in_operation196 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_OP_TYPE_in_operation198 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_NAME_in_operation200 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_STRING_LITERAL_in_operation202 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_LEFT_BRACKET_in_operation204 = new BitSet(new long[]{0x0000000010002000L});
-    public static final BitSet FOLLOW_op_body_in_operation206 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_RIGHT_BRACKET_in_operation208 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_op_prop_in_op_body220 = new BitSet(new long[]{0x0000000010002002L});
-    public static final BitSet FOLLOW_NEWLINE_in_op_prop228 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PROPERTY_in_op_prop232 = new BitSet(new long[]{0x0000000000000200L});
-    public static final BitSet FOLLOW_ATTRIBUITION_in_op_prop234 = new BitSet(new long[]{0x0000000000240000L});
-    public static final BitSet FOLLOW_value_in_op_prop236 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_attr_prop_name0 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_value183 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_operation198 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OPERATION_in_operation202 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_OP_TYPE_in_operation204 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_NAME_in_operation206 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_STRING_LITERAL_in_operation208 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_LEFT_BRACKET_in_operation210 = new BitSet(new long[]{0x000000004000A000L});
+    public static final BitSet FOLLOW_op_body_in_operation212 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_RIGHT_BRACKET_in_operation214 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_op_prop_in_op_body226 = new BitSet(new long[]{0x000000004000A002L});
+    public static final BitSet FOLLOW_NEWLINE_in_op_prop234 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_op_prop_name_in_op_prop238 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_ATTRIBUITION_in_op_prop240 = new BitSet(new long[]{0x0000000000900000L});
+    public static final BitSet FOLLOW_value_in_op_prop242 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_op_prop_name0 = new BitSet(new long[]{0x0000000000000002L});
 
 }
