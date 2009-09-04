@@ -65,19 +65,19 @@ attr	:   TYPE NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET {
 
 attr_body :  property+;
 
-property:	NEWLINE | PROPERTY ATTRIBUITION value {
+property:	NEWLINE | attr_prop_name ATTRIBUITION value {
 		IConverterService convService = ServiceProvider.getInstance()
 				.getService(IConverterService.class,
 						Activator.getDefault().getBundle().getBundleContext());
 						
-		Class<?> type = PropertyInfo.getPropertyInfo($PROPERTY.text).getType();
+		Class<?> type = PropertyInfo.getPropertyInfo($attr_prop_name.text).getType();
 		Object propValue = convService.convert(type, $value.text);
 		
-		Property p = new Property($PROPERTY.text, propValue);
-		props.put($PROPERTY.text, p);
+		Property p = new Property($attr_prop_name.text, propValue);
+		props.put($attr_prop_name.text, p);
 	}
 	;
-	
+attr_prop_name: PROPERTY|ATTRIBUTE_PROPERTY;
 value	:	(NUMBER | NAME);
 
 
@@ -91,15 +91,17 @@ operation:  NEWLINE | OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body
 	
 op_body	: op_prop+;
 
-op_prop:	NEWLINE | PROPERTY ATTRIBUITION value {
+op_prop:	NEWLINE | op_prop_name ATTRIBUITION value {
 		IConverterService convService = ServiceProvider.getInstance()
 				.getService(IConverterService.class,
 						Activator.getDefault().getBundle().getBundleContext());
 						
-		Class<?> type = PropertyInfo.getPropertyInfo($PROPERTY.text).getType();
+		Class<?> type = PropertyInfo.getPropertyInfo($op_prop_name.text).getType();
 		Object propValue = convService.convert(type, $value.text);
 		
-		Property p = new Property($PROPERTY.text, propValue);
-		op_props.put($PROPERTY.text, p);
+		Property p = new Property($op_prop_name.text, propValue);
+		op_props.put($op_prop_name.text, p);
 	}
 	;
+
+op_prop_name	: PROPERTY | OPERATION_PROPERTY;

@@ -12,7 +12,9 @@ ATTRIBUITION:':';
 DOMAIN_OBJECT:'domain_object';
 IMPORT:'import';
 TYPE	:	'int' | 'double' | 'float' | 'long' | 'short' | 'boolean' | 'String';
-PROPERTY:	'x' | 'y' | 'colspan' | 'rowspan' | 'presentation_type' | 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'disabled' | 'visible' | 'icon' | 'width' | 'height';
+PROPERTY:	'x' | 'y' | 'colspan' | 'rowspan' | 'presentation_type' |  'disabled' | 'visible' | 'icon' | 'width' | 'height';
+ATTRIBUTE_PROPERTY: 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'event' ;
+OPERATION_PROPERTY: 'class' | 'file';
 OPERATION: 'operation';
 OP_TYPE: 'java' | 'python' | 'groowy';
 
