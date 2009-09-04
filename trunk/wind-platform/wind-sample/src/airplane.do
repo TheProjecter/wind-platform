@@ -52,7 +52,7 @@ height: 80
 }
 
 operation python save "Salvar"{
-
+file: RuleSave.py
 }
 
 }
