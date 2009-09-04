@@ -78,6 +78,18 @@ public class PropertyInfo<T> {
 	/** Descricao da propriedade height */
 	public static final PropertyInfo<Integer> HEIGHT = new PropertyInfo<Integer>(
 			"height", null, Integer.class);
+	
+	/** Descricao da propriedade event */
+	public static final PropertyInfo<String> EVENT = new PropertyInfo<String>(
+			"event", null, String.class);
+	
+	/** Descricao da propriedade class */
+	public static final PropertyInfo<String> CLASS = new PropertyInfo<String>(
+			"class", null, String.class);
+	
+	/** Descricao da propriedade file */
+	public static final PropertyInfo<String> FILE = new PropertyInfo<String>(
+			"file", null, String.class);
 
 	/** Nome da propriedade. */
 	private String propName;
