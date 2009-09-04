@@ -71,4 +71,15 @@ public class Operation extends TerraClass {
 		this.properties = properties;
 	}
 
+	/**
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("type: ").append(getType());
+		sb.append("ref: ").append(getRef());
+		sb.append("label: ").append(getLabel());
+		return sb.toString();
+	}
 }
