@@ -23,7 +23,7 @@
 
 
 	<!-- Model Renders -->
-	<bean name="menuRenderer" class="br.com.maisha.wind.faces.render.MenuRender">
+	<bean name="menuRenderer" class="br.com.maisha.wind.faces.render.menu.MenuRender">
 		<property name="presentationProvider">
 			<ref bean="presentationProvider" />
 		</property>
