@@ -30,12 +30,12 @@ x: 1
 y: 3
 required: true
 max_length: 5
-width: 250
+width: 450
 colspan: 3
 }
 
 String destiny "Destiny"{
-x: 2
+x: 1
 y: 4
 required: true
 width: 250
@@ -49,7 +49,9 @@ required: true
 presentation_type: textarea
 width: 300
 height: 80
+colspan: 2
 }
+
 
 operation python save "Salvar"{
 file: RuleSave.py

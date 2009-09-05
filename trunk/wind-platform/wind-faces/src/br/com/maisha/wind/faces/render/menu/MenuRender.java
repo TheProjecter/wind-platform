@@ -1,4 +1,4 @@
-package br.com.maisha.wind.faces.render;
+package br.com.maisha.wind.faces.render.menu;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.action.Action;
@@ -12,6 +12,8 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.faces.rcp.RCPUtil;
+import br.com.maisha.wind.faces.render.BaseRender;
+import br.com.maisha.wind.faces.render.IRender;
 import br.com.maisha.wind.lifecycle.model.WindApplication;
 
 /**

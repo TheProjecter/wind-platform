@@ -73,6 +73,24 @@ public class Operation extends TerraClass {
 
 	/**
 	 * 
+	 * @param <T>
+	 * @param pInfo
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public <T> T getPropertyValue(PropertyInfo<T> pInfo) {
+		if (properties != null && pInfo.getPropName() != null) {
+			Property p = properties.get(pInfo.getPropName());
+			if (p == null) {
+				return pInfo.getDefaultValue();
+			}
+			return (T) p.getValue();
+		}
+		return null;
+	}
+
+	/**
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {

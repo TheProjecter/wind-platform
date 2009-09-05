@@ -39,7 +39,7 @@ public class TextAreaAttrRender extends BaseAttrRender {
 	public void render(Attribute attr, Composite parent) {
 		log.debug("Starting render for attr [" + attr + "] ");
 
-		checkNumColumns(parent, attr);
+		//checkNumColumns(parent, attr);
 
 		createLabel(parent, attr);
 

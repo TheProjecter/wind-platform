@@ -2,16 +2,21 @@ package br.com.maisha.wind.faces.view;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.ViewPart;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
+import br.com.maisha.terra.lang.Operation;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.factory.ServiceProvider;
@@ -115,10 +120,62 @@ public class EditionView extends ViewPart implements IRender {
 			}
 		});
 
-		// render
+		// set up layout...
+		Map<Point, Attribute> layout = new HashMap<Point, Attribute>();
+		int maxX = -1;
+		int maxY = -1;
 		for (Attribute attr : model.getAtts()) {
-			if (attr.getPropertyValue(PropertyInfo.VISIBLE)) {
-				createAttributeUI(attr);
+
+			int x = attr.getPropertyValue(PropertyInfo.X);
+			int y = attr.getPropertyValue(PropertyInfo.Y);
+			int colspan = attr.getPropertyValue(PropertyInfo.COL_SPAN);
+			int rowspan = attr.getPropertyValue(PropertyInfo.ROW_SPAN);
+
+			while (colspan > 1) {
+				layout.put(new Point((x + colspan) - 1, y),
+						createInvisibleAttr());
+				colspan--;
+			}
+			
+			while (rowspan > 1) {
+				layout.put(new Point(x, (y + rowspan) - 1),
+						createInvisibleAttr());
+				rowspan--;
+			}
+			
+			layout.put(new Point(x, y), attr);
+
+			// max x, max y
+			if (attr.getPropertyValue(PropertyInfo.X) > maxX) {
+				maxX = attr.getPropertyValue(PropertyInfo.X);
+			}
+			if (attr.getPropertyValue(PropertyInfo.Y) > maxY) {
+				maxY = attr.getPropertyValue(PropertyInfo.Y);
+			}
+		}
+
+		GridLayout gl = (GridLayout) contents.getLayout();
+		gl.numColumns = maxX * 2;
+
+		for (int i = 1; i <= maxY; i++) {
+			for (int j = 1; j <= maxX; j++) {
+				Attribute attr = layout.get(new Point(j, i));
+				if (attr == null) {
+					// render empty cell
+					createEmptyCell();
+				} else {
+					// render attr
+					if (attr.getPropertyValue(PropertyInfo.VISIBLE)) {
+						createAttributeUI(attr);
+					}
+				}
+			}
+		}
+
+		// render operations
+		for (Operation op : model.getOperations()) {
+			if (op.getPropertyValue(PropertyInfo.VISIBLE)) {
+				createOperationUI(op);
 			}
 		}
 	}
@@ -150,6 +207,39 @@ public class EditionView extends ViewPart implements IRender {
 		}
 
 		attrRender.render(attr, this.contents);
+	}
+
+	/**
+	 * 
+	 */
+	private void createEmptyCell() {
+		Label empty = new Label(this.contents, SWT.NONE);
+		empty.setText(" ");
+
+		Label emptyCmpnt = new Label(this.contents, SWT.NONE);
+		emptyCmpnt.setText(" ");
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	private Attribute createInvisibleAttr() {
+		Attribute invisible = new Attribute("", "", "Invisible");
+		invisible.setProperties(new HashMap<String, Property>());
+		Property visibility = new Property(PropertyInfo.VISIBLE.getPropName(),
+				false);
+		invisible.getProperties().put(visibility.getPropName(), visibility);
+		return invisible;
+	}
+
+	/**
+	 * TODO javadoc.
+	 * 
+	 * @param op
+	 */
+	private void createOperationUI(Operation op) {
+
 	}
 
 }
