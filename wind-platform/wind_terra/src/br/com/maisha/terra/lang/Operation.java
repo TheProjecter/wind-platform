@@ -96,8 +96,8 @@ public class Operation extends TerraClass {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("type: ").append(getType());
-		sb.append("ref: ").append(getRef());
-		sb.append("label: ").append(getLabel());
+		sb.append(" ref: ").append(getRef());
+		sb.append(" label: ").append(getLabel());
 		return sb.toString();
 	}
 }
