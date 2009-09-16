@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * TODO javadoc.
  * 
- * @author Paulo
+ * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
 public class DomainObject extends TerraClass {
@@ -13,12 +14,17 @@ public class DomainObject extends TerraClass {
 	private String ref;
 
 	private String label;
+	
+	private String pckg;
 
 	private List<Attribute> atts = new ArrayList<Attribute>();
 
 	private List<Import> imports = new ArrayList<Import>();
 
 	private List<Operation> operations = new ArrayList<Operation>();
+
+	/** Java class that represents this domain object. */
+	private Class<?> objectClass;
 
 	public DomainObject(String ref, String label) {
 		super();
@@ -70,6 +76,24 @@ public class DomainObject extends TerraClass {
 
 	public void setOperations(List<Operation> operations) {
 		this.operations = operations;
+	}
+
+	public Class<?> getObjectClass() {
+		return objectClass;
+	}
+
+	public void setObjectClass(Class<?> objectClass) {
+		this.objectClass = objectClass;
+	}
+
+	
+	
+	public String getPckg() {
+		return pckg;
+	}
+
+	public void setPckg(String pckg) {
+		this.pckg = pckg;
 	}
 
 	/**
