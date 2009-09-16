@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
@@ -22,6 +24,7 @@ import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.faces.IPresentationProvider;
+import br.com.maisha.wind.faces.action.BaseAction;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.render.IRender;
 import br.com.maisha.wind.faces.render.attr.IAttributeRender;
@@ -136,13 +139,13 @@ public class EditionView extends ViewPart implements IRender {
 						createInvisibleAttr());
 				colspan--;
 			}
-			
+
 			while (rowspan > 1) {
 				layout.put(new Point(x, (y + rowspan) - 1),
 						createInvisibleAttr());
 				rowspan--;
 			}
-			
+
 			layout.put(new Point(x, y), attr);
 
 			// max x, max y
@@ -173,16 +176,21 @@ public class EditionView extends ViewPart implements IRender {
 		}
 
 		// render operations
+		final IToolBarManager tbm = getViewSite().getActionBars()
+				.getToolBarManager();
 		for (Operation op : model.getOperations()) {
 			if (op.getPropertyValue(PropertyInfo.VISIBLE)) {
-				createOperationUI(op);
+				createOperationUI(op, tbm);
 			}
 		}
+		getViewSite().getActionBars().updateActionBars();
 	}
 
 	/**
+	 * Creates the visual representation for the given attribute.
 	 * 
 	 * @param attr
+	 *            Attribute to render.
 	 */
 	private void createAttributeUI(Attribute attr) {
 		String presentationType = attr
@@ -210,7 +218,7 @@ public class EditionView extends ViewPart implements IRender {
 	}
 
 	/**
-	 * 
+	 * Creates an empty cell to fill layout holes.
 	 */
 	private void createEmptyCell() {
 		Label empty = new Label(this.contents, SWT.NONE);
@@ -221,8 +229,9 @@ public class EditionView extends ViewPart implements IRender {
 	}
 
 	/**
+	 * Creates an invisible attribute to hold a colspan or rowspan place.
 	 * 
-	 * @return
+	 * @return Invisible Attribute.
 	 */
 	private Attribute createInvisibleAttr() {
 		Attribute invisible = new Attribute("", "", "Invisible");
@@ -234,12 +243,15 @@ public class EditionView extends ViewPart implements IRender {
 	}
 
 	/**
-	 * TODO javadoc.
+	 * Creates the visual representation for the given operation.
 	 * 
 	 * @param op
+	 *            Operation to render.
 	 */
-	private void createOperationUI(Operation op) {
-
+	private void createOperationUI(Operation op, IToolBarManager tbm) {
+		log.debug("Rendering Operation [ " + op + " ]");
+		IAction act = new BaseAction(op);
+		tbm.add(act);
 	}
 
 }
