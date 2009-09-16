@@ -25,6 +25,7 @@ import br.com.maisha.wind.common.factory.ServiceProvider;
 
 @members {
 public DomainObject domainObject = null;
+private String pckg = "";
 private List<Attribute> atts = new ArrayList<Attribute>();
 private List<Operation> ops = new ArrayList<Operation>();
 private Map<String, Property> props = new HashMap<String, Property>();
@@ -35,13 +36,21 @@ private List<Import> imports = new ArrayList<Import>();
 
 
 domain_object
-	:	(import_declaration)*  DOMAIN_OBJECT NAME STRING_LITERAL LEFT_BRACKET body? RIGHT_BRACKET{
+	:	(package_declaration) (import_declaration)*  DOMAIN_OBJECT NAME STRING_LITERAL LEFT_BRACKET body? RIGHT_BRACKET{
 		domainObject = new DomainObject($NAME.text, $STRING_LITERAL.text);
+		domainObject.setPckg(pckg);
 		domainObject.setAtts(atts);
 		domainObject.setOperations(ops);
 		domainObject.setImports(imports);
 		atts = new ArrayList<Attribute>();
 		ops = new ArrayList<Operation>();
+	}
+	;
+
+package_declaration
+	:	PACKAGE NAME NEWLINE+ {
+		pckg = $NAME.text;
+		
 	}
 	;
 	

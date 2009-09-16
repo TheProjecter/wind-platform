@@ -10,7 +10,8 @@ RIGHT_BRACKET: '}';
 
 ATTRIBUITION:':';
 DOMAIN_OBJECT:'domain_object';
-IMPORT:'import';
+PACKAGE:'package';
+IMPORT:'import'; 
 TYPE	:	'int' | 'double' | 'float' | 'long' | 'short' | 'boolean' | 'String';
 PROPERTY:	'x' | 'y' | 'colspan' | 'rowspan' | 'presentation_type' |  'disabled' | 'visible' | 'icon' | 'width' | 'height';
 ATTRIBUTE_PROPERTY: 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'event' ;
@@ -21,8 +22,9 @@ OP_TYPE: 'java' | 'python' | 'groowy';
 NUMBER: INTEGER | FLOAT;
 fragment FLOAT: INTEGER '.' '0'..'9'+;
 fragment INTEGER: '0'..'9' '0'..'9'*;
-NAME: LETTER (LETTER | DIGIT | '_')*;
+NAME: LETTER (LETTER | DIGIT | '_' | '.')*;
 STRING_LITERAL: '"' NONCONTROL_CHAR* '"';
+
 
 fragment NONCONTROL_CHAR: LETTER | DIGIT | SYMBOL | SPACE;
 fragment LETTER: LOWER | UPPER;
