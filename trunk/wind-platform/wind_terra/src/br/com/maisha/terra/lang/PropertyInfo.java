@@ -69,7 +69,7 @@ public class PropertyInfo<T> {
 
 	/** Descricao da propriedade icon */
 	public static final PropertyInfo<String> ICON = new PropertyInfo<String>(
-			"icon", "", String.class);
+			"icon", null, String.class);
 	
 	/** Descricao da propriedade width */
 	public static final PropertyInfo<Integer> WIDTH = new PropertyInfo<Integer>(
