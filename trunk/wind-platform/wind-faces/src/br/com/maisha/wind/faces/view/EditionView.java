@@ -37,7 +37,7 @@ import br.com.maisha.wind.faces.render.attr.IAttributeRender;
 public class EditionView extends ViewPart implements IRender {
 
 	/** View's ID. */
-	public static final String ID = "wind_faces.edition_view";
+	public static final String ID = "br.com.maisha.wind.faces.view.editionView";
 
 	/** Log ref. */
 	private static final Logger log = Logger.getLogger(EditionView.class);
@@ -45,7 +45,11 @@ public class EditionView extends ViewPart implements IRender {
 	/** Painel que contem os elementos graficos da area de edicao. */
 	private Composite contents;
 
+	/** */
 	private IPresentationProvider presProvider;
+
+	/** */
+	private Object modelInstance;
 
 	/**
 	 * 
@@ -97,11 +101,21 @@ public class EditionView extends ViewPart implements IRender {
 
 		DomainObject object = (DomainObject) model;
 		setPartName(object.getLabel());
+
+		try {
+			modelInstance = object.getObjectClass().newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();// TODO handle
+		}
+
 		createUserInterface(object);
 	}
 
 	/**
+	 * Sets up the user interface for the given domain object.
 	 * 
+	 * @param model
+	 *            DomainObject to render.
 	 */
 	private void createUserInterface(DomainObject model) {
 
