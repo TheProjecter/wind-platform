@@ -1,3 +1,5 @@
+package br.com.maisha.wind.sample
+
 domain_object location "Location" {
 
 String code "Code"{

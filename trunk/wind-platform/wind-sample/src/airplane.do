@@ -1,3 +1,5 @@
+package br.com.maisha.wind.sample
+
 import location
 domain_object airbus "A 380" {
 
