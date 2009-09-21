@@ -74,7 +74,9 @@ public class ApplicationManager implements IApplicationManager {
 					app.addDomainObject(dObj);
 
 					// make java object
-					classMaker.make(dObj);
+					dObj.setObjectClass(classMaker.make(dObj));
+					
+					Object d = dObj.getObjectClass().newInstance();
 
 					// fire model event
 					modelListeners.fireEvent(null, dObj, LevelType.Object,
@@ -90,7 +92,7 @@ public class ApplicationManager implements IApplicationManager {
 					ChangeType.Added);
 
 		} catch (Exception e) {
-			e.printStackTrace(); // TODO
+			e.printStackTrace(); // TODO handle
 		}
 
 	}
