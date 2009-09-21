@@ -1,12 +1,13 @@
 package br.com.maisha.terra;
 
-import org.apache.commons.lang.StringUtils;
-
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtField;
 import javassist.CtMethod;
+
+import org.apache.commons.lang.StringUtils;
+
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.wind.common.exception.MakeClassException;
@@ -25,7 +26,7 @@ public class ClassMaker implements IClassMaker {
 	public Class<?> make(DomainObject obj) throws MakeClassException {
 		try {
 			ClassPool pool = ClassPool.getDefault();
-			CtClass cc = pool.makeClass(obj.getRef());
+			CtClass cc = pool.makeClass(obj.getPckg() + "." + obj.getRef());
 
 			String field;
 			for (Attribute att : obj.getAtts()) {
@@ -34,22 +35,21 @@ public class ClassMaker implements IClassMaker {
 				cc.addMethod(CtMethod.make(genSetMethod(att), cc));
 				cc.addMethod(CtMethod.make(genGetMethod(att), cc));
 			}
-			
 
 			return cc.toClass();
 		} catch (CannotCompileException e) {
 			throw new MakeClassException(e);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param att
 	 * @return
 	 */
-	private String genSetMethod(Attribute att){
+	private String genSetMethod(Attribute att) {
 		StringBuilder method = new StringBuilder();
-		
+
 		method.append("public void set");
 		method.append(StringUtils.capitalize(att.getRef()));
 		method.append("(");
@@ -59,19 +59,18 @@ public class ClassMaker implements IClassMaker {
 		method.append(att.getRef());
 		method.append(" = v;");
 		method.append("}");
-		
+
 		return method.toString();
 	}
-	
-	
+
 	/**
 	 * 
 	 * @param att
 	 * @return
 	 */
-	private String genGetMethod(Attribute att){
+	private String genGetMethod(Attribute att) {
 		StringBuilder method = new StringBuilder();
-		
+
 		method.append("public ");
 		method.append(att.getType());
 		method.append(" get");
@@ -81,7 +80,7 @@ public class ClassMaker implements IClassMaker {
 		method.append(att.getRef());
 		method.append(";");
 		method.append("}");
-		
+
 		return method.toString();
 	}
 
