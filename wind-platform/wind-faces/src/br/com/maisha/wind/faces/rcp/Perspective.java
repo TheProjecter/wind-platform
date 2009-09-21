@@ -4,6 +4,7 @@ import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
 import br.com.maisha.wind.faces.view.EditionView;
+import br.com.maisha.wind.faces.view.MessageView;
 import br.com.maisha.wind.faces.view.ModuleOverview;
 
 /**
@@ -24,10 +25,14 @@ public class Perspective implements IPerspectiveFactory {
 		layout.setEditorAreaVisible(false);
 		layout.setFixed(true);
 
-		layout.addStandaloneView(ModuleOverview.ID, false, IPageLayout.LEFT, .3f,
-				editorArea);
+		// Message
+		layout.addView(MessageView.ID, IPageLayout.LEFT, .3f, editorArea);
 
-		layout.addView(EditionView.ID, IPageLayout.RIGHT, .7f,
-				editorArea);
+		// Module
+		layout.addView(ModuleOverview.ID, IPageLayout.BOTTOM, .7f,
+				MessageView.ID);
+
+		// Edition
+		layout.addView(EditionView.ID, IPageLayout.RIGHT, .7f, editorArea);
 	}
 }

@@ -5,10 +5,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-import br.com.maisha.wind.common.factory.ServiceProvider;
-import br.com.maisha.wind.faces.FacesAppModelListener;
-import br.com.maisha.wind.lifecycle.registry.IAppModelListenerRegistry;
-
 /**
  * The activator class controls the plug-in life cycle
  */

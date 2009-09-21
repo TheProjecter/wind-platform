@@ -50,6 +50,8 @@ public class BaseAction extends Action implements IWorkbenchAction {
 	public void runWithEvent(Event event) {
 		log.debug("Running Action " + op);
 
+		//TODO call application controller...
+		
 		log.debug("Action Finished " + op);
 	}
 
@@ -58,8 +60,7 @@ public class BaseAction extends Action implements IWorkbenchAction {
 	 * @see org.eclipse.ui.actions.ActionFactory.IWorkbenchAction#dispose()
 	 */
 	public void dispose() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }

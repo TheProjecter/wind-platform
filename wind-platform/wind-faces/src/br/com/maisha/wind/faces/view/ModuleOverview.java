@@ -11,7 +11,7 @@ import org.eclipse.ui.part.ViewPart;
 public class ModuleOverview extends ViewPart {
 
 	/** */
-	public static final String ID = "br.com.maisha.wind.faces.view.ModuleOverview";
+	public static final String ID = "br.com.maisha.wind.faces.view.moduleOverview";
 
 	/**
 	 * 

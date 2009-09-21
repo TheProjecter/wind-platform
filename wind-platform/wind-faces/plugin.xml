@@ -25,21 +25,21 @@
    <extension
          point="org.eclipse.ui.views">
       <view
-            name="View"
-            class="br.com.maisha.wind.faces.view.View"
-            id="wind_faces.view">
+            name="Message View"
+            class="br.com.maisha.wind.faces.view.MessageView"
+            id="br.com.maisha.wind.faces.view.messageView">
       </view>
       
 	  <view
             name="Edition View"
             class="br.com.maisha.wind.faces.view.EditionView"
-            id="wind_faces.edition_view">
+            id="br.com.maisha.wind.faces.view.editionView">
       </view>
       
       <view
             name="Module Overview"
             class="br.com.maisha.wind.faces.view.ModuleOverview"
-            id="br.com.maisha.wind.faces.view.ModuleOverview">
+            id="br.com.maisha.wind.faces.view.moduleOverview">
       </view>
    </extension>
 
