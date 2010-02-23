@@ -6,6 +6,7 @@ import org.osgi.framework.BundleContext;
 
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.lifecycle.mgmt.IApplicationManager;
+import br.com.maisha.wind.lifecycle.rcp.Activator;
 
 /**
  * This class must be inherited by all bundles who wants to become a wind
@@ -30,9 +31,8 @@ public class WindActivator extends AbstractUIPlugin {
 
 		super.start(context);
 		IApplicationManager appManager = ServiceProvider.getInstance()
-				.getService(IApplicationManager.class,
-						getBundle().getBundleContext());
-		appManager.registerApplication(getBundle().getBundleContext());
+				.getService(IApplicationManager.class, Activator.getDefault().getBundle().getBundleContext());
+		appManager.registerApplication(context);
 
 		log.info(context.getBundle().getSymbolicName() + " ["
 				+ context.getBundle().getBundleId() + "] Started ");
