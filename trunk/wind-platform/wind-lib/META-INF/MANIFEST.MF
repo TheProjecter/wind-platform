@@ -1,5 +1,5 @@
 Manifest-Version: 2.0
-Spring-Context: *;create-asynchronously:=false
+Spring-Context: *;create-asynchronously:=true
 Bundle-ManifestVersion: 2
 Bundle-Name: Wind_lib Plug-in
 Bundle-SymbolicName: wind_lib; singleton:=true
