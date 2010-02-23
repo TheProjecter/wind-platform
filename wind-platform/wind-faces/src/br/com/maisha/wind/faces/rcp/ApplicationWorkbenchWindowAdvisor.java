@@ -1,6 +1,6 @@
 package br.com.maisha.wind.faces.rcp;
 
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.SWT;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
@@ -26,10 +26,10 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
 	public void preWindowOpen() {
 		IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
-		configurer.setInitialSize(new Point(800, 600));
-		configurer.setShowCoolBar(true);
-		configurer.setShowStatusLine(true);
-		configurer.setTitle("RAP with a View");
+	    configurer.setShowCoolBar( true );
+	    configurer.setTitle( "Wind" );
+	    configurer.setShellStyle( SWT.TITLE | SWT.MAX | SWT.RESIZE );
+	    configurer.setShowProgressIndicator( true );
 	}
 	
 	public WindFacesActionBarAdvisor getActionBarAdvisor() {
