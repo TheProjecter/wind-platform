@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
+Spring-Context: *;create-asynchronously:=true
 Bundle-ManifestVersion: 2
 Bundle-Name: Wind_terra
 Bundle-SymbolicName: wind_terra
