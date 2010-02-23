@@ -1,5 +1,5 @@
 Manifest-Version: 2.0
-Spring-Context: *;create-asynchronously:=false
+Spring-Context: *;create-asynchronously:=true;wait-for-dependencies:=true
 Bundle-ManifestVersion: 2
 Bundle-Name: Wind_sample Plug-in
 Bundle-SymbolicName: wind_sample; singleton:=true
