@@ -13,6 +13,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.ViewPart;
 
@@ -119,6 +120,10 @@ public class EditionView extends ViewPart implements IRender {
 	 */
 	private void createUserInterface(DomainObject model) {
 
+		for(Control child : this.contents.getChildren()){
+			child.dispose();
+		}
+		
 		// sort by x,y position
 		Collections.sort(model.getAtts(), new Comparator<Attribute>() {
 
@@ -198,6 +203,9 @@ public class EditionView extends ViewPart implements IRender {
 			}
 		}
 		getViewSite().getActionBars().updateActionBars();
+		
+		this.contents.pack(true);
+		this.contents.redraw();
 	}
 
 	/**
