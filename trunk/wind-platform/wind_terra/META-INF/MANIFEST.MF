@@ -18,3 +18,4 @@ Require-Bundle: org.eclipse.rap.ui,
  org.apache.log4j;bundle-version="1.2.13"
 Export-Package: br.com.maisha.terra,
  br.com.maisha.terra.lang
+
