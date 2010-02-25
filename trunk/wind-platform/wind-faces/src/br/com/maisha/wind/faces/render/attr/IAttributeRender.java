@@ -23,6 +23,6 @@ public interface IAttributeRender {
 	 * @param attr
 	 * @param parent
 	 */
-	void render(Attribute attr, Composite parent);
+	void render(Attribute attr, Composite parent, Object modelInstance);
 
 }

@@ -19,6 +19,7 @@ import org.eclipse.ui.part.ViewPart;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
+import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
@@ -50,7 +51,7 @@ public class EditionView extends ViewPart implements IRender {
 	private IPresentationProvider presProvider;
 
 	/** */
-	private Object modelInstance;
+	private ModelReference modelInstance;
 
 	/**
 	 * 
@@ -104,7 +105,7 @@ public class EditionView extends ViewPart implements IRender {
 		setPartName(object.getLabel());
 
 		try {
-			modelInstance = object.getObjectClass().newInstance();
+			modelInstance = (ModelReference) object.getObjectClass().newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();// TODO handle
 		}
@@ -199,7 +200,7 @@ public class EditionView extends ViewPart implements IRender {
 				.getToolBarManager();
 		for (Operation op : model.getOperations()) {
 			if (op.getPropertyValue(PropertyInfo.VISIBLE)) {
-				createOperationUI(op, tbm);
+				createOperationUI(op, model, tbm);
 			}
 		}
 		getViewSite().getActionBars().updateActionBars();
@@ -236,7 +237,7 @@ public class EditionView extends ViewPart implements IRender {
 			}
 		}
 
-		attrRender.render(attr, this.contents);
+		attrRender.render(attr, this.contents, this.modelInstance);
 	}
 
 	/**
@@ -270,9 +271,9 @@ public class EditionView extends ViewPart implements IRender {
 	 * @param op
 	 *            Operation to render.
 	 */
-	private void createOperationUI(Operation op, IToolBarManager tbm) {
+	private void createOperationUI(Operation op, DomainObject model, IToolBarManager tbm) {
 		log.debug("Rendering Operation [ " + op + " ]");
-		IAction act = new BaseAction(op);
+		IAction act = new BaseAction(op, modelInstance);
 		tbm.add(act);
 	}
 

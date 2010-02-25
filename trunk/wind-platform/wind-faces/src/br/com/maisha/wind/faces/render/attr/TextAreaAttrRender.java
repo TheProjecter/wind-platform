@@ -34,12 +34,12 @@ public class TextAreaAttrRender extends BaseAttrRender {
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.attr.IAttributeRender#render(br.com.maisha.terra.lang.Attribute,
-	 *      org.eclipse.swt.widgets.Composite)
+	 *      org.eclipse.swt.widgets.Composite, java.lang.Object)
 	 */
-	public void render(Attribute attr, Composite parent) {
+	public void render(Attribute attr, Composite parent, Object model) {
 		log.debug("Starting render for attr [" + attr + "] ");
 
-		//checkNumColumns(parent, attr);
+		// checkNumColumns(parent, attr);
 
 		createLabel(parent, attr);
 
