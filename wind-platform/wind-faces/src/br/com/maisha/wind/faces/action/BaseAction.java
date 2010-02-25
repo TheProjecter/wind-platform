@@ -5,6 +5,8 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 
+import br.com.maisha.terra.lang.DomainObject;
+import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.faces.rcp.Activator;
@@ -22,14 +24,18 @@ public class BaseAction extends Action implements IWorkbenchAction {
 	/** Operation to run. */
 	private Operation op;
 
+	/** Object on which the operations is performed. */
+	private ModelReference model;
+
 	/**
 	 * Constructor.
 	 * 
 	 * @param op
 	 *            Operation to run.
 	 */
-	public BaseAction(Operation op) {
+	public BaseAction(Operation op, ModelReference model) {
 		this.op = op;
+		this.model = model;
 		setId(op.getRef());
 		setDescription(op.getLabel());
 		setText(op.getLabel());
@@ -50,8 +56,10 @@ public class BaseAction extends Action implements IWorkbenchAction {
 	public void runWithEvent(Event event) {
 		log.debug("Running Action " + op);
 
-		//TODO call application controller...
+		log.debug(model);
 		
+		// TODO call application controller...
+
 		log.debug("Action Finished " + op);
 	}
 
@@ -60,7 +68,7 @@ public class BaseAction extends Action implements IWorkbenchAction {
 	 * @see org.eclipse.ui.actions.ActionFactory.IWorkbenchAction#dispose()
 	 */
 	public void dispose() {
-		
+
 	}
 
 }

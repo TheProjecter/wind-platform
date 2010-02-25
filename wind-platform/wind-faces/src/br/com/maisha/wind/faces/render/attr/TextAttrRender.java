@@ -1,6 +1,10 @@
 package br.com.maisha.wind.faces.render.attr;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.beans.BeansObservables;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -32,12 +36,12 @@ public class TextAttrRender extends BaseAttrRender {
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.attr.IAttributeRender#render(br.com.maisha.terra.lang.Attribute,
-	 *      org.eclipse.swt.widgets.Composite)
+	 *      org.eclipse.swt.widgets.Composite, java.lang.Object)
 	 */
-	public void render(Attribute attr, Composite parent) {
+	public void render(Attribute attr, Composite parent, Object modelInstance) {
 		log.debug("Starting render for attr [" + attr + "] ");
 
-		//checkNumColumns(parent, attr);
+		// checkNumColumns(parent, attr);
 
 		createLabel(parent, attr);
 
@@ -63,6 +67,13 @@ public class TextAttrRender extends BaseAttrRender {
 		setRowspan(gd, attr);
 
 		text.setEnabled(!attr.getPropertyValue(PropertyInfo.DISABLED));
+
+		// databinding
+		DataBindingContext dbctx = new DataBindingContext();
+		IObservableValue observable = BeansObservables.observeValue(
+				modelInstance, attr.getRef());
+		dbctx.bindValue(SWTObservables.observeText(text, SWT.Modify),
+				observable);
 
 	}
 }
