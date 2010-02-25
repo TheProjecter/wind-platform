@@ -1,15 +1,18 @@
 package br.com.maisha.terra;
 
 import javassist.CannotCompileException;
+import javassist.ClassClassPath;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtField;
 import javassist.CtMethod;
+import javassist.NotFoundException;
 
 import org.apache.commons.lang.StringUtils;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
+import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.wind.common.exception.MakeClassException;
 
 /**
@@ -26,7 +29,11 @@ public class ClassMaker implements IClassMaker {
 	public Class<?> make(DomainObject obj) throws MakeClassException {
 		try {
 			ClassPool pool = ClassPool.getDefault();
-			CtClass cc = pool.makeClass(obj.getPckg() + "." + obj.getRef());
+			pool.insertClassPath(new ClassClassPath(ModelReference.class));
+			CtClass modelReference = pool.get(ModelReference.class.getName());
+			
+			CtClass cc = pool.makeClass(obj.getPckg() + "." + obj.getRef(), modelReference);
+			
 
 			String field;
 			for (Attribute att : obj.getAtts()) {
@@ -38,6 +45,8 @@ public class ClassMaker implements IClassMaker {
 
 			return cc.toClass();
 		} catch (CannotCompileException e) {
+			throw new MakeClassException(e);
+		} catch (NotFoundException e) {
 			throw new MakeClassException(e);
 		}
 	}
