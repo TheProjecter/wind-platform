@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
 import br.com.maisha.terra.lang.Attribute;
+import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Property.PresentationType;
@@ -36,9 +37,11 @@ public class TextAttrRender extends BaseAttrRender {
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.attr.IAttributeRender#render(br.com.maisha.terra.lang.Attribute,
-	 *      org.eclipse.swt.widgets.Composite, java.lang.Object)
+	 *      org.eclipse.swt.widgets.Composite,
+	 *      br.com.maisha.terra.lang.ModelReference)
 	 */
-	public void render(Attribute attr, Composite parent, Object modelInstance) {
+	public void render(Attribute attr, Composite parent,
+			ModelReference modelInstance) {
 		log.debug("Starting render for attr [" + attr + "] ");
 
 		// checkNumColumns(parent, attr);

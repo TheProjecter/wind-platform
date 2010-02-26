@@ -1,12 +1,17 @@
 package br.com.maisha.wind.faces.render.attr;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.beans.BeansObservables;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
 import br.com.maisha.terra.lang.Attribute;
+import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Property.PresentationType;
@@ -34,9 +39,11 @@ public class TextAreaAttrRender extends BaseAttrRender {
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.attr.IAttributeRender#render(br.com.maisha.terra.lang.Attribute,
-	 *      org.eclipse.swt.widgets.Composite, java.lang.Object)
+	 *      org.eclipse.swt.widgets.Composite,
+	 *      br.com.maisha.terra.lang.ModelReference)
 	 */
-	public void render(Attribute attr, Composite parent, Object model) {
+	public void render(Attribute attr, Composite parent,
+			ModelReference modelInstance) {
 		log.debug("Starting render for attr [" + attr + "] ");
 
 		// checkNumColumns(parent, attr);
@@ -61,6 +68,12 @@ public class TextAreaAttrRender extends BaseAttrRender {
 		setRowspan(gd, attr);
 
 		text.setEnabled(!attr.getPropertyValue(PropertyInfo.DISABLED));
+
+		DataBindingContext dbctx = new DataBindingContext();
+		IObservableValue observable = BeansObservables.observeValue(
+				modelInstance, attr.getRef());
+		dbctx.bindValue(SWTObservables.observeText(text, SWT.Modify),
+				observable);
 
 	}
 

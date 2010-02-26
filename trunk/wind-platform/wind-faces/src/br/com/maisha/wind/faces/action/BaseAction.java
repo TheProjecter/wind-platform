@@ -58,6 +58,8 @@ public class BaseAction extends Action implements IWorkbenchAction {
 
 		log.debug(model);
 		
+		
+		
 		// TODO call application controller...
 
 		log.debug("Action Finished " + op);
