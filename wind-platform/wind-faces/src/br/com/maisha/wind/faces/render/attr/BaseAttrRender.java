@@ -1,5 +1,9 @@
 package br.com.maisha.wind.faces.render.attr;
 
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.beans.BeansObservables;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.rwt.graphics.Graphics;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
@@ -137,4 +141,5 @@ public abstract class BaseAttrRender implements IAttributeRender {
 		gd.verticalSpan = attr.getPropertyValue(PropertyInfo.ROW_SPAN);
 	}
 
+	
 }

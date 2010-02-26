@@ -3,6 +3,7 @@ package br.com.maisha.wind.faces.render.attr;
 import org.eclipse.swt.widgets.Composite;
 
 import br.com.maisha.terra.lang.Attribute;
+import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Property;
 
 /**
@@ -23,6 +24,6 @@ public interface IAttributeRender {
 	 * @param attr
 	 * @param parent
 	 */
-	void render(Attribute attr, Composite parent, Object modelInstance);
+	void render(Attribute attr, Composite parent, ModelReference modelInstance);
 
 }
