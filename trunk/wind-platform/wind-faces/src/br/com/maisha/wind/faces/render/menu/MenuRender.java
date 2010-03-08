@@ -10,11 +10,10 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.ui.IWorkbenchActionConstants;
 
 import br.com.maisha.terra.lang.DomainObject;
+import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.faces.rcp.RCPUtil;
 import br.com.maisha.wind.faces.render.BaseRender;
-import br.com.maisha.wind.faces.render.IRender;
-import br.com.maisha.wind.lifecycle.model.WindApplication;
 
 /**
  * Creates the Application Menus for all registered Wind Applications.

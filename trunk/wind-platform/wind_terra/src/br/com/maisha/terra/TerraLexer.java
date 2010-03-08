@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/paulofreitas/Desktop/lang/TerraLexer.g 2009-09-16 19:08:17
+// $ANTLR 3.1.2 /home/paulofreitas/Desktop/lang/TerraLexer.g 2010-03-05 21:08:46
  package br.com.maisha.terra; 
 
 import org.antlr.runtime.*;
@@ -10,33 +10,34 @@ public class TerraLexer extends Lexer {
     public static final int DOMAIN_OBJECT=10;
     public static final int PACKAGE=11;
     public static final int INTEGER=19;
-    public static final int SYMBOL=27;
+    public static final int SYMBOL=28;
     public static final int LETTER=22;
     public static final int ATTRIBUTE_PROPERTY=15;
     public static final int LEFT_BRACKET=7;
     public static final int NUMBER=21;
-    public static final int WHITESPACE=32;
+    public static final int WHITESPACE=33;
     public static final int ATTRIBUITION=9;
     public static final int FLOAT=20;
     public static final int OPERATION_PROPERTY=16;
-    public static final int SPACE=28;
+    public static final int SPACE=29;
     public static final int EOF=-1;
     public static final int TYPE=13;
     public static final int RIGHT_PAREN=6;
     public static final int NAME=24;
     public static final int IMPORT=12;
     public static final int STRING_LITERAL=26;
-    public static final int NEWLINE=31;
+    public static final int NEWLINE=32;
     public static final int NONCONTROL_CHAR=25;
     public static final int PROPERTY=14;
     public static final int ASSIGN=4;
     public static final int RIGHT_BRACKET=8;
     public static final int LEFT_PAREN=5;
-    public static final int LOWER=29;
+    public static final int LOWER=30;
     public static final int DIGIT=23;
     public static final int OPERATION=17;
+    public static final int EXPRESSION=27;
     public static final int OP_TYPE=18;
-    public static final int UPPER=30;
+    public static final int UPPER=31;
 
     // delegates
     // delegators
@@ -239,42 +240,50 @@ public class TerraLexer extends Lexer {
         try {
             int _type = TYPE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:6: ( 'int' | 'double' | 'float' | 'long' | 'short' | 'boolean' | 'String' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:6: ( 'Integer' | 'Double' | 'Float' | 'Long' | 'Short' | 'Boolean' | 'String' )
             int alt1=7;
             switch ( input.LA(1) ) {
-            case 'i':
+            case 'I':
                 {
                 alt1=1;
                 }
                 break;
-            case 'd':
+            case 'D':
                 {
                 alt1=2;
                 }
                 break;
-            case 'f':
+            case 'F':
                 {
                 alt1=3;
                 }
                 break;
-            case 'l':
+            case 'L':
                 {
                 alt1=4;
                 }
                 break;
-            case 's':
-                {
-                alt1=5;
-                }
-                break;
-            case 'b':
-                {
-                alt1=6;
-                }
-                break;
             case 'S':
                 {
-                alt1=7;
+                int LA1_5 = input.LA(2);
+
+                if ( (LA1_5=='h') ) {
+                    alt1=5;
+                }
+                else if ( (LA1_5=='t') ) {
+                    alt1=7;
+                }
+                else {
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 1, 5, input);
+
+                    throw nvae;
+                }
+                }
+                break;
+            case 'B':
+                {
+                alt1=6;
                 }
                 break;
             default:
@@ -286,55 +295,55 @@ public class TerraLexer extends Lexer {
 
             switch (alt1) {
                 case 1 :
-                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:8: 'int'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:8: 'Integer'
                     {
-                    match("int"); 
+                    match("Integer"); 
 
 
                     }
                     break;
                 case 2 :
-                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:16: 'double'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:20: 'Double'
                     {
-                    match("double"); 
+                    match("Double"); 
 
 
                     }
                     break;
                 case 3 :
-                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:27: 'float'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:31: 'Float'
                     {
-                    match("float"); 
+                    match("Float"); 
 
 
                     }
                     break;
                 case 4 :
-                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:37: 'long'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:41: 'Long'
                     {
-                    match("long"); 
+                    match("Long"); 
 
 
                     }
                     break;
                 case 5 :
-                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:46: 'short'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:50: 'Short'
                     {
-                    match("short"); 
+                    match("Short"); 
 
 
                     }
                     break;
                 case 6 :
-                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:56: 'boolean'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:60: 'Boolean'
                     {
-                    match("boolean"); 
+                    match("Boolean"); 
 
 
                     }
                     break;
                 case 7 :
-                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:68: 'String'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:15:72: 'String'
                     {
                     match("String"); 
 
@@ -840,11 +849,12 @@ public class TerraLexer extends Lexer {
         try {
             int _type = NAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:25:5: ( LETTER ( LETTER | DIGIT | '_' | '.' )* )
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:25:7: LETTER ( LETTER | DIGIT | '_' | '.' )*
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:25:5: ( LETTER ( LETTER | DIGIT | '.' | '_' )+ )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:25:7: LETTER ( LETTER | DIGIT | '.' | '_' )+
             {
             mLETTER(); 
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:25:14: ( LETTER | DIGIT | '_' | '.' )*
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:25:14: ( LETTER | DIGIT | '.' | '_' )+
+            int cnt9=0;
             loop9:
             do {
                 int alt9=2;
@@ -873,8 +883,12 @@ public class TerraLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop9;
+            	    if ( cnt9 >= 1 ) break loop9;
+                        EarlyExitException eee =
+                            new EarlyExitException(9, input);
+                        throw eee;
                 }
+                cnt9++;
             } while (true);
 
 
@@ -934,10 +948,71 @@ public class TerraLexer extends Lexer {
     }
     // $ANTLR end "STRING_LITERAL"
 
+    // $ANTLR start "EXPRESSION"
+    public final void mEXPRESSION() throws RecognitionException {
+        try {
+            int _type = EXPRESSION;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:29:2: ( '${' ( NONCONTROL_CHAR )+ '}' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:29:4: '${' ( NONCONTROL_CHAR )+ '}'
+            {
+            match("${"); 
+
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:29:8: ( NONCONTROL_CHAR )+
+            int cnt11=0;
+            loop11:
+            do {
+                int alt11=2;
+                int LA11_0 = input.LA(1);
+
+                if ( (LA11_0=='}') ) {
+                    int LA11_1 = input.LA(2);
+
+                    if ( (LA11_1=='\t'||(LA11_1>=' ' && LA11_1<='!')||(LA11_1>='#' && LA11_1<='~')) ) {
+                        alt11=1;
+                    }
+
+
+                }
+                else if ( (LA11_0=='\t'||(LA11_0>=' ' && LA11_0<='!')||(LA11_0>='#' && LA11_0<='|')||LA11_0=='~') ) {
+                    alt11=1;
+                }
+
+
+                switch (alt11) {
+            	case 1 :
+            	    // /home/paulofreitas/Desktop/lang/TerraLexer.g:29:8: NONCONTROL_CHAR
+            	    {
+            	    mNONCONTROL_CHAR(); 
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt11 >= 1 ) break loop11;
+                        EarlyExitException eee =
+                            new EarlyExitException(11, input);
+                        throw eee;
+                }
+                cnt11++;
+            } while (true);
+
+            match('}'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "EXPRESSION"
+
     // $ANTLR start "NONCONTROL_CHAR"
     public final void mNONCONTROL_CHAR() throws RecognitionException {
         try {
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:29:25: ( LETTER | DIGIT | SYMBOL | SPACE )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:31:25: ( LETTER | DIGIT | SYMBOL | SPACE )
             // /home/paulofreitas/Desktop/lang/TerraLexer.g:
             {
             if ( input.LA(1)=='\t'||(input.LA(1)>=' ' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='~') ) {
@@ -961,7 +1036,7 @@ public class TerraLexer extends Lexer {
     // $ANTLR start "LETTER"
     public final void mLETTER() throws RecognitionException {
         try {
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:30:16: ( LOWER | UPPER )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:32:16: ( LOWER | UPPER )
             // /home/paulofreitas/Desktop/lang/TerraLexer.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -985,8 +1060,8 @@ public class TerraLexer extends Lexer {
     // $ANTLR start "LOWER"
     public final void mLOWER() throws RecognitionException {
         try {
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:31:15: ( 'a' .. 'z' )
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:31:17: 'a' .. 'z'
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:33:15: ( 'a' .. 'z' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:33:17: 'a' .. 'z'
             {
             matchRange('a','z'); 
 
@@ -1001,8 +1076,8 @@ public class TerraLexer extends Lexer {
     // $ANTLR start "UPPER"
     public final void mUPPER() throws RecognitionException {
         try {
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:32:15: ( 'A' .. 'Z' )
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:32:17: 'A' .. 'Z'
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:34:15: ( 'A' .. 'Z' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:34:17: 'A' .. 'Z'
             {
             matchRange('A','Z'); 
 
@@ -1017,8 +1092,8 @@ public class TerraLexer extends Lexer {
     // $ANTLR start "DIGIT"
     public final void mDIGIT() throws RecognitionException {
         try {
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:33:15: ( '0' .. '9' )
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:33:17: '0' .. '9'
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:35:15: ( '0' .. '9' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:35:17: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -1033,7 +1108,7 @@ public class TerraLexer extends Lexer {
     // $ANTLR start "SPACE"
     public final void mSPACE() throws RecognitionException {
         try {
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:34:15: ( ' ' | '\\t' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:36:15: ( ' ' | '\\t' )
             // /home/paulofreitas/Desktop/lang/TerraLexer.g:
             {
             if ( input.LA(1)=='\t'||input.LA(1)==' ' ) {
@@ -1057,7 +1132,7 @@ public class TerraLexer extends Lexer {
     // $ANTLR start "SYMBOL"
     public final void mSYMBOL() throws RecognitionException {
         try {
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:36:16: ( '!' | '#' .. '/' | ':' .. '@' | '[' .. '`' | '{' .. '~' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:38:16: ( '!' | '#' .. '/' | ':' .. '@' | '[' .. '`' | '{' .. '~' )
             // /home/paulofreitas/Desktop/lang/TerraLexer.g:
             {
             if ( input.LA(1)=='!'||(input.LA(1)>='#' && input.LA(1)<='/')||(input.LA(1)>=':' && input.LA(1)<='@')||(input.LA(1)>='[' && input.LA(1)<='`')||(input.LA(1)>='{' && input.LA(1)<='~') ) {
@@ -1083,35 +1158,35 @@ public class TerraLexer extends Lexer {
         try {
             int _type = NEWLINE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:40:8: ( ( ( '\\r' )? '\\n' )+ )
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:40:10: ( ( '\\r' )? '\\n' )+
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:42:8: ( ( ( '\\r' )? '\\n' )+ )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:42:10: ( ( '\\r' )? '\\n' )+
             {
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:40:10: ( ( '\\r' )? '\\n' )+
-            int cnt12=0;
-            loop12:
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:42:10: ( ( '\\r' )? '\\n' )+
+            int cnt13=0;
+            loop13:
             do {
-                int alt12=2;
-                int LA12_0 = input.LA(1);
+                int alt13=2;
+                int LA13_0 = input.LA(1);
 
-                if ( (LA12_0=='\n'||LA12_0=='\r') ) {
-                    alt12=1;
+                if ( (LA13_0=='\n'||LA13_0=='\r') ) {
+                    alt13=1;
                 }
 
 
-                switch (alt12) {
+                switch (alt13) {
             	case 1 :
-            	    // /home/paulofreitas/Desktop/lang/TerraLexer.g:40:11: ( '\\r' )? '\\n'
+            	    // /home/paulofreitas/Desktop/lang/TerraLexer.g:42:11: ( '\\r' )? '\\n'
             	    {
-            	    // /home/paulofreitas/Desktop/lang/TerraLexer.g:40:11: ( '\\r' )?
-            	    int alt11=2;
-            	    int LA11_0 = input.LA(1);
+            	    // /home/paulofreitas/Desktop/lang/TerraLexer.g:42:11: ( '\\r' )?
+            	    int alt12=2;
+            	    int LA12_0 = input.LA(1);
 
-            	    if ( (LA11_0=='\r') ) {
-            	        alt11=1;
+            	    if ( (LA12_0=='\r') ) {
+            	        alt12=1;
             	    }
-            	    switch (alt11) {
+            	    switch (alt12) {
             	        case 1 :
-            	            // /home/paulofreitas/Desktop/lang/TerraLexer.g:40:11: '\\r'
+            	            // /home/paulofreitas/Desktop/lang/TerraLexer.g:42:11: '\\r'
             	            {
             	            match('\r'); 
 
@@ -1126,12 +1201,12 @@ public class TerraLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt12 >= 1 ) break loop12;
+            	    if ( cnt13 >= 1 ) break loop13;
                         EarlyExitException eee =
-                            new EarlyExitException(12, input);
+                            new EarlyExitException(13, input);
                         throw eee;
                 }
-                cnt12++;
+                cnt13++;
             } while (true);
 
 
@@ -1150,24 +1225,24 @@ public class TerraLexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:41:11: ( ( SPACE )+ )
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:41:13: ( SPACE )+
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:43:11: ( ( SPACE )+ )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:43:13: ( SPACE )+
             {
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:41:13: ( SPACE )+
-            int cnt13=0;
-            loop13:
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:43:13: ( SPACE )+
+            int cnt14=0;
+            loop14:
             do {
-                int alt13=2;
-                int LA13_0 = input.LA(1);
+                int alt14=2;
+                int LA14_0 = input.LA(1);
 
-                if ( (LA13_0=='\t'||LA13_0==' ') ) {
-                    alt13=1;
+                if ( (LA14_0=='\t'||LA14_0==' ') ) {
+                    alt14=1;
                 }
 
 
-                switch (alt13) {
+                switch (alt14) {
             	case 1 :
-            	    // /home/paulofreitas/Desktop/lang/TerraLexer.g:41:13: SPACE
+            	    // /home/paulofreitas/Desktop/lang/TerraLexer.g:43:13: SPACE
             	    {
             	    mSPACE(); 
 
@@ -1175,12 +1250,12 @@ public class TerraLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt13 >= 1 ) break loop13;
+            	    if ( cnt14 >= 1 ) break loop14;
                         EarlyExitException eee =
-                            new EarlyExitException(13, input);
+                            new EarlyExitException(14, input);
                         throw eee;
                 }
-                cnt13++;
+                cnt14++;
             } while (true);
 
              _channel = HIDDEN; 
@@ -1196,10 +1271,10 @@ public class TerraLexer extends Lexer {
     // $ANTLR end "WHITESPACE"
 
     public void mTokens() throws RecognitionException {
-        // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:8: ( ASSIGN | LEFT_PAREN | RIGHT_PAREN | LEFT_BRACKET | RIGHT_BRACKET | ATTRIBUITION | DOMAIN_OBJECT | PACKAGE | IMPORT | TYPE | PROPERTY | ATTRIBUTE_PROPERTY | OPERATION_PROPERTY | OPERATION | OP_TYPE | NUMBER | NAME | STRING_LITERAL | NEWLINE | WHITESPACE )
-        int alt14=20;
-        alt14 = dfa14.predict(input);
-        switch (alt14) {
+        // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:8: ( ASSIGN | LEFT_PAREN | RIGHT_PAREN | LEFT_BRACKET | RIGHT_BRACKET | ATTRIBUITION | DOMAIN_OBJECT | PACKAGE | IMPORT | TYPE | PROPERTY | ATTRIBUTE_PROPERTY | OPERATION_PROPERTY | OPERATION | OP_TYPE | NUMBER | NAME | STRING_LITERAL | EXPRESSION | NEWLINE | WHITESPACE )
+        int alt15=21;
+        alt15 = dfa15.predict(input);
+        switch (alt15) {
             case 1 :
                 // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:10: ASSIGN
                 {
@@ -1327,14 +1402,21 @@ public class TerraLexer extends Lexer {
                 }
                 break;
             case 19 :
-                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:206: NEWLINE
+                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:206: EXPRESSION
+                {
+                mEXPRESSION(); 
+
+                }
+                break;
+            case 20 :
+                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:217: NEWLINE
                 {
                 mNEWLINE(); 
 
                 }
                 break;
-            case 20 :
-                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:214: WHITESPACE
+            case 21 :
+                // /home/paulofreitas/Desktop/lang/TerraLexer.g:1:225: WHITESPACE
                 {
                 mWHITESPACE(); 
 
@@ -1348,7 +1430,7 @@ public class TerraLexer extends Lexer {
 
     protected DFA3 dfa3 = new DFA3(this);
     protected DFA6 dfa6 = new DFA6(this);
-    protected DFA14 dfa14 = new DFA14(this);
+    protected DFA15 dfa15 = new DFA15(this);
     static final String DFA3_eotS =
         "\13\uffff";
     static final String DFA3_eofS =
@@ -1461,100 +1543,119 @@ public class TerraLexer extends Lexer {
             return "22:1: NUMBER : ( INTEGER | FLOAT );";
         }
     }
-    static final String DFA14_eotS =
-        "\7\uffff\10\34\2\56\12\34\5\uffff\16\34\1\uffff\26\34\1\144\36\34"+
-        "\1\uffff\1\56\1\34\1\u0084\1\144\15\34\1\u0092\3\34\1\u0096\10\34"+
-        "\1\144\1\uffff\1\144\3\34\1\u0084\2\34\1\u0092\2\34\1\56\2\34\1"+
-        "\uffff\1\34\1\u0092\1\34\1\uffff\2\34\1\144\3\34\1\u0096\1\u00af"+
-        "\1\34\1\144\5\34\1\56\3\34\1\u0096\2\34\1\u00bb\1\34\1\uffff\1\144"+
-        "\2\56\1\34\1\56\5\34\1\56\1\uffff\1\34\1\u0092\11\34\1\u00cd\2\34"+
-        "\3\u0092\1\uffff\4\34\1\u00d4\1\34\1\uffff\3\34\1\56";
-    static final String DFA14_eofS =
-        "\u00d9\uffff";
-    static final String DFA14_minS =
-        "\1\11\6\uffff\1\151\1\141\1\143\1\151\1\157\1\150\1\157\1\164\2"+
-        "\56\1\154\2\141\1\151\1\145\1\141\1\166\1\160\1\141\1\162\5\uffff"+
-        "\1\155\1\163\1\143\1\145\1\164\1\160\1\164\2\157\1\154\1\156\2\157"+
-        "\1\162\1\uffff\1\154\1\141\1\167\1\161\1\156\1\163\1\154\1\144\1"+
-        "\151\1\163\1\156\2\145\1\166\1\157\1\141\1\142\1\141\1\153\1\163"+
-        "\1\150\1\157\1\56\1\156\1\141\1\145\1\147\1\162\1\154\1\151\3\163"+
-        "\1\165\1\147\2\151\1\164\1\147\1\137\1\153\1\137\1\156\1\162\1\141"+
-        "\1\157\1\151\1\154\1\142\1\141\1\145\1\157\1\162\1\uffff\1\56\1"+
-        "\164\2\56\1\164\1\145\1\156\1\160\1\163\1\160\1\151\1\145\1\142"+
-        "\1\144\2\150\1\154\1\56\1\154\1\164\1\141\1\56\1\167\1\156\1\145"+
-        "\1\154\1\147\2\156\1\164\1\56\1\uffff\1\56\1\141\1\147\1\141\1\56"+
-        "\1\141\1\162\1\56\1\154\1\141\1\56\1\164\1\145\1\uffff\1\145\1\56"+
-        "\1\164\1\uffff\1\171\1\137\1\56\2\145\1\164\2\56\1\156\1\56\2\156"+
-        "\2\145\1\164\1\56\2\156\1\151\1\56\1\157\1\144\1\56\1\141\1\uffff"+
-        "\3\56\1\144\1\56\1\151\2\147\1\157\1\142\1\56\1\uffff\1\164\1\56"+
-        "\1\157\2\164\1\156\1\152\1\151\1\156\2\150\1\56\1\145\1\157\3\56"+
-        "\1\uffff\1\143\1\156\1\164\1\137\1\56\1\164\1\uffff\1\171\1\160"+
-        "\1\145\1\56";
-    static final String DFA14_maxS =
-        "\1\175\6\uffff\1\157\1\171\1\156\1\154\1\157\1\150\1\157\1\164\2"+
-        "\172\2\157\2\151\1\145\1\151\1\166\1\160\1\141\1\162\5\uffff\1\165"+
-        "\1\163\1\143\1\145\1\164\1\160\1\164\2\157\1\154\1\156\2\157\1\162"+
-        "\1\uffff\1\154\1\141\1\167\1\161\1\156\1\163\1\154\1\144\1\151\1"+
-        "\170\1\156\2\145\1\166\1\157\1\141\1\142\1\141\1\153\1\163\1\150"+
-        "\1\157\1\172\1\156\1\141\1\145\1\147\1\162\1\154\1\151\3\163\1\165"+
-        "\1\147\2\151\1\164\1\147\1\137\1\153\1\137\1\156\1\162\1\141\1\157"+
-        "\1\151\1\154\1\142\1\141\1\145\1\157\1\162\1\uffff\1\172\1\164\2"+
-        "\172\1\164\1\145\1\156\1\160\1\163\1\160\1\151\1\145\1\142\1\144"+
-        "\2\150\1\154\1\172\1\154\1\164\1\141\1\172\1\167\1\156\1\145\1\154"+
-        "\1\147\2\156\1\164\1\172\1\uffff\1\172\1\141\1\147\1\141\1\172\1"+
-        "\141\1\162\1\172\1\154\1\141\1\172\1\164\1\145\1\uffff\1\145\1\172"+
-        "\1\164\1\uffff\1\171\1\137\1\172\2\145\1\164\2\172\1\156\1\172\2"+
-        "\156\2\145\1\164\1\172\2\156\1\151\1\172\1\157\1\144\1\172\1\141"+
-        "\1\uffff\3\172\1\144\1\172\1\151\2\147\1\157\1\142\1\172\1\uffff"+
-        "\1\164\1\172\1\157\2\164\1\156\1\152\1\151\1\156\2\150\1\172\1\145"+
-        "\1\157\3\172\1\uffff\1\143\1\156\1\164\1\137\1\172\1\164\1\uffff"+
-        "\1\171\1\160\1\145\1\172";
-    static final String DFA14_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\24\uffff\1\20\1\21\1\22\1\23\1"+
-        "\24\16\uffff\1\13\65\uffff\1\12\37\uffff\1\15\15\uffff\1\14\3\uffff"+
-        "\1\17\30\uffff\1\11\13\uffff\1\10\21\uffff\1\16\6\uffff\1\7\4\uffff";
-    static final String DFA14_specialS =
-        "\u00d9\uffff}>";
-    static final String[] DFA14_transitionS = {
-            "\1\37\1\36\2\uffff\1\36\22\uffff\1\37\1\uffff\1\35\5\uffff\1"+
-            "\2\1\3\6\uffff\12\33\1\6\2\uffff\1\1\3\uffff\22\34\1\16\7\34"+
-            "\6\uffff\1\34\1\15\1\21\1\7\1\27\1\12\1\32\1\25\1\11\1\31\1"+
-            "\34\1\13\1\26\1\34\1\30\1\10\1\34\1\22\1\14\2\34\1\23\1\24\1"+
-            "\17\1\20\1\34\1\4\1\uffff\1\5",
+    static final String DFA15_eotS =
+        "\20\uffff\2\61\21\uffff\16\36\1\uffff\65\36\1\61\3\36\1\u0089\15"+
+        "\36\1\u0097\2\36\1\u009a\1\36\1\u009c\11\36\1\u0089\1\uffff\1\u0089"+
+        "\3\36\1\u009a\2\36\1\u0097\2\36\1\61\2\36\1\uffff\1\36\1\u0097\1"+
+        "\uffff\1\36\1\uffff\5\36\1\u009c\1\u00b6\1\36\2\u0089\6\36\1\61"+
+        "\3\36\1\u009c\2\36\1\u00c3\1\36\1\uffff\2\u0089\2\61\1\36\1\61\5"+
+        "\36\1\61\1\uffff\1\36\1\u0097\11\36\1\u00d5\2\36\3\u0097\1\uffff"+
+        "\4\36\1\u00dc\1\36\1\uffff\3\36\1\61";
+    static final String DFA15_eofS =
+        "\u00e1\uffff";
+    static final String DFA15_minS =
+        "\1\11\6\uffff\26\56\6\uffff\1\155\1\163\1\143\1\145\1\164\1\160"+
+        "\1\157\1\164\1\165\1\157\1\156\1\157\1\162\1\157\1\uffff\1\154\1"+
+        "\141\1\167\1\161\1\156\1\163\1\154\1\144\1\151\1\163\1\156\1\145"+
+        "\1\154\1\145\1\166\1\157\2\141\1\153\1\163\1\150\1\157\1\156\1\145"+
+        "\1\142\1\141\1\147\1\162\1\151\1\154\3\163\1\165\1\147\2\151\1\164"+
+        "\1\147\1\137\1\153\1\137\1\156\1\145\1\162\1\141\1\157\1\151\1\142"+
+        "\1\141\1\145\1\157\1\162\1\56\1\147\1\154\1\164\1\56\1\164\1\156"+
+        "\1\145\1\160\1\163\1\160\1\151\1\145\1\142\1\144\2\150\1\154\1\56"+
+        "\1\154\1\164\1\56\1\141\1\56\1\167\1\156\1\154\1\147\2\156\1\164"+
+        "\2\145\1\56\1\uffff\1\56\1\147\2\141\1\56\1\141\1\162\1\56\1\154"+
+        "\1\141\1\56\1\164\1\145\1\uffff\1\145\1\56\1\uffff\1\164\1\uffff"+
+        "\1\171\1\137\2\145\1\164\2\56\1\162\2\56\3\156\2\145\1\164\1\56"+
+        "\2\156\1\151\1\56\1\157\1\144\1\56\1\141\1\uffff\4\56\1\144\1\56"+
+        "\1\151\2\147\1\157\1\142\1\56\1\uffff\1\164\1\56\1\157\2\164\1\156"+
+        "\1\152\1\151\1\156\2\150\1\56\1\145\1\157\3\56\1\uffff\1\143\1\156"+
+        "\1\164\1\137\1\56\1\164\1\uffff\1\171\1\160\1\145\1\56";
+    static final String DFA15_maxS =
+        "\1\175\6\uffff\26\172\6\uffff\1\155\1\163\1\143\1\145\1\164\1\160"+
+        "\1\157\1\164\1\165\1\157\1\156\1\157\1\162\1\157\1\uffff\1\154\1"+
+        "\141\1\167\1\161\1\156\1\163\1\154\1\144\1\151\1\170\1\156\1\145"+
+        "\1\154\1\145\1\166\1\157\2\141\1\153\1\163\1\150\1\157\1\156\1\145"+
+        "\1\142\1\141\1\147\1\162\1\151\1\154\3\163\1\165\1\147\2\151\1\164"+
+        "\1\147\1\137\1\153\1\137\1\156\1\145\1\162\1\141\1\157\1\151\1\142"+
+        "\1\141\1\145\1\157\1\162\1\172\1\147\1\154\1\164\1\172\1\164\1\156"+
+        "\1\145\1\160\1\163\1\160\1\151\1\145\1\142\1\144\2\150\1\154\1\172"+
+        "\1\154\1\164\1\172\1\141\1\172\1\167\1\156\1\154\1\147\2\156\1\164"+
+        "\2\145\1\172\1\uffff\1\172\1\147\2\141\1\172\1\141\1\162\1\172\1"+
+        "\154\1\141\1\172\1\164\1\145\1\uffff\1\145\1\172\1\uffff\1\164\1"+
+        "\uffff\1\171\1\137\2\145\1\164\2\172\1\162\2\172\3\156\2\145\1\164"+
+        "\1\172\2\156\1\151\1\172\1\157\1\144\1\172\1\141\1\uffff\4\172\1"+
+        "\144\1\172\1\151\2\147\1\157\1\142\1\172\1\uffff\1\164\1\172\1\157"+
+        "\2\164\1\156\1\152\1\151\1\156\2\150\1\172\1\145\1\157\3\172\1\uffff"+
+        "\1\143\1\156\1\164\1\137\1\172\1\164\1\uffff\1\171\1\160\1\145\1"+
+        "\172";
+    static final String DFA15_acceptS =
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\26\uffff\1\20\1\21\1\22\1\23\1"+
+        "\24\1\25\16\uffff\1\13\127\uffff\1\12\15\uffff\1\14\2\uffff\1\15"+
+        "\1\uffff\1\17\31\uffff\1\11\14\uffff\1\10\21\uffff\1\16\6\uffff"+
+        "\1\7\4\uffff";
+    static final String DFA15_specialS =
+        "\u00e1\uffff}>";
+    static final String[] DFA15_transitionS = {
+            "\1\42\1\41\2\uffff\1\41\22\uffff\1\42\1\uffff\1\37\1\uffff\1"+
+            "\40\3\uffff\1\2\1\3\6\uffff\12\35\1\6\2\uffff\1\1\3\uffff\1"+
+            "\36\1\17\1\36\1\13\1\36\1\14\2\36\1\12\2\36\1\15\6\36\1\16\7"+
+            "\36\6\uffff\2\36\1\22\1\7\1\30\1\31\1\34\1\26\1\11\1\33\2\36"+
+            "\1\27\1\36\1\32\1\10\1\36\1\23\3\36\1\24\1\25\1\20\1\21\1\36"+
+            "\1\4\1\uffff\1\5",
             "",
             "",
             "",
             "",
             "",
             "",
-            "\1\41\5\uffff\1\40",
-            "\1\42\20\uffff\1\43\6\uffff\1\44",
-            "\1\47\11\uffff\1\45\1\46",
-            "\1\51\2\uffff\1\50",
-            "\1\52",
-            "\1\53",
-            "\1\54",
-            "\1\55",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
-            "\1\60\2\uffff\1\57",
-            "\1\63\3\uffff\1\62\11\uffff\1\61",
-            "\1\65\7\uffff\1\64",
-            "\1\66",
-            "\1\67",
-            "\1\70\7\uffff\1\71",
-            "\1\72",
-            "\1\73",
-            "\1\74",
-            "\1\75",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\10\36"+
+            "\1\44\5\36\1\43\13\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\1\45"+
+            "\20\36\1\46\6\36\1\47\1\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\2\36"+
+            "\1\51\11\36\1\50\15\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\15\36"+
+            "\1\52\14\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\16\36"+
+            "\1\53\13\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\13\36"+
+            "\1\54\16\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\16\36"+
+            "\1\55\13\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\7\36"+
+            "\1\56\13\36\1\57\6\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\16\36"+
+            "\1\60\13\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\13\36"+
+            "\1\63\2\36\1\62\13\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\1\66"+
+            "\3\36\1\65\11\36\1\64\13\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\1\70"+
+            "\7\36\1\67\21\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\10\36"+
+            "\1\71\21\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\4\36"+
+            "\1\72\25\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\1\73"+
+            "\7\36\1\74\21\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\25\36"+
+            "\1\75\4\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\10\36"+
+            "\1\76\21\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\17\36"+
+            "\1\77\12\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\1\100"+
+            "\31\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\21\36"+
+            "\1\101\10\36",
             "",
             "",
             "",
             "",
             "",
-            "\1\76\7\uffff\1\77",
-            "\1\100",
-            "\1\101",
+            "",
             "\1\102",
             "\1\103",
             "\1\104",
@@ -1566,20 +1667,20 @@ public class TerraLexer extends Lexer {
             "\1\112",
             "\1\113",
             "\1\114",
-            "",
             "\1\115",
             "\1\116",
             "\1\117",
+            "",
             "\1\120",
             "\1\121",
             "\1\122",
             "\1\123",
             "\1\124",
             "\1\125",
-            "\1\127\4\uffff\1\126",
+            "\1\126",
+            "\1\127",
             "\1\130",
-            "\1\131",
-            "\1\132",
+            "\1\132\4\uffff\1\131",
             "\1\133",
             "\1\134",
             "\1\135",
@@ -1589,7 +1690,7 @@ public class TerraLexer extends Lexer {
             "\1\141",
             "\1\142",
             "\1\143",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "\1\144",
             "\1\145",
             "\1\146",
             "\1\147",
@@ -1620,16 +1721,14 @@ public class TerraLexer extends Lexer {
             "\1\u0080",
             "\1\u0081",
             "\1\u0082",
-            "",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
             "\1\u0083",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "\1\u0084",
             "\1\u0085",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u0086",
             "\1\u0087",
             "\1\u0088",
-            "\1\u0089",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u008a",
             "\1\u008b",
             "\1\u008c",
@@ -1638,138 +1737,148 @@ public class TerraLexer extends Lexer {
             "\1\u008f",
             "\1\u0090",
             "\1\u0091",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "\1\u0092",
             "\1\u0093",
             "\1\u0094",
             "\1\u0095",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
-            "\1\u0097",
+            "\1\u0096",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u0098",
             "\1\u0099",
-            "\1\u009a",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u009b",
-            "\1\u009c",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u009d",
             "\1\u009e",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
-            "",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
             "\1\u009f",
             "\1\u00a0",
             "\1\u00a1",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
             "\1\u00a2",
             "\1\u00a3",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
             "\1\u00a4",
             "\1\u00a5",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u00a6",
             "\1\u00a7",
-            "",
             "\1\u00a8",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u00a9",
-            "",
             "\1\u00aa",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u00ab",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
             "\1\u00ac",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u00ad",
             "\1\u00ae",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "",
+            "\1\u00af",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "",
             "\1\u00b0",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "",
             "\1\u00b1",
             "\1\u00b2",
             "\1\u00b3",
             "\1\u00b4",
             "\1\u00b5",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
-            "\1\u00b6",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u00b7",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u00b8",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
             "\1\u00b9",
             "\1\u00ba",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "\1\u00bb",
             "\1\u00bc",
-            "",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
             "\1\u00bd",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u00be",
             "\1\u00bf",
             "\1\u00c0",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u00c1",
             "\1\u00c2",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
-            "",
-            "\1\u00c3",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u00c4",
+            "",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u00c5",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u00c6",
             "\1\u00c7",
             "\1\u00c8",
             "\1\u00c9",
             "\1\u00ca",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "",
             "\1\u00cb",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u00cc",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
+            "\1\u00cd",
             "\1\u00ce",
             "\1\u00cf",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
-            "",
             "\1\u00d0",
             "\1\u00d1",
             "\1\u00d2",
             "\1\u00d3",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34",
-            "\1\u00d5",
-            "",
+            "\1\u00d4",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u00d6",
             "\1\u00d7",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "",
             "\1\u00d8",
-            "\1\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32\34"
+            "\1\u00d9",
+            "\1\u00da",
+            "\1\u00db",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\u00dd",
+            "",
+            "\1\u00de",
+            "\1\u00df",
+            "\1\u00e0",
+            "\1\36\1\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36"
     };
 
-    static final short[] DFA14_eot = DFA.unpackEncodedString(DFA14_eotS);
-    static final short[] DFA14_eof = DFA.unpackEncodedString(DFA14_eofS);
-    static final char[] DFA14_min = DFA.unpackEncodedStringToUnsignedChars(DFA14_minS);
-    static final char[] DFA14_max = DFA.unpackEncodedStringToUnsignedChars(DFA14_maxS);
-    static final short[] DFA14_accept = DFA.unpackEncodedString(DFA14_acceptS);
-    static final short[] DFA14_special = DFA.unpackEncodedString(DFA14_specialS);
-    static final short[][] DFA14_transition;
+    static final short[] DFA15_eot = DFA.unpackEncodedString(DFA15_eotS);
+    static final short[] DFA15_eof = DFA.unpackEncodedString(DFA15_eofS);
+    static final char[] DFA15_min = DFA.unpackEncodedStringToUnsignedChars(DFA15_minS);
+    static final char[] DFA15_max = DFA.unpackEncodedStringToUnsignedChars(DFA15_maxS);
+    static final short[] DFA15_accept = DFA.unpackEncodedString(DFA15_acceptS);
+    static final short[] DFA15_special = DFA.unpackEncodedString(DFA15_specialS);
+    static final short[][] DFA15_transition;
 
     static {
-        int numStates = DFA14_transitionS.length;
-        DFA14_transition = new short[numStates][];
+        int numStates = DFA15_transitionS.length;
+        DFA15_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA14_transition[i] = DFA.unpackEncodedString(DFA14_transitionS[i]);
+            DFA15_transition[i] = DFA.unpackEncodedString(DFA15_transitionS[i]);
         }
     }
 
-    class DFA14 extends DFA {
+    class DFA15 extends DFA {
 
-        public DFA14(BaseRecognizer recognizer) {
+        public DFA15(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 14;
-            this.eot = DFA14_eot;
-            this.eof = DFA14_eof;
-            this.min = DFA14_min;
-            this.max = DFA14_max;
-            this.accept = DFA14_accept;
-            this.special = DFA14_special;
-            this.transition = DFA14_transition;
+            this.decisionNumber = 15;
+            this.eot = DFA15_eot;
+            this.eof = DFA15_eof;
+            this.min = DFA15_min;
+            this.max = DFA15_max;
+            this.accept = DFA15_accept;
+            this.special = DFA15_special;
+            this.transition = DFA15_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( ASSIGN | LEFT_PAREN | RIGHT_PAREN | LEFT_BRACKET | RIGHT_BRACKET | ATTRIBUITION | DOMAIN_OBJECT | PACKAGE | IMPORT | TYPE | PROPERTY | ATTRIBUTE_PROPERTY | OPERATION_PROPERTY | OPERATION | OP_TYPE | NUMBER | NAME | STRING_LITERAL | NEWLINE | WHITESPACE );";
+            return "1:1: Tokens : ( ASSIGN | LEFT_PAREN | RIGHT_PAREN | LEFT_BRACKET | RIGHT_BRACKET | ATTRIBUITION | DOMAIN_OBJECT | PACKAGE | IMPORT | TYPE | PROPERTY | ATTRIBUTE_PROPERTY | OPERATION_PROPERTY | OPERATION | OP_TYPE | NUMBER | NAME | STRING_LITERAL | EXPRESSION | NEWLINE | WHITESPACE );";
         }
     }
  

@@ -10,9 +10,9 @@ import org.osgi.framework.BundleContext;
 import br.com.maisha.terra.IClassMaker;
 import br.com.maisha.terra.ITerraCompiler;
 import br.com.maisha.terra.lang.DomainObject;
+import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
-import br.com.maisha.wind.lifecycle.model.WindApplication;
 import br.com.maisha.wind.lifecycle.registry.IAppModelListenerRegistry;
 import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
 
@@ -75,9 +75,9 @@ public class ApplicationManager implements IApplicationManager {
 
 					// make java object
 					dObj.setObjectClass(classMaker.make(dObj));
-					
-					Object d = dObj.getObjectClass().newInstance();
 
+					dObj.setApplication(app);
+					
 					// fire model event
 					modelListeners.fireEvent(null, dObj, LevelType.Object,
 							ChangeType.Added);
@@ -86,6 +86,8 @@ public class ApplicationManager implements IApplicationManager {
 				}
 			}
 
+			app.setBundleContext(context);
+			
 			// register the application, fire model event
 			registry.register(app);
 			modelListeners.fireEvent(null, app, LevelType.Application,

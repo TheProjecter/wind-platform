@@ -65,6 +65,7 @@ body	:    (attr | operation)+;
 
 attr	:   TYPE NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET {
 		Attribute att = new Attribute($TYPE.text, $NAME.text, $STRING_LITERAL.text);
+		att.setDomainObject(domainObject);		
 		att.setProperties(props);
 		atts.add(att);
 		props = new HashMap<String, Property>();
@@ -74,7 +75,7 @@ attr	:   TYPE NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET {
 
 attr_body :  property+;
 
-property:	NEWLINE | attr_prop_name ATTRIBUITION value {
+property:	NEWLINE | attr_prop_name ATTRIBUITION (value|expression) {
 		IConverterService convService = ServiceProvider.getInstance()
 				.getService(IConverterService.class,
 						Activator.getDefault().getBundle().getBundleContext());
@@ -83,15 +84,19 @@ property:	NEWLINE | attr_prop_name ATTRIBUITION value {
 		Object propValue = convService.convert(type, $value.text);
 		
 		Property p = new Property($attr_prop_name.text, propValue);
+		p.setExpression($expression.text);
 		props.put($attr_prop_name.text, p);
 	}
 	;
 attr_prop_name: PROPERTY|ATTRIBUTE_PROPERTY;
 value	:	(NUMBER | NAME);
+expression
+	:	EXPRESSION;
 
 
 operation:  NEWLINE | OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body RIGHT_BRACKET{
 		Operation op = new Operation($OP_TYPE.text, $NAME.text, $STRING_LITERAL.text);
+		op.setDomainObject(domainObject);
 		op.setProperties(op_props);
 		ops.add(op);
 		op_props = new HashMap<String, Property>();

@@ -4,7 +4,7 @@ import java.io.InputStream;
 
 import org.apache.commons.digester.Digester;
 
-import br.com.maisha.wind.lifecycle.model.WindApplication;
+import br.com.maisha.terra.lang.WindApplication;
 
 /**
  * 

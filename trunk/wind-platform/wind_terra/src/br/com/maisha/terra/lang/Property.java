@@ -9,8 +9,7 @@ public class Property extends TerraClass {
 
 	/** */
 	public static enum PresentationType {
-		TEXT("text"), RADIO("radio"), CHECKBOX("checkbox"), COMBO("combo"), LIST(
-				"list"), TEXTAREA("textarea");
+		TEXT("text"), RADIO("radio"), CHECKBOX("checkbox"), COMBO("combo"), LIST("list"), TEXTAREA("textarea");
 
 		private String value;
 
@@ -26,6 +25,8 @@ public class Property extends TerraClass {
 	private String propName;
 
 	private Object value;
+
+	private String expression;
 
 	public Property(String propName, Object value) {
 		super();
@@ -46,7 +47,17 @@ public class Property extends TerraClass {
 	}
 
 	public void setValue(Object value) {
+		Object oldValue = this.value;
 		this.value = value;
+		changeSupport.firePropertyChange("value", oldValue, this.value);
+	}
+
+	public String getExpression() {
+		return expression;
+	}
+
+	public void setExpression(String expression) {
+		this.expression = expression;
 	}
 
 	/**

@@ -9,7 +9,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import br.com.maisha.terra.lang.DomainObject;
-import br.com.maisha.wind.lifecycle.model.WindApplication;
+import br.com.maisha.terra.lang.WindApplication;
 
 /**
  * Memory HashMap impl of {@link IApplicationRegistry}.
