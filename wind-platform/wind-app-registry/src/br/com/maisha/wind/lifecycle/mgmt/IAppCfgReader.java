@@ -2,8 +2,8 @@ package br.com.maisha.wind.lifecycle.mgmt;
 
 import java.io.InputStream;
 
+import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.common.component.Component;
-import br.com.maisha.wind.lifecycle.model.WindApplication;
 
 /**
  * 

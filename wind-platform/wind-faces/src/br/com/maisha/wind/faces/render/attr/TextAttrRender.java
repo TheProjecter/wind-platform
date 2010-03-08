@@ -8,6 +8,7 @@ import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import br.com.maisha.terra.lang.Attribute;
@@ -15,6 +16,7 @@ import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Property.PresentationType;
+import br.com.maisha.wind.faces.databinding.RequiredObservableValue;
 
 /**
  * 
@@ -40,13 +42,12 @@ public class TextAttrRender extends BaseAttrRender {
 	 *      org.eclipse.swt.widgets.Composite,
 	 *      br.com.maisha.terra.lang.ModelReference)
 	 */
-	public void render(Attribute attr, Composite parent,
-			ModelReference modelInstance) {
+	public void render(Attribute attr, Composite parent, ModelReference modelInstance) {
 		log.debug("Starting render for attr [" + attr + "] ");
 
 		// checkNumColumns(parent, attr);
 
-		createLabel(parent, attr);
+		Label l = createLabel(parent, attr);
 
 		Text text = new Text(parent, SWT.BORDER | SWT.SINGLE);
 		text.setData(attr.getRef());
@@ -73,10 +74,14 @@ public class TextAttrRender extends BaseAttrRender {
 
 		// databinding
 		DataBindingContext dbctx = new DataBindingContext();
-		IObservableValue observable = BeansObservables.observeValue(
-				modelInstance, attr.getRef());
-		dbctx.bindValue(SWTObservables.observeText(text, SWT.Modify),
-				observable);
+		IObservableValue observable = BeansObservables.observeValue(modelInstance, attr.getRef());
+		dbctx.bindValue(SWTObservables.observeText(text, SWT.Modify), observable);
 
+		IObservableValue reqLabelObservable = new RequiredObservableValue(l);
+		Property p = attr.getProperties().get(PropertyInfo.REQUIRED.getPropName());
+		if (p != null) {
+			dbctx.bindValue(reqLabelObservable, BeansObservables.observeValue(p, "value"));
+		}
 	}
+
 }

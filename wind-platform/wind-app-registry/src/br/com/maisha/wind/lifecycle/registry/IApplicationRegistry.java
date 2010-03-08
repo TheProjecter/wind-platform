@@ -3,8 +3,8 @@ package br.com.maisha.wind.lifecycle.registry;
 import java.util.List;
 
 import br.com.maisha.terra.lang.DomainObject;
+import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.common.component.Component;
-import br.com.maisha.wind.lifecycle.model.WindApplication;
 
 /**
  * This is responsible for hold all object metadata of all applications current

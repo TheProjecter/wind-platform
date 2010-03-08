@@ -32,6 +32,9 @@ public class ConverterService implements IConverterService {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> T convert(Class<T> type, Object value) {
+		if(type == null || value == null){
+			return null;
+		}
 		Class<?> fromType = value.getClass();
 
 		if(fromType.equals(type)){

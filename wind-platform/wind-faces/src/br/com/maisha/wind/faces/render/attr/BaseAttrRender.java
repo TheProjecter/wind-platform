@@ -1,9 +1,5 @@
 package br.com.maisha.wind.faces.render.attr;
 
-import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.core.databinding.beans.BeansObservables;
-import org.eclipse.core.databinding.observable.value.IObservableValue;
-import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.rwt.graphics.Graphics;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
@@ -67,10 +63,11 @@ public abstract class BaseAttrRender implements IAttributeRender {
 	 * @param parent
 	 * @param attr
 	 */
-	protected void createLabel(Composite parent, Attribute attr) {
+	protected Label createLabel(Composite parent, Attribute attr) {
 		Label label = new Label(parent, SWT.NONE);
 		label.setText(attr.getLabel());
 		setRequiredLabel(attr, label);
+		return label;
 	}
 
 	/**

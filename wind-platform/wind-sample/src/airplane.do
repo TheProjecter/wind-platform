@@ -8,18 +8,18 @@ domain_object airbus "A 380" {
 String code "Code"{
 x: 2
 y: 1
-required: true
+required: ${this.capacity > 20}
 mask: LLNN
 width: 80
 }
 
-double weight "Weight"{
+Double weight "Weight"{
 x: 1
 y: 1
 width: 50
 }
 
-double capacity "Passengers Capacity"{
+Integer capacity "Passengers Capacity"{
 x:3
 y:1
 width: 50
@@ -55,8 +55,8 @@ colspan: 2
 }
 
 
-operation python save "Salvar"{
-file: RuleSave.py
+operation python CalculateCapacity "Passengers Capacity"{
+file: CalculateCapacity.py
 }
 
 }

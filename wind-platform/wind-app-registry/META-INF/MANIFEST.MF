@@ -16,10 +16,12 @@ Require-Bundle: org.eclipse.rap.ui,
  org.apache.log4j;bundle-version="1.2.13"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: javax.servlet;version="2.4.0",
+Import-Package: br.com.maisha.terra,
+ br.com.maisha.terra.lang,
+ javax.servlet;version="2.4.0",
  javax.servlet.http;version="2.4.0",
- br.com.maisha.terra,
- br.com.maisha.terra.lang
+ org.apache.commons.logging;version="1.1.1",
+ org.apache.commons.logging.impl;version="1.1.1"
 Bundle-ClassPath: .
 Export-Package: br.com.maisha.wind.lifecycle;uses:="org.eclipse.ui.plugin,org.osgi.framework",
  br.com.maisha.wind.lifecycle.mgmt;
@@ -27,7 +29,6 @@ Export-Package: br.com.maisha.wind.lifecycle;uses:="org.eclipse.ui.plugin,org.os
    br.com.maisha.wind.lifecycle.model,
    br.com.maisha.wind.lifecycle.registry,
    br.com.maisha.terra",
- br.com.maisha.wind.lifecycle.model;uses:="br.com.maisha.terra.lang",
  br.com.maisha.wind.lifecycle.rcp;
   uses:="org.eclipse.jface.action,
    org.eclipse.jface.resource,

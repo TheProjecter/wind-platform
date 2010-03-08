@@ -25,6 +25,8 @@ import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
+import br.com.maisha.wind.controller.IApplicationController;
+import br.com.maisha.wind.controller.execution.el.ELListener;
 import br.com.maisha.wind.faces.IPresentationProvider;
 import br.com.maisha.wind.faces.action.BaseAction;
 import br.com.maisha.wind.faces.rcp.Activator;
@@ -50,6 +52,8 @@ public class EditionView extends ViewPart implements IRender {
 	/** */
 	private IPresentationProvider presProvider;
 
+	private IApplicationController appController;
+
 	/** */
 	private ModelReference modelInstance;
 
@@ -71,8 +75,10 @@ public class EditionView extends ViewPart implements IRender {
 		this.contents = new Composite(editionPanel, SWT.NONE);
 		this.contents.setLayout(new GridLayout(2, false));
 
-		this.presProvider = ServiceProvider.getInstance().getService(
-				IPresentationProvider.class,
+		this.presProvider = ServiceProvider.getInstance().getService(IPresentationProvider.class,
+				Activator.getDefault().getBundle().getBundleContext());
+
+		this.appController = ServiceProvider.getInstance().getService(IApplicationController.class,
 				Activator.getDefault().getBundle().getBundleContext());
 
 		presProvider.registerRender(this);
@@ -106,6 +112,10 @@ public class EditionView extends ViewPart implements IRender {
 
 		try {
 			modelInstance = (ModelReference) object.getObjectClass().newInstance();
+			modelInstance.setMeta(object);
+			appController.evalExpressions(modelInstance);
+			modelInstance.addPropertyChangeListener(new ELListener());
+			
 		} catch (Exception e) {
 			e.printStackTrace();// TODO handle
 		}
@@ -121,10 +131,10 @@ public class EditionView extends ViewPart implements IRender {
 	 */
 	private void createUserInterface(DomainObject model) {
 
-		for(Control child : this.contents.getChildren()){
+		for (Control child : this.contents.getChildren()) {
 			child.dispose();
 		}
-		
+
 		// sort by x,y position
 		Collections.sort(model.getAtts(), new Comparator<Attribute>() {
 
@@ -155,14 +165,12 @@ public class EditionView extends ViewPart implements IRender {
 			int rowspan = attr.getPropertyValue(PropertyInfo.ROW_SPAN);
 
 			while (colspan > 1) {
-				layout.put(new Point((x + colspan) - 1, y),
-						createInvisibleAttr());
+				layout.put(new Point((x + colspan) - 1, y), createInvisibleAttr());
 				colspan--;
 			}
 
 			while (rowspan > 1) {
-				layout.put(new Point(x, (y + rowspan) - 1),
-						createInvisibleAttr());
+				layout.put(new Point(x, (y + rowspan) - 1), createInvisibleAttr());
 				rowspan--;
 			}
 
@@ -196,15 +204,14 @@ public class EditionView extends ViewPart implements IRender {
 		}
 
 		// render operations
-		final IToolBarManager tbm = getViewSite().getActionBars()
-				.getToolBarManager();
+		final IToolBarManager tbm = getViewSite().getActionBars().getToolBarManager();
 		for (Operation op : model.getOperations()) {
 			if (op.getPropertyValue(PropertyInfo.VISIBLE)) {
 				createOperationUI(op, model, tbm);
 			}
 		}
 		getViewSite().getActionBars().updateActionBars();
-		
+
 		this.contents.pack(true);
 		this.contents.redraw();
 	}
@@ -216,23 +223,17 @@ public class EditionView extends ViewPart implements IRender {
 	 *            Attribute to render.
 	 */
 	private void createAttributeUI(Attribute attr) {
-		String presentationType = attr
-				.getPropertyValue(PropertyInfo.PRESENTATION_TYPE);
+		String presentationType = attr.getPropertyValue(PropertyInfo.PRESENTATION_TYPE);
 
-		IAttributeRender attrRender = presProvider
-				.getAttributeRender(presentationType);
+		IAttributeRender attrRender = presProvider.getAttributeRender(presentationType);
 		if (attrRender == null) {
 			// try to use TEXT as default...
-			log.debug("Render for the given representation type ["
-					+ presentationType + "] not found... "
+			log.debug("Render for the given representation type [" + presentationType + "] not found... "
 					+ "trying to use default...");
-			attrRender = presProvider
-					.getAttributeRender(Property.PresentationType.TEXT
-							.getValue());
+			attrRender = presProvider.getAttributeRender(Property.PresentationType.TEXT.getValue());
 
 			if (attrRender == null) {
-				log.error("None render found... the attribute [" + attr
-						+ "]  will not be rendered!");
+				log.error("None render found... the attribute [" + attr + "]  will not be rendered!");
 				return;
 			}
 		}
@@ -259,8 +260,7 @@ public class EditionView extends ViewPart implements IRender {
 	private Attribute createInvisibleAttr() {
 		Attribute invisible = new Attribute("", "", "Invisible");
 		invisible.setProperties(new HashMap<String, Property>());
-		Property visibility = new Property(PropertyInfo.VISIBLE.getPropName(),
-				false);
+		Property visibility = new Property(PropertyInfo.VISIBLE.getPropName(), false);
 		invisible.getProperties().put(visibility.getPropName(), visibility);
 		return invisible;
 	}

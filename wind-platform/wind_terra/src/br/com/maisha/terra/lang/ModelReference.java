@@ -14,9 +14,10 @@ import java.beans.PropertyChangeSupport;
  */
 public class ModelReference {
 
+	private DomainObject meta;
+
 	/** Property change. */
-	private PropertyChangeSupport changeSupport = new PropertyChangeSupport(
-			this);
+	protected PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
 	/**
 	 * Add a listener for the given property.
@@ -26,9 +27,18 @@ public class ModelReference {
 	 * @param listener
 	 *            Listener.
 	 */
-	public void addPropertyChangeListener(String propertyName,
-			PropertyChangeListener listener) {
+	public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
 		changeSupport.addPropertyChangeListener(propertyName, listener);
+	}
+
+	/**
+	 * Add a listener for all properties.
+	 * 
+	 * @param listener
+	 *            Listener.
+	 */
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		changeSupport.addPropertyChangeListener(listener);
 	}
 
 	/**
@@ -39,8 +49,15 @@ public class ModelReference {
 	 * @param listener
 	 *            Listener.
 	 */
-	public void removePropertyChangeListener(String propertyName,
-			PropertyChangeListener listener) {
+	public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
 		changeSupport.removePropertyChangeListener(propertyName, listener);
+	}
+
+	public DomainObject getMeta() {
+		return meta;
+	}
+
+	public void setMeta(DomainObject meta) {
+		this.meta = meta;
 	}
 }

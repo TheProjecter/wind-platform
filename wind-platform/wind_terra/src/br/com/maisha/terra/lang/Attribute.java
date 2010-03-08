@@ -22,6 +22,9 @@ public class Attribute extends TerraClass {
 	/** */
 	private Map<String, Property> properties = new HashMap<String, Property>();
 
+	/** */
+	private DomainObject domainObject;
+
 	/**
 	 * 
 	 * @param type
@@ -70,6 +73,14 @@ public class Attribute extends TerraClass {
 		this.properties = properties;
 	}
 
+	public DomainObject getDomainObject() {
+		return domainObject;
+	}
+
+	public void setDomainObject(DomainObject domainObject) {
+		this.domainObject = domainObject;
+	}
+
 	/**
 	 * 
 	 * @param <T>
@@ -80,7 +91,7 @@ public class Attribute extends TerraClass {
 	public <T> T getPropertyValue(PropertyInfo<T> pInfo) {
 		if (properties != null && pInfo.getPropName() != null) {
 			Property p = properties.get(pInfo.getPropName());
-			if (p == null) {
+			if (p == null || p.getValue() == null) {
 				return pInfo.getDefaultValue();
 			}
 			return (T) p.getValue();

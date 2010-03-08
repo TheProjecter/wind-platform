@@ -9,6 +9,9 @@ import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
 import br.com.maisha.terra.lang.PropertyInfo;
+import br.com.maisha.wind.common.factory.ServiceProvider;
+import br.com.maisha.wind.controller.IApplicationController;
+import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.faces.rcp.Activator;
 
 /**
@@ -56,11 +59,15 @@ public class BaseAction extends Action implements IWorkbenchAction {
 	public void runWithEvent(Event event) {
 		log.debug("Running Action " + op);
 
-		log.debug(model);
-		
-		
-		
-		// TODO call application controller...
+		ExecutionContext<ModelReference> exeCtx = new ExecutionContext<ModelReference>();
+		exeCtx.setInstance(model);
+		exeCtx.setOperation(op);
+
+		IApplicationController appCtrl = ServiceProvider.getInstance()
+				.getService(IApplicationController.class,
+						Activator.getDefault().getBundle().getBundleContext());
+
+		exeCtx = appCtrl.runOperation(exeCtx);
 
 		log.debug("Action Finished " + op);
 	}

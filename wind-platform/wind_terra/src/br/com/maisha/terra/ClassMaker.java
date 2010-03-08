@@ -42,6 +42,8 @@ public class ClassMaker implements IClassMaker {
 				cc.addMethod(CtMethod.make(genSetMethod(att), cc));
 				cc.addMethod(CtMethod.make(genGetMethod(att), cc));
 			}
+			
+
 
 			return cc.toClass();
 		} catch (CannotCompileException e) {
@@ -63,10 +65,10 @@ public class ClassMaker implements IClassMaker {
 		method.append(StringUtils.capitalize(att.getRef()));
 		method.append("(");
 		method.append(att.getType());
-		method.append(" v ){");
-		method.append("this.");
-		method.append(att.getRef());
-		method.append(" = v;");
+		method.append(" v ){"); 
+		method.append(att.getType()).append(" oldValue = this.").append(att.getRef()).append(";");
+		method.append("this.").append(att.getRef()).append(" = v;");
+		method.append("changeSupport.firePropertyChange(\"").append(att.getRef()).append("\", oldValue, v);");
 		method.append("}");
 
 		return method.toString();

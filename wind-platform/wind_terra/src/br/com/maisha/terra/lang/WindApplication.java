@@ -1,7 +1,9 @@
-package br.com.maisha.wind.lifecycle.model;
+package br.com.maisha.terra.lang;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.osgi.framework.BundleContext;
 
 import br.com.maisha.terra.lang.DomainObject;
 
@@ -23,6 +25,9 @@ public class WindApplication {
 
 	/** Domain Objects living at this application. */
 	private List<DomainObject> domainObjects = new ArrayList<DomainObject>();
+
+	/** Applications bundle context reference. */
+	private BundleContext bundleContext;
 
 	/** @see #appId */
 	public String getAppId() {
@@ -57,6 +62,16 @@ public class WindApplication {
 	/** @see #name */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/** @see #bundleContext */
+	public BundleContext getBundleContext() {
+		return bundleContext;
+	}
+
+	/** @see #bundleContext */
+	public void setBundleContext(BundleContext bundleContext) {
+		this.bundleContext = bundleContext;
 	}
 
 }

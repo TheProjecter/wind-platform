@@ -1,6 +1,5 @@
 package br.com.maisha.wind.sample;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.osgi.framework.BundleContext;
 

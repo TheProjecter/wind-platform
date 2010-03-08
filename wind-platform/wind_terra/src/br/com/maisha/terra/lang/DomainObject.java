@@ -14,7 +14,7 @@ public class DomainObject extends TerraClass {
 	private String ref;
 
 	private String label;
-	
+
 	private String pckg;
 
 	private List<Attribute> atts = new ArrayList<Attribute>();
@@ -25,6 +25,9 @@ public class DomainObject extends TerraClass {
 
 	/** Java class that represents this domain object. */
 	private Class<?> objectClass;
+
+	/** */
+	private WindApplication application;
 
 	public DomainObject(String ref, String label) {
 		super();
@@ -59,6 +62,9 @@ public class DomainObject extends TerraClass {
 	}
 
 	public void setAtts(List<Attribute> atts) {
+		for (Attribute att : atts) {
+			att.setDomainObject(this);
+		}
 		this.atts = atts;
 	}
 
@@ -75,6 +81,9 @@ public class DomainObject extends TerraClass {
 	}
 
 	public void setOperations(List<Operation> operations) {
+		for (Operation op : operations) {
+			op.setDomainObject(this);
+		}
 		this.operations = operations;
 	}
 
@@ -86,14 +95,29 @@ public class DomainObject extends TerraClass {
 		this.objectClass = objectClass;
 	}
 
-	
-	
 	public String getPckg() {
 		return pckg;
 	}
 
 	public void setPckg(String pckg) {
 		this.pckg = pckg;
+	}
+
+	public WindApplication getApplication() {
+		return application;
+	}
+
+	public void setApplication(WindApplication application) {
+		this.application = application;
+	}
+
+	public Attribute getAttribute(String name) {
+		for (Attribute attr : atts) {
+			if (attr.getRef().equals(name)) {
+				return attr;
+			}
+		}
+		return null;
 	}
 
 	/**

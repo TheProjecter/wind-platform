@@ -23,6 +23,9 @@ public class Operation extends TerraClass {
 	/** */
 	private Map<String, Property> properties = new HashMap<String, Property>();
 
+	/** */
+	private DomainObject domainObject;
+
 	/**
 	 * 
 	 * @param type
@@ -69,6 +72,14 @@ public class Operation extends TerraClass {
 
 	public void setProperties(Map<String, Property> properties) {
 		this.properties = properties;
+	}
+
+	public DomainObject getDomainObject() {
+		return domainObject;
+	}
+
+	public void setDomainObject(DomainObject domainObject) {
+		this.domainObject = domainObject;
 	}
 
 	/**
