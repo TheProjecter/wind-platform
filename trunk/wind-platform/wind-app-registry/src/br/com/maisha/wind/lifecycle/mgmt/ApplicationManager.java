@@ -77,7 +77,7 @@ public class ApplicationManager implements IApplicationManager {
 					dObj.setObjectClass(classMaker.make(dObj));
 
 					dObj.setApplication(app);
-					
+
 					// fire model event
 					modelListeners.fireEvent(null, dObj, LevelType.Object,
 							ChangeType.Added);
@@ -87,11 +87,12 @@ public class ApplicationManager implements IApplicationManager {
 			}
 
 			app.setBundleContext(context);
-			
+
 			// register the application, fire model event
-			registry.register(app);
-			modelListeners.fireEvent(null, app, LevelType.Application,
-					ChangeType.Added);
+			if (registry.register(app)) {
+				modelListeners.fireEvent(null, app, LevelType.Application,
+						ChangeType.Added);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace(); // TODO handle

@@ -46,15 +46,16 @@ public class ApplicationRegistry implements IApplicationRegistry {
 	 * 
 	 * @see br.com.maisha.wind.lifecycle.registry.IApplicationRegistry#register(br.com.maisha.wind.lifecycle.model.WindApplication)
 	 */
-	public void register(WindApplication app) {
+	public boolean register(WindApplication app) {
 		if (registry.containsKey(app.getAppId())) {
 			log.error("Registry already contains an application "
 					+ "registered under the given id [" + app.getAppId()
 					+ "] ... " + "choose a different one!");
-			return;
+			return false;
 		}
 		this.registry.put(app.getAppId(), app);
 		log.debug("		Application [" + app.getAppId() + "] registered...");
+		return true;
 	}
 
 	/**
