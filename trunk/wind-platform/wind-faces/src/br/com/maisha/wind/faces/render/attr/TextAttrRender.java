@@ -17,7 +17,6 @@ import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Property.PresentationType;
-import br.com.maisha.wind.common.validator.RequiredValidator;
 import br.com.maisha.wind.faces.databinding.RequiredObservableValue;
 
 /**
