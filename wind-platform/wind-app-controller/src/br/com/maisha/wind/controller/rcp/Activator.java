@@ -2,7 +2,6 @@ package br.com.maisha.wind.controller.rcp;
 
 import java.util.List;
 
-import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 
