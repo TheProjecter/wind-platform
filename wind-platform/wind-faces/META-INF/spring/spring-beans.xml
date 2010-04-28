@@ -18,6 +18,8 @@
 			<map>
 				<entry key="text" value-ref="textAttrRender" />
 				<entry key="textarea" value-ref="textAreaAttrRender" />
+				<entry key="checkbox" value-ref="checkboxAttrRender" />
+				
 			</map>
 		</property>
 	</bean>
@@ -35,6 +37,7 @@
 	<!-- Attribute Renders -->
 	<bean name="textAttrRender" class="br.com.maisha.wind.faces.render.attr.TextAttrRender" />
 	<bean name="textAreaAttrRender" class="br.com.maisha.wind.faces.render.attr.TextAreaAttrRender" />
+	<bean name="checkboxAttrRender" class="br.com.maisha.wind.faces.render.attr.CheckboxRenderer" />
 
 
 
