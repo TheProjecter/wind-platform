@@ -19,7 +19,7 @@ import br.com.maisha.terra.lang.Property.PresentationType;
 public class CheckboxRenderer extends BaseAttrRender {
 
 	/** Log ref. */
-	private static final Logger log = Logger.getLogger(TextAttrRender.class);
+	private static final Logger log = Logger.getLogger(CheckboxRenderer.class);
 
 	/**
 	 * 
