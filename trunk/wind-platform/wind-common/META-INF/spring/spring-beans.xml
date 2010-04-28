@@ -12,6 +12,7 @@
 		<property name="converters">
 			<list>
 				<ref bean="stringConverter" />
+				<ref bean="doubleConverter" />
 			</list>
 		</property>
 	</bean>
@@ -19,7 +20,8 @@
 
 	<bean name="stringConverter" class="br.com.maisha.wind.common.converter.StringConverter"
 		scope="singleton" />
-
+	<bean name="doubleConverter" class="br.com.maisha.wind.common.converter.DoubleConverter"
+		scope="singleton" />
 
 
 

@@ -1,14 +1,13 @@
 package br.com.maisha.wind.common;
 
 import org.apache.log4j.Logger;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends AbstractUIPlugin {
+public class Activator implements BundleActivator {
 
 	/** Log ref. */
 	private static final Logger log = Logger.getLogger(Activator.class);
@@ -17,7 +16,7 @@ public class Activator extends AbstractUIPlugin {
 	public static final String PLUGIN_ID = "wind_common";
 
 	// The shared instance
-	private static Activator plugin;
+	private static BundleContext context;
 
 	/**
 	 * The constructor
@@ -32,10 +31,9 @@ public class Activator extends AbstractUIPlugin {
 	 * org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext
 	 * )
 	 */
-	public void start(BundleContext context) throws Exception {
+	public void start(BundleContext ctx) throws Exception {
 		log.info("Wind Common Starting... ");
-		super.start(context);
-		plugin = this;
+		context = ctx;
 		log.info("Wind Common Started ");
 	}
 
@@ -46,10 +44,9 @@ public class Activator extends AbstractUIPlugin {
 	 * org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext
 	 * )
 	 */
-	public void stop(BundleContext context) throws Exception {
+	public void stop(BundleContext ctx) throws Exception {
 		log.info("Wind Common Stopping... ");
-		plugin = null;
-		super.stop(context);
+		context = ctx;
 		log.info("Wind Common Stopped ");
 	}
 
@@ -58,19 +55,8 @@ public class Activator extends AbstractUIPlugin {
 	 * 
 	 * @return the shared instance
 	 */
-	public static Activator getDefault() {
-		return plugin;
+	public static BundleContext getDefault() {
+		return context;
 	}
 
-	/**
-	 * Returns an image descriptor for the image file at the given plug-in
-	 * relative path
-	 * 
-	 * @param path
-	 *            the path
-	 * @return the image descriptor
-	 */
-	public static ImageDescriptor getImageDescriptor(String path) {
-		return imageDescriptorFromPlugin(PLUGIN_ID, path);
-	}
 }
