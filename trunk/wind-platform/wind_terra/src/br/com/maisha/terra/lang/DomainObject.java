@@ -119,6 +119,10 @@ public class DomainObject extends TerraClass {
 		}
 		return null;
 	}
+	
+	public Attribute attribute(String name){
+		return getAttribute(name);
+	}
 
 	/**
 	 * 
