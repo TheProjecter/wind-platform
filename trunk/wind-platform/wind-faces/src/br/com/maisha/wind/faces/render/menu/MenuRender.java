@@ -43,6 +43,7 @@ public class MenuRender extends BaseRender {
 			log.error("This render is intended to recieve a "
 					+ "WindApplication as model, but [" + model.getClass()
 					+ "] was given... ");
+			return;
 		}
 
 		WindApplication app = (WindApplication) model;

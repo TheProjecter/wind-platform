@@ -6,8 +6,35 @@
 
 
 
-	<bean name="applicationController" scope="singleton"
-		class="br.com.maisha.wind.controller.ApplicationController" />
+
+	<bean name="presentationProvider" scope="singleton"
+		class="br.com.maisha.wind.faces.PresentationProvider">
+		<property name="render">
+			<list>
+				<ref bean="menuRenderer" />
+			</list>
+		</property>
+		<property name="attrRender">
+			<map>
+				<entry key="text" value-ref="textAttrRender" />
+				<entry key="textarea" value-ref="textAreaAttrRender" />
+			</map>
+		</property>
+	</bean>
+
+
+	<!-- Model Renders -->
+	<bean name="menuRenderer" class="br.com.maisha.wind.faces.render.menu.MenuRender">
+		<property name="presentationProvider">
+			<ref bean="presentationProvider" />
+		</property>
+	</bean>
+
+
+
+	<!-- Attribute Renders -->
+	<bean name="textAttrRender" class="br.com.maisha.wind.faces.render.attr.TextAttrRender" />
+	<bean name="textAreaAttrRender" class="br.com.maisha.wind.faces.render.attr.TextAreaAttrRender" />
 
 
 
