@@ -1,0 +1,15 @@
+Manifest-Version: 2.0
+Spring-Context: *;create-asynchronously:=true;wait-for-dependencies:=true
+Bundle-ManifestVersion: 2
+Bundle-Name: Wind Trip
+Bundle-SymbolicName: wind_trip;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: br.com.maisha.wind.trip.Activator
+Require-Bundle: org.eclipse.rap.ui,
+ wind_app_registry;bundle-version="1.0.0",
+ org.apache.log4j;bundle-version="1.2.13"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: javax.servlet;version="2.4.0",
+ javax.servlet.http;version="2.4.0"
+Eclipse-BuddyPolicy: dependent
