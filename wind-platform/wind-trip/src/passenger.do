@@ -17,5 +17,10 @@ Integer age "Age"{
 	width: ${meta.attribute('name').property('width') / 5}
 }
 
+Boolean smoker "Smoker"{
+	x: 1
+	y: 2
+	presentation_type: checkbox
 
+}
 }
