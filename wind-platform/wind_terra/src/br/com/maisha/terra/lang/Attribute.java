@@ -99,6 +99,17 @@ public class Attribute extends TerraClass {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
+	public <T> T property(String name) {
+		if (properties != null && name != null) {
+			Property p = properties.get(name);
+			if (p != null) {
+				return (T) p.getValue();
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * 
 	 * @see java.lang.Object#toString()
