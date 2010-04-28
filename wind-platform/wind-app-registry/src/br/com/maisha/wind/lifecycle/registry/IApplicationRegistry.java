@@ -25,7 +25,7 @@ public interface IApplicationRegistry extends Component {
 	 * @param app
 	 *            App to put into registry.
 	 */
-	void register(WindApplication app);
+	boolean register(WindApplication app);
 
 	/**
 	 * Gets the application corresponding to the given id.
