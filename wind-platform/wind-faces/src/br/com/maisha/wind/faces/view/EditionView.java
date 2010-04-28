@@ -10,7 +10,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -52,10 +52,14 @@ public class EditionView extends ViewPart implements IRender {
 	/** */
 	private IPresentationProvider presProvider;
 
+	/** */
 	private IApplicationController appController;
 
 	/** */
 	private ModelReference modelInstance;
+
+	/** */
+	private TitleArea titleArea;
 
 	/**
 	 * 
@@ -64,12 +68,10 @@ public class EditionView extends ViewPart implements IRender {
 	public void createPartControl(final Composite parent) {
 		// main panel
 		final Composite editionPanel = new Composite(parent, SWT.NONE);
-		editionPanel.setLayout(new FillLayout(SWT.HORIZONTAL));
+		editionPanel.setLayout(new GridLayout(1, true));
+		editionPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-		/*
-		 * TODO if (getViewSite() != null) { this.titleArea = new
-		 * TitleArea(editionPanel, getMessageAreaProvider()); }
-		 */
+		//this.titleArea = new TitleArea(editionPanel);
 
 		// object contents panel
 		this.contents = new Composite(editionPanel, SWT.NONE);
@@ -115,7 +117,7 @@ public class EditionView extends ViewPart implements IRender {
 			modelInstance.setMeta(object);
 			appController.evalExpressions(modelInstance);
 			modelInstance.addPropertyChangeListener(new ELListener());
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();// TODO handle
 		}

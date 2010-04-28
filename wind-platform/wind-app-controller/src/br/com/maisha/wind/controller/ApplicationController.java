@@ -38,6 +38,11 @@ public class ApplicationController implements IApplicationController {
 	public ExecutionContext<ModelReference> runOperation(ExecutionContext<ModelReference> ctx) {
 
 		try {
+			// validation phase
+			
+			
+			
+			// run operation
 			Operation op = ctx.getOperation();
 			ScriptEngine engine = engineManager.getEngineByName(op.getType());
 			Invocable invocable = (Invocable) engine;

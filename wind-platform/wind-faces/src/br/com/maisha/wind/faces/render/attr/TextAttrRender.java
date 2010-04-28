@@ -2,6 +2,7 @@ package br.com.maisha.wind.faces.render.attr;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.beans.BeansObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.jface.databinding.swt.SWTObservables;
@@ -16,6 +17,7 @@ import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Property.PresentationType;
+import br.com.maisha.wind.common.validator.RequiredValidator;
 import br.com.maisha.wind.faces.databinding.RequiredObservableValue;
 
 /**
@@ -72,16 +74,21 @@ public class TextAttrRender extends BaseAttrRender {
 
 		text.setEnabled(!attr.getPropertyValue(PropertyInfo.DISABLED));
 
-		// databinding
-		DataBindingContext dbctx = new DataBindingContext();
-		IObservableValue observable = BeansObservables.observeValue(modelInstance, attr.getRef());
-		dbctx.bindValue(SWTObservables.observeText(text, SWT.Modify), observable);
 
+		DataBindingContext dbctx = new DataBindingContext();
+
+		// databinding value
+		UpdateValueStrategy targetToModel = new UpdateValueStrategy();
+		IObservableValue observable = BeansObservables.observeValue(modelInstance, attr.getRef());
+		dbctx.bindValue(SWTObservables.observeText(text, SWT.Modify), observable, targetToModel, null);
+
+		// data binding required...
 		IObservableValue reqLabelObservable = new RequiredObservableValue(l);
 		Property p = attr.getProperties().get(PropertyInfo.REQUIRED.getPropName());
 		if (p != null) {
 			dbctx.bindValue(reqLabelObservable, BeansObservables.observeValue(p, "value"));
 		}
+
 	}
 
 }
