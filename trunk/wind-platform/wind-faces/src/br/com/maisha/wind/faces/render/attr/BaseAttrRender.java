@@ -1,5 +1,9 @@
 package br.com.maisha.wind.faces.render.attr;
 
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.beans.BeansObservables;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.rwt.graphics.Graphics;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
@@ -7,10 +11,13 @@ import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 
 import br.com.maisha.terra.lang.Attribute;
+import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
+import br.com.maisha.wind.faces.databinding.RequiredObservableValue;
 
 /**
  * 
@@ -138,5 +145,78 @@ public abstract class BaseAttrRender implements IAttributeRender {
 		gd.verticalSpan = attr.getPropertyValue(PropertyInfo.ROW_SPAN);
 	}
 
-	
+	protected DataBindingContext configureDataBindings(Control control,
+			Label label, Attribute attr) {
+
+		DataBindingContext dbctx = new DataBindingContext();
+
+		// data binding required...
+		IObservableValue reqLabelObservable = new RequiredObservableValue(label);
+		Property p = attr.getProperties().get(
+				PropertyInfo.REQUIRED.getPropName());
+		if (p != null) {
+			dbctx.bindValue(reqLabelObservable, BeansObservables.observeValue(
+					p, "value"));
+		}
+
+		// data binding visible
+		Property pVis = attr.getProperties().get(
+				PropertyInfo.VISIBLE.getPropName());
+		if (pVis != null) {
+			dbctx.bindValue(SWTObservables.observeVisible(control),
+					BeansObservables.observeValue(pVis, "value"));
+			dbctx.bindValue(SWTObservables.observeVisible(label),
+					BeansObservables.observeValue(pVis, "value"));
+		}
+
+		// data binding enabled
+		Property pEnabled = attr.getProperties().get(
+				PropertyInfo.DISABLED.getPropName());
+		if (pEnabled != null) {
+			dbctx.bindValue(SWTObservables.observeEnabled(control),
+					BeansObservables.observeValue(pEnabled, "value"));
+		}
+
+		// data binding width
+		Property pWidth = attr.getProperties().get(
+				PropertyInfo.WIDTH.getPropName());
+		if (pWidth != null){
+			dbctx.bindValue(SWTObservables.observeEnabled(control),
+					BeansObservables.observeValue(pWidth, "value"));
+		}
+		
+		// data binding height
+		Property pHeight = attr.getProperties().get(
+				PropertyInfo.HEIGHT.getPropName());
+		if(pHeight != null){
+			dbctx.bindValue(SWTObservables.observeEnabled(control),
+					BeansObservables.observeValue(pHeight, "value"));
+		}
+		
+		// data binding max_length
+		Property pMaxL = attr.getProperties().get(
+				PropertyInfo.MAX_LENGTH.getPropName());
+		if(pMaxL != null){
+			dbctx.bindValue(SWTObservables.observeEnabled(control),
+					BeansObservables.observeValue(pMaxL, "value"));
+		}
+		
+		// data binding min_length
+		Property pMinL = attr.getProperties().get(
+				PropertyInfo.MIN_LENGTH.getPropName());
+		if(pMinL != null){
+			dbctx.bindValue(SWTObservables.observeEnabled(control),
+					BeansObservables.observeValue(pMinL, "value"));
+		}
+		
+		// data binding mask
+		Property pMask = attr.getProperties().get(
+				PropertyInfo.MASK.getPropName());
+		if(pMask != null){
+			dbctx.bindValue(SWTObservables.observeEnabled(control),
+					BeansObservables.observeValue(pMask, "value"));
+		}
+		
+		return dbctx;
+	}
 }

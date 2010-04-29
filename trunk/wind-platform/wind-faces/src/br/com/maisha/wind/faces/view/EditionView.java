@@ -58,8 +58,7 @@ public class EditionView extends ViewPart implements IRender {
 	/** */
 	private ModelReference modelInstance;
 
-	/** */
-	private TitleArea titleArea;
+	
 
 	/**
 	 * 
@@ -70,8 +69,6 @@ public class EditionView extends ViewPart implements IRender {
 		final Composite editionPanel = new Composite(parent, SWT.NONE);
 		editionPanel.setLayout(new GridLayout(1, true));
 		editionPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-
-		//this.titleArea = new TitleArea(editionPanel);
 
 		// object contents panel
 		this.contents = new Composite(editionPanel, SWT.NONE);
@@ -198,7 +195,7 @@ public class EditionView extends ViewPart implements IRender {
 					createEmptyCell();
 				} else {
 					// render attr
-					if (attr.getPropertyValue(PropertyInfo.VISIBLE)) {
+					if (attr.getRef() != null) {
 						createAttributeUI(attr);
 					}
 				}
@@ -260,7 +257,7 @@ public class EditionView extends ViewPart implements IRender {
 	 * @return Invisible Attribute.
 	 */
 	private Attribute createInvisibleAttr() {
-		Attribute invisible = new Attribute("", "", "Invisible");
+		Attribute invisible = new Attribute(null, null, "Invisible");
 		invisible.setProperties(new HashMap<String, Property>());
 		Property visibility = new Property(PropertyInfo.VISIBLE.getPropName(), false);
 		invisible.getProperties().put(visibility.getPropName(), visibility);

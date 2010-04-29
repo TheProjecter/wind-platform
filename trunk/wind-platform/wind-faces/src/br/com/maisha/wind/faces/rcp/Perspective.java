@@ -4,6 +4,7 @@ import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
 import br.com.maisha.wind.faces.view.EditionView;
+import br.com.maisha.wind.faces.view.GridView;
 import br.com.maisha.wind.faces.view.MessageView;
 import br.com.maisha.wind.faces.view.ModuleOverview;
 
@@ -34,5 +35,8 @@ public class Perspective implements IPerspectiveFactory {
 
 		// Edition
 		layout.addView(EditionView.ID, IPageLayout.RIGHT, .7f, editorArea);
+
+		// Grid
+		layout.addView(GridView.ID, IPageLayout.BOTTOM, .8f, EditionView.ID);
 	}
 }
