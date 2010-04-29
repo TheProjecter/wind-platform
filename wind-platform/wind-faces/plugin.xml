@@ -41,6 +41,13 @@
             class="br.com.maisha.wind.faces.view.ModuleOverview"
             id="br.com.maisha.wind.faces.view.moduleOverview">
       </view>
+      
+      <view
+            name="Grid View"
+            class="br.com.maisha.wind.faces.view.GridView"
+            id="br.com.maisha.wind.faces.view.gridView">
+      </view>      
+      
    </extension>
 
 </plugin>

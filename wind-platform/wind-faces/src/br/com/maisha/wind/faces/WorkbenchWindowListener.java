@@ -9,10 +9,10 @@ import org.osgi.framework.BundleContext;
 
 import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.common.factory.ServiceProvider;
+import br.com.maisha.wind.common.listener.IAppModelListenerRegistry;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.faces.rcp.Activator;
-import br.com.maisha.wind.lifecycle.registry.IAppModelListenerRegistry;
 import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
 
 /**

@@ -8,6 +8,7 @@ import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import br.com.maisha.terra.lang.Attribute;
@@ -44,11 +45,12 @@ public class TextAreaAttrRender extends BaseAttrRender {
 	 */
 	public void render(Attribute attr, Composite parent,
 			ModelReference modelInstance) {
-		log.debug("Starting render for attr [" + attr + "] ");
+		log.debug("Starting render [" + getPresentationType() + "] for attr ["
+				+ attr + "] ");
 
 		// checkNumColumns(parent, attr);
 
-		createLabel(parent, attr);
+		Label l = createLabel(parent, attr);
 
 		Text text = new Text(parent, SWT.MULTI | SWT.BORDER | SWT.V_SCROLL
 				| SWT.H_SCROLL);
@@ -69,12 +71,14 @@ public class TextAreaAttrRender extends BaseAttrRender {
 
 		text.setEnabled(!attr.getPropertyValue(PropertyInfo.DISABLED));
 
-		DataBindingContext dbctx = new DataBindingContext();
+		// configure common bindings
+		DataBindingContext dbctx = configureDataBindings(text, l, attr);
+
+		// configure value binding
 		IObservableValue observable = BeansObservables.observeValue(
 				modelInstance, attr.getRef());
 		dbctx.bindValue(SWTObservables.observeText(text, SWT.Modify),
 				observable);
-
 	}
 
 }

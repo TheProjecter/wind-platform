@@ -7,6 +7,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.part.ViewPart;
 
+import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.common.factory.ServiceProvider;
@@ -87,6 +88,12 @@ public class ModuleOverview extends ViewPart implements IRender {
 				TreeItem dObjNode = new TreeItem(appRoot, SWT.NONE);
 				dObjNode.setText(dObj.getLabel() + " [" + dObj.getPckg() + "."
 						+ dObj.getRef() + "]");
+
+				for (Attribute att : dObj.getAtts()) {
+					TreeItem attNode = new TreeItem(dObjNode, SWT.NONE);
+					attNode.setText(att.getType() + " " + att.getRef() + " ["
+							+ att.getLabel() + "]");
+				}
 			}
 
 		}
