@@ -11,9 +11,9 @@ import br.com.maisha.terra.IClassMaker;
 import br.com.maisha.terra.ITerraCompiler;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.WindApplication;
+import br.com.maisha.wind.common.listener.IAppModelListenerRegistry;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
-import br.com.maisha.wind.lifecycle.registry.IAppModelListenerRegistry;
 import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
 
 /**

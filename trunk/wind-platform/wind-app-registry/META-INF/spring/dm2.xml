@@ -8,8 +8,7 @@
 	<bean name="appRegistry" scope="singleton" 
 		class="br.com.maisha.wind.lifecycle.registry.ApplicationRegistry" />
 
-	<bean name="appModelListenerRegistry" scope="singleton" 
-		class="br.com.maisha.wind.lifecycle.registry.AppModelListenerRegistry" />
+
 
 	<bean name="appCfgReader" class="br.com.maisha.wind.lifecycle.mgmt.AppCfgReader" />
 
@@ -18,7 +17,7 @@
 		<property name="registry" ref="appRegistry" />
 		<property name="appCfgReader" ref="appCfgReader" />
 		<property name="classMaker" ref="appRegistryClassMaker" />
-		<property name="modelListeners" ref="appModelListenerRegistry" />
+		<property name="modelListeners" ref="appModelListenerRegistryOsgi" />
 	</bean>
 
 </beans>
