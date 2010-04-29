@@ -4,7 +4,14 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                       http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
 
+	<osgi:reference id="appModelListenerRegistryOsgi" 
+		interface="br.com.maisha.wind.common.listener.IAppModelListenerRegistry" />
+
 	<osgi:service id="applicationControllerOsgi" ref="applicationController"
 		interface="br.com.maisha.wind.controller.IApplicationController">
+	</osgi:service>
+	
+	<osgi:service id="appModelListenerRegistryCtrlOsgi" ref="appModelListenerRegistryCtrl"
+		interface="br.com.maisha.wind.common.listener.IAppModelListenerRegistry">
 	</osgi:service>
 </beans>

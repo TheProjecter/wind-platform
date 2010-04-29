@@ -22,6 +22,9 @@ import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.Activator;
 import br.com.maisha.wind.common.converter.IConverterService;
 import br.com.maisha.wind.common.factory.ServiceProvider;
+import br.com.maisha.wind.common.listener.IAppModelListenerRegistry;
+import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
+import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.execution.api.RuleAPI;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 
@@ -39,6 +42,9 @@ public class ApplicationController implements IApplicationController {
 
 	/** Reference to the script engine manager. */
 	private ScriptEngineManager engineManager = new ScriptEngineManager();
+
+	/** Model listeners for message model. */
+	private IAppModelListenerRegistry modelListener;
 
 	/**
 	 * 
@@ -74,6 +80,10 @@ public class ApplicationController implements IApplicationController {
 			ctx = (ExecutionContext<ModelReference>) invocable.invokeMethod(o,
 					"execute");
 
+			if (ctx.getMessages() != null && !ctx.getMessages().isEmpty()) {
+				modelListener.fireEvent(null, ctx.getMessages(),
+						LevelType.Message, ChangeType.Added);
+			}
 		} catch (Exception e) {
 			e.printStackTrace(); // TODO handle
 		}
@@ -107,7 +117,8 @@ public class ApplicationController implements IApplicationController {
 						ret = convService.convert(PropertyInfo.getPropertyInfo(
 								prop.getPropName()).getType(), ret);
 						if (ret != null) {
-							log.debug("Property value [" + prop.getPropName()
+							log.debug("Attribute [" + attr.getLabel()
+									+ "] property value [" + prop.getPropName()
 									+ "] evaluated to: " + ret);
 							prop.setValue(ret);
 						}
@@ -117,6 +128,16 @@ public class ApplicationController implements IApplicationController {
 		} catch (Exception e) {
 			e.printStackTrace(); // TODO handle
 		}
+	}
+
+	/** @see #modelListener */
+	public IAppModelListenerRegistry getModelListener() {
+		return modelListener;
+	}
+
+	/** @see #modelListener */
+	public void setModelListener(IAppModelListenerRegistry modelListener) {
+		this.modelListener = modelListener;
 	}
 
 }
