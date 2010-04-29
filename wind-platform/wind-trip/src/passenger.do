@@ -23,4 +23,11 @@ Boolean smoker "Smoker"{
 	presentation_type: checkbox
 
 }
+
+Integer sit "Sit"{
+	x: 2
+	y: 2
+	disabled: ${this.smoker}
+}
+
 }
