@@ -1,0 +1,18 @@
+#How Databiding is implemented by the platform
+
+= Introduction =
+
+Both model instance and model metadata are binded to the visual component properties.
+
+
+= Details =
+
+These are all Attribute Properties binded
+ * required
+ * visible
+ * enabled
+ * width
+ * height
+ * max_length
+ * min_length
+ * mask
