@@ -5,9 +5,13 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
 
-
+	<bean name="appModelListenerRegistryCtrl" scope="singleton" 
+		class="br.com.maisha.wind.common.listener.AppModelListenerRegistry" />
+		
 	<bean name="applicationController" scope="singleton"
-		class="br.com.maisha.wind.controller.ApplicationController" />
+		class="br.com.maisha.wind.controller.ApplicationController">
+		<property name="modelListener" ref="appModelListenerRegistryOsgi" />
+	</bean>
 
 
 
