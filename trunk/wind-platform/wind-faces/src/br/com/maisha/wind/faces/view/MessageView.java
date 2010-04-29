@@ -13,7 +13,6 @@ import org.eclipse.ui.part.ViewPart;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.model.UserMessage;
-import br.com.maisha.wind.controller.model.UserMessage.MessageKind;
 import br.com.maisha.wind.faces.IPresentationProvider;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.render.IRender;
@@ -68,22 +67,7 @@ public class MessageView extends ViewPart implements IRender {
 		tableViewer.getTable().setHeaderVisible(true);
 		tableViewer.getTable().setLinesVisible(true);
 
-		List<UserMessage> msgs = new ArrayList<UserMessage>();
-		UserMessage msg = new UserMessage();
-		msg.setI18nMessage("doxo");
-		msg.setKind(MessageKind.ERROR);
-		msgs.add(msg);
-
-		msg = new UserMessage();
-		msg.setI18nMessage("doxo");
-		msg.setKind(MessageKind.WARNING);
-		msgs.add(msg);
-
-		msg = new UserMessage();
-		msg.setI18nMessage("doxo");
-		msg.setKind(MessageKind.INFO);
-		msgs.add(msg);
-		tableViewer.setInput(msgs);
+		tableViewer.setInput(new ArrayList<UserMessage>());
 
 	}
 
@@ -107,6 +91,7 @@ public class MessageView extends ViewPart implements IRender {
 	 * 
 	 * @see br.com.maisha.wind.faces.render.IRender#render(java.lang.Object)
 	 */
+	@SuppressWarnings("unchecked")
 	public void render(Object model) {
 		log.debug("Messages changed...");
 		if (model instanceof List<?>) {
