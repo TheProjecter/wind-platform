@@ -3,6 +3,11 @@ package br.com.maisha.wind.sample
 import location
 domain_object airbus "A 380" {
 
+Double weight "Weight"{
+x: 1
+y: 1
+width: 50
+}
 
 
 String code "Code"{
@@ -13,17 +18,12 @@ mask: LLNN
 width: 80
 }
 
-Double weight "Weight"{
-x: 1
-y: 1
-width: 50
-}
 
 Integer capacity "Passengers Capacity"{
 x:3
 y:1
 width: 50
-disabled: true
+disabled: ${this.capacity > 20}
 }
 
 
@@ -52,6 +52,7 @@ presentation_type: textarea
 width: 300
 height: 80
 colspan: 2
+visible: ${this.capacity > 50}
 }
 
 
