@@ -151,12 +151,15 @@ public abstract class BaseAttrRender implements IAttributeRender {
 		DataBindingContext dbctx = new DataBindingContext();
 
 		// data binding required...
-		IObservableValue reqLabelObservable = new RequiredObservableValue(label);
-		Property p = attr.getProperties().get(
-				PropertyInfo.REQUIRED.getPropName());
-		if (p != null) {
-			dbctx.bindValue(reqLabelObservable, BeansObservables.observeValue(
-					p, "value"));
+		if (label != null) {
+			IObservableValue reqLabelObservable = new RequiredObservableValue(
+					label);
+			Property p = attr.getProperties().get(
+					PropertyInfo.REQUIRED.getPropName());
+			if (p != null) {
+				dbctx.bindValue(reqLabelObservable, BeansObservables
+						.observeValue(p, "value"));
+			}
 		}
 
 		// data binding visible
@@ -165,8 +168,10 @@ public abstract class BaseAttrRender implements IAttributeRender {
 		if (pVis != null) {
 			dbctx.bindValue(SWTObservables.observeVisible(control),
 					BeansObservables.observeValue(pVis, "value"));
-			dbctx.bindValue(SWTObservables.observeVisible(label),
-					BeansObservables.observeValue(pVis, "value"));
+			if (label != null) {
+				dbctx.bindValue(SWTObservables.observeVisible(label),
+						BeansObservables.observeValue(pVis, "value"));
+			}
 		}
 
 		// data binding enabled
@@ -180,43 +185,43 @@ public abstract class BaseAttrRender implements IAttributeRender {
 		// data binding width
 		Property pWidth = attr.getProperties().get(
 				PropertyInfo.WIDTH.getPropName());
-		if (pWidth != null){
+		if (pWidth != null) {
 			dbctx.bindValue(SWTObservables.observeEnabled(control),
 					BeansObservables.observeValue(pWidth, "value"));
 		}
-		
+
 		// data binding height
 		Property pHeight = attr.getProperties().get(
 				PropertyInfo.HEIGHT.getPropName());
-		if(pHeight != null){
+		if (pHeight != null) {
 			dbctx.bindValue(SWTObservables.observeEnabled(control),
 					BeansObservables.observeValue(pHeight, "value"));
 		}
-		
+
 		// data binding max_length
 		Property pMaxL = attr.getProperties().get(
 				PropertyInfo.MAX_LENGTH.getPropName());
-		if(pMaxL != null){
+		if (pMaxL != null) {
 			dbctx.bindValue(SWTObservables.observeEnabled(control),
 					BeansObservables.observeValue(pMaxL, "value"));
 		}
-		
+
 		// data binding min_length
 		Property pMinL = attr.getProperties().get(
 				PropertyInfo.MIN_LENGTH.getPropName());
-		if(pMinL != null){
+		if (pMinL != null) {
 			dbctx.bindValue(SWTObservables.observeEnabled(control),
 					BeansObservables.observeValue(pMinL, "value"));
 		}
-		
+
 		// data binding mask
 		Property pMask = attr.getProperties().get(
 				PropertyInfo.MASK.getPropName());
-		if(pMask != null){
+		if (pMask != null) {
 			dbctx.bindValue(SWTObservables.observeEnabled(control),
 					BeansObservables.observeValue(pMask, "value"));
 		}
-		
+
 		return dbctx;
 	}
 }
