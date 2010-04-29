@@ -1,4 +1,4 @@
-#sumary How Databiding is implemented by the platform
+#summary How Databiding is implemented by the platform
 
 = Introduction =
 
