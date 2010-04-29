@@ -24,7 +24,8 @@
 		scope="singleton" />
 
 
-
+	<bean name="appModelListenerRegistry" scope="singleton" 
+		class="br.com.maisha.wind.common.listener.AppModelListenerRegistry" />
 
 
 </beans>
