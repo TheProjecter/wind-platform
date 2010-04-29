@@ -22,5 +22,10 @@ public class RuleAPI {
 		UserMessage um = new UserMessage(MessageKind.INFO, message);
 		ctx.getMessages().add(um);
 	}
+	
+	public void warn(String message) {
+		UserMessage um = new UserMessage(MessageKind.WARNING, message);
+		ctx.getMessages().add(um);
+	}
 
 }
