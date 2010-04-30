@@ -3,6 +3,8 @@ package br.com.maisha.wind.controller.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+
 import br.com.maisha.terra.lang.Operation;
 
 /**
@@ -13,6 +15,9 @@ import br.com.maisha.terra.lang.Operation;
  * 
  */
 public class ExecutionContext<T> {
+
+	/** Monitor. */
+	IProgressMonitor monitor;
 
 	/** Operation to run. */
 	private Operation operation;
@@ -51,6 +56,16 @@ public class ExecutionContext<T> {
 	/** @see #messages */
 	public void setMessages(List<UserMessage> messages) {
 		this.messages = messages;
+	}
+
+	/** @see #monitor */
+	public IProgressMonitor getMonitor() {
+		return monitor;
+	}
+
+	/** @see #monitor */
+	public void setMonitor(IProgressMonitor monitor) {
+		this.monitor = monitor;
 	}
 
 }

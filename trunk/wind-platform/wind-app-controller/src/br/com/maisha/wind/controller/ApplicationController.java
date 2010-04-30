@@ -11,6 +11,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.osgi.framework.BundleContext;
 
 import br.com.maisha.terra.lang.Attribute;
@@ -55,9 +56,14 @@ public class ApplicationController implements IApplicationController {
 			ExecutionContext<ModelReference> ctx) {
 
 		try {
+			IProgressMonitor monitor = ctx.getMonitor();
+
 			// validation phase
+			monitor.setTaskName("Validating...");
+			monitor.worked(10);
 
 			// run operation
+			monitor.setTaskName("Executing operation...");
 			Operation op = ctx.getOperation();
 			ScriptEngine engine = engineManager.getEngineByName(op.getType());
 			Invocable invocable = (Invocable) engine;
@@ -77,9 +83,10 @@ public class ApplicationController implements IApplicationController {
 			engine.eval("rule = " + op.getRef() + "(ctx, api)");
 			Object o = engine.get("rule");
 
+			monitor.worked(5);
 			ctx = (ExecutionContext<ModelReference>) invocable.invokeMethod(o,
 					"execute");
-
+			
 			if (ctx.getMessages() != null && !ctx.getMessages().isEmpty()) {
 				modelListener.fireEvent(null, ctx.getMessages(),
 						LevelType.Message, ChangeType.Added);
@@ -96,6 +103,9 @@ public class ApplicationController implements IApplicationController {
 	 */
 	public void evalExpressions(ModelReference modelInstance) {
 		try {
+			if(modelInstance == null){
+				return;
+			}
 			IConverterService convService = ServiceProvider
 					.getInstance()
 					.getService(IConverterService.class, Activator.getDefault());
