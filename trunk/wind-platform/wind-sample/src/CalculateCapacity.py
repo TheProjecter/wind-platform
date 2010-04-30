@@ -1,4 +1,5 @@
 from types import *
+import time
 
 class CalculateCapacity:
 
@@ -15,4 +16,13 @@ class CalculateCapacity:
 		self.model.capacity = int(self.model.weight / 10)
 		api.info("airplane.passengerscapacity.success")
 		#self.model.meta.getAttribute("code").getProperties().get("required").setValue("false")
+		
+		ctx.monitor.worked(10)
+		time.sleep(2)
+		ctx.monitor.worked(10)
+		time.sleep(2)
+		ctx.monitor.worked(10)
+		time.sleep(2)
+		ctx.monitor.worked(10)
+		
 		return self.ctx
