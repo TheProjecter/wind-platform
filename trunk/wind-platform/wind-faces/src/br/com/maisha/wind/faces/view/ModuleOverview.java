@@ -80,7 +80,7 @@ public class ModuleOverview extends ViewPart implements IRender {
 						+ "] was given... ");
 				return;
 			}
-
+			tree.removeAll();
 			WindApplication app = (WindApplication) model;
 			TreeItem appRoot = new TreeItem(tree, SWT.NONE);
 			appRoot.setText(app.getName() + " [" + app.getAppId() + "]");
