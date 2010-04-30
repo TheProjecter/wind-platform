@@ -1,11 +1,6 @@
 #summary Describes the characteristics of data validation on the platform
 
-= Introduction =
-
-Add your content here.
-
-
-= Details =
+= Validation =
 
 Validação deve ser:
  * Por Operação;
@@ -25,4 +20,40 @@ operation python CalculateCapacity "Passengers Capacity"{
 	"key.erro2": ${this.destiny == this.source},
    }
 }
+}}}
+
+== Define a validation rule at object level ==
+It is also possible to define validation rules outside of a operation (at object's level). Then this validation rule is available to all operations of that object.
+
+{{{
+
+package br.com.maisha.wind.sample
+
+import location
+domain_object airbus "A 380" {
+
+Double weight "Weight"{
+x: 1
+y: 1
+width: 50
+}
+
+
+...
+
+
+operation python CalculateCapacity "Passengers Capacity"{
+  file: CalculateCapacity.py
+  validWhen: {
+	rule1,
+	rule2,
+  }
+}
+
+validation rule1 {
+   "key.erro1": ${this.capacity > 50 && this.weight < 48778}
+}
+
+}
+
 }}}
