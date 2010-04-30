@@ -50,6 +50,7 @@ public class MenuRender extends BaseRender {
 		IMenuManager menuManager = RCPUtil.getWindowMenuManager(RCPUtil
 				.getWorkbenchWindow());
 
+		
 		log.debug(" 	Menu rendering started for " + app.getName() + " ["
 				+ app.getAppId() + "]... ");
 
