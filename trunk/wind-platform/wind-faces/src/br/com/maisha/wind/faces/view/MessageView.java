@@ -8,6 +8,8 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 import br.com.maisha.wind.common.factory.ServiceProvider;
@@ -76,7 +78,13 @@ public class MessageView extends ViewPart implements IRender {
 	 * @see org.eclipse.ui.part.WorkbenchPart#setFocus()
 	 */
 	public void setFocus() {
-
+		try {
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPages()[0]
+					.showView(MessageView.ID, null,
+							IWorkbenchPage.VIEW_ACTIVATE);
+		} catch (Exception e) {
+			e.printStackTrace(); // TODO
+		}
 	}
 
 	/**
@@ -99,8 +107,9 @@ public class MessageView extends ViewPart implements IRender {
 			List<UserMessage> curr = (List<UserMessage>) tableViewer.getInput();
 
 			curr.addAll(msg);
-			
+
 			tableViewer.setInput(curr);
+			this.setFocus();
 		}
 
 	}
