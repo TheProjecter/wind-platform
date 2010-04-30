@@ -29,6 +29,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 	    configurer.setShowCoolBar( true );
 	    configurer.setTitle( "Wind" );
 	    configurer.setShellStyle( SWT.TITLE | SWT.MAX | SWT.RESIZE );
+	    configurer.setShowStatusLine(true);
 	    configurer.setShowProgressIndicator( true );
 	}
 	

@@ -1,5 +1,6 @@
 package br.com.maisha.wind.faces.rcp;
 
+import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
@@ -26,17 +27,19 @@ public class Perspective implements IPerspectiveFactory {
 		layout.setEditorAreaVisible(false);
 		layout.setFixed(true);
 
-		// Message
-		layout.addView(MessageView.ID, IPageLayout.LEFT, .3f, editorArea);
-
 		// Module
-		layout.addView(ModuleOverview.ID, IPageLayout.BOTTOM, .7f,
-				MessageView.ID);
+		layout.addView(ModuleOverview.ID, IPageLayout.LEFT, .3f,
+				editorArea);
 
 		// Edition
-		layout.addView(EditionView.ID, IPageLayout.RIGHT, .7f, editorArea);
+		layout.addView(EditionView.ID, IPageLayout.TOP, .7f, editorArea);
 
-		// Grid
-		layout.addView(GridView.ID, IPageLayout.BOTTOM, .8f, EditionView.ID);
+		// Bottom Folder (Grid, Messages)
+		IFolderLayout bottomFolder = layout.createFolder("bottomFolder",
+				IPageLayout.BOTTOM, .6f, editorArea);
+		bottomFolder.addView(GridView.ID);
+		bottomFolder.addView(MessageView.ID);
+		bottomFolder.addView("org.eclipse.ui.views.ProgressView");
+		
 	}
 }

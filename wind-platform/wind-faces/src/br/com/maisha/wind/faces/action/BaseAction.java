@@ -1,6 +1,10 @@
 package br.com.maisha.wind.faces.action;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
@@ -57,16 +61,39 @@ public class BaseAction extends Action implements IWorkbenchAction {
 	 */
 	public void runWithEvent(Event event) {
 		log.debug("Running Action " + op);
+		try {
+			Job job = new Job(op.getLabel()) {
+				protected IStatus run(IProgressMonitor monitor) {
+					try {
+						// configure execution context....
+						monitor.beginTask("Configuring context...", 100);
+						ExecutionContext<ModelReference> exeCtx = new ExecutionContext<ModelReference>();
+						exeCtx.setInstance(model);
+						exeCtx.setOperation(op);
+						exeCtx.setMonitor(monitor);
+						monitor.worked(10);
 
-		ExecutionContext<ModelReference> exeCtx = new ExecutionContext<ModelReference>();
-		exeCtx.setInstance(model);
-		exeCtx.setOperation(op);
+						IApplicationController appCtrl = ServiceProvider
+								.getInstance().getService(
+										IApplicationController.class,
+										Activator.getDefault().getBundle()
+												.getBundleContext());
 
-		IApplicationController appCtrl = ServiceProvider.getInstance()
-				.getService(IApplicationController.class,
-						Activator.getDefault().getBundle().getBundleContext());
+						// run operation...
+						exeCtx = appCtrl.runOperation(exeCtx);
 
-		exeCtx = appCtrl.runOperation(exeCtx);
+						monitor.done();
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					return Status.OK_STATUS;
+				}
+			};
+			job.schedule();
+		} catch (Exception e) {
+			e.printStackTrace(); // TODO handle
+		}
 
 		log.debug("Action Finished " + op);
 	}
