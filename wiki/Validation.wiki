@@ -1,0 +1,28 @@
+#summary Describes the characteristics of data validation on the platform
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+Validação deve ser:
+ * Por Operação;
+ * Possibilitar definir regras de validação que podem ser referenciadas por varias operações
+ * Validação de tipo fica no attributo e é realizada pelo databinding.
+ * Validação regex
+ * Flag na operação indica se os dados devem ser validados.
+
+== Exemplo de uso de validação ==
+
+{{{
+operation python CalculateCapacity "Passengers Capacity"{
+   file: CalculateCapacity.py
+   validate: true
+   validWhen: {
+	"key.erro1": ${this.capacity > 50 && this.weight < 48778},
+	"key.erro2": ${this.destiny == this.source},
+   }
+}
+}}}
