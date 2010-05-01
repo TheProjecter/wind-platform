@@ -60,4 +60,8 @@ operation python CalculateCapacity "Passengers Capacity"{
 file: CalculateCapacity.py
 }
 
+operation groovy GroovyAction "Groovy Action"{
+file: Groovy.groovy
+}
+
 }
