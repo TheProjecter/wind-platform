@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="lib/groovy-all-1.7.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/juel-engine.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/juel-2.2.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jython.jar"/>
