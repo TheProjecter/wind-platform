@@ -6,7 +6,7 @@ A wind application is every module deployed in the wind platform. Sometimes the 
 
 
 = Load a wind application file =
-The object *br.com.maisha.terra.lang.WindApplication* contains the application meta information retrieved by reading *'*'-app-cfg.xml* loacated at META-INF of each wind application. 
+The object *br.com.maisha.terra.lang.WindApplication* contains the application meta information retrieved by reading *-app-cfg.xml* loacated at META-INF of each wind application. 
 
 It is possible to obtain a reference to a *WindApplication* using the Application Registry:
 
