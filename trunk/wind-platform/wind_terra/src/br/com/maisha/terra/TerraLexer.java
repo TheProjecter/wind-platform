@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /home/paulofreitas/Desktop/lang/TerraLexer.g 2010-03-05 21:08:46
+// $ANTLR 3.1.2 /home/paulofreitas/Desktop/lang/TerraLexer.g 2010-04-30 22:55:22
  package br.com.maisha.terra; 
 
 import org.antlr.runtime.*;
@@ -663,7 +663,7 @@ public class TerraLexer extends Lexer {
         try {
             int _type = OP_TYPE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/paulofreitas/Desktop/lang/TerraLexer.g:20:8: ( 'java' | 'python' | 'groowy' )
+            // /home/paulofreitas/Desktop/lang/TerraLexer.g:20:8: ( 'java' | 'python' | 'groovy' )
             int alt5=3;
             switch ( input.LA(1) ) {
             case 'j':
@@ -706,9 +706,9 @@ public class TerraLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:20:30: 'groowy'
+                    // /home/paulofreitas/Desktop/lang/TerraLexer.g:20:30: 'groovy'
                     {
-                    match("groowy"); 
+                    match("groovy"); 
 
 
                     }
@@ -1562,7 +1562,7 @@ public class TerraLexer extends Lexer {
         "\1\147\1\137\1\153\1\137\1\156\1\145\1\162\1\141\1\157\1\151\1\142"+
         "\1\141\1\145\1\157\1\162\1\56\1\147\1\154\1\164\1\56\1\164\1\156"+
         "\1\145\1\160\1\163\1\160\1\151\1\145\1\142\1\144\2\150\1\154\1\56"+
-        "\1\154\1\164\1\56\1\141\1\56\1\167\1\156\1\154\1\147\2\156\1\164"+
+        "\1\154\1\164\1\56\1\141\1\56\1\166\1\156\1\154\1\147\2\156\1\164"+
         "\2\145\1\56\1\uffff\1\56\1\147\2\141\1\56\1\141\1\162\1\56\1\154"+
         "\1\141\1\56\1\164\1\145\1\uffff\1\145\1\56\1\uffff\1\164\1\uffff"+
         "\1\171\1\137\2\145\1\164\2\56\1\162\2\56\3\156\2\145\1\164\1\56"+
@@ -1579,7 +1579,7 @@ public class TerraLexer extends Lexer {
         "\1\147\1\137\1\153\1\137\1\156\1\145\1\162\1\141\1\157\1\151\1\142"+
         "\1\141\1\145\1\157\1\162\1\172\1\147\1\154\1\164\1\172\1\164\1\156"+
         "\1\145\1\160\1\163\1\160\1\151\1\145\1\142\1\144\2\150\1\154\1\172"+
-        "\1\154\1\164\1\172\1\141\1\172\1\167\1\156\1\154\1\147\2\156\1\164"+
+        "\1\154\1\164\1\172\1\141\1\172\1\166\1\156\1\154\1\147\2\156\1\164"+
         "\2\145\1\172\1\uffff\1\172\1\147\2\141\1\172\1\141\1\162\1\172\1"+
         "\154\1\141\1\172\1\164\1\145\1\uffff\1\145\1\172\1\uffff\1\164\1"+
         "\uffff\1\171\1\137\2\145\1\164\2\172\1\162\2\172\3\156\2\145\1\164"+

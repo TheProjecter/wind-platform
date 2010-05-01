@@ -12,6 +12,27 @@ import java.util.Map;
 public class Operation extends TerraClass {
 
 	/** */
+	public static enum OperationType {
+		java("java",true), python("python",false), groovy("groovy", true);
+
+		private String value;
+		private boolean useNewOperator;
+		
+		private OperationType(String value, boolean useNewOperator) {
+			this.value = value;
+			this.useNewOperator = useNewOperator;
+		}
+
+		public boolean getUseNewOperator(){
+			return useNewOperator;
+		}
+		
+		public String getValue() {
+			return value;
+		}
+	}
+	
+	/** */
 	private String type;
 
 	/** */
