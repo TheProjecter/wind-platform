@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
@@ -38,6 +41,8 @@ public class MessageView extends ViewPart implements IRender {
 	/** */
 	private TableViewer tableViewer;
 
+	private IAction clearAllAction;
+
 	/**
 	 * 
 	 * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
@@ -71,6 +76,21 @@ public class MessageView extends ViewPart implements IRender {
 
 		tableViewer.setInput(new ArrayList<UserMessage>());
 
+		createActions();
+		IToolBarManager tbManager = getViewSite().getActionBars()
+				.getToolBarManager();
+		tbManager.add(clearAllAction);
+	}
+
+	public void createActions() {
+		clearAllAction = new Action("Clear") { // TODO i18n
+
+			public void run() {
+				tableViewer.setInput(new ArrayList<UserMessage>());
+			}
+		};
+		clearAllAction.setImageDescriptor(Activator
+				.getImageDescriptor("icons/clear.gif"));
 	}
 
 	/**
