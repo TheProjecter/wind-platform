@@ -21,7 +21,7 @@ import br.com.maisha.wind.faces.render.attr.IAttributeRender;
 public interface IPresentationProvider extends Component {
 
 	/**
-	 * Renders de given model, based on the level and type of the change. See
+	 * Renders the given model, based on the level and type of the change. See
 	 * {@link LevelType} and {@link ChangeType} for possible values.
 	 * 
 	 * @see LevelType

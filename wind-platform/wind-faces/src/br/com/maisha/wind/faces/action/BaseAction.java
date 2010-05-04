@@ -8,6 +8,7 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
+import org.eclipse.ui.progress.UIJob;
 
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
@@ -62,8 +63,8 @@ public class BaseAction extends Action implements IWorkbenchAction {
 	public void runWithEvent(Event event) {
 		log.debug("Running Action " + op);
 		try {
-			Job job = new Job(op.getLabel()) {
-				protected IStatus run(IProgressMonitor monitor) {
+			Job job = new UIJob(op.getLabel()) {
+				public IStatus runInUIThread(IProgressMonitor monitor) {
 					try {
 						// configure execution context....
 						monitor.beginTask("Configuring context...", 100);
@@ -91,6 +92,7 @@ public class BaseAction extends Action implements IWorkbenchAction {
 				}
 			};
 			job.schedule();
+
 		} catch (Exception e) {
 			e.printStackTrace(); // TODO handle
 		}
