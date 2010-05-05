@@ -4,6 +4,7 @@ import java.io.InputStream;
 
 import org.apache.commons.digester.Digester;
 
+import br.com.maisha.terra.lang.ResourceBundleEntry;
 import br.com.maisha.terra.lang.WindApplication;
 
 /**
@@ -24,7 +25,13 @@ public class AppCfgReader implements IAppCfgReader {
 		d.addObjectCreate("app", WindApplication.class);
 		d.addSetProperties("app", "name", "name");
 		d.addSetProperties("app", "appId", "appId");
-		
+
+		d.addObjectCreate("app/bundle", ResourceBundleEntry.class);
+		d.addSetProperties("app/bundle", "id", "id");
+		d.addSetProperties("app/bundle", "path", "path");
+
+		d.addSetNext("app/bundle", "addResourceBundle");
+
 		WindApplication app = (WindApplication) d.parse(is);
 
 		return app;
