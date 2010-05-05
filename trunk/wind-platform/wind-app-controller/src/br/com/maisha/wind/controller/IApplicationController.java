@@ -18,5 +18,16 @@ public interface IApplicationController {
 	 */
 	ExecutionContext<ModelReference> runOperation(ExecutionContext<ModelReference> ctx);
 
+	/**
+	 * 
+	 * @param modelInstance
+	 */
 	void evalExpressions(ModelReference modelInstance);
+	
+	
+	/**
+	 * 
+	 * @param ctx
+	 */
+	void processExecutionContext(ExecutionContext<ModelReference> ctx);
 }

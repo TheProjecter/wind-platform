@@ -39,7 +39,8 @@ import br.com.maisha.wind.controller.model.ExecutionContext;
 public class ApplicationController implements IApplicationController {
 
 	/** Log ref. */
-	private static final Logger log = Logger.getLogger(ApplicationController.class);
+	private static final Logger log = Logger
+			.getLogger(ApplicationController.class);
 
 	/** Reference to the script engine manager. */
 	private ScriptEngineManager engineManager = new ScriptEngineManager();
@@ -52,7 +53,8 @@ public class ApplicationController implements IApplicationController {
 	 * @see br.com.maisha.wind.controller.IApplicationController#runOperation(br.com.maisha.wind.controller.model.ExecutionContext)
 	 */
 	@SuppressWarnings("unchecked")
-	public ExecutionContext<ModelReference> runOperation(ExecutionContext<ModelReference> ctx) {
+	public ExecutionContext<ModelReference> runOperation(
+			ExecutionContext<ModelReference> ctx) {
 
 		try {
 			Operation op = ctx.getOperation();
@@ -68,9 +70,11 @@ public class ApplicationController implements IApplicationController {
 			ScriptEngine engine = engineManager.getEngineByName(op.getType());
 			Invocable invocable = (Invocable) engine;
 
-			BundleContext bundle = ctx.getOperation().getDomainObject().getApplication().getBundleContext();
+			BundleContext bundle = ctx.getOperation().getDomainObject()
+					.getApplication().getBundleContext();
 
-			URL ruleUrl = bundle.getBundle().getEntry("/src/" + op.getPropertyValue(PropertyInfo.FILE));
+			URL ruleUrl = bundle.getBundle().getEntry(
+					"/src/" + op.getPropertyValue(PropertyInfo.FILE));
 
 			InputStream is = ruleUrl.openStream();
 			Reader r = new InputStreamReader(is);
@@ -79,19 +83,31 @@ public class ApplicationController implements IApplicationController {
 			engine.put("ctx", ctx);
 			engine.put("api", new RuleAPI(ctx));
 
-			engine.eval("rule = " + (type.getUseNewOperator() ? "new " : "") + op.getRef() + "(ctx, api)");
+			engine.eval("rule = " + (type.getUseNewOperator() ? "new " : "")
+					+ op.getRef() + "(ctx, api)");
 			Object o = engine.get("rule");
 
 			monitor.worked(5);
-			ctx = (ExecutionContext<ModelReference>) invocable.invokeMethod(o, "execute");
+			ctx = (ExecutionContext<ModelReference>) invocable.invokeMethod(o,
+					"execute");
 
-			if (ctx.getMessages() != null && !ctx.getMessages().isEmpty()) {
-				modelListener.fireEvent(null, ctx.getMessages(), LevelType.Message, ChangeType.Added);
-			}
 		} catch (Exception e) {
 			e.printStackTrace(); // TODO handle
 		}
 		return ctx;
+	}
+
+	/**
+	 * 
+	 * @see br.com.maisha.wind.controller.IApplicationController#processExecutionContext(br.com.maisha.wind.controller.model.ExecutionContext)
+	 */
+	public void processExecutionContext(ExecutionContext<ModelReference> ctx) {
+		
+		// process messages
+		if (ctx.getMessages() != null && !ctx.getMessages().isEmpty()) {
+			modelListener.fireEvent(null, ctx.getMessages(), LevelType.Message,
+					ChangeType.Added);
+		}
 	}
 
 	/**
@@ -103,8 +119,9 @@ public class ApplicationController implements IApplicationController {
 			if (modelInstance == null) {
 				return;
 			}
-			IConverterService convService = ServiceProvider.getInstance().getService(IConverterService.class,
-					Activator.getDefault());
+			IConverterService convService = ServiceProvider
+					.getInstance()
+					.getService(IConverterService.class, Activator.getDefault());
 			ScriptEngine juelEngine = engineManager.getEngineByName("juel");
 			DomainObject meta = modelInstance.getMeta();
 
@@ -114,14 +131,17 @@ public class ApplicationController implements IApplicationController {
 			juelEngine.put("meta", meta);
 
 			for (Attribute attr : meta.getAtts()) {
-				for (Map.Entry<String, Property> entry : attr.getProperties().entrySet()) {
+				for (Map.Entry<String, Property> entry : attr.getProperties()
+						.entrySet()) {
 					Property prop = entry.getValue();
 
 					if (prop.getExpression() != null) {
 						Object ret = juelEngine.eval(prop.getExpression());
-						ret = convService.convert(PropertyInfo.getPropertyInfo(prop.getPropName()).getType(), ret);
+						ret = convService.convert(PropertyInfo.getPropertyInfo(
+								prop.getPropName()).getType(), ret);
 						if (ret != null) {
-							log.debug("Attribute [" + attr.getLabel() + "] property value [" + prop.getPropName()
+							log.debug("Attribute [" + attr.getLabel()
+									+ "] property value [" + prop.getPropName()
 									+ "] evaluated to: " + ret);
 							prop.setValue(ret);
 						}
