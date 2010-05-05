@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.apache.commons.lang.StringUtils;
+
 import br.com.maisha.terra.lang.DomainObject;
 
 /**
@@ -78,8 +80,10 @@ public class UserMessage implements Serializable {
 		this.source = source;
 		this.created = new Date();
 		this.param = new ArrayList<Object>();
-		for (Object o : params) {
-			param.add(o);
+		if (params != null) {
+			for (Object o : params) {
+				param.add(o);
+			}
 		}
 	}
 
@@ -165,6 +169,10 @@ public class UserMessage implements Serializable {
 			}
 		}
 
+		if(StringUtils.isBlank(formattedMessage)){
+			formattedMessage = i18nMessage;
+		}
+		
 		return formattedMessage;
 	}
 

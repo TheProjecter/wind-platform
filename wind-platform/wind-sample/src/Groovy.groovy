@@ -14,10 +14,10 @@ class GroovyAction{
 	
 	Object execute(){
 		String.metaClass.warn={->
-			api.warn(delegate)
+			api.warn(model.meta, delegate, null)
 		}
 	
-		api.warn("i'm comming")
+		api.warn(model.meta, "i'm comming", null)
 		"doxo".warn();
 		model.source = "i'm comming"
 		return ctx
