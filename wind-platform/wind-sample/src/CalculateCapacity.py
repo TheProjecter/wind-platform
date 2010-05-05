@@ -14,7 +14,7 @@ class CalculateCapacity:
 			return self.ctx
 			
 		self.model.capacity = int(self.model.weight / 10)
-		api.info(self.model.meta, "airplane.passengerscapacity.success")
+		api.info(self.model.meta, "airplane.passengerscapacity.success", null)
 		#self.model.meta.getAttribute("code").getProperties().get("required").setValue("false")
 		
 		ctx.monitor.worked(10)
