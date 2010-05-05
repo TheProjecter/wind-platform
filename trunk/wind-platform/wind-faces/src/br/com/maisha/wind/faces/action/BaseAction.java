@@ -6,9 +6,9 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.Action;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
-import org.eclipse.ui.progress.UIJob;
 
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
@@ -62,35 +62,12 @@ public class BaseAction extends Action implements IWorkbenchAction {
 	 */
 	public void runWithEvent(Event event) {
 		log.debug("Running Action " + op);
+		final ExecutionContext<ModelReference> exeCtx = new ExecutionContext<ModelReference>();
+
 		try {
-			Job job = new UIJob(op.getLabel()) {
-				public IStatus runInUIThread(IProgressMonitor monitor) {
-					try {
-						// configure execution context....
-						monitor.beginTask("Configuring context...", 100);
-						ExecutionContext<ModelReference> exeCtx = new ExecutionContext<ModelReference>();
-						exeCtx.setInstance(model);
-						exeCtx.setOperation(op);
-						exeCtx.setMonitor(monitor);
-						monitor.worked(10);
 
-						IApplicationController appCtrl = ServiceProvider
-								.getInstance().getService(
-										IApplicationController.class,
-										Activator.getDefault().getBundle()
-												.getBundleContext());
-
-						// run operation...
-						exeCtx = appCtrl.runOperation(exeCtx);
-
-						monitor.done();
-
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					return Status.OK_STATUS;
-				}
-			};
+			ExecuteOperationJob job = new ExecuteOperationJob(
+					"Executing Operation...", exeCtx, Display.getCurrent());
 			job.schedule();
 
 		} catch (Exception e) {
@@ -105,6 +82,74 @@ public class BaseAction extends Action implements IWorkbenchAction {
 	 * @see org.eclipse.ui.actions.ActionFactory.IWorkbenchAction#dispose()
 	 */
 	public void dispose() {
+
+	}
+
+	/**
+	 * 
+	 * @author Paulo Freitas (pfreitas1@gmail.com)
+	 * 
+	 */
+	class ExecuteOperationJob extends Job {
+
+		/** */
+		private ExecutionContext<ModelReference> ctx;
+
+		private Display display;
+
+		/**
+		 * 
+		 * @param jobName
+		 * @param ctx
+		 */
+		public ExecuteOperationJob(String jobName,
+				ExecutionContext<ModelReference> ctx, Display display) {
+			super(jobName);
+			this.ctx = ctx;
+			this.display = display;
+		}
+
+		/**
+		 * 
+		 * @see org.eclipse.core.runtime.jobs.Job#run(org.eclipse.core.runtime.IProgressMonitor)
+		 */
+		public IStatus run(IProgressMonitor monitor) {
+			try {
+				final IApplicationController appCtrl = ServiceProvider
+						.getInstance().getService(
+								IApplicationController.class,
+								Activator.getDefault().getBundle()
+										.getBundleContext());
+
+				// configure execution context....
+				monitor.beginTask("Configuring context...", 100);
+
+				ctx.setInstance(model);
+				ctx.setOperation(op);
+				ctx.setMonitor(monitor);
+				monitor.worked(10);
+
+				// run operation...
+				ctx = appCtrl.runOperation(ctx);
+
+				monitor.done();
+
+				// process the changes ocurred at the execution context...
+				display.syncExec(new Runnable() {
+					public void run() {
+						appCtrl.processExecutionContext(ctx);
+					}
+				});
+
+				return Status.OK_STATUS;
+			} finally {
+			}
+		}
+
+		/** @see #ctx */
+		public ExecutionContext<ModelReference> getCtx() {
+			return ctx;
+		}
 
 	}
 
