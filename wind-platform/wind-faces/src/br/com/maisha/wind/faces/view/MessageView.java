@@ -41,6 +41,7 @@ public class MessageView extends ViewPart implements IRender {
 	/** */
 	private TableViewer tableViewer;
 
+	/** Action for clear message view. */
 	private IAction clearAllAction;
 
 	/**
