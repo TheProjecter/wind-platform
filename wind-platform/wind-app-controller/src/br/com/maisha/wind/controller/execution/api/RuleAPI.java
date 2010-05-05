@@ -2,6 +2,7 @@ package br.com.maisha.wind.controller.execution.api;
 
 import org.apache.commons.lang.StringUtils;
 
+import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.controller.model.UserMessage;
@@ -29,40 +30,40 @@ public class RuleAPI {
 	 * 
 	 * @param message
 	 */
-	public void info(String message) {
-		message(MessageKind.INFO, message);
+	public void info(DomainObject source, String message, Object... param) {
+		message(source, MessageKind.INFO, message, param);
 	}
 
 	/**
 	 * 
 	 * @param message
 	 */
-	public void error(String message) {
-		message(MessageKind.ERROR, message);
+	public void error(DomainObject source, String message, Object... param) {
+		message(source, MessageKind.ERROR, message, param);
 	}
 
 	/**
 	 * 
 	 * @param message
 	 */
-	public void success(String message) {
-		message(MessageKind.SUCCESS, message);
+	public void success(DomainObject source, String message, Object... param) {
+		message(source, MessageKind.SUCCESS, message, param);
 	}
 
 	/**
 	 * 
 	 * @param message
 	 */
-	public void warn(String message) {
-		message(MessageKind.WARNING, message);
+	public void warn(DomainObject source, String message, Object... param) {
+		message(source, MessageKind.WARNING, message, param);
 	}
 
 	/**
 	 * @param kind
 	 * @param message
 	 */
-	private void message(MessageKind kind, String message) {
-		UserMessage um = new UserMessage(kind, message);
+	private void message(DomainObject source, MessageKind kind, String message, Object... param) {
+		UserMessage um = new UserMessage(kind, message, source, param);
 		ctx.getMessages().add(um);
 	}
 

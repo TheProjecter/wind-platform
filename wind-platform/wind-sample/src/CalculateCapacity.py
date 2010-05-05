@@ -10,11 +10,11 @@ class CalculateCapacity:
 
 	def execute(self):
 		if type(self.model.weight) is NoneType:
-			api.warn("airplane.passengerscapacity.weight.required")
+			api.warn(self.model.meta, "airplane.passengerscapacity.weight.required", ["Peso"])
 			return self.ctx
 			
 		self.model.capacity = int(self.model.weight / 10)
-		api.info("airplane.passengerscapacity.success")
+		api.info(self.model.meta, "airplane.passengerscapacity.success")
 		#self.model.meta.getAttribute("code").getProperties().get("required").setValue("false")
 		
 		ctx.monitor.worked(10)

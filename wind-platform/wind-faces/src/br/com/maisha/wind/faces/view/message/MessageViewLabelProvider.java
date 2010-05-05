@@ -54,7 +54,7 @@ public class MessageViewLabelProvider extends LabelProvider implements
 			UserMessage msg = (UserMessage) element;
 
 			if (columnIndex == 1) {
-				ret = msg.getI18nMessage();
+				ret = msg.getFormattedMessage();
 			}
 		}
 		return ret;
