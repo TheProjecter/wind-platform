@@ -53,9 +53,15 @@ public class MessageViewLabelProvider extends LabelProvider implements
 		if (element instanceof UserMessage) {
 			UserMessage msg = (UserMessage) element;
 
+
 			if (columnIndex == 1) {
+				ret = msg.getSource().getLabel();
+			}
+			
+			if (columnIndex == 2) {
 				ret = msg.getFormattedMessage();
 			}
+			
 		}
 		return ret;
 	}

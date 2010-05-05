@@ -63,9 +63,15 @@ public class MessageView extends ViewPart implements IRender {
 		iconCol.getColumn().setResizable(false);
 		iconCol.getColumn().setMoveable(false);
 
+		TableViewerColumn sourceCol = new TableViewerColumn(tableViewer, SWT.NONE);
+		sourceCol.getColumn().setText("Source");
+		sourceCol.getColumn().setWidth(100);
+		sourceCol.getColumn().setResizable(true);
+		sourceCol.getColumn().setMoveable(false);			
+		
 		TableViewerColumn msgCol = new TableViewerColumn(tableViewer, SWT.NONE);
 		msgCol.getColumn().setText("Message");
-		msgCol.getColumn().setWidth(250);
+		msgCol.getColumn().setWidth(350);
 		msgCol.getColumn().setResizable(true);
 		msgCol.getColumn().setMoveable(false);
 
