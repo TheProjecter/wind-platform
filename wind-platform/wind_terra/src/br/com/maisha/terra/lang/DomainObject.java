@@ -131,6 +131,15 @@ public class DomainObject extends TerraClass {
 		return null;
 	}
 	
+	public Validation getValidation(String ref){
+		for(Validation val : validations){
+			if(val.getRef().equals(ref)){
+				return val;
+			}
+		}
+		return null;
+	}
+	
 	public Attribute attribute(String name){
 		return getAttribute(name);
 	}
