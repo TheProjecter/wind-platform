@@ -55,6 +55,10 @@ colspan: 2
 visible: ${this.capacity > 50}
 }
 
+validationRule doxo {
+"doxo": ${aa}
+"doxo2": ${aa2}
+}
 
 operation python CalculateCapacity "Passengers Capacity"{
 file: CalculateCapacity.py
@@ -62,6 +66,8 @@ file: CalculateCapacity.py
 
 operation groovy GroovyAction "Groovy Action"{
 file: Groovy.groovy
+validWhen: doxo
 }
+
 
 }
