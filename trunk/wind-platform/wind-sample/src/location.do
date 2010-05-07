@@ -9,12 +9,12 @@ required: true
 mask: LLNN
 }
 
-double weight "City"{
+Double weight "City"{
 x: 0
 y: 2
 }
 
-double capacity "Geo Code"{
+Double capacity "Geo Code"{
 x:1
 y:2
 }
