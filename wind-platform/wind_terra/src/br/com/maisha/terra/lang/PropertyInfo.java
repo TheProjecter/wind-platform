@@ -90,6 +90,10 @@ public class PropertyInfo<T> {
 	/** Descricao da propriedade file */
 	public static final PropertyInfo<String> FILE = new PropertyInfo<String>(
 			"file", null, String.class);
+	
+	/** Descricao da propriedade validWhen */
+	public static final PropertyInfo<String> VALID_WHEN = new PropertyInfo<String>(
+			"validWhen", null, String.class);	
 
 	/** Nome da propriedade. */
 	private String propName;

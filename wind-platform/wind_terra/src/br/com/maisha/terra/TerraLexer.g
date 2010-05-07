@@ -12,12 +12,14 @@ ATTRIBUITION:':';
 DOMAIN_OBJECT:'domain_object';
 PACKAGE:'package';
 IMPORT:'import'; 
+VALIDATION_RULE:	'validationRule';
 TYPE	:	'Integer' | 'Double' | 'Float' | 'Long' | 'Short' | 'Boolean' | 'String';
 PROPERTY:	'x' | 'y' | 'colspan' | 'rowspan' | 'presentation_type' |  'disabled' | 'visible' | 'icon' | 'width' | 'height';
 ATTRIBUTE_PROPERTY: 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'event' ;
-OPERATION_PROPERTY: 'class' | 'file';
+OPERATION_PROPERTY: 'class' | 'file' | 'validWhen' ;
 OPERATION: 'operation';
-OP_TYPE: 'java' | 'python' | 'groowy';
+
+OP_TYPE: 'java' | 'python' | 'groovy';
 
 NUMBER: INTEGER | FLOAT;
 fragment FLOAT: INTEGER '.' '0'..'9'+;
