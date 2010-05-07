@@ -26,6 +26,11 @@ width: 50
 disabled: ${this.capacity > 20}
 }
 
+Integer miles "Miles"{
+x:1
+y:2
+width: 70
+}
 
 String source "Source"{
 x: 1
@@ -56,17 +61,17 @@ visible: ${this.capacity > 50}
 }
 
 validationRule doxo {
-"doxo": ${aa}
-"doxo2": ${aa2}
+"doxo": ${this.weight > 20}
+"doxo2": ${this.miles < 30 }
 }
 
 operation python CalculateCapacity "Passengers Capacity"{
 file: CalculateCapacity.py
+validWhen: doxo
 }
 
 operation groovy GroovyAction "Groovy Action"{
 file: Groovy.groovy
-validWhen: doxo
 }
 
 
