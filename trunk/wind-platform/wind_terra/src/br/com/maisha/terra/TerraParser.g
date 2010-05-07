@@ -18,6 +18,8 @@ import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.Operation;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
+import br.com.maisha.terra.lang.Validation;
+import br.com.maisha.terra.lang.ValidationRule;
 import br.com.maisha.terra.rcp.Activator;
 import br.com.maisha.wind.common.converter.IConverterService;
 import br.com.maisha.wind.common.factory.ServiceProvider;
@@ -31,6 +33,8 @@ private List<Operation> ops = new ArrayList<Operation>();
 private Map<String, Property> props = new HashMap<String, Property>();
 private Map<String, Property> op_props = new HashMap<String, Property>();
 private List<Import> imports = new ArrayList<Import>();
+private List<Validation> validationRulz = new ArrayList<Validation>();
+private List<ValidationRule> validationRulzEntry = new ArrayList<ValidationRule>();
 }
 
 
@@ -42,8 +46,10 @@ domain_object
 		domainObject.setAtts(atts);
 		domainObject.setOperations(ops);
 		domainObject.setImports(imports);
+		domainObject.setValidations(validationRulz);
 		atts = new ArrayList<Attribute>();
 		ops = new ArrayList<Operation>();
+		validationRulz = new ArrayList<Validation>();
 	}
 	;
 
@@ -61,7 +67,7 @@ import_declaration
 	}
 	;
 	
-body	:    (attr | operation)+;
+body	:    (attr | operation | validation_rulz)+;
 
 attr	:   TYPE NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET {
 		Attribute att = new Attribute($TYPE.text, $NAME.text, $STRING_LITERAL.text);
@@ -119,3 +125,18 @@ op_prop:	NEWLINE | op_prop_name ATTRIBUITION value {
 	;
 
 op_prop_name	: PROPERTY | OPERATION_PROPERTY;
+
+
+validation_rulz: NEWLINE | VALIDATION_RULE NAME LEFT_BRACKET validation_body RIGHT_BRACKET{
+		Validation validation = new Validation($NAME.text);
+		validation.setRules(validationRulzEntry);
+		validationRulz.add(validation);
+		validationRulzEntry = new ArrayList<ValidationRule>();
+};
+
+validation_body : validation_entry+;
+
+validation_entry: NEWLINE | STRING_LITERAL ATTRIBUITION EXPRESSION {
+		ValidationRule valRule = new ValidationRule($STRING_LITERAL.text, $EXPRESSION.text);
+		validationRulzEntry.add(valRule);
+};

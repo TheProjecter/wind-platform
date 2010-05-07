@@ -2,10 +2,9 @@ package br.com.maisha.terra.lang;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import org.osgi.framework.BundleContext;
-
-import br.com.maisha.terra.lang.DomainObject;
 
 /**
  * Represents a application running on the platform.
@@ -28,6 +27,11 @@ public class WindApplication {
 
 	/** Applications bundle context reference. */
 	private BundleContext bundleContext;
+
+	/** A list of this application resource bundles. */
+	private List<ResourceBundleEntry> resourceBundles = new ArrayList<ResourceBundleEntry>();
+	
+	private List<ResourceBundle> resourceBundle = new ArrayList<ResourceBundle>();
 
 	/** @see #appId */
 	public String getAppId() {
@@ -74,4 +78,28 @@ public class WindApplication {
 		this.bundleContext = bundleContext;
 	}
 
+	/** @see #resourceBundles */
+	public List<ResourceBundleEntry> getResourceBundles() {
+		return resourceBundles;
+	}
+
+	/** @see #resourceBundles */
+	public void setResourceBundles(List<ResourceBundleEntry> resourceBundles) {
+		this.resourceBundles = resourceBundles;
+	}
+
+	/** @see #resourceBundles */
+	public void addResourceBundle(ResourceBundleEntry bundle) {
+		this.resourceBundles.add(bundle);
+	}
+
+	public List<ResourceBundle> getResourceBundle() {
+		return resourceBundle;
+	}
+
+	public void setResourceBundle(List<ResourceBundle> resourceBundle) {
+		this.resourceBundle = resourceBundle;
+	}
+
+	
 }

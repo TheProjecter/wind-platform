@@ -23,6 +23,8 @@ public class DomainObject extends TerraClass {
 
 	private List<Operation> operations = new ArrayList<Operation>();
 
+	private List<Validation> validations = new ArrayList<Validation>();
+	
 	/** Java class that represents this domain object. */
 	private Class<?> objectClass;
 
@@ -110,7 +112,16 @@ public class DomainObject extends TerraClass {
 	public void setApplication(WindApplication application) {
 		this.application = application;
 	}
+	
+	public List<Validation> getValidations() {
+		return validations;
+	}
 
+	public void setValidations(List<Validation> validations) {
+		this.validations = validations;
+	}
+	
+	
 	public Attribute getAttribute(String name) {
 		for (Attribute attr : atts) {
 			if (attr.getRef().equals(name)) {
@@ -136,5 +147,7 @@ public class DomainObject extends TerraClass {
 		sb.append("]");
 		return sb.toString();
 	}
+
+
 
 }
