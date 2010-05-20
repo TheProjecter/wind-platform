@@ -92,8 +92,7 @@ public class ApplicationManager implements IApplicationManager {
 			// load it's resource bundles
 			for (ResourceBundleEntry rbEntry : app.getResourceBundles()) {
 				URL rbPath = context.getBundle().getResource(
-						rbEntry.getPath() + "_" + rbEntry.getLocale()
-								+ ".properties");
+						rbEntry.getPath() + ".properties");
 				if (rbPath == null) {
 					log.error("Could not find resource under the given path ["
 							+ rbEntry.getPath() + "] for app ["
