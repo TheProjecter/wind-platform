@@ -1,7 +1,10 @@
 package br.com.maisha.terra.lang;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import org.osgi.framework.BundleContext;
@@ -22,16 +25,21 @@ public class WindApplication {
 	/** Application name. */
 	private String name;
 
+	/** Default locale for app internationalization. */
+	private String defaultLocale;
+
+	/** Default locale for app internationalization. */
+	private Locale currentLocale;
+
 	/** Domain Objects living at this application. */
 	private List<DomainObject> domainObjects = new ArrayList<DomainObject>();
 
 	/** Applications bundle context reference. */
 	private BundleContext bundleContext;
 
-	/** A list of this application resource bundles. */
 	private List<ResourceBundleEntry> resourceBundles = new ArrayList<ResourceBundleEntry>();
-	
-	private List<ResourceBundle> resourceBundle = new ArrayList<ResourceBundle>();
+
+	private Map<Locale, List<ResourceBundle>> resourceBundle = new HashMap<Locale, List<ResourceBundle>>();
 
 	/** @see #appId */
 	public String getAppId() {
@@ -78,28 +86,58 @@ public class WindApplication {
 		this.bundleContext = bundleContext;
 	}
 
-	/** @see #resourceBundles */
 	public List<ResourceBundleEntry> getResourceBundles() {
 		return resourceBundles;
 	}
 
-	/** @see #resourceBundles */
-	public void setResourceBundles(List<ResourceBundleEntry> resourceBundles) {
-		this.resourceBundles = resourceBundles;
+	public List<ResourceBundle> getResouceBundle(Locale loc) {
+		return this.resourceBundle.get(loc);
 	}
 
-	/** @see #resourceBundles */
-	public void addResourceBundle(ResourceBundleEntry bundle) {
-		this.resourceBundles.add(bundle);
+	public List<ResourceBundle> getResouceBundle() {
+		return this.resourceBundle.get(currentLocale);
 	}
 
-	public List<ResourceBundle> getResourceBundle() {
+	public void addResourceBundle(Locale loc, ResourceBundle rb) {
+		List<ResourceBundle> list = this.resourceBundle.get(loc);
+		if (list == null) {
+			list = new ArrayList<ResourceBundle>();
+		}
+		list.add(rb);
+		this.resourceBundle.put(loc, list);
+	}
+
+	public Map<Locale, List<ResourceBundle>> getResourceBundle() {
 		return resourceBundle;
 	}
 
-	public void setResourceBundle(List<ResourceBundle> resourceBundle) {
+	public void setResourceBundle(
+			Map<Locale, List<ResourceBundle>> resourceBundle) {
 		this.resourceBundle = resourceBundle;
 	}
 
-	
+	public void addResourceBundle(ResourceBundleEntry entry) {
+		this.resourceBundles.add(entry);
+	}
+
+	/** @see #defaultLocale */
+	public String getDefaultLocale() {
+		return defaultLocale;
+	}
+
+	/** @see #defaultLocale */
+	public void setDefaultLocale(String defaultLocale) {
+		this.defaultLocale = defaultLocale;
+		String[] loc = defaultLocale.split("_");
+		currentLocale = new Locale(loc[0], loc[1]);
+	}
+
+	public Locale getCurrentLocale() {
+		return currentLocale;
+	}
+
+	public void setCurrentLocale(Locale currentLocale) {
+		this.currentLocale = currentLocale;
+	}
+
 }
