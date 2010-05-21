@@ -18,6 +18,9 @@ public class ResourceBundleEntry {
 	/** Path of this resource bundle. */
 	private String path;
 
+	/** */
+	private String locale;
+
 	/** @see #id */
 	public String getId() {
 		return id;
@@ -36,6 +39,14 @@ public class ResourceBundleEntry {
 	/** @see #path */
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 
 }
