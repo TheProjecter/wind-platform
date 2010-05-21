@@ -40,7 +40,8 @@ Require-Bundle: wind_terra;bundle-version="1.0.0",
  wind_lib;bundle-version="1.0.0",
  wind_common;bundle-version="1.0.0",
  org.eclipse.core.runtime,
- com.springsource.org.apache.commons.lang;bundle-version="2.4.0"
+ com.springsource.org.apache.commons.lang;bundle-version="2.4.0",
+ org.springframework.context;bundle-version="2.5.6"
 Bundle-ClassPath: lib/jython-engine.jar,
  lib/jython.jar,
  .,

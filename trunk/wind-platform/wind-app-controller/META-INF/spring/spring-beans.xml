@@ -5,17 +5,45 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
 
-	<bean name="appModelListenerRegistryCtrl" scope="singleton" 
+	<bean name="appModelListenerRegistryCtrl" scope="singleton"
 		class="br.com.maisha.wind.common.listener.AppModelListenerRegistry" />
-		
+
 	<bean name="applicationController" scope="singleton"
 		class="br.com.maisha.wind.controller.ApplicationController">
 		<property name="modelListener" ref="appModelListenerRegistryOsgi" />
+		<property name="validatorRegisty" ref="validatorRegisty" />
 	</bean>
 
 
+	<bean name="validatorRegisty"
+		class="br.com.maisha.wind.controller.validator.ValidatorRegistry">
+		<property name="registry">
+			<map>
+				<entry key="max_length" value-ref="maxLengthValidator" />
+				<entry key="required" value-ref="requiredValidator" />
+			</map>
+		</property>
+	</bean>
 
+	<bean name="messageRegisty"
+		class="br.com.maisha.wind.controller.message.PlatformMessageRegistry" scope="singleton">
+		<property name="messageBundles">
+			<list>
+				<ref bean="messageSource" />
+			</list>
+		</property>
+	</bean>
 
+	<bean name="maxLengthValidator"
+		class="br.com.maisha.wind.controller.validator.MaxLengthValidator" />
+
+	<bean name="requiredValidator"
+		class="br.com.maisha.wind.controller.validator.RequiredValidator" />
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
+	</bean>
 
 </beans>
 

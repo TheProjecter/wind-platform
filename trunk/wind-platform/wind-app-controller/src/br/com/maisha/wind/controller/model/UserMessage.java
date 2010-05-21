@@ -154,7 +154,7 @@ public class UserMessage implements Serializable {
 	/** @see #formattedMessage */
 	public String getFormattedMessage() {
 		// resolve msg somente na primeira vez
-		if (formattedMessage == null) { 
+		if (formattedMessage == null) {
 			List<ResourceBundle> rbs = this.source.getApplication().getResouceBundle();
 			for (ResourceBundle rb : rbs) {
 				try {
@@ -171,10 +171,10 @@ public class UserMessage implements Serializable {
 			}
 		}
 
-		if(StringUtils.isBlank(formattedMessage)){
+		if (StringUtils.isBlank(formattedMessage)) {
 			formattedMessage = i18nMessage;
 		}
-		
+
 		return formattedMessage;
 	}
 

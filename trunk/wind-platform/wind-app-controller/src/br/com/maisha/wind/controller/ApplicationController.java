@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.script.Invocable;
@@ -14,6 +15,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osgi.framework.BundleContext;
+import org.springframework.context.support.ResourceBundleMessageSource;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
@@ -34,6 +36,8 @@ import br.com.maisha.wind.controller.execution.api.RuleAPI;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.controller.model.UserMessage;
 import br.com.maisha.wind.controller.model.UserMessage.MessageKind;
+import br.com.maisha.wind.controller.validator.IValidator;
+import br.com.maisha.wind.controller.validator.ValidatorRegistry;
 
 /**
  * 
@@ -52,6 +56,10 @@ public class ApplicationController implements IApplicationController {
 	/** Model listeners for message model. */
 	private IAppModelListenerRegistry modelListener;
 
+	/** Validator Registry. */
+	private ValidatorRegistry validatorRegisty;
+
+	
 	/**
 	 * 
 	 * @see br.com.maisha.wind.controller.IApplicationController#runOperation(br.com.maisha.wind.controller.model.ExecutionContext)
@@ -67,10 +75,10 @@ public class ApplicationController implements IApplicationController {
 			// validation phase
 			monitor.setTaskName("Validating...");
 			ctx = processValidations(ctx);
-			if(!ctx.getMessages().isEmpty()){
+			if (!ctx.getMessages().isEmpty()) {
 				return ctx;
 			}
-			
+
 			monitor.worked(10);
 
 			// run operation
@@ -115,12 +123,34 @@ public class ApplicationController implements IApplicationController {
 
 	public ExecutionContext<ModelReference> processValidations(ExecutionContext<ModelReference> ctx) {
 		try {
-			ScriptEngine juelEngine = engineManager.getEngineByName("juel");
 			ModelReference modelInstance = ctx.getInstance();
 			DomainObject meta = modelInstance.getMeta();
 
+			ScriptEngine juelEngine = engineManager.getEngineByName("juel");
 			juelEngine.put("this", modelInstance);
 			juelEngine.put("meta", meta);
+
+			// validate bean constraints
+			for (Attribute att : meta.getAtts()) {
+				for (Map.Entry<String, Property> prop : att.getProperties().entrySet()) {
+					boolean validate = PropertyInfo.getPropertyInfo(prop.getKey()).isValidate();
+
+					if (validate) {
+						IValidator validator = validatorRegisty.getValidator(prop.getKey());
+
+						if (validator != null) {
+							validator.configure(prop.getValue());
+
+							Object value = juelEngine.eval("${this." + att.getRef() + "}");
+
+							if (!validator.validate(value)) {
+								/*ctx.getMessages().add(
+										new UserMessage(MessageKind.ERROR, validator.getMessageKey(), meta));*/
+							}
+						}
+					}
+				}
+			}
 
 			Operation op = ctx.getOperation();
 			String validationRef = op.getPropertyValue(PropertyInfo.VALID_WHEN);
@@ -190,5 +220,16 @@ public class ApplicationController implements IApplicationController {
 	public void setModelListener(IAppModelListenerRegistry modelListener) {
 		this.modelListener = modelListener;
 	}
+
+	/** @see #validatorRegisty */
+	public ValidatorRegistry getValidatorRegisty() {
+		return validatorRegisty;
+	}
+
+	/** @see #validatorRegisty */
+	public void setValidatorRegisty(ValidatorRegistry validatorRegisty) {
+		this.validatorRegisty = validatorRegisty;
+	}
+
 
 }
