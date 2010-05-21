@@ -33,6 +33,7 @@ import br.com.maisha.wind.common.listener.IAppModelListenerRegistry;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.execution.api.RuleAPI;
+import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.controller.model.UserMessage;
 import br.com.maisha.wind.controller.model.UserMessage.MessageKind;
@@ -59,7 +60,6 @@ public class ApplicationController implements IApplicationController {
 	/** Validator Registry. */
 	private ValidatorRegistry validatorRegisty;
 
-	
 	/**
 	 * 
 	 * @see br.com.maisha.wind.controller.IApplicationController#runOperation(br.com.maisha.wind.controller.model.ExecutionContext)
@@ -144,8 +144,8 @@ public class ApplicationController implements IApplicationController {
 							Object value = juelEngine.eval("${this." + att.getRef() + "}");
 
 							if (!validator.validate(value)) {
-								/*ctx.getMessages().add(
-										new UserMessage(MessageKind.ERROR, validator.getMessageKey(), meta));*/
+								ctx.getMessages().add(
+										new UserMessage(MessageKind.ERROR, validator.getMessageKey(), meta));
 							}
 						}
 					}
@@ -230,6 +230,5 @@ public class ApplicationController implements IApplicationController {
 	public void setValidatorRegisty(ValidatorRegistry validatorRegisty) {
 		this.validatorRegisty = validatorRegisty;
 	}
-
 
 }

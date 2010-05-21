@@ -47,7 +47,7 @@ public class RequiredValidator implements IValidator {
 	 * @see br.com.maisha.wind.controller.validator.IValidator#getMessageKey()
 	 */
 	public String getMessageKey() {
-		return null;
+		return "wind.messages.required";
 	}
 
 }

@@ -9,8 +9,10 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.context.support.ResourceBundleMessageSource;
 
 import br.com.maisha.terra.lang.DomainObject;
+import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 
 /**
  * 
@@ -167,7 +169,24 @@ public class UserMessage implements Serializable {
 					// silently igonre
 					continue;
 				}
+			}
+		}
 
+		// verifica msgs da platforma
+		if (StringUtils.isBlank(formattedMessage)) {
+			List<ResourceBundleMessageSource> rbs = PlatformMessageRegistry.getInstance().getMessageBundles();
+			for (ResourceBundleMessageSource rb : rbs) {
+				try {
+					String msg = rb.getMessage(i18nMessage, param.toArray(new Object[] {}), source.getApplication()
+							.getCurrentLocale());
+
+					formattedMessage = msg;
+					break;
+
+				} catch (MissingResourceException mre) {
+					// silently igonre
+					continue;
+				}
 			}
 		}
 
