@@ -29,20 +29,21 @@ public class ClassMaker implements IClassMaker {
 	public Class<?> make(DomainObject obj) throws MakeClassException {
 		try {
 			ClassPool pool = ClassPool.getDefault();
-			pool.insertClassPath(new ClassClassPath(ModelReference.class));
-			CtClass modelReference = pool.get(ModelReference.class.getName());
-			
-			CtClass cc = pool.makeClass(obj.getPckg() + "." + obj.getRef(), modelReference);
-			
 
-			String field;
+			pool.insertClassPath(new ClassClassPath(ModelReference.class));
+
+			CtClass modelReference = pool.get(ModelReference.class.getName());
+
+			CtClass cc = pool.makeClass(obj.getPckg() + "." + obj.getRef(),
+					modelReference);
+
+			String field = "";
 			for (Attribute att : obj.getAtts()) {
 				field = "private " + att.getType() + " " + att.getRef() + ";";
 				cc.addField(CtField.make(field, cc));
 				cc.addMethod(CtMethod.make(genSetMethod(att), cc));
 				cc.addMethod(CtMethod.make(genGetMethod(att), cc));
 			}
-			
 
 
 			return cc.toClass();
@@ -65,10 +66,12 @@ public class ClassMaker implements IClassMaker {
 		method.append(StringUtils.capitalize(att.getRef()));
 		method.append("(");
 		method.append(att.getType());
-		method.append(" v ){"); 
-		method.append(att.getType()).append(" oldValue = this.").append(att.getRef()).append(";");
+		method.append(" v ){");
+		method.append(att.getType()).append(" oldValue = this.").append(
+				att.getRef()).append(";");
 		method.append("this.").append(att.getRef()).append(" = v;");
-		method.append("changeSupport.firePropertyChange(\"").append(att.getRef()).append("\", oldValue, v);");
+		method.append("changeSupport.firePropertyChange(\"").append(
+				att.getRef()).append("\", oldValue, v);");
 		method.append("}");
 
 		return method.toString();
