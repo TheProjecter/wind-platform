@@ -49,9 +49,16 @@ width: 250
 colspan: 3
 }
 
-String maintenanceReport "Report"{
+String type "Type"{
 x: 1
 y: 5
+width: 250
+presentation_type: combo
+}
+
+String maintenanceReport "Report"{
+x: 1
+y: 6
 required: true
 presentation_type: textarea
 width: 300
