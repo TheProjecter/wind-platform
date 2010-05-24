@@ -54,12 +54,6 @@ public class ComboboxAttrRender extends BaseAttrRender {
 		cb.setToolTipText(attr.getLabel());
 
 		// events
-		/*
-		 * SWT.Resize, SWT.MouseDoubleClick, SWT.MouseDown, SWT.MouseUp,
-		 * SWT.MouseEnter, SWT.MouseExit, SWT.MouseHover, SWT.FocusIn,
-		 * SWT.FocusOut, SWT.KeyDown, SWT.KeyUp, SWT.Traverse, SWT.Show,
-		 * SWT.Hide
-		 */
 
 		GridData gd = getLayoutData();
 		cb.setLayoutData(gd);
