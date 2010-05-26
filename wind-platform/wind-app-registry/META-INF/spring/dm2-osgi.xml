@@ -8,6 +8,9 @@
 
 	<osgi:reference id="appRegistryClassMaker" interface="br.com.maisha.terra.IClassMaker" />
 
+	<osgi:reference id="persistentStorageOsgi" 
+		interface="br.com.maisha.wind.controller.storage.IStorage" />
+
 	<osgi:service id="appRegistryOsgi" ref="appRegistry"
 		interface="br.com.maisha.wind.lifecycle.registry.IApplicationRegistry">
 	</osgi:service>

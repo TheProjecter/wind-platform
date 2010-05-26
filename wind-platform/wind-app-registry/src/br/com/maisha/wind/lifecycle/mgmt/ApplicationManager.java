@@ -17,6 +17,7 @@ import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.common.listener.IAppModelListenerRegistry;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
+import br.com.maisha.wind.controller.storage.IStorage;
 import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
 
 /**
@@ -46,6 +47,9 @@ public class ApplicationManager implements IApplicationManager {
 
 	/** Current DomainObject opened for edition. */
 	private DomainObject openedObject;
+	
+	/** Persistent Storage. */
+	private IStorage persistentStorage;
 
 	/**
 	 * 
@@ -109,6 +113,9 @@ public class ApplicationManager implements IApplicationManager {
 
 			app.setBundleContext(context);
 
+			// creates session factory
+			persistentStorage.configure(app);
+			
 			// register the application, fire model event
 			if (registry.register(app)) {
 				modelListeners.fireEvent(null, app, LevelType.Application,
@@ -168,4 +175,16 @@ public class ApplicationManager implements IApplicationManager {
 	public void setModelListeners(IAppModelListenerRegistry modelListeners) {
 		this.modelListeners = modelListeners;
 	}
+
+	/** @see ApplicationManager#persistentStorage */
+	public IStorage getPersistentStorage() {
+		return persistentStorage;
+	}
+
+	/** @see ApplicationManager#persistentStorage */
+	public void setPersistentStorage(IStorage persistentStorage) {
+		this.persistentStorage = persistentStorage;
+	}
+	
+	
 }
