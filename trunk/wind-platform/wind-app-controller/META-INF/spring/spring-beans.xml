@@ -8,6 +8,9 @@
 	<bean name="appModelListenerRegistryCtrl" scope="singleton"
 		class="br.com.maisha.wind.common.listener.AppModelListenerRegistry" />
 
+	<bean name="persistentStorage" scope="singleton"
+		class="br.com.maisha.wind.controller.storage.PersistentStorage" />	
+	
 	<bean name="applicationController" scope="singleton"
 		class="br.com.maisha.wind.controller.ApplicationController">
 		<property name="modelListener" ref="appModelListenerRegistryOsgi" />
