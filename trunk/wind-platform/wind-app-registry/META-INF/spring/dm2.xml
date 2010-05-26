@@ -18,6 +18,7 @@
 		<property name="appCfgReader" ref="appCfgReader" />
 		<property name="classMaker" ref="appRegistryClassMaker" />
 		<property name="modelListeners" ref="appModelListenerRegistryOsgi" />
+		<property name="persistentStorage" ref="persistentStorageOsgi"/>
 	</bean>
 
 </beans>
