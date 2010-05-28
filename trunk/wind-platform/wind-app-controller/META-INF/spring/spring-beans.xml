@@ -15,6 +15,7 @@
 		class="br.com.maisha.wind.controller.ApplicationController">
 		<property name="modelListener" ref="appModelListenerRegistryOsgi" />
 		<property name="validatorRegisty" ref="validatorRegisty" />
+		<property name="persistentStorage" ref="persistentStorage"/>
 	</bean>
 
 

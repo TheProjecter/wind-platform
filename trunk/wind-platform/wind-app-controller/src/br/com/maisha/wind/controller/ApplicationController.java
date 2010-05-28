@@ -37,6 +37,7 @@ import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.controller.model.UserMessage;
 import br.com.maisha.wind.controller.model.UserMessage.MessageKind;
+import br.com.maisha.wind.controller.storage.IStorage;
 import br.com.maisha.wind.controller.validator.IValidator;
 import br.com.maisha.wind.controller.validator.ValidatorRegistry;
 
@@ -60,6 +61,9 @@ public class ApplicationController implements IApplicationController {
 	/** Validator Registry. */
 	private ValidatorRegistry validatorRegisty;
 
+	/** */
+	private IStorage persistentStorage;
+	
 	/**
 	 * 
 	 * @see br.com.maisha.wind.controller.IApplicationController#runOperation(br.com.maisha.wind.controller.model.ExecutionContext)
@@ -97,7 +101,9 @@ public class ApplicationController implements IApplicationController {
 
 			engine.eval(r);
 			engine.put("ctx", ctx);
-			engine.put("api", new RuleAPI(ctx));
+			RuleAPI api = new RuleAPI(ctx);
+			api.setPersistentStorage(persistentStorage);
+			engine.put("api", api);
 
 			engine.eval("rule = " + (type.getUseNewOperator() ? "new " : "") + op.getRef() + "(ctx, api)");
 			Object o = engine.get("rule");
@@ -233,4 +239,14 @@ public class ApplicationController implements IApplicationController {
 		this.validatorRegisty = validatorRegisty;
 	}
 
+	public IStorage getPersistentStorage() {
+		return persistentStorage;
+	}
+
+	public void setPersistentStorage(IStorage persistentStorage) {
+		this.persistentStorage = persistentStorage;
+	}
+
+	
+	
 }
