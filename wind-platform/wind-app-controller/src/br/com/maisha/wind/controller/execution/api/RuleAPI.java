@@ -7,6 +7,7 @@ import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.controller.model.UserMessage;
 import br.com.maisha.wind.controller.model.UserMessage.MessageKind;
+import br.com.maisha.wind.controller.storage.IStorage;
 
 /**
  * 
@@ -18,6 +19,9 @@ public class RuleAPI {
 	/** */
 	private ExecutionContext<ModelReference> ctx;
 
+	/** */
+	private IStorage persistentStorage;
+
 	/**
 	 * 
 	 * @param ctx
@@ -26,6 +30,10 @@ public class RuleAPI {
 		this.ctx = ctx;
 	}
 
+	public void save(String appId, ModelReference d){
+		persistentStorage.save(appId, d);
+	}
+	
 	/**
 	 * 
 	 * @param message
@@ -84,4 +92,13 @@ public class RuleAPI {
 	public boolean notEmpty(String string) {
 		return !StringUtils.isEmpty(string) && !StringUtils.isBlank(string);
 	}
+
+	public IStorage getPersistentStorage() {
+		return persistentStorage;
+	}
+
+	public void setPersistentStorage(IStorage persistentStorage) {
+		this.persistentStorage = persistentStorage;
+	}
+
 }

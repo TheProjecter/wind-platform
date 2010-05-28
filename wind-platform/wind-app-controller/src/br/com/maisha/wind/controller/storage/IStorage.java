@@ -2,6 +2,7 @@ package br.com.maisha.wind.controller.storage;
 
 import org.hibernate.cfg.Configuration;
 
+import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.WindApplication;
 
 /**
@@ -18,4 +19,6 @@ public interface IStorage {
 	 * @return
 	 */
 	ClassLoader getClassLoader();
+	
+	void save(String appId, ModelReference ref);
 }
