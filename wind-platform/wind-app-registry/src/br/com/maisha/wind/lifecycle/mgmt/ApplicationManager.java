@@ -81,8 +81,8 @@ public class ApplicationManager implements IApplicationManager {
 					app.addDomainObject(dObj);
 
 					// make java object
-					dObj.setObjectClass(classMaker.make(dObj));
-
+					dObj.setObjectClass(classMaker.make(persistentStorage.getClassLoader(), dObj));
+					
 					dObj.setApplication(app);
 
 					// fire model event
@@ -112,9 +112,14 @@ public class ApplicationManager implements IApplicationManager {
 			}
 
 			app.setBundleContext(context);
-
-			// creates session factory
-			persistentStorage.configure(app);
+				
+			// configure application's persistence 
+			URL hibCfg = context.getBundle().getResource("hibernate.cfg.xml");
+			if(hibCfg != null){
+				// creates session factory
+				app.setHibernateConfig(hibCfg);
+				persistentStorage.configure(app);
+			}
 			
 			// register the application, fire model event
 			if (registry.register(app)) {
