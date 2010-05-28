@@ -72,6 +72,8 @@ public class ApplicationController implements IApplicationController {
 			OperationType type = OperationType.valueOf(op.getType());
 			IProgressMonitor monitor = ctx.getMonitor();
 
+			Class c = ctx.getInstance().getClass();
+			
 			// validation phase
 			monitor.setTaskName("Validating...");
 			ctx = processValidations(ctx);
