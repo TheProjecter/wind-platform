@@ -20,6 +20,9 @@ class CalculateCapacity:
 		ctx.monitor.worked(10)
 		time.sleep(2)
 		ctx.monitor.worked(10)
+		
+		api.save("flight_control", self.model)
+		
 		time.sleep(2)
 		ctx.monitor.worked(10)
 		time.sleep(2)
