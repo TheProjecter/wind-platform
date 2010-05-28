@@ -1,5 +1,6 @@
 package br.com.maisha.terra.lang;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,10 +38,15 @@ public class WindApplication {
 	/** Applications bundle context reference. */
 	private BundleContext bundleContext;
 
+	/** */
 	private List<ResourceBundleEntry> resourceBundles = new ArrayList<ResourceBundleEntry>();
 
+	/** */
 	private Map<Locale, List<ResourceBundle>> resourceBundle = new HashMap<Locale, List<ResourceBundle>>();
 
+	/** Hibernate configuration file. */
+	private URL hibernateConfig;
+	
 	/** @see #appId */
 	public String getAppId() {
 		return appId;
@@ -140,4 +146,15 @@ public class WindApplication {
 		this.currentLocale = currentLocale;
 	}
 
+	/** @see #hibernateConfig  */
+	public URL getHibernateConfig() {
+		return hibernateConfig;
+	}
+
+	/** @see #hibernateConfig  */
+	public void setHibernateConfig(URL hibernateConfig) {
+		this.hibernateConfig = hibernateConfig;
+	}
+
+	
 }
