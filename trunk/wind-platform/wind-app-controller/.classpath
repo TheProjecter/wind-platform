@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="lib/hib/slf4j-log4j12-1.6.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/hib/postgresql-8.3-603.jdbc3.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/hib/hibernate-jpa-2.0-api-1.0.0.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/hib/slf4j-log4j12-1.5.8.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/hib/cglib-2.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/hib/slf4j-api-1.5.8.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/hib/antlr-2.7.6.jar"/>
