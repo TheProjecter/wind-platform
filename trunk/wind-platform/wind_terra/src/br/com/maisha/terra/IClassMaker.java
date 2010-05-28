@@ -18,6 +18,6 @@ public interface IClassMaker {
 	 * @return
 	 * @throws WindException
 	 */
-	Class<?> make(DomainObject dObj) throws MakeClassException;
+	Class<?> make(ClassLoader cLoader, DomainObject dObj) throws MakeClassException;
 
 }
