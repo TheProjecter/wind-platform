@@ -39,7 +39,7 @@ public class PresentationProvider implements IPresentationProvider {
 	 * 
 	 * @see br.com.maisha.wind.faces.IPresentationProvider#render(java.lang.Object)
 	 */
-	public void render(Object model, LevelType level, ChangeType change) {
+	public void render(final Object model, final LevelType level, final ChangeType change) {
 		if (Application.getApp() != null && PlatformUI.isWorkbenchRunning()) {
 			for (IRender r : render) {
 				if (r.getModelLevel() == level) {

@@ -47,6 +47,12 @@
             class="br.com.maisha.wind.faces.view.GridView"
             id="br.com.maisha.wind.faces.view.gridView">
       </view>      
+      
+      <view
+            name="Log View"
+            class="br.com.maisha.wind.faces.view.LogView"
+            id="br.com.maisha.wind.faces.view.logView">
+      </view>        
    <view
          name="Progress View"
          icon="icons/pview.gif"
