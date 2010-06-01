@@ -13,6 +13,7 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
 import br.com.maisha.terra.lang.PropertyInfo;
+import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.controller.model.ExecutionContext;
@@ -71,7 +72,7 @@ public class BaseAction extends Action implements IWorkbenchAction {
 			job.schedule();
 
 		} catch (Exception e) {
-			e.printStackTrace(); // TODO handle
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 
 		log.debug("Action Finished " + op);

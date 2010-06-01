@@ -23,6 +23,7 @@ import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
+import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.IApplicationController;
@@ -116,7 +117,7 @@ public class EditionView extends ViewPart implements IRender {
 			modelInstance.addPropertyChangeListener(new ELListener());
 
 		} catch (Exception e) {
-			e.printStackTrace();// TODO handle
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 
 		createUserInterface(object);
