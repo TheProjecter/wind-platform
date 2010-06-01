@@ -14,6 +14,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.ViewPart;
 
@@ -32,7 +33,10 @@ import br.com.maisha.wind.faces.IPresentationProvider;
 import br.com.maisha.wind.faces.action.BaseAction;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.render.IRender;
+import br.com.maisha.wind.faces.render.attr.BaseAttrRender;
+import br.com.maisha.wind.faces.render.attr.CheckboxRenderer;
 import br.com.maisha.wind.faces.render.attr.IAttributeRender;
+import br.com.maisha.wind.faces.render.attr.TextAreaAttrRender;
 
 /**
  * 
@@ -59,7 +63,7 @@ public class EditionView extends ViewPart implements IRender {
 	/** */
 	private ModelReference modelInstance;
 
-	
+	private IAction clearAction;
 
 	/**
 	 * 
@@ -82,6 +86,7 @@ public class EditionView extends ViewPart implements IRender {
 				Activator.getDefault().getBundle().getBundleContext());
 
 		presProvider.registerRender(this);
+
 	}
 
 	/**
@@ -113,7 +118,15 @@ public class EditionView extends ViewPart implements IRender {
 		try {
 			modelInstance = (ModelReference) object.getObjectClass().newInstance();
 			modelInstance.setMeta(object);
-			appController.evalExpressions(modelInstance);
+			
+			final ModelReference ref = modelInstance;
+			Display.getCurrent().asyncExec(new Runnable() {				
+				public void run() {
+					appController.evalExpressions(ref);
+					
+				}
+			});
+			
 			modelInstance.addPropertyChangeListener(new ELListener());
 
 		} catch (Exception e) {

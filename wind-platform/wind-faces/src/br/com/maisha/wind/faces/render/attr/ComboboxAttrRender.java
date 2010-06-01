@@ -120,16 +120,8 @@ public class ComboboxAttrRender extends BaseAttrRender {
 		        return "activate";
 		      case SWT.Deactivate:
 		        return "deactivate";
-		      case SWT.Help:
-		        return "help";
-		      case SWT.DragDetect:
-		        return "drag detect";
-		      case SWT.Arm:
-		        return "arm";
 		      case SWT.Traverse:
 		        return "traverse";
-		      case SWT.MenuDetect:
-		        return "menu detect";
 		    }
 		    
 		    return "unkown ???";
