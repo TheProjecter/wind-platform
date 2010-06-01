@@ -1,9 +1,11 @@
 package br.com.maisha.wind.controller.storage;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -26,10 +28,10 @@ public class PersistentStorage implements IStorage {
 	 * 
 	 * @return
 	 */
-	public ClassLoader getClassLoader(){
+	public ClassLoader getClassLoader() {
 		return this.getClass().getClassLoader();
 	}
-	
+
 	/**
 	 * 
 	 * @param app
@@ -38,7 +40,7 @@ public class PersistentStorage implements IStorage {
 		AnnotationConfiguration configuration = new AnnotationConfiguration().configure(app.getHibernateConfig());
 
 		for (DomainObject object : app.getDomainObjects()) {
-			log.debug("@@@ Adding ["+object.getRef()+"] to hibernate");
+			log.debug("@@@ Adding [" + object.getRef() + "] to hibernate");
 
 			configuration.addAnnotatedClass(object.getObjectClass());
 		}
@@ -69,9 +71,42 @@ public class PersistentStorage implements IStorage {
 			transaction.commit();
 		} catch (Exception e) {
 			transaction.rollback();
+			log.error(e.getMessage(), e);
 		} finally {
 			sess.flush();
 			sess.close();
 		}
 	}
+
+	/**
+	 * 
+	 * @param appId
+	 * @param ref
+	 * @return
+	 */
+	public List<?> getAll(String appId, DomainObject dObj) {
+		SessionFactory sessionFactory = sessionFactoryRegistry.get(appId);
+
+		if (sessionFactory == null) {
+			log.error("There is no SessionFactory for " + appId);
+			return null;
+		}
+
+		Session sess = sessionFactory.openSession();
+		Transaction transaction = sess.beginTransaction();
+		try {
+
+			Criteria crt = sess.createCriteria(dObj.getObjectClass());
+			return crt.list();
+
+		} catch (Exception e) {
+			transaction.rollback();
+			log.error(e.getMessage(), e);
+		} finally {
+			sess.flush();
+			sess.close();
+		}
+		return null;
+	}
+
 }

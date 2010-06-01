@@ -25,6 +25,7 @@
 			<map>
 				<entry key="max_length" value-ref="maxLengthValidator" />
 				<entry key="required" value-ref="requiredValidator" />
+				<entry key="min_length" value-ref="minLengthValidator" />
 			</map>
 		</property>
 	</bean>
@@ -41,6 +42,9 @@
 
 	<bean name="maxLengthValidator"
 		class="br.com.maisha.wind.controller.validator.MaxLengthValidator" />
+
+	<bean name="minLengthValidator"
+		class="br.com.maisha.wind.controller.validator.MinLengthValidator" />
 
 	<bean name="requiredValidator"
 		class="br.com.maisha.wind.controller.validator.RequiredValidator" />

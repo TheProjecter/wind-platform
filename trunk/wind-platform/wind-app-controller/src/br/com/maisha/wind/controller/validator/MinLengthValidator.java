@@ -7,17 +7,17 @@ import br.com.maisha.terra.lang.Property;
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
-public class RequiredValidator implements IValidator {
+public class MinLengthValidator implements IValidator {
 
 	/** */
-	private boolean required;
+	private int min;
 
 	/**
 	 * 
 	 * @see br.com.maisha.wind.controller.validator.IValidator#configure(br.com.maisha.terra.lang.Property)
 	 */
 	public void configure(Property property) {
-		this.required = Boolean.valueOf(property.getValue().toString());
+		this.min = Integer.valueOf(property.getValue().toString());
 	}
 
 	/**
@@ -25,7 +25,7 @@ public class RequiredValidator implements IValidator {
 	 * @see br.com.maisha.wind.controller.validator.IValidator#getId()
 	 */
 	public String getId() {
-		return "required";
+		return "min_length";
 	}
 
 	/**
@@ -33,17 +33,16 @@ public class RequiredValidator implements IValidator {
 	 * @see br.com.maisha.wind.controller.validator.IValidator#validate(java.lang.Object)
 	 */
 	public boolean validate(Object value) {
-		boolean valid = true;
-
-		if (required) {
-			if (value == null) {
-				valid = false;
-			} else if (value.toString().trim().length() == 0) {
-				valid = false;
-			}
+		if (value == null) {
+			return true;
 		}
 
-		return valid;
+		String asString = value.toString();
+		if (asString.length() < min) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -51,7 +50,7 @@ public class RequiredValidator implements IValidator {
 	 * @see br.com.maisha.wind.controller.validator.IValidator#getMessageKey()
 	 */
 	public String getMessageKey() {
-		return "wind.messages.required";
+		return "wind.messages.minLength";
 	}
 
 }

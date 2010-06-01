@@ -4,6 +4,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.script.Invocable;
@@ -74,8 +77,6 @@ public class ApplicationController implements IApplicationController {
 			OperationType type = OperationType.valueOf(op.getType());
 			IProgressMonitor monitor = ctx.getMonitor();
 
-			Class c = ctx.getInstance().getClass();
-
 			// validation phase
 			monitor.setTaskName("Validating...");
 			ctx = processValidations(ctx);
@@ -109,6 +110,7 @@ public class ApplicationController implements IApplicationController {
 			monitor.worked(5);
 			ctx = (ExecutionContext<ModelReference>) invocable.invokeMethod(o, "execute");
 
+			modelListener.fireEvent(null, ctx.getInstance(), LevelType.Object, ChangeType.ValueChanged);
 		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
@@ -140,24 +142,28 @@ public class ApplicationController implements IApplicationController {
 			for (Attribute att : meta.getAtts()) {
 				for (Map.Entry<String, Property> prop : att.getProperties().entrySet()) {
 					boolean validate = PropertyInfo.getPropertyInfo(prop.getKey()).isValidate();
+					boolean visible = att.getPropertyValue(PropertyInfo.VISIBLE);
 
-					if (validate) {
+					Object value = juelEngine.eval("${this." + att.getRef() + "}");
+
+					// property validation
+					if (visible && validate) {
 						IValidator validator = validatorRegisty.getValidator(prop.getKey());
 
 						if (validator != null) {
 							validator.configure(prop.getValue());
 
-							Object value = juelEngine.eval("${this." + att.getRef() + "}");
-
 							if (!validator.validate(value)) {
 								ctx.getMessages().add(
-										new UserMessage(MessageKind.ERROR, validator.getMessageKey(), meta));
+										new UserMessage(MessageKind.ERROR, validator.getMessageKey(), meta, att
+												.getLabel(), value, prop.getValue().getValue()));
 							}
 						}
 					}
 				}
 			}
 
+			// validate operation rules
 			Operation op = ctx.getOperation();
 			String validationRef = op.getPropertyValue(PropertyInfo.VALID_WHEN);
 			if (StringUtils.isNotBlank(validationRef)) {
@@ -215,6 +221,61 @@ public class ApplicationController implements IApplicationController {
 		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
+	}
+
+	/**
+	 * 
+	 * @param instance
+	 * @param attributeName
+	 * @return
+	 */
+	public Object getObjectValue(Object instance, String attributeName) {
+		Object ret = null;
+
+		try {
+			ScriptEngine juelEngine = engineManager.getEngineByName("juel");
+			juelEngine.put("this", instance);
+			ret = juelEngine.eval("${this." + attributeName + "}");
+		} catch (Exception e) {
+			e.printStackTrace(); // TODO handle
+		}
+
+		return ret;
+	}
+
+	/**
+	 * 
+	 * @see br.com.maisha.wind.controller.IApplicationController#filter(br.com.maisha.terra.lang.DomainObject)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<ModelReference> filter(DomainObject dobj) {
+		return (List<ModelReference>) persistentStorage.getAll(dobj.getApplication().getAppId(), dobj);
+	}
+
+	/**
+	 * 
+	 * @see br.com.maisha.wind.controller.IApplicationController#toMap(br.com.maisha.terra.lang.DomainObject, java.util.List)
+	 */
+	public List<Map<String, Object>> toMap(DomainObject obj, List<ModelReference> lst) {
+
+		List<Map<String, Object>> lstMap = new ArrayList<Map<String, Object>>();
+		try {
+			ScriptEngine juelEngine = engineManager.getEngineByName("juel");
+
+			for (ModelReference ref : lst) {
+				juelEngine.put("ref", ref);
+				Map<String, Object> map = new HashMap<String, Object>();
+				for (Attribute attr : obj.getAtts()) {
+					map.put(attr.getRef(), juelEngine.eval("${ref." + attr.getRef() + "}"));
+				}
+				lstMap.add(map);
+			}
+		} catch (Exception e) {
+			e.printStackTrace(); // TODO
+		}
+
+		return lstMap;
+
 	}
 
 	/** @see #modelListener */
