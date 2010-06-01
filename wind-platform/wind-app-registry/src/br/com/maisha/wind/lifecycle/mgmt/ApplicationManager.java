@@ -14,10 +14,12 @@ import br.com.maisha.terra.ITerraCompiler;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ResourceBundleEntry;
 import br.com.maisha.terra.lang.WindApplication;
+import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.listener.IAppModelListenerRegistry;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.storage.IStorage;
+import br.com.maisha.wind.lifecycle.rcp.Activator;
 import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
 
 /**
@@ -128,7 +130,7 @@ public class ApplicationManager implements IApplicationManager {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace(); // TODO handle
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 
 	}
