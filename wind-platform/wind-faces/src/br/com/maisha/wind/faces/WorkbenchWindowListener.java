@@ -3,6 +3,7 @@ package br.com.maisha.wind.faces;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWindowListener;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.osgi.framework.BundleContext;
@@ -52,7 +53,7 @@ public class WorkbenchWindowListener implements IWindowListener {
 		// register app model listener to react to it's changes...
 		IAppModelListenerRegistry modelListenerReg = ServiceProvider
 				.getInstance().getService(IAppModelListenerRegistry.class, ctx);
-		modelListenerReg.registerAppModelListener(new FacesAppModelListener());
+		modelListenerReg.registerAppModelListener(new FacesAppModelListener(Display.getCurrent()));
 
 		log.debug("		Window is ready...");
 	}

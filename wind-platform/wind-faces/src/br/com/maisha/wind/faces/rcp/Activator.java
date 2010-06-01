@@ -73,4 +73,15 @@ public class Activator extends AbstractUIPlugin {
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public static String getSymbolicName() {
+		if (plugin != null) {
+			return plugin.getBundle().getSymbolicName();
+		}
+		return null;
+	}
 }

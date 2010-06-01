@@ -6,6 +6,7 @@ import org.eclipse.ui.IPerspectiveFactory;
 
 import br.com.maisha.wind.faces.view.EditionView;
 import br.com.maisha.wind.faces.view.GridView;
+import br.com.maisha.wind.faces.view.LogView;
 import br.com.maisha.wind.faces.view.MessageView;
 import br.com.maisha.wind.faces.view.ModuleOverview;
 
@@ -39,6 +40,7 @@ public class Perspective implements IPerspectiveFactory {
 				IPageLayout.BOTTOM, .6f, editorArea);
 		bottomFolder.addView(GridView.ID);
 		bottomFolder.addView(MessageView.ID);
+		bottomFolder.addView(LogView.ID);
 		bottomFolder.addView("org.eclipse.ui.views.ProgressView");
 		
 	}
