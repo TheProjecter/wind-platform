@@ -59,4 +59,14 @@ public class Activator implements BundleActivator {
 		return context;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	public static String getSymbolicName() {
+		if (context != null) {
+			return context.getBundle().getSymbolicName();
+		}
+		return null;
+	}
 }

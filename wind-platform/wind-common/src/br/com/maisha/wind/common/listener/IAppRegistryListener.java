@@ -8,7 +8,7 @@ package br.com.maisha.wind.common.listener;
 public interface IAppRegistryListener {
 
 	public enum LevelType {
-		Application, Object, Property, Operation, Message
+		Application, Object, Property, Operation, Message, Exception
 	}
 
 	public enum ChangeType {

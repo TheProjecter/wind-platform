@@ -28,6 +28,11 @@
 		class="br.com.maisha.wind.common.listener.AppModelListenerRegistry" />
 
 
+	<bean name="exceptionHandler" scope="singleton" 
+		class="br.com.maisha.wind.common.exception.ExceptionHandler" init-method="init" >
+		<property name="modelListener" ref="appModelListenerRegistry" />
+	</bean>
+
 </beans>
 
 
