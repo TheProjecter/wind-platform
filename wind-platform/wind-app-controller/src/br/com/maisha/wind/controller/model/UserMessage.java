@@ -9,6 +9,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 import br.com.maisha.terra.lang.DomainObject;
@@ -183,7 +184,7 @@ public class UserMessage implements Serializable {
 					formattedMessage = msg;
 					break;
 
-				} catch (MissingResourceException mre) {
+				} catch (NoSuchMessageException nsme) {
 					// silently igonre
 					continue;
 				}
