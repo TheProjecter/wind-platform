@@ -8,6 +8,9 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import br.com.maisha.wind.common.Activator;
+import br.com.maisha.wind.common.exception.ExceptionHandler;
+
 /**
  * TODO javadoc!
  * 
@@ -64,8 +67,7 @@ public class ConverterService implements IConverterService {
 
 			return result;
 		} catch (Exception e) {
-			// TODO handle
-			log.error(e.getMessage(), e);
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 
 		return null;
