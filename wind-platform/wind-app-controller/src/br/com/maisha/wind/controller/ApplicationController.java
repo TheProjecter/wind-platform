@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.script.Invocable;
@@ -15,7 +14,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osgi.framework.BundleContext;
-import org.springframework.context.support.ResourceBundleMessageSource;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
@@ -26,17 +24,17 @@ import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Validation;
 import br.com.maisha.terra.lang.ValidationRule;
 import br.com.maisha.terra.lang.Operation.OperationType;
-import br.com.maisha.wind.common.Activator;
 import br.com.maisha.wind.common.converter.IConverterService;
+import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppModelListenerRegistry;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.execution.api.RuleAPI;
-import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.controller.model.UserMessage;
 import br.com.maisha.wind.controller.model.UserMessage.MessageKind;
+import br.com.maisha.wind.controller.rcp.Activator;
 import br.com.maisha.wind.controller.storage.IStorage;
 import br.com.maisha.wind.controller.validator.IValidator;
 import br.com.maisha.wind.controller.validator.ValidatorRegistry;
@@ -63,7 +61,7 @@ public class ApplicationController implements IApplicationController {
 
 	/** */
 	private IStorage persistentStorage;
-	
+
 	/**
 	 * 
 	 * @see br.com.maisha.wind.controller.IApplicationController#runOperation(br.com.maisha.wind.controller.model.ExecutionContext)
@@ -77,7 +75,7 @@ public class ApplicationController implements IApplicationController {
 			IProgressMonitor monitor = ctx.getMonitor();
 
 			Class c = ctx.getInstance().getClass();
-			
+
 			// validation phase
 			monitor.setTaskName("Validating...");
 			ctx = processValidations(ctx);
@@ -112,7 +110,7 @@ public class ApplicationController implements IApplicationController {
 			ctx = (ExecutionContext<ModelReference>) invocable.invokeMethod(o, "execute");
 
 		} catch (Exception e) {
-			e.printStackTrace(); // TODO handle
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 		return ctx;
 	}
@@ -175,7 +173,7 @@ public class ApplicationController implements IApplicationController {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace(); // TODO handle
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 		return ctx;
 	}
@@ -215,7 +213,7 @@ public class ApplicationController implements IApplicationController {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace(); // TODO handle
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 	}
 
@@ -247,6 +245,4 @@ public class ApplicationController implements IApplicationController {
 		this.persistentStorage = persistentStorage;
 	}
 
-	
-	
 }

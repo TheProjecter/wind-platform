@@ -27,7 +27,7 @@ public class ExecutionContext<T> {
 
 	/** Message list. */
 	private List<UserMessage> messages = new ArrayList<UserMessage>();
-
+	
 	/** @see #operation */
 	public Operation getOperation() {
 		return operation;
