@@ -87,4 +87,14 @@ public class Activator implements BundleActivator {
 		log.info("		Wind Application Controller Stopped... ");
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	public static String getSymbolicName(){
+		if(context != null){
+			return context.getBundle().getSymbolicName();
+		}
+		return null;
+	}
 }
