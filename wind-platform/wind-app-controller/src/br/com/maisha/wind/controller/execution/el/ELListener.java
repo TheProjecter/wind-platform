@@ -6,6 +6,7 @@ import java.beans.PropertyChangeListener;
 import org.apache.log4j.Logger;
 
 import br.com.maisha.terra.lang.ModelReference;
+import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.controller.rcp.Activator;
@@ -40,7 +41,7 @@ public class ELListener implements PropertyChangeListener {
 
 			appController.evalExpressions((ModelReference) evt.getSource());
 		} catch (Exception e) {
-			e.printStackTrace(); // TODO handle
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 	}
 }
