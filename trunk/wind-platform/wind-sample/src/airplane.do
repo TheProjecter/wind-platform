@@ -37,6 +37,7 @@ x: 1
 y: 3
 required: true
 max_length: 5
+min_length: 2
 width: 450
 colspan: 3
 }
@@ -67,7 +68,7 @@ visible: ${this.capacity > 50}
 }
 
 validationRule doxo {
-"doxo": ${this.weight > 20}
+"airplane.validation.doxo.weithlessthan": ${this.weight > 20}
 "doxo2": ${this.miles < 30 }
 }
 
