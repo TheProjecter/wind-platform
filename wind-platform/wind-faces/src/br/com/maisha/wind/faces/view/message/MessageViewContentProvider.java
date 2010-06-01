@@ -28,8 +28,6 @@ public class MessageViewContentProvider implements IStructuredContentProvider {
 	 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
 	 */
 	public void dispose() {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -38,8 +36,6 @@ public class MessageViewContentProvider implements IStructuredContentProvider {
 	 *      java.lang.Object, java.lang.Object)
 	 */
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

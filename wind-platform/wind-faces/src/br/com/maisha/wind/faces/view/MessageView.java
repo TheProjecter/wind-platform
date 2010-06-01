@@ -15,6 +15,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
+import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.model.UserMessage;
@@ -110,7 +111,7 @@ public class MessageView extends ViewPart implements IRender {
 					.showView(MessageView.ID, null,
 							IWorkbenchPage.VIEW_ACTIVATE);
 		} catch (Exception e) {
-			e.printStackTrace(); // TODO
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 	}
 
