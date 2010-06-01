@@ -10,6 +10,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.ModelReference;
@@ -43,6 +44,8 @@ public class CheckboxRenderer extends BaseAttrRender {
 			ModelReference modelInstance) {
 		log.debug("Starting render for attr [" + attr + "] ");
 
+		Label emptyLabel = new Label(parent, SWT.NONE);
+		
 		Button checkbox = new Button(parent, SWT.CHECK);
 		checkbox.setData(attr.getRef());
 		checkbox.setText(attr.getLabel());
