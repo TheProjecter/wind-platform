@@ -70,14 +70,9 @@ public class EditionView extends ViewPart implements IRender {
 	 * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
 	 */
 	public void createPartControl(final Composite parent) {
-		// main panel
-		final Composite editionPanel = new Composite(parent, SWT.NONE);
-		editionPanel.setLayout(new GridLayout(1, true));
-		editionPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-
 		// object contents panel
-		this.contents = new Composite(editionPanel, SWT.NONE);
-		this.contents.setLayout(new GridLayout(2, false));
+		this.contents = new Composite(parent, SWT.NONE);
+		this.contents.setLayout(new GridLayout(1, false));
 
 		this.presProvider = ServiceProvider.getInstance().getService(IPresentationProvider.class,
 				Activator.getDefault().getBundle().getBundleContext());
