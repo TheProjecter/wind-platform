@@ -45,6 +45,7 @@
       <view
             name="Grid View"
             class="br.com.maisha.wind.faces.view.GridView"
+            icon="icons/grid.gif"
             id="br.com.maisha.wind.faces.view.gridView">
       </view>      
       
