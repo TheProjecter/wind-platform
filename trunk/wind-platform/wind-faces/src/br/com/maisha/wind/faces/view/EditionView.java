@@ -10,7 +10,6 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -33,10 +32,7 @@ import br.com.maisha.wind.faces.IPresentationProvider;
 import br.com.maisha.wind.faces.action.BaseAction;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.render.IRender;
-import br.com.maisha.wind.faces.render.attr.BaseAttrRender;
-import br.com.maisha.wind.faces.render.attr.CheckboxRenderer;
 import br.com.maisha.wind.faces.render.attr.IAttributeRender;
-import br.com.maisha.wind.faces.render.attr.TextAreaAttrRender;
 
 /**
  * 
