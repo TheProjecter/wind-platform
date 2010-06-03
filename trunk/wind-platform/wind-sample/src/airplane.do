@@ -7,6 +7,7 @@ Double weight "Weight"{
 x: 1
 y: 1
 width: 50
+tooltip: wind.sample.airbus.weight.tooltip
 }
 
 
