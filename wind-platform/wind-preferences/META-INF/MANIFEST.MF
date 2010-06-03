@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Wind_preferences
+Bundle-SymbolicName: wind_preferences
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: br.com.maisha.preferences.rcp.Activator
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.osgi.framework;version="1.3.0",
+ org.osgi.service.prefs;version="1.1",
+ org.osgi.util.tracker;version="1.3.1"
+Require-Bundle: wind_app_registry;bundle-version="1.0.0",
+ org.eclipse.rap.ui;bundle-version="1.2.2",
+ wind_common;bundle-version="1.0.0"
