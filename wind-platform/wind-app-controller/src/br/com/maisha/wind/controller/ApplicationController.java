@@ -110,7 +110,8 @@ public class ApplicationController implements IApplicationController {
 			monitor.worked(5);
 			ctx = (ExecutionContext<ModelReference>) invocable.invokeMethod(o, "execute");
 
-			modelListener.fireEvent(null, ctx.getInstance(), LevelType.Object, ChangeType.ValueChanged);
+			modelListener.fireEvent(null, ctx.getOperation().getDomainObject(), LevelType.Object,
+					ChangeType.ValueChanged);
 		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
@@ -254,11 +255,17 @@ public class ApplicationController implements IApplicationController {
 
 	/**
 	 * 
-	 * @see br.com.maisha.wind.controller.IApplicationController#toMap(br.com.maisha.terra.lang.DomainObject, java.util.List)
+	 * @see br.com.maisha.wind.controller.IApplicationController#toMap(br.com.maisha.terra.lang.DomainObject,
+	 *      java.util.List)
 	 */
 	public List<Map<String, Object>> toMap(DomainObject obj, List<ModelReference> lst) {
 
 		List<Map<String, Object>> lstMap = new ArrayList<Map<String, Object>>();
+		
+		if(lst == null || lst.isEmpty()){
+			return lstMap;
+		}
+		
 		try {
 			ScriptEngine juelEngine = engineManager.getEngineByName("juel");
 
