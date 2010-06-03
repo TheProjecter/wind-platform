@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app name="Preferences" appId="wind_preferences" locale="pt_BR">
+	<bundle id="messages"  path="messages" locale="pt_BR"/>
+</app>
