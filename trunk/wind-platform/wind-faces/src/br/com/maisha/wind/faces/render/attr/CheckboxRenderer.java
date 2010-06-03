@@ -14,7 +14,9 @@ import org.eclipse.swt.widgets.Label;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.ModelReference;
+import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Property.PresentationType;
+import br.com.maisha.wind.controller.model.UserMessage;
 
 /**
  * 
@@ -49,7 +51,11 @@ public class CheckboxRenderer extends BaseAttrRender {
 		Button checkbox = new Button(parent, SWT.CHECK);
 		checkbox.setData(attr.getRef());
 		checkbox.setText(attr.getLabel());
-		checkbox.setToolTipText(attr.getLabel());
+
+		// tooltip
+		String tooltip = attr.getPropertyValue(PropertyInfo.TOOLTIP);
+		UserMessage um = new UserMessage(null, tooltip, attr.getDomainObject());
+		checkbox.setToolTipText(um.getFormattedMessage());
 
 		GridData gd = getLayoutData();
 		checkbox.setLayoutData(gd);
