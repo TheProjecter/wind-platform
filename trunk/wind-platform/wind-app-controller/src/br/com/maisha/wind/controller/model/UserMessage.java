@@ -159,16 +159,18 @@ public class UserMessage implements Serializable {
 		// resolve msg somente na primeira vez
 		if (formattedMessage == null) {
 			List<ResourceBundle> rbs = this.source.getApplication().getResouceBundle();
-			for (ResourceBundle rb : rbs) {
-				try {
-					String msg = rb.getString(i18nMessage);
-					if (msg != null) {
-						formattedMessage = MessageFormat.format(msg, param);
-						break;
+			if (rbs != null) {
+				for (ResourceBundle rb : rbs) {
+					try {
+						String msg = rb.getString(i18nMessage);
+						if (msg != null) {
+							formattedMessage = MessageFormat.format(msg, param);
+							break;
+						}
+					} catch (MissingResourceException mre) {
+						// silently igonre
+						continue;
 					}
-				} catch (MissingResourceException mre) {
-					// silently igonre
-					continue;
 				}
 			}
 		}
