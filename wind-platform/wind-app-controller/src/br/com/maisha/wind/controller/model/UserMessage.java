@@ -157,7 +157,7 @@ public class UserMessage implements Serializable {
 	/** @see #formattedMessage */
 	public String getFormattedMessage() {
 		// resolve msg somente na primeira vez
-		if (formattedMessage == null) {
+		if (formattedMessage == null && i18nMessage != null) {
 			List<ResourceBundle> rbs = this.source.getApplication().getResouceBundle();
 			if (rbs != null) {
 				for (ResourceBundle rb : rbs) {

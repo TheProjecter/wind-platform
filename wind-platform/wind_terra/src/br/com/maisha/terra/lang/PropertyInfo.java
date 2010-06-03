@@ -95,6 +95,10 @@ public class PropertyInfo<T> {
 	public static final PropertyInfo<String> VALID_WHEN = new PropertyInfo<String>(
 			"validWhen", null, String.class, false);
 
+	/** Descricao da propriedade tooltip */
+	public static final PropertyInfo<String> TOOLTIP = new PropertyInfo<String>(
+			"tooltip", null, String.class, false);	
+	
 	/** Nome da propriedade. */
 	private String propName;
 

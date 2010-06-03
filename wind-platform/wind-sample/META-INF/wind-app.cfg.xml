@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<app name="Flight Control" appId="flight_control" locale="en_US">
+<app name="Flight Control" appId="flight_control" locale="pt_BR">
 	<bundle id="messages"  path="doxo_pt_BR" locale="pt_BR"/>
 	<bundle id="messagesEn"  path="doxo_en_US" locale="en_US"/>
 </app>
