@@ -16,6 +16,7 @@ import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Property.PresentationType;
+import br.com.maisha.wind.controller.model.UserMessage;
 
 /**
  * TODO javadoc
@@ -55,7 +56,11 @@ public class TextAreaAttrRender extends BaseAttrRender {
 		Text text = new Text(parent, SWT.MULTI | SWT.BORDER | SWT.V_SCROLL
 				| SWT.H_SCROLL);
 		text.setData(attr.getRef());
-		text.setToolTipText(attr.getLabel());
+		
+		// tooltip
+		String tooltip = attr.getPropertyValue(PropertyInfo.TOOLTIP);
+		UserMessage um = new UserMessage(null, tooltip, attr.getDomainObject());
+		text.setToolTipText(um.getFormattedMessage());
 
 		Integer maxLength = attr.getPropertyValue(PropertyInfo.MAX_LENGTH);
 		if (maxLength != null) {

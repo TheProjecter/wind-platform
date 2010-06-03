@@ -17,6 +17,7 @@ import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Property.PresentationType;
+import br.com.maisha.wind.controller.model.UserMessage;
 
 /**
  * 
@@ -51,7 +52,11 @@ public class ComboboxAttrRender extends BaseAttrRender {
 
 		Combo cb = new Combo(parent, SWT.READ_ONLY);
 		cb.setData(attr.getRef());
-		cb.setToolTipText(attr.getLabel());
+		
+		// tooltip
+		String tooltip = attr.getPropertyValue(PropertyInfo.TOOLTIP);
+		UserMessage um = new UserMessage(null, tooltip, attr.getDomainObject());
+		cb.setToolTipText(um.getFormattedMessage());
 
 		// events
 
