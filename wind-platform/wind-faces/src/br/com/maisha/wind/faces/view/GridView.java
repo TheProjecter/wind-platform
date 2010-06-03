@@ -2,6 +2,7 @@ package br.com.maisha.wind.faces.view;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -25,6 +26,7 @@ import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.IApplicationController;
+import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.faces.IPresentationProvider;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.render.IRender;
@@ -108,14 +110,14 @@ public class GridView extends ViewPart implements IRender {
 			}
 
 			Display.getCurrent().asyncExec(new Runnable() {
-
-				@Override
 				public void run() {
 					List<ModelReference> data = appCtrl.filter(dObj);
 					List<Map<String, Object>> dataMap = appCtrl.toMap(dObj, data);
 					viewer.setLabelProvider(new GridViewLabelProvider(map));
 					viewer.setInput(dataMap);
-
+					String totalResults = PlatformMessageRegistry.getInstance().getMessage("wind_faces.gridview.totalResults",
+							new Object[] { dataMap.size() });
+					setContentDescription(totalResults);
 				}
 			});
 
