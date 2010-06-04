@@ -24,12 +24,18 @@
 		scope="singleton" />
 
 
-	<bean name="appModelListenerRegistry" scope="singleton" 
+	<bean name="appModelListenerRegistry" scope="singleton"
 		class="br.com.maisha.wind.common.listener.AppModelListenerRegistry" />
 
 
-	<bean name="exceptionHandler" scope="singleton" 
-		class="br.com.maisha.wind.common.exception.ExceptionHandler" init-method="init" >
+	<bean name="preferenceStore" scope="singleton"
+		class="br.com.maisha.wind.common.preferences.PreferenceStore">
+		<property name="prefService" ref="preferenceServiceOsgi" />
+	</bean>
+
+	<bean name="exceptionHandler" scope="singleton"
+		class="br.com.maisha.wind.common.exception.ExceptionHandler"
+		init-method="init">
 		<property name="modelListener" ref="appModelListenerRegistry" />
 	</bean>
 
