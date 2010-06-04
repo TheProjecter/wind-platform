@@ -2,7 +2,6 @@ package br.com.maisha.wind.faces.view;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -51,6 +50,8 @@ public class GridView extends ViewPart implements IRender {
 	 */
 	public void createPartControl(Composite parent) {
 
+		setPartName(PlatformMessageRegistry.getInstance().getMessage("wind_faces.gridView.title"));
+		
 		IPresentationProvider presProvider = ServiceProvider.getInstance().getService(IPresentationProvider.class,
 				Activator.getDefault().getBundle().getBundleContext());
 		presProvider.registerRender(this);

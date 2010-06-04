@@ -18,6 +18,7 @@ import org.eclipse.ui.part.ViewPart;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
+import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.controller.model.UserMessage;
 import br.com.maisha.wind.faces.IPresentationProvider;
 import br.com.maisha.wind.faces.rcp.Activator;
@@ -51,13 +52,13 @@ public class MessageView extends ViewPart implements IRender {
 	 */
 	public void createPartControl(Composite parent) {
 
-		IPresentationProvider presProvider = ServiceProvider.getInstance()
-				.getService(IPresentationProvider.class,
-						Activator.getDefault().getBundle().getBundleContext());
+		setPartName(PlatformMessageRegistry.getInstance().getMessage("wind_faces.messageView.title"));
+		
+		IPresentationProvider presProvider = ServiceProvider.getInstance().getService(IPresentationProvider.class,
+				Activator.getDefault().getBundle().getBundleContext());
 		presProvider.registerRender(this);
 
-		tableViewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL
-				| SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
+		tableViewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 
 		TableViewerColumn iconCol = new TableViewerColumn(tableViewer, SWT.NONE);
 		iconCol.getColumn().setText("");
@@ -66,13 +67,14 @@ public class MessageView extends ViewPart implements IRender {
 		iconCol.getColumn().setMoveable(false);
 
 		TableViewerColumn sourceCol = new TableViewerColumn(tableViewer, SWT.NONE);
-		sourceCol.getColumn().setText("Source");
+		sourceCol.getColumn()
+				.setText(PlatformMessageRegistry.getInstance().getMessage("wind_faces.messageview.source"));
 		sourceCol.getColumn().setWidth(100);
 		sourceCol.getColumn().setResizable(true);
-		sourceCol.getColumn().setMoveable(false);			
-		
+		sourceCol.getColumn().setMoveable(false);
+
 		TableViewerColumn msgCol = new TableViewerColumn(tableViewer, SWT.NONE);
-		msgCol.getColumn().setText("Message");
+		msgCol.getColumn().setText(PlatformMessageRegistry.getInstance().getMessage("wind_faces.messageview.message"));
 		msgCol.getColumn().setWidth(350);
 		msgCol.getColumn().setResizable(true);
 		msgCol.getColumn().setMoveable(false);
@@ -85,20 +87,18 @@ public class MessageView extends ViewPart implements IRender {
 		tableViewer.setInput(new ArrayList<UserMessage>());
 
 		createActions();
-		IToolBarManager tbManager = getViewSite().getActionBars()
-				.getToolBarManager();
+		IToolBarManager tbManager = getViewSite().getActionBars().getToolBarManager();
 		tbManager.add(clearAllAction);
 	}
 
 	public void createActions() {
-		clearAllAction = new Action("Clear") { // TODO i18n
+		clearAllAction = new Action(PlatformMessageRegistry.getInstance().getMessage("wind_faces.messageview.clear")) {
 
 			public void run() {
 				tableViewer.setInput(new ArrayList<UserMessage>());
 			}
 		};
-		clearAllAction.setImageDescriptor(Activator
-				.getImageDescriptor("icons/clear.gif"));
+		clearAllAction.setImageDescriptor(Activator.getImageDescriptor("icons/clear.gif"));
 	}
 
 	/**
@@ -107,9 +107,8 @@ public class MessageView extends ViewPart implements IRender {
 	 */
 	public void setFocus() {
 		try {
-			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPages()[0]
-					.showView(MessageView.ID, null,
-							IWorkbenchPage.VIEW_ACTIVATE);
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPages()[0].showView(MessageView.ID, null,
+					IWorkbenchPage.VIEW_ACTIVATE);
 		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}

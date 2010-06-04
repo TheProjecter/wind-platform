@@ -1,14 +1,19 @@
 package br.com.maisha.wind.faces.action;
 
+import java.net.URL;
+
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
+import org.osgi.framework.Bundle;
 
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
@@ -51,7 +56,13 @@ public class BaseAction extends Action implements IWorkbenchAction {
 
 		String iconPath = op.getPropertyValue(PropertyInfo.ICON);
 		if (iconPath != null) {
-			setImageDescriptor(Activator.getImageDescriptor(iconPath));
+			Bundle bundle = Platform.getBundle(op.getDomainObject().getApplication().getBundleContext().getBundle()
+					.getSymbolicName());
+			URL imgUrl = bundle.getEntry(iconPath);
+			if (imgUrl != null) {
+				setImageDescriptor(ImageDescriptor.createFromURL(imgUrl));
+			}
+
 		}
 
 		setEnabled(!op.getPropertyValue(PropertyInfo.DISABLED));
@@ -67,8 +78,7 @@ public class BaseAction extends Action implements IWorkbenchAction {
 
 		try {
 
-			ExecuteOperationJob job = new ExecuteOperationJob(
-					"Executing Operation...", exeCtx, Display.getCurrent());
+			ExecuteOperationJob job = new ExecuteOperationJob("Executing Operation...", exeCtx, Display.getCurrent());
 			job.schedule();
 
 		} catch (Exception e) {
@@ -103,8 +113,7 @@ public class BaseAction extends Action implements IWorkbenchAction {
 		 * @param jobName
 		 * @param ctx
 		 */
-		public ExecuteOperationJob(String jobName,
-				ExecutionContext<ModelReference> ctx, Display display) {
+		public ExecuteOperationJob(String jobName, ExecutionContext<ModelReference> ctx, Display display) {
 			super(jobName);
 			this.ctx = ctx;
 			this.display = display;
@@ -116,11 +125,8 @@ public class BaseAction extends Action implements IWorkbenchAction {
 		 */
 		public IStatus run(IProgressMonitor monitor) {
 			try {
-				final IApplicationController appCtrl = ServiceProvider
-						.getInstance().getService(
-								IApplicationController.class,
-								Activator.getDefault().getBundle()
-										.getBundleContext());
+				final IApplicationController appCtrl = ServiceProvider.getInstance().getService(
+						IApplicationController.class, Activator.getDefault().getBundle().getBundleContext());
 
 				// configure execution context....
 				monitor.beginTask("Configuring context...", 100);
