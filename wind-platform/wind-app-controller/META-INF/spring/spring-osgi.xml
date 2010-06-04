@@ -7,9 +7,9 @@
 	<osgi:reference id="appModelListenerRegistryOsgi" 
 		interface="br.com.maisha.wind.common.listener.IAppModelListenerRegistry" />
 
-	<osgi:reference id="preferencesServiceOsgi" 
-		interface="org.osgi.service.prefs.PreferencesService" />
-
+	<osgi:reference id="prefStoreOsgi" 
+		interface="br.com.maisha.wind.common.preferences.IPreferenceStore" />
+	
 	<osgi:service id="persistentStorageOsgi" ref="persistentStorage"
 		interface="br.com.maisha.wind.controller.storage.IStorage">
 	</osgi:service>

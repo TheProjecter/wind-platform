@@ -33,7 +33,7 @@
 	<bean name="messageRegisty"
 		class="br.com.maisha.wind.controller.message.PlatformMessageRegistry"
 		scope="singleton" init-method="init">
-		<property name="preferences" ref="preferencesServiceOsgi" />
+		<property name="prefStore" ref="prefStoreOsgi"></property>
 		<property name="messageBundles">
 			<list>
 				<ref bean="messageSource" />

@@ -99,6 +99,7 @@ public class ApplicationController implements IApplicationController {
 			Reader r = new InputStreamReader(is);
 
 			engine.eval(r);
+			ctx.setLog(log);
 			engine.put("ctx", ctx);
 			RuleAPI api = new RuleAPI(ctx);
 			api.setPersistentStorage(persistentStorage);
