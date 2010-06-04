@@ -33,7 +33,7 @@ public class StringConverter implements IConverter {
 			return new Integer(value);
 		} catch (Exception e) {
 			log.error("Error while converting [" + value + "] to Integer", e);
-			return 0; // TODO
+			return 0;
 		}
 	}
 
@@ -50,7 +50,7 @@ public class StringConverter implements IConverter {
 			return new Double(value);
 		} catch (Exception e) {
 			log.error("Error while converting [" + value + "] to Double", e);
-			return .0; // TODO
+			return .0; 
 		}
 	}
 
@@ -60,7 +60,7 @@ public class StringConverter implements IConverter {
 			return new Boolean(value);
 		} catch (Exception e) {
 			log.error("Error while converting [" + value + "] to Boolean", e);
-			return false; //TODO
+			return false; 
 		}
 
 	}
