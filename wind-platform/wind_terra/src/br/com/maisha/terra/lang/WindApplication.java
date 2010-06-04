@@ -23,6 +23,9 @@ public class WindApplication {
 	/** Application identifier. */
 	private String appId;
 
+	/** OSGi Bundle Id for this application. */
+	private Long bundleId;
+
 	/** Application name. */
 	private String name;
 
@@ -46,7 +49,7 @@ public class WindApplication {
 
 	/** Hibernate configuration file. */
 	private URL hibernateConfig;
-	
+
 	/** @see #appId */
 	public String getAppId() {
 		return appId;
@@ -90,6 +93,9 @@ public class WindApplication {
 	/** @see #bundleContext */
 	public void setBundleContext(BundleContext bundleContext) {
 		this.bundleContext = bundleContext;
+		if(bundleContext != null){
+			setBundleId(bundleContext.getBundle().getBundleId());
+		}
 	}
 
 	public List<ResourceBundleEntry> getResourceBundles() {
@@ -117,8 +123,7 @@ public class WindApplication {
 		return resourceBundle;
 	}
 
-	public void setResourceBundle(
-			Map<Locale, List<ResourceBundle>> resourceBundle) {
+	public void setResourceBundle(Map<Locale, List<ResourceBundle>> resourceBundle) {
 		this.resourceBundle = resourceBundle;
 	}
 
@@ -146,15 +151,24 @@ public class WindApplication {
 		this.currentLocale = currentLocale;
 	}
 
-	/** @see #hibernateConfig  */
+	/** @see #hibernateConfig */
 	public URL getHibernateConfig() {
 		return hibernateConfig;
 	}
 
-	/** @see #hibernateConfig  */
+	/** @see #hibernateConfig */
 	public void setHibernateConfig(URL hibernateConfig) {
 		this.hibernateConfig = hibernateConfig;
 	}
 
-	
+	/** @see #bundleId */
+	public Long getBundleId() {
+		return bundleId;
+	}
+
+	/** @see #bundleId */
+	public void setBundleId(Long bundleId) {
+		this.bundleId = bundleId;
+	}
+
 }
