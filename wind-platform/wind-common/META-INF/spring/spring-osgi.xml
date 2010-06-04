@@ -4,6 +4,14 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                       http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
 
+	<osgi:service id="preferenceStoreOsgi" ref="preferenceStore"
+		interface="br.com.maisha.wind.common.preferences.IPreferenceStore">
+	</osgi:service>
+
+	<osgi:reference id="preferenceServiceOsgi" 
+		interface="org.osgi.service.prefs.PreferencesService">
+	</osgi:reference>
+
 	<osgi:service id="converterServiceOsgi" ref="converterService"
 		interface="br.com.maisha.wind.common.converter.IConverterService">
 	</osgi:service>
