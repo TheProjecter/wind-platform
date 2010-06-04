@@ -5,12 +5,11 @@ import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.osgi.service.prefs.Preferences;
-import org.osgi.service.prefs.PreferencesService;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 import br.com.maisha.wind.common.exception.ExceptionHandler;
+import br.com.maisha.wind.common.preferences.IPreferenceStore;
 import br.com.maisha.wind.controller.rcp.Activator;
 
 /**
@@ -24,13 +23,13 @@ public class PlatformMessageRegistry {
 	private static final Logger log = Logger.getLogger(PlatformMessageRegistry.class);
 
 	/** */
-	List<ResourceBundleMessageSource> messageBundles;
+	private List<ResourceBundleMessageSource> messageBundles;
+
+	/** */
+	private IPreferenceStore prefStore;
 
 	/** */
 	private static PlatformMessageRegistry instance = null;
-
-	/** PreferencesService reference. */
-	private PreferencesService preferences;
 
 	/**
 	 * 
@@ -47,7 +46,6 @@ public class PlatformMessageRegistry {
 		instance = this;
 	}
 
-	
 	/**
 	 * 
 	 * @return
@@ -55,16 +53,9 @@ public class PlatformMessageRegistry {
 	private Locale getCurrentLocale() {
 		Locale loc = Locale.getDefault();
 		try {
-			if (!preferences.getSystemPreferences().nodeExists("/general")) {
-				return loc;
-			}
-
-			Preferences general = preferences.getSystemPreferences().node("/general");
-			String strLocale = general.get("currentLocale", "pt_BR");
-
-			String[] splitted = strLocale.split("_");
-			loc = new Locale(splitted[0], splitted[1]);
-
+			String strLocale = prefStore.get("general", "currentLocale", "pt_BR");
+			String[] split = strLocale.split("_");
+			loc = new Locale(split[0], split[1]);
 		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
@@ -128,14 +119,14 @@ public class PlatformMessageRegistry {
 		this.messageBundles = messageBundles;
 	}
 
-	/** @see #preferences */
-	public PreferencesService getPreferences() {
-		return preferences;
+	/** @see #prefStore */
+	public IPreferenceStore getPrefStore() {
+		return prefStore;
 	}
 
-	/** @see #preferences */
-	public void setPreferences(PreferencesService preferences) {
-		this.preferences = preferences;
+	/** @see #prefStore */
+	public void setPrefStore(IPreferenceStore prefStore) {
+		this.prefStore = prefStore;
 	}
 
 }
