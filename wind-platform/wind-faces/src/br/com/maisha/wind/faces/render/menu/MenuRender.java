@@ -55,8 +55,9 @@ public class MenuRender extends BaseRender {
 				+ app.getAppId() + "]... ");
 
 		// creates application menu...
+		menuManager.remove(app.getAppId());
 		MenuManager appMm = new MenuManager(app.getName(), app.getAppId());
-
+		
 		// adds it's objects
 		for (DomainObject object : app.getDomainObjects()) {
 			appMm.add(createMenu(app.getAppId(), object));
@@ -65,7 +66,7 @@ public class MenuRender extends BaseRender {
 		// insert into the bar
 		menuManager.insertAfter(IWorkbenchActionConstants.MB_ADDITIONS, appMm);
 		menuManager.update(true);
-
+		
 		log.debug(" 	Menu rendering finished... ");
 	}
 
@@ -87,7 +88,11 @@ public class MenuRender extends BaseRender {
 			}
 		};
 		action.setId(object.getRef());
-		return new ActionContributionItem(action);
+		
+		ActionContributionItem item = new ActionContributionItem(action);
+		item.setId(objRef);
+		
+		return item;
 	}
 
 }

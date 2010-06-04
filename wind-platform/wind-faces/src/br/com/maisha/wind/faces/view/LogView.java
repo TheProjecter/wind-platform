@@ -22,6 +22,7 @@ import br.com.maisha.wind.common.exception.ErrorLog;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
+import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.faces.IPresentationProvider;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.render.IRender;
@@ -49,6 +50,8 @@ public class LogView extends ViewPart implements IRender {
 	 */
 	public void createPartControl(Composite parent) {
 
+		setPartName(PlatformMessageRegistry.getInstance().getMessage("wind_faces.logView.title"));
+		
 		IPresentationProvider presentation = ServiceProvider.getInstance().getService(IPresentationProvider.class,
 				Activator.getDefault().getBundle().getBundleContext());
 		presentation.registerRender(this);
@@ -56,19 +59,19 @@ public class LogView extends ViewPart implements IRender {
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 
 		TableViewerColumn msgCol = new TableViewerColumn(viewer, SWT.NONE);
-		msgCol.getColumn().setText("Message");// TODO i18n
+		msgCol.getColumn().setText(PlatformMessageRegistry.getInstance().getMessage("wind_faces.logView.message"));
 		msgCol.getColumn().setWidth(350);
 		msgCol.getColumn().setResizable(true);
 		msgCol.getColumn().setMoveable(false);
 
 		TableViewerColumn dateCol = new TableViewerColumn(viewer, SWT.NONE);
-		dateCol.getColumn().setText("Date"); // TODO i18n
+		dateCol.getColumn().setText(PlatformMessageRegistry.getInstance().getMessage("wind_faces.logView.date")); 
 		dateCol.getColumn().setWidth(120);
 		dateCol.getColumn().setResizable(true);
 		dateCol.getColumn().setMoveable(false);
 
 		TableViewerColumn bundleIdCol = new TableViewerColumn(viewer, SWT.NONE);
-		bundleIdCol.getColumn().setText("Bundle");// TODO i18n
+		bundleIdCol.getColumn().setText(PlatformMessageRegistry.getInstance().getMessage("wind_faces.logView.bundle"));
 		bundleIdCol.getColumn().setWidth(145);
 		bundleIdCol.getColumn().setResizable(true);
 		bundleIdCol.getColumn().setMoveable(false);
