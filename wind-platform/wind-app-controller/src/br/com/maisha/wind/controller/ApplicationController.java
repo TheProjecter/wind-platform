@@ -238,7 +238,7 @@ public class ApplicationController implements IApplicationController {
 			juelEngine.put("this", instance);
 			ret = juelEngine.eval("${this." + attributeName + "}");
 		} catch (Exception e) {
-			e.printStackTrace(); // TODO handle
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 
 		return ret;
@@ -278,7 +278,7 @@ public class ApplicationController implements IApplicationController {
 				lstMap.add(map);
 			}
 		} catch (Exception e) {
-			e.printStackTrace(); // TODO
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 
 		return lstMap;

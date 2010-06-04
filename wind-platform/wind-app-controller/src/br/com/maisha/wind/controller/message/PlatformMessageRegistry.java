@@ -47,6 +47,7 @@ public class PlatformMessageRegistry {
 		instance = this;
 	}
 
+	
 	/**
 	 * 
 	 * @return
@@ -70,6 +71,21 @@ public class PlatformMessageRegistry {
 		return loc;
 	}
 
+	/**
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public String getMessage(String key) {
+		return getMessage(key, null, getCurrentLocale());
+	}
+
+	/**
+	 * 
+	 * @param key
+	 * @param param
+	 * @return
+	 */
 	public String getMessage(String key, Object[] param) {
 		return getMessage(key, param, getCurrentLocale());
 	}
