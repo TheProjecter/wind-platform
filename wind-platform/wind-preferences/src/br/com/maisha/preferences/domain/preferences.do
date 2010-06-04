@@ -21,6 +21,7 @@ required:true
 
 operation groovy Save "Save"{
 file: SavePreferences.groovy
+icon: save.gif
 }
 
 
