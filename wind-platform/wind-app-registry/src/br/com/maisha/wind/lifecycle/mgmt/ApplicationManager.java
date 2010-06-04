@@ -114,6 +114,7 @@ public class ApplicationManager implements IApplicationManager {
 			}
 
 			app.setBundleContext(context);
+			
 				
 			// configure application's persistence 
 			URL hibCfg = context.getBundle().getResource("hibernate.cfg.xml");
