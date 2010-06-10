@@ -1,6 +1,11 @@
 package br.com.maisha.wind.faces.render.attr;
 
+import java.util.Calendar;
+
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.beans.BeansObservables;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -58,8 +63,12 @@ public class DateTimeAttrRender extends BaseAttrRender {
 		// configure common bindings
 		DataBindingContext dbctx = configureDataBindings(dateTimeCmp, l, attr);
 
-		// TODO configure value binding
+		// configure value binding
+		IObservableValue observable = BeansObservables.observeValue(modelInstance, attr.getRef());
+		dbctx.bindValue(SWTObservables.observeSelection(dateTimeCmp), observable);
 
+		Calendar cal = Calendar.getInstance();
+		dateTimeCmp.setDate(cal.get(Calendar.YEAR+1), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
 	}
 
 }
