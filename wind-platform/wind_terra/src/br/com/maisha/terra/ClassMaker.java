@@ -1,6 +1,8 @@
 package br.com.maisha.terra;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javassist.CannotCompileException;
@@ -34,6 +36,15 @@ import br.com.maisha.wind.common.exception.MakeClassException;
  */
 public class ClassMaker implements IClassMaker {
 
+	/** */
+	private List<String> javaLangTypes = Arrays.asList("Integer", "Double", "Float", "Long", "Short", "Boolean", "String");
+
+	private Map<String, String> typeMap = new HashMap<String, String>();
+	
+	public ClassMaker() {
+		typeMap.put("Date", "java.util.Date");
+	}
+	
 	/**
 	 * 
 	 * @see br.com.maisha.terra.IClassMaker#make(br.com.maisha.terra.lang.DomainObject)
@@ -47,7 +58,6 @@ public class ClassMaker implements IClassMaker {
 			CtClass modelReference = pool.get(ModelReference.class.getName());
 
 			CtClass cc = pool.makeClass(obj.getPckg() + "." + obj.getRef(), modelReference);
-			
 
 			ClassFile cf = cc.getClassFile();
 			ConstPool cp = cf.getConstPool();
@@ -55,7 +65,7 @@ public class ClassMaker implements IClassMaker {
 			AnnotationsAttribute entityAnnotation = new AnnotationsAttribute(cp, AnnotationsAttribute.visibleTag);
 			entityAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.Entity", null));
 			cf.addAttribute(entityAnnotation);
-			
+
 			createIdField(cc);
 
 			String setIdMethod = "public void setId(long id){this.id = id;}";
@@ -66,7 +76,7 @@ public class ClassMaker implements IClassMaker {
 
 			String field = "";
 			for (Attribute att : obj.getAtts()) {
-				field = "private " + att.getType() + " " + att.getRef() + ";";
+				field = "private " + getQualifiedType(att.getType()) + " " + att.getRef() + ";";
 				cc.addField(CtField.make(field, cc));
 				cc.addMethod(CtMethod.make(genSetMethod(att), cc));
 				cc.addMethod(CtMethod.make(genGetMethod(att), cc));
@@ -104,11 +114,12 @@ public class ClassMaker implements IClassMaker {
 
 		AnnotationsAttribute idAnnotation = new AnnotationsAttribute(fi.getConstPool(), AnnotationsAttribute.visibleTag);
 		idAnnotation.addAnnotation(createAnnoation(fi.getConstPool(), "javax.persistence.Id", null));
-		idAnnotation.addAnnotation(createAnnoation(fi.getConstPool(), "javax.persistence.GeneratedValue", genValueParams));
-		idAnnotation.addAnnotation(createAnnoation(fi.getConstPool(), "javax.persistence.SequenceGenerator", seqGenParams));
-		
+		idAnnotation.addAnnotation(createAnnoation(fi.getConstPool(), "javax.persistence.GeneratedValue",
+				genValueParams));
+		idAnnotation.addAnnotation(createAnnoation(fi.getConstPool(), "javax.persistence.SequenceGenerator",
+				seqGenParams));
+
 		fi.addAttribute(idAnnotation);
-		
 
 	}
 
@@ -119,7 +130,7 @@ public class ClassMaker implements IClassMaker {
 	 * @return
 	 */
 	private Annotation createAnnoation(ConstPool cp, String ann, Map<String, MemberValue> params) {
-		
+
 		Annotation idAnn = new Annotation(ann, cp);
 
 		if (params != null) {
@@ -131,6 +142,17 @@ public class ClassMaker implements IClassMaker {
 		return idAnn;
 	}
 
+	private boolean isJavaLangType(String type){
+		return javaLangTypes.contains(type);
+	}
+	
+	private String getQualifiedType(String type){
+		if(!isJavaLangType(type)){
+			return typeMap.get(type);
+		}
+		return type;
+	}
+	
 	/**
 	 * 
 	 * @param att
@@ -142,9 +164,9 @@ public class ClassMaker implements IClassMaker {
 		method.append("public void set");
 		method.append(StringUtils.capitalize(att.getRef()));
 		method.append("(");
-		method.append(att.getType());
+		method.append(getQualifiedType(att.getType()));
 		method.append(" v ){");
-		method.append(att.getType()).append(" oldValue = this.").append(att.getRef()).append(";");
+		method.append(getQualifiedType(att.getType())).append(" oldValue = this.").append(att.getRef()).append(";");
 		method.append("this.").append(att.getRef()).append(" = v;");
 		method.append("changeSupport.firePropertyChange(\"").append(att.getRef()).append("\", oldValue, v);");
 		method.append("}");
@@ -161,7 +183,7 @@ public class ClassMaker implements IClassMaker {
 		StringBuilder method = new StringBuilder();
 
 		method.append("public ");
-		method.append(att.getType());
+		method.append(getQualifiedType(att.getType()));
 		method.append(" get");
 		method.append(StringUtils.capitalize(att.getRef()));
 		method.append("(){");
