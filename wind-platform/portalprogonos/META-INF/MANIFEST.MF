@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: PortalProgonos
+Bundle-SymbolicName: portalprogonos
+Bundle-Version: 1.0.0
+Bundle-Activator: com.progonos.portal.rcp.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.rap.ui;bundle-version="1.3.0",
+ wind_app_registry;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
