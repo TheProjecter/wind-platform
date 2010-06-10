@@ -69,7 +69,8 @@ import_declaration
 	
 body	:    (attr | operation | validation_rulz)+;
 
-attr	:   TYPE NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET {
+
+attr	:   (TYPE |  LETTER(LETTER)+) NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET {
 		Attribute att = new Attribute($TYPE.text, $NAME.text, $STRING_LITERAL.text);
 		att.setDomainObject(domainObject);		
 		att.setProperties(props);

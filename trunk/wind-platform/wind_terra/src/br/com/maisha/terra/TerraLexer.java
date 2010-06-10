@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraLexer.g 2010-06-10 15:10:16
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraLexer.g 2010-06-10 16:50:53
  package br.com.maisha.terra; 
 
 import org.antlr.runtime.*;

@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /home/paulofreitas/Desktop/lang/TerraParser.g 2010-06-03 14:24:59
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g 2010-06-10 16:51:14
  
 package br.com.maisha.terra; 
 import java.util.HashMap;
@@ -83,7 +83,7 @@ public class TerraParser extends Parser {
     }
 
     public String[] getTokenNames() { return TerraParser.tokenNames; }
-    public String getGrammarFileName() { return "/home/paulofreitas/Desktop/lang/TerraParser.g"; }
+    public String getGrammarFileName() { return "C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g"; }
 
 
     public DomainObject domainObject = null;
@@ -103,7 +103,7 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "domain_object"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:42:1: domain_object : ( package_declaration ) ( import_declaration )* DOMAIN_OBJECT NAME STRING_LITERAL LEFT_BRACKET ( body )? RIGHT_BRACKET ;
+    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:42:1: domain_object : ( package_declaration ) ( import_declaration )* DOMAIN_OBJECT NAME STRING_LITERAL LEFT_BRACKET ( body )? RIGHT_BRACKET ;
     public final TerraParser.domain_object_return domain_object() throws RecognitionException {
         TerraParser.domain_object_return retval = new TerraParser.domain_object_return();
         retval.start = input.LT(1);
@@ -129,13 +129,13 @@ public class TerraParser extends Parser {
         Object RIGHT_BRACKET8_tree=null;
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:43:2: ( ( package_declaration ) ( import_declaration )* DOMAIN_OBJECT NAME STRING_LITERAL LEFT_BRACKET ( body )? RIGHT_BRACKET )
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:43:4: ( package_declaration ) ( import_declaration )* DOMAIN_OBJECT NAME STRING_LITERAL LEFT_BRACKET ( body )? RIGHT_BRACKET
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:43:2: ( ( package_declaration ) ( import_declaration )* DOMAIN_OBJECT NAME STRING_LITERAL LEFT_BRACKET ( body )? RIGHT_BRACKET )
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:43:4: ( package_declaration ) ( import_declaration )* DOMAIN_OBJECT NAME STRING_LITERAL LEFT_BRACKET ( body )? RIGHT_BRACKET
             {
             root_0 = (Object)adaptor.nil();
 
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:43:4: ( package_declaration )
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:43:5: package_declaration
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:43:4: ( package_declaration )
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:43:5: package_declaration
             {
             pushFollow(FOLLOW_package_declaration_in_domain_object58);
             package_declaration1=package_declaration();
@@ -146,7 +146,7 @@ public class TerraParser extends Parser {
 
             }
 
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:43:26: ( import_declaration )*
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:43:26: ( import_declaration )*
             loop1:
             do {
                 int alt1=2;
@@ -159,7 +159,7 @@ public class TerraParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // /home/paulofreitas/Desktop/lang/TerraParser.g:43:27: import_declaration
+            	    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:43:27: import_declaration
             	    {
             	    pushFollow(FOLLOW_import_declaration_in_domain_object62);
             	    import_declaration2=import_declaration();
@@ -192,16 +192,16 @@ public class TerraParser extends Parser {
             LEFT_BRACKET6_tree = (Object)adaptor.create(LEFT_BRACKET6);
             adaptor.addChild(root_0, LEFT_BRACKET6_tree);
 
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:43:96: ( body )?
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:43:96: ( body )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
-            if ( ((LA2_0>=VALIDATION_RULE && LA2_0<=TYPE)||LA2_0==OPERATION||LA2_0==NEWLINE) ) {
+            if ( ((LA2_0>=VALIDATION_RULE && LA2_0<=TYPE)||LA2_0==OPERATION||LA2_0==LETTER||LA2_0==NEWLINE) ) {
                 alt2=1;
             }
             switch (alt2) {
                 case 1 :
-                    // /home/paulofreitas/Desktop/lang/TerraParser.g:43:96: body
+                    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:43:96: body
                     {
                     pushFollow(FOLLOW_body_in_domain_object75);
                     body7=body();
@@ -257,7 +257,7 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "package_declaration"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:56:1: package_declaration : PACKAGE NAME ( NEWLINE )+ ;
+    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:56:1: package_declaration : PACKAGE NAME ( NEWLINE )+ ;
     public final TerraParser.package_declaration_return package_declaration() throws RecognitionException {
         TerraParser.package_declaration_return retval = new TerraParser.package_declaration_return();
         retval.start = input.LT(1);
@@ -273,8 +273,8 @@ public class TerraParser extends Parser {
         Object NEWLINE11_tree=null;
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:57:2: ( PACKAGE NAME ( NEWLINE )+ )
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:57:4: PACKAGE NAME ( NEWLINE )+
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:57:2: ( PACKAGE NAME ( NEWLINE )+ )
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:57:4: PACKAGE NAME ( NEWLINE )+
             {
             root_0 = (Object)adaptor.nil();
 
@@ -286,7 +286,7 @@ public class TerraParser extends Parser {
             NAME10_tree = (Object)adaptor.create(NAME10);
             adaptor.addChild(root_0, NAME10_tree);
 
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:57:17: ( NEWLINE )+
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:57:17: ( NEWLINE )+
             int cnt3=0;
             loop3:
             do {
@@ -300,7 +300,7 @@ public class TerraParser extends Parser {
 
                 switch (alt3) {
             	case 1 :
-            	    // /home/paulofreitas/Desktop/lang/TerraParser.g:57:17: NEWLINE
+            	    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:57:17: NEWLINE
             	    {
             	    NEWLINE11=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_package_declaration94); 
             	    NEWLINE11_tree = (Object)adaptor.create(NEWLINE11);
@@ -350,7 +350,7 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "import_declaration"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:63:1: import_declaration : IMPORT NAME ( NEWLINE )+ ;
+    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:63:1: import_declaration : IMPORT NAME ( NEWLINE )+ ;
     public final TerraParser.import_declaration_return import_declaration() throws RecognitionException {
         TerraParser.import_declaration_return retval = new TerraParser.import_declaration_return();
         retval.start = input.LT(1);
@@ -366,8 +366,8 @@ public class TerraParser extends Parser {
         Object NEWLINE14_tree=null;
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:64:2: ( IMPORT NAME ( NEWLINE )+ )
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:64:4: IMPORT NAME ( NEWLINE )+
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:64:2: ( IMPORT NAME ( NEWLINE )+ )
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:64:4: IMPORT NAME ( NEWLINE )+
             {
             root_0 = (Object)adaptor.nil();
 
@@ -379,7 +379,7 @@ public class TerraParser extends Parser {
             NAME13_tree = (Object)adaptor.create(NAME13);
             adaptor.addChild(root_0, NAME13_tree);
 
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:64:16: ( NEWLINE )+
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:64:16: ( NEWLINE )+
             int cnt4=0;
             loop4:
             do {
@@ -393,7 +393,7 @@ public class TerraParser extends Parser {
 
                 switch (alt4) {
             	case 1 :
-            	    // /home/paulofreitas/Desktop/lang/TerraParser.g:64:16: NEWLINE
+            	    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:64:16: NEWLINE
             	    {
             	    NEWLINE14=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_import_declaration113); 
             	    NEWLINE14_tree = (Object)adaptor.create(NEWLINE14);
@@ -443,7 +443,7 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "body"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:70:1: body : ( attr | operation | validation_rulz )+ ;
+    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:70:1: body : ( attr | operation | validation_rulz )+ ;
     public final TerraParser.body_return body() throws RecognitionException {
         TerraParser.body_return retval = new TerraParser.body_return();
         retval.start = input.LT(1);
@@ -459,18 +459,19 @@ public class TerraParser extends Parser {
 
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:70:6: ( ( attr | operation | validation_rulz )+ )
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:70:11: ( attr | operation | validation_rulz )+
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:70:6: ( ( attr | operation | validation_rulz )+ )
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:70:11: ( attr | operation | validation_rulz )+
             {
             root_0 = (Object)adaptor.nil();
 
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:70:11: ( attr | operation | validation_rulz )+
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:70:11: ( attr | operation | validation_rulz )+
             int cnt5=0;
             loop5:
             do {
                 int alt5=4;
                 switch ( input.LA(1) ) {
                 case TYPE:
+                case LETTER:
                     {
                     alt5=1;
                     }
@@ -491,7 +492,7 @@ public class TerraParser extends Parser {
 
                 switch (alt5) {
             	case 1 :
-            	    // /home/paulofreitas/Desktop/lang/TerraParser.g:70:12: attr
+            	    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:70:12: attr
             	    {
             	    pushFollow(FOLLOW_attr_in_body131);
             	    attr15=attr();
@@ -503,7 +504,7 @@ public class TerraParser extends Parser {
             	    }
             	    break;
             	case 2 :
-            	    // /home/paulofreitas/Desktop/lang/TerraParser.g:70:19: operation
+            	    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:70:19: operation
             	    {
             	    pushFollow(FOLLOW_operation_in_body135);
             	    operation16=operation();
@@ -515,7 +516,7 @@ public class TerraParser extends Parser {
             	    }
             	    break;
             	case 3 :
-            	    // /home/paulofreitas/Desktop/lang/TerraParser.g:70:31: validation_rulz
+            	    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:70:31: validation_rulz
             	    {
             	    pushFollow(FOLLOW_validation_rulz_in_body139);
             	    validation_rulz17=validation_rulz();
@@ -563,7 +564,7 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "attr"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:72:1: attr : TYPE NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET ;
+    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:73:1: attr : ( TYPE | LETTER ( LETTER )+ ) NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET ;
     public final TerraParser.attr_return attr() throws RecognitionException {
         TerraParser.attr_return retval = new TerraParser.attr_return();
         retval.start = input.LT(1);
@@ -571,53 +572,126 @@ public class TerraParser extends Parser {
         Object root_0 = null;
 
         Token TYPE18=null;
-        Token NAME19=null;
-        Token STRING_LITERAL20=null;
-        Token LEFT_BRACKET21=null;
-        Token RIGHT_BRACKET23=null;
-        TerraParser.attr_body_return attr_body22 = null;
+        Token LETTER19=null;
+        Token LETTER20=null;
+        Token NAME21=null;
+        Token STRING_LITERAL22=null;
+        Token LEFT_BRACKET23=null;
+        Token RIGHT_BRACKET25=null;
+        TerraParser.attr_body_return attr_body24 = null;
 
 
         Object TYPE18_tree=null;
-        Object NAME19_tree=null;
-        Object STRING_LITERAL20_tree=null;
-        Object LEFT_BRACKET21_tree=null;
-        Object RIGHT_BRACKET23_tree=null;
+        Object LETTER19_tree=null;
+        Object LETTER20_tree=null;
+        Object NAME21_tree=null;
+        Object STRING_LITERAL22_tree=null;
+        Object LEFT_BRACKET23_tree=null;
+        Object RIGHT_BRACKET25_tree=null;
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:72:6: ( TYPE NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET )
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:72:10: TYPE NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:73:6: ( ( TYPE | LETTER ( LETTER )+ ) NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET )
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:73:10: ( TYPE | LETTER ( LETTER )+ ) NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET
             {
             root_0 = (Object)adaptor.nil();
 
-            TYPE18=(Token)match(input,TYPE,FOLLOW_TYPE_in_attr151); 
-            TYPE18_tree = (Object)adaptor.create(TYPE18);
-            adaptor.addChild(root_0, TYPE18_tree);
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:73:10: ( TYPE | LETTER ( LETTER )+ )
+            int alt7=2;
+            int LA7_0 = input.LA(1);
 
-            NAME19=(Token)match(input,NAME,FOLLOW_NAME_in_attr153); 
-            NAME19_tree = (Object)adaptor.create(NAME19);
-            adaptor.addChild(root_0, NAME19_tree);
+            if ( (LA7_0==TYPE) ) {
+                alt7=1;
+            }
+            else if ( (LA7_0==LETTER) ) {
+                alt7=2;
+            }
+            else {
+                NoViableAltException nvae =
+                    new NoViableAltException("", 7, 0, input);
 
-            STRING_LITERAL20=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_attr155); 
-            STRING_LITERAL20_tree = (Object)adaptor.create(STRING_LITERAL20);
-            adaptor.addChild(root_0, STRING_LITERAL20_tree);
+                throw nvae;
+            }
+            switch (alt7) {
+                case 1 :
+                    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:73:11: TYPE
+                    {
+                    TYPE18=(Token)match(input,TYPE,FOLLOW_TYPE_in_attr153); 
+                    TYPE18_tree = (Object)adaptor.create(TYPE18);
+                    adaptor.addChild(root_0, TYPE18_tree);
 
-            LEFT_BRACKET21=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_attr157); 
-            LEFT_BRACKET21_tree = (Object)adaptor.create(LEFT_BRACKET21);
-            adaptor.addChild(root_0, LEFT_BRACKET21_tree);
 
-            pushFollow(FOLLOW_attr_body_in_attr159);
-            attr_body22=attr_body();
+                    }
+                    break;
+                case 2 :
+                    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:73:19: LETTER ( LETTER )+
+                    {
+                    LETTER19=(Token)match(input,LETTER,FOLLOW_LETTER_in_attr158); 
+                    LETTER19_tree = (Object)adaptor.create(LETTER19);
+                    adaptor.addChild(root_0, LETTER19_tree);
+
+                    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:73:25: ( LETTER )+
+                    int cnt6=0;
+                    loop6:
+                    do {
+                        int alt6=2;
+                        int LA6_0 = input.LA(1);
+
+                        if ( (LA6_0==LETTER) ) {
+                            alt6=1;
+                        }
+
+
+                        switch (alt6) {
+                    	case 1 :
+                    	    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:73:26: LETTER
+                    	    {
+                    	    LETTER20=(Token)match(input,LETTER,FOLLOW_LETTER_in_attr160); 
+                    	    LETTER20_tree = (Object)adaptor.create(LETTER20);
+                    	    adaptor.addChild(root_0, LETTER20_tree);
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    if ( cnt6 >= 1 ) break loop6;
+                                EarlyExitException eee =
+                                    new EarlyExitException(6, input);
+                                throw eee;
+                        }
+                        cnt6++;
+                    } while (true);
+
+
+                    }
+                    break;
+
+            }
+
+            NAME21=(Token)match(input,NAME,FOLLOW_NAME_in_attr165); 
+            NAME21_tree = (Object)adaptor.create(NAME21);
+            adaptor.addChild(root_0, NAME21_tree);
+
+            STRING_LITERAL22=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_attr167); 
+            STRING_LITERAL22_tree = (Object)adaptor.create(STRING_LITERAL22);
+            adaptor.addChild(root_0, STRING_LITERAL22_tree);
+
+            LEFT_BRACKET23=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_attr169); 
+            LEFT_BRACKET23_tree = (Object)adaptor.create(LEFT_BRACKET23);
+            adaptor.addChild(root_0, LEFT_BRACKET23_tree);
+
+            pushFollow(FOLLOW_attr_body_in_attr171);
+            attr_body24=attr_body();
 
             state._fsp--;
 
-            adaptor.addChild(root_0, attr_body22.getTree());
-            RIGHT_BRACKET23=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_attr161); 
-            RIGHT_BRACKET23_tree = (Object)adaptor.create(RIGHT_BRACKET23);
-            adaptor.addChild(root_0, RIGHT_BRACKET23_tree);
+            adaptor.addChild(root_0, attr_body24.getTree());
+            RIGHT_BRACKET25=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_attr173); 
+            RIGHT_BRACKET25_tree = (Object)adaptor.create(RIGHT_BRACKET25);
+            adaptor.addChild(root_0, RIGHT_BRACKET25_tree);
 
 
-            		Attribute att = new Attribute((TYPE18!=null?TYPE18.getText():null), (NAME19!=null?NAME19.getText():null), (STRING_LITERAL20!=null?STRING_LITERAL20.getText():null));
+            		Attribute att = new Attribute((TYPE18!=null?TYPE18.getText():null), (NAME21!=null?NAME21.getText():null), (STRING_LITERAL22!=null?STRING_LITERAL22.getText():null));
             		att.setDomainObject(domainObject);		
             		att.setProperties(props);
             		atts.add(att);
@@ -651,56 +725,56 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "attr_body"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:82:1: attr_body : ( property )+ ;
+    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:83:1: attr_body : ( property )+ ;
     public final TerraParser.attr_body_return attr_body() throws RecognitionException {
         TerraParser.attr_body_return retval = new TerraParser.attr_body_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        TerraParser.property_return property24 = null;
+        TerraParser.property_return property26 = null;
 
 
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:82:11: ( ( property )+ )
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:82:14: ( property )+
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:83:11: ( ( property )+ )
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:83:14: ( property )+
             {
             root_0 = (Object)adaptor.nil();
 
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:82:14: ( property )+
-            int cnt6=0;
-            loop6:
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:83:14: ( property )+
+            int cnt8=0;
+            loop8:
             do {
-                int alt6=2;
-                int LA6_0 = input.LA(1);
+                int alt8=2;
+                int LA8_0 = input.LA(1);
 
-                if ( ((LA6_0>=PROPERTY && LA6_0<=ATTRIBUTE_PROPERTY)||LA6_0==NEWLINE) ) {
-                    alt6=1;
+                if ( ((LA8_0>=PROPERTY && LA8_0<=ATTRIBUTE_PROPERTY)||LA8_0==NEWLINE) ) {
+                    alt8=1;
                 }
 
 
-                switch (alt6) {
+                switch (alt8) {
             	case 1 :
-            	    // /home/paulofreitas/Desktop/lang/TerraParser.g:82:14: property
+            	    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:83:14: property
             	    {
-            	    pushFollow(FOLLOW_property_in_attr_body174);
-            	    property24=property();
+            	    pushFollow(FOLLOW_property_in_attr_body186);
+            	    property26=property();
 
             	    state._fsp--;
 
-            	    adaptor.addChild(root_0, property24.getTree());
+            	    adaptor.addChild(root_0, property26.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    if ( cnt6 >= 1 ) break loop6;
+            	    if ( cnt8 >= 1 ) break loop8;
                         EarlyExitException eee =
-                            new EarlyExitException(6, input);
+                            new EarlyExitException(8, input);
                         throw eee;
                 }
-                cnt6++;
+                cnt8++;
             } while (true);
 
 
@@ -730,108 +804,108 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "property"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:84:1: property : ( NEWLINE | attr_prop_name ATTRIBUITION ( value | expression ) );
+    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:85:1: property : ( NEWLINE | attr_prop_name ATTRIBUITION ( value | expression ) );
     public final TerraParser.property_return property() throws RecognitionException {
         TerraParser.property_return retval = new TerraParser.property_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token NEWLINE25=null;
-        Token ATTRIBUITION27=null;
-        TerraParser.attr_prop_name_return attr_prop_name26 = null;
+        Token NEWLINE27=null;
+        Token ATTRIBUITION29=null;
+        TerraParser.attr_prop_name_return attr_prop_name28 = null;
 
-        TerraParser.value_return value28 = null;
+        TerraParser.value_return value30 = null;
 
-        TerraParser.expression_return expression29 = null;
+        TerraParser.expression_return expression31 = null;
 
 
-        Object NEWLINE25_tree=null;
-        Object ATTRIBUITION27_tree=null;
+        Object NEWLINE27_tree=null;
+        Object ATTRIBUITION29_tree=null;
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:84:9: ( NEWLINE | attr_prop_name ATTRIBUITION ( value | expression ) )
-            int alt8=2;
-            int LA8_0 = input.LA(1);
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:85:9: ( NEWLINE | attr_prop_name ATTRIBUITION ( value | expression ) )
+            int alt10=2;
+            int LA10_0 = input.LA(1);
 
-            if ( (LA8_0==NEWLINE) ) {
-                alt8=1;
+            if ( (LA10_0==NEWLINE) ) {
+                alt10=1;
             }
-            else if ( ((LA8_0>=PROPERTY && LA8_0<=ATTRIBUTE_PROPERTY)) ) {
-                alt8=2;
+            else if ( ((LA10_0>=PROPERTY && LA10_0<=ATTRIBUTE_PROPERTY)) ) {
+                alt10=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 8, 0, input);
+                    new NoViableAltException("", 10, 0, input);
 
                 throw nvae;
             }
-            switch (alt8) {
+            switch (alt10) {
                 case 1 :
-                    // /home/paulofreitas/Desktop/lang/TerraParser.g:84:11: NEWLINE
+                    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:85:11: NEWLINE
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    NEWLINE25=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_property182); 
-                    NEWLINE25_tree = (Object)adaptor.create(NEWLINE25);
-                    adaptor.addChild(root_0, NEWLINE25_tree);
+                    NEWLINE27=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_property194); 
+                    NEWLINE27_tree = (Object)adaptor.create(NEWLINE27);
+                    adaptor.addChild(root_0, NEWLINE27_tree);
 
 
                     }
                     break;
                 case 2 :
-                    // /home/paulofreitas/Desktop/lang/TerraParser.g:84:21: attr_prop_name ATTRIBUITION ( value | expression )
+                    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:85:21: attr_prop_name ATTRIBUITION ( value | expression )
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_attr_prop_name_in_property186);
-                    attr_prop_name26=attr_prop_name();
+                    pushFollow(FOLLOW_attr_prop_name_in_property198);
+                    attr_prop_name28=attr_prop_name();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, attr_prop_name26.getTree());
-                    ATTRIBUITION27=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_property188); 
-                    ATTRIBUITION27_tree = (Object)adaptor.create(ATTRIBUITION27);
-                    adaptor.addChild(root_0, ATTRIBUITION27_tree);
+                    adaptor.addChild(root_0, attr_prop_name28.getTree());
+                    ATTRIBUITION29=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_property200); 
+                    ATTRIBUITION29_tree = (Object)adaptor.create(ATTRIBUITION29);
+                    adaptor.addChild(root_0, ATTRIBUITION29_tree);
 
-                    // /home/paulofreitas/Desktop/lang/TerraParser.g:84:49: ( value | expression )
-                    int alt7=2;
-                    int LA7_0 = input.LA(1);
+                    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:85:49: ( value | expression )
+                    int alt9=2;
+                    int LA9_0 = input.LA(1);
 
-                    if ( (LA7_0==NUMBER||LA7_0==NAME) ) {
-                        alt7=1;
+                    if ( (LA9_0==NUMBER||LA9_0==NAME) ) {
+                        alt9=1;
                     }
-                    else if ( (LA7_0==EXPRESSION) ) {
-                        alt7=2;
+                    else if ( (LA9_0==EXPRESSION) ) {
+                        alt9=2;
                     }
                     else {
                         NoViableAltException nvae =
-                            new NoViableAltException("", 7, 0, input);
+                            new NoViableAltException("", 9, 0, input);
 
                         throw nvae;
                     }
-                    switch (alt7) {
+                    switch (alt9) {
                         case 1 :
-                            // /home/paulofreitas/Desktop/lang/TerraParser.g:84:50: value
+                            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:85:50: value
                             {
-                            pushFollow(FOLLOW_value_in_property191);
-                            value28=value();
+                            pushFollow(FOLLOW_value_in_property203);
+                            value30=value();
 
                             state._fsp--;
 
-                            adaptor.addChild(root_0, value28.getTree());
+                            adaptor.addChild(root_0, value30.getTree());
 
                             }
                             break;
                         case 2 :
-                            // /home/paulofreitas/Desktop/lang/TerraParser.g:84:56: expression
+                            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:85:56: expression
                             {
-                            pushFollow(FOLLOW_expression_in_property193);
-                            expression29=expression();
+                            pushFollow(FOLLOW_expression_in_property205);
+                            expression31=expression();
 
                             state._fsp--;
 
-                            adaptor.addChild(root_0, expression29.getTree());
+                            adaptor.addChild(root_0, expression31.getTree());
 
                             }
                             break;
@@ -843,12 +917,12 @@ public class TerraParser extends Parser {
                     				.getService(IConverterService.class,
                     						Activator.getDefault().getBundle().getBundleContext());
                     						
-                    		Class<?> type = PropertyInfo.getPropertyInfo((attr_prop_name26!=null?input.toString(attr_prop_name26.start,attr_prop_name26.stop):null)).getType();
-                    		Object propValue = convService.convert(type, (value28!=null?input.toString(value28.start,value28.stop):null));
+                    		Class<?> type = PropertyInfo.getPropertyInfo((attr_prop_name28!=null?input.toString(attr_prop_name28.start,attr_prop_name28.stop):null)).getType();
+                    		Object propValue = convService.convert(type, (value30!=null?input.toString(value30.start,value30.stop):null));
                     		
-                    		Property p = new Property((attr_prop_name26!=null?input.toString(attr_prop_name26.start,attr_prop_name26.stop):null), propValue);
-                    		p.setExpression((expression29!=null?input.toString(expression29.start,expression29.stop):null));
-                    		props.put((attr_prop_name26!=null?input.toString(attr_prop_name26.start,attr_prop_name26.stop):null), p);
+                    		Property p = new Property((attr_prop_name28!=null?input.toString(attr_prop_name28.start,attr_prop_name28.stop):null), propValue);
+                    		p.setExpression((expression31!=null?input.toString(expression31.start,expression31.stop):null));
+                    		props.put((attr_prop_name28!=null?input.toString(attr_prop_name28.start,attr_prop_name28.stop):null), p);
                     	
 
                     }
@@ -879,27 +953,27 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "attr_prop_name"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:97:1: attr_prop_name : ( PROPERTY | ATTRIBUTE_PROPERTY );
+    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:98:1: attr_prop_name : ( PROPERTY | ATTRIBUTE_PROPERTY );
     public final TerraParser.attr_prop_name_return attr_prop_name() throws RecognitionException {
         TerraParser.attr_prop_name_return retval = new TerraParser.attr_prop_name_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token set30=null;
+        Token set32=null;
 
-        Object set30_tree=null;
+        Object set32_tree=null;
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:97:15: ( PROPERTY | ATTRIBUTE_PROPERTY )
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:98:15: ( PROPERTY | ATTRIBUTE_PROPERTY )
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:
             {
             root_0 = (Object)adaptor.nil();
 
-            set30=(Token)input.LT(1);
+            set32=(Token)input.LT(1);
             if ( (input.LA(1)>=PROPERTY && input.LA(1)<=ATTRIBUTE_PROPERTY) ) {
                 input.consume();
-                adaptor.addChild(root_0, (Object)adaptor.create(set30));
+                adaptor.addChild(root_0, (Object)adaptor.create(set32));
                 state.errorRecovery=false;
             }
             else {
@@ -934,27 +1008,27 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "value"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:98:1: value : ( NUMBER | NAME ) ;
+    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:99:1: value : ( NUMBER | NAME ) ;
     public final TerraParser.value_return value() throws RecognitionException {
         TerraParser.value_return retval = new TerraParser.value_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token set31=null;
+        Token set33=null;
 
-        Object set31_tree=null;
+        Object set33_tree=null;
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:98:7: ( ( NUMBER | NAME ) )
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:98:9: ( NUMBER | NAME )
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:99:7: ( ( NUMBER | NAME ) )
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:99:9: ( NUMBER | NAME )
             {
             root_0 = (Object)adaptor.nil();
 
-            set31=(Token)input.LT(1);
+            set33=(Token)input.LT(1);
             if ( input.LA(1)==NUMBER||input.LA(1)==NAME ) {
                 input.consume();
-                adaptor.addChild(root_0, (Object)adaptor.create(set31));
+                adaptor.addChild(root_0, (Object)adaptor.create(set33));
                 state.errorRecovery=false;
             }
             else {
@@ -989,26 +1063,26 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "expression"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:99:1: expression : EXPRESSION ;
+    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:100:1: expression : EXPRESSION ;
     public final TerraParser.expression_return expression() throws RecognitionException {
         TerraParser.expression_return retval = new TerraParser.expression_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token EXPRESSION32=null;
+        Token EXPRESSION34=null;
 
-        Object EXPRESSION32_tree=null;
+        Object EXPRESSION34_tree=null;
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:100:2: ( EXPRESSION )
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:100:4: EXPRESSION
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:101:2: ( EXPRESSION )
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:101:4: EXPRESSION
             {
             root_0 = (Object)adaptor.nil();
 
-            EXPRESSION32=(Token)match(input,EXPRESSION,FOLLOW_EXPRESSION_in_expression227); 
-            EXPRESSION32_tree = (Object)adaptor.create(EXPRESSION32);
-            adaptor.addChild(root_0, EXPRESSION32_tree);
+            EXPRESSION34=(Token)match(input,EXPRESSION,FOLLOW_EXPRESSION_in_expression239); 
+            EXPRESSION34_tree = (Object)adaptor.create(EXPRESSION34);
+            adaptor.addChild(root_0, EXPRESSION34_tree);
 
 
             }
@@ -1037,98 +1111,98 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "operation"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:103:1: operation : ( NEWLINE | OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body RIGHT_BRACKET );
+    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:104:1: operation : ( NEWLINE | OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body RIGHT_BRACKET );
     public final TerraParser.operation_return operation() throws RecognitionException {
         TerraParser.operation_return retval = new TerraParser.operation_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token NEWLINE33=null;
-        Token OPERATION34=null;
-        Token OP_TYPE35=null;
-        Token NAME36=null;
-        Token STRING_LITERAL37=null;
-        Token LEFT_BRACKET38=null;
-        Token RIGHT_BRACKET40=null;
-        TerraParser.op_body_return op_body39 = null;
+        Token NEWLINE35=null;
+        Token OPERATION36=null;
+        Token OP_TYPE37=null;
+        Token NAME38=null;
+        Token STRING_LITERAL39=null;
+        Token LEFT_BRACKET40=null;
+        Token RIGHT_BRACKET42=null;
+        TerraParser.op_body_return op_body41 = null;
 
 
-        Object NEWLINE33_tree=null;
-        Object OPERATION34_tree=null;
-        Object OP_TYPE35_tree=null;
-        Object NAME36_tree=null;
-        Object STRING_LITERAL37_tree=null;
-        Object LEFT_BRACKET38_tree=null;
-        Object RIGHT_BRACKET40_tree=null;
+        Object NEWLINE35_tree=null;
+        Object OPERATION36_tree=null;
+        Object OP_TYPE37_tree=null;
+        Object NAME38_tree=null;
+        Object STRING_LITERAL39_tree=null;
+        Object LEFT_BRACKET40_tree=null;
+        Object RIGHT_BRACKET42_tree=null;
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:103:10: ( NEWLINE | OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body RIGHT_BRACKET )
-            int alt9=2;
-            int LA9_0 = input.LA(1);
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:104:10: ( NEWLINE | OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body RIGHT_BRACKET )
+            int alt11=2;
+            int LA11_0 = input.LA(1);
 
-            if ( (LA9_0==NEWLINE) ) {
-                alt9=1;
+            if ( (LA11_0==NEWLINE) ) {
+                alt11=1;
             }
-            else if ( (LA9_0==OPERATION) ) {
-                alt9=2;
+            else if ( (LA11_0==OPERATION) ) {
+                alt11=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 9, 0, input);
+                    new NoViableAltException("", 11, 0, input);
 
                 throw nvae;
             }
-            switch (alt9) {
+            switch (alt11) {
                 case 1 :
-                    // /home/paulofreitas/Desktop/lang/TerraParser.g:103:13: NEWLINE
+                    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:104:13: NEWLINE
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    NEWLINE33=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_operation236); 
-                    NEWLINE33_tree = (Object)adaptor.create(NEWLINE33);
-                    adaptor.addChild(root_0, NEWLINE33_tree);
+                    NEWLINE35=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_operation248); 
+                    NEWLINE35_tree = (Object)adaptor.create(NEWLINE35);
+                    adaptor.addChild(root_0, NEWLINE35_tree);
 
 
                     }
                     break;
                 case 2 :
-                    // /home/paulofreitas/Desktop/lang/TerraParser.g:103:23: OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body RIGHT_BRACKET
+                    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:104:23: OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body RIGHT_BRACKET
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    OPERATION34=(Token)match(input,OPERATION,FOLLOW_OPERATION_in_operation240); 
-                    OPERATION34_tree = (Object)adaptor.create(OPERATION34);
-                    adaptor.addChild(root_0, OPERATION34_tree);
+                    OPERATION36=(Token)match(input,OPERATION,FOLLOW_OPERATION_in_operation252); 
+                    OPERATION36_tree = (Object)adaptor.create(OPERATION36);
+                    adaptor.addChild(root_0, OPERATION36_tree);
 
-                    OP_TYPE35=(Token)match(input,OP_TYPE,FOLLOW_OP_TYPE_in_operation242); 
-                    OP_TYPE35_tree = (Object)adaptor.create(OP_TYPE35);
-                    adaptor.addChild(root_0, OP_TYPE35_tree);
+                    OP_TYPE37=(Token)match(input,OP_TYPE,FOLLOW_OP_TYPE_in_operation254); 
+                    OP_TYPE37_tree = (Object)adaptor.create(OP_TYPE37);
+                    adaptor.addChild(root_0, OP_TYPE37_tree);
 
-                    NAME36=(Token)match(input,NAME,FOLLOW_NAME_in_operation244); 
-                    NAME36_tree = (Object)adaptor.create(NAME36);
-                    adaptor.addChild(root_0, NAME36_tree);
+                    NAME38=(Token)match(input,NAME,FOLLOW_NAME_in_operation256); 
+                    NAME38_tree = (Object)adaptor.create(NAME38);
+                    adaptor.addChild(root_0, NAME38_tree);
 
-                    STRING_LITERAL37=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_operation246); 
-                    STRING_LITERAL37_tree = (Object)adaptor.create(STRING_LITERAL37);
-                    adaptor.addChild(root_0, STRING_LITERAL37_tree);
+                    STRING_LITERAL39=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_operation258); 
+                    STRING_LITERAL39_tree = (Object)adaptor.create(STRING_LITERAL39);
+                    adaptor.addChild(root_0, STRING_LITERAL39_tree);
 
-                    LEFT_BRACKET38=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_operation248); 
-                    LEFT_BRACKET38_tree = (Object)adaptor.create(LEFT_BRACKET38);
-                    adaptor.addChild(root_0, LEFT_BRACKET38_tree);
+                    LEFT_BRACKET40=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_operation260); 
+                    LEFT_BRACKET40_tree = (Object)adaptor.create(LEFT_BRACKET40);
+                    adaptor.addChild(root_0, LEFT_BRACKET40_tree);
 
-                    pushFollow(FOLLOW_op_body_in_operation250);
-                    op_body39=op_body();
+                    pushFollow(FOLLOW_op_body_in_operation262);
+                    op_body41=op_body();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, op_body39.getTree());
-                    RIGHT_BRACKET40=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_operation252); 
-                    RIGHT_BRACKET40_tree = (Object)adaptor.create(RIGHT_BRACKET40);
-                    adaptor.addChild(root_0, RIGHT_BRACKET40_tree);
+                    adaptor.addChild(root_0, op_body41.getTree());
+                    RIGHT_BRACKET42=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_operation264); 
+                    RIGHT_BRACKET42_tree = (Object)adaptor.create(RIGHT_BRACKET42);
+                    adaptor.addChild(root_0, RIGHT_BRACKET42_tree);
 
 
-                    		Operation op = new Operation((OP_TYPE35!=null?OP_TYPE35.getText():null), (NAME36!=null?NAME36.getText():null), (STRING_LITERAL37!=null?STRING_LITERAL37.getText():null));
+                    		Operation op = new Operation((OP_TYPE37!=null?OP_TYPE37.getText():null), (NAME38!=null?NAME38.getText():null), (STRING_LITERAL39!=null?STRING_LITERAL39.getText():null));
                     		op.setDomainObject(domainObject);
                     		op.setProperties(op_props);
                     		ops.add(op);
@@ -1163,56 +1237,56 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "op_body"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:112:1: op_body : ( op_prop )+ ;
+    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:113:1: op_body : ( op_prop )+ ;
     public final TerraParser.op_body_return op_body() throws RecognitionException {
         TerraParser.op_body_return retval = new TerraParser.op_body_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        TerraParser.op_prop_return op_prop41 = null;
+        TerraParser.op_prop_return op_prop43 = null;
 
 
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:112:9: ( ( op_prop )+ )
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:112:11: ( op_prop )+
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:113:9: ( ( op_prop )+ )
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:113:11: ( op_prop )+
             {
             root_0 = (Object)adaptor.nil();
 
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:112:11: ( op_prop )+
-            int cnt10=0;
-            loop10:
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:113:11: ( op_prop )+
+            int cnt12=0;
+            loop12:
             do {
-                int alt10=2;
-                int LA10_0 = input.LA(1);
+                int alt12=2;
+                int LA12_0 = input.LA(1);
 
-                if ( (LA10_0==PROPERTY||LA10_0==OPERATION_PROPERTY||LA10_0==NEWLINE) ) {
-                    alt10=1;
+                if ( (LA12_0==PROPERTY||LA12_0==OPERATION_PROPERTY||LA12_0==NEWLINE) ) {
+                    alt12=1;
                 }
 
 
-                switch (alt10) {
+                switch (alt12) {
             	case 1 :
-            	    // /home/paulofreitas/Desktop/lang/TerraParser.g:112:11: op_prop
+            	    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:113:11: op_prop
             	    {
-            	    pushFollow(FOLLOW_op_prop_in_op_body264);
-            	    op_prop41=op_prop();
+            	    pushFollow(FOLLOW_op_prop_in_op_body276);
+            	    op_prop43=op_prop();
 
             	    state._fsp--;
 
-            	    adaptor.addChild(root_0, op_prop41.getTree());
+            	    adaptor.addChild(root_0, op_prop43.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    if ( cnt10 >= 1 ) break loop10;
+            	    if ( cnt12 >= 1 ) break loop12;
                         EarlyExitException eee =
-                            new EarlyExitException(10, input);
+                            new EarlyExitException(12, input);
                         throw eee;
                 }
-                cnt10++;
+                cnt12++;
             } while (true);
 
 
@@ -1242,84 +1316,84 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "op_prop"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:114:1: op_prop : ( NEWLINE | op_prop_name ATTRIBUITION value );
+    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:115:1: op_prop : ( NEWLINE | op_prop_name ATTRIBUITION value );
     public final TerraParser.op_prop_return op_prop() throws RecognitionException {
         TerraParser.op_prop_return retval = new TerraParser.op_prop_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token NEWLINE42=null;
-        Token ATTRIBUITION44=null;
-        TerraParser.op_prop_name_return op_prop_name43 = null;
+        Token NEWLINE44=null;
+        Token ATTRIBUITION46=null;
+        TerraParser.op_prop_name_return op_prop_name45 = null;
 
-        TerraParser.value_return value45 = null;
+        TerraParser.value_return value47 = null;
 
 
-        Object NEWLINE42_tree=null;
-        Object ATTRIBUITION44_tree=null;
+        Object NEWLINE44_tree=null;
+        Object ATTRIBUITION46_tree=null;
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:114:8: ( NEWLINE | op_prop_name ATTRIBUITION value )
-            int alt11=2;
-            int LA11_0 = input.LA(1);
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:115:8: ( NEWLINE | op_prop_name ATTRIBUITION value )
+            int alt13=2;
+            int LA13_0 = input.LA(1);
 
-            if ( (LA11_0==NEWLINE) ) {
-                alt11=1;
+            if ( (LA13_0==NEWLINE) ) {
+                alt13=1;
             }
-            else if ( (LA11_0==PROPERTY||LA11_0==OPERATION_PROPERTY) ) {
-                alt11=2;
+            else if ( (LA13_0==PROPERTY||LA13_0==OPERATION_PROPERTY) ) {
+                alt13=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 11, 0, input);
+                    new NoViableAltException("", 13, 0, input);
 
                 throw nvae;
             }
-            switch (alt11) {
+            switch (alt13) {
                 case 1 :
-                    // /home/paulofreitas/Desktop/lang/TerraParser.g:114:10: NEWLINE
+                    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:115:10: NEWLINE
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    NEWLINE42=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_op_prop272); 
-                    NEWLINE42_tree = (Object)adaptor.create(NEWLINE42);
-                    adaptor.addChild(root_0, NEWLINE42_tree);
+                    NEWLINE44=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_op_prop284); 
+                    NEWLINE44_tree = (Object)adaptor.create(NEWLINE44);
+                    adaptor.addChild(root_0, NEWLINE44_tree);
 
 
                     }
                     break;
                 case 2 :
-                    // /home/paulofreitas/Desktop/lang/TerraParser.g:114:20: op_prop_name ATTRIBUITION value
+                    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:115:20: op_prop_name ATTRIBUITION value
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_op_prop_name_in_op_prop276);
-                    op_prop_name43=op_prop_name();
+                    pushFollow(FOLLOW_op_prop_name_in_op_prop288);
+                    op_prop_name45=op_prop_name();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, op_prop_name43.getTree());
-                    ATTRIBUITION44=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_op_prop278); 
-                    ATTRIBUITION44_tree = (Object)adaptor.create(ATTRIBUITION44);
-                    adaptor.addChild(root_0, ATTRIBUITION44_tree);
+                    adaptor.addChild(root_0, op_prop_name45.getTree());
+                    ATTRIBUITION46=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_op_prop290); 
+                    ATTRIBUITION46_tree = (Object)adaptor.create(ATTRIBUITION46);
+                    adaptor.addChild(root_0, ATTRIBUITION46_tree);
 
-                    pushFollow(FOLLOW_value_in_op_prop280);
-                    value45=value();
+                    pushFollow(FOLLOW_value_in_op_prop292);
+                    value47=value();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, value45.getTree());
+                    adaptor.addChild(root_0, value47.getTree());
 
                     		IConverterService convService = ServiceProvider.getInstance()
                     				.getService(IConverterService.class,
                     						Activator.getDefault().getBundle().getBundleContext());
                     						
-                    		Class<?> type = PropertyInfo.getPropertyInfo((op_prop_name43!=null?input.toString(op_prop_name43.start,op_prop_name43.stop):null)).getType();
-                    		Object propValue = convService.convert(type, (value45!=null?input.toString(value45.start,value45.stop):null));
+                    		Class<?> type = PropertyInfo.getPropertyInfo((op_prop_name45!=null?input.toString(op_prop_name45.start,op_prop_name45.stop):null)).getType();
+                    		Object propValue = convService.convert(type, (value47!=null?input.toString(value47.start,value47.stop):null));
                     		
-                    		Property p = new Property((op_prop_name43!=null?input.toString(op_prop_name43.start,op_prop_name43.stop):null), propValue);
-                    		op_props.put((op_prop_name43!=null?input.toString(op_prop_name43.start,op_prop_name43.stop):null), p);
+                    		Property p = new Property((op_prop_name45!=null?input.toString(op_prop_name45.start,op_prop_name45.stop):null), propValue);
+                    		op_props.put((op_prop_name45!=null?input.toString(op_prop_name45.start,op_prop_name45.stop):null), p);
                     	
 
                     }
@@ -1350,27 +1424,27 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "op_prop_name"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:127:1: op_prop_name : ( PROPERTY | OPERATION_PROPERTY );
+    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:128:1: op_prop_name : ( PROPERTY | OPERATION_PROPERTY );
     public final TerraParser.op_prop_name_return op_prop_name() throws RecognitionException {
         TerraParser.op_prop_name_return retval = new TerraParser.op_prop_name_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token set46=null;
+        Token set48=null;
 
-        Object set46_tree=null;
+        Object set48_tree=null;
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:127:14: ( PROPERTY | OPERATION_PROPERTY )
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:128:14: ( PROPERTY | OPERATION_PROPERTY )
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:
             {
             root_0 = (Object)adaptor.nil();
 
-            set46=(Token)input.LT(1);
+            set48=(Token)input.LT(1);
             if ( input.LA(1)==PROPERTY||input.LA(1)==OPERATION_PROPERTY ) {
                 input.consume();
-                adaptor.addChild(root_0, (Object)adaptor.create(set46));
+                adaptor.addChild(root_0, (Object)adaptor.create(set48));
                 state.errorRecovery=false;
             }
             else {
@@ -1405,86 +1479,86 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "validation_rulz"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:130:1: validation_rulz : ( NEWLINE | VALIDATION_RULE NAME LEFT_BRACKET validation_body RIGHT_BRACKET );
+    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:131:1: validation_rulz : ( NEWLINE | VALIDATION_RULE NAME LEFT_BRACKET validation_body RIGHT_BRACKET );
     public final TerraParser.validation_rulz_return validation_rulz() throws RecognitionException {
         TerraParser.validation_rulz_return retval = new TerraParser.validation_rulz_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token NEWLINE47=null;
-        Token VALIDATION_RULE48=null;
-        Token NAME49=null;
-        Token LEFT_BRACKET50=null;
-        Token RIGHT_BRACKET52=null;
-        TerraParser.validation_body_return validation_body51 = null;
+        Token NEWLINE49=null;
+        Token VALIDATION_RULE50=null;
+        Token NAME51=null;
+        Token LEFT_BRACKET52=null;
+        Token RIGHT_BRACKET54=null;
+        TerraParser.validation_body_return validation_body53 = null;
 
 
-        Object NEWLINE47_tree=null;
-        Object VALIDATION_RULE48_tree=null;
-        Object NAME49_tree=null;
-        Object LEFT_BRACKET50_tree=null;
-        Object RIGHT_BRACKET52_tree=null;
+        Object NEWLINE49_tree=null;
+        Object VALIDATION_RULE50_tree=null;
+        Object NAME51_tree=null;
+        Object LEFT_BRACKET52_tree=null;
+        Object RIGHT_BRACKET54_tree=null;
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:130:16: ( NEWLINE | VALIDATION_RULE NAME LEFT_BRACKET validation_body RIGHT_BRACKET )
-            int alt12=2;
-            int LA12_0 = input.LA(1);
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:131:16: ( NEWLINE | VALIDATION_RULE NAME LEFT_BRACKET validation_body RIGHT_BRACKET )
+            int alt14=2;
+            int LA14_0 = input.LA(1);
 
-            if ( (LA12_0==NEWLINE) ) {
-                alt12=1;
+            if ( (LA14_0==NEWLINE) ) {
+                alt14=1;
             }
-            else if ( (LA12_0==VALIDATION_RULE) ) {
-                alt12=2;
+            else if ( (LA14_0==VALIDATION_RULE) ) {
+                alt14=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 12, 0, input);
+                    new NoViableAltException("", 14, 0, input);
 
                 throw nvae;
             }
-            switch (alt12) {
+            switch (alt14) {
                 case 1 :
-                    // /home/paulofreitas/Desktop/lang/TerraParser.g:130:18: NEWLINE
+                    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:131:18: NEWLINE
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    NEWLINE47=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_validation_rulz304); 
-                    NEWLINE47_tree = (Object)adaptor.create(NEWLINE47);
-                    adaptor.addChild(root_0, NEWLINE47_tree);
+                    NEWLINE49=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_validation_rulz316); 
+                    NEWLINE49_tree = (Object)adaptor.create(NEWLINE49);
+                    adaptor.addChild(root_0, NEWLINE49_tree);
 
 
                     }
                     break;
                 case 2 :
-                    // /home/paulofreitas/Desktop/lang/TerraParser.g:130:28: VALIDATION_RULE NAME LEFT_BRACKET validation_body RIGHT_BRACKET
+                    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:131:28: VALIDATION_RULE NAME LEFT_BRACKET validation_body RIGHT_BRACKET
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    VALIDATION_RULE48=(Token)match(input,VALIDATION_RULE,FOLLOW_VALIDATION_RULE_in_validation_rulz308); 
-                    VALIDATION_RULE48_tree = (Object)adaptor.create(VALIDATION_RULE48);
-                    adaptor.addChild(root_0, VALIDATION_RULE48_tree);
+                    VALIDATION_RULE50=(Token)match(input,VALIDATION_RULE,FOLLOW_VALIDATION_RULE_in_validation_rulz320); 
+                    VALIDATION_RULE50_tree = (Object)adaptor.create(VALIDATION_RULE50);
+                    adaptor.addChild(root_0, VALIDATION_RULE50_tree);
 
-                    NAME49=(Token)match(input,NAME,FOLLOW_NAME_in_validation_rulz310); 
-                    NAME49_tree = (Object)adaptor.create(NAME49);
-                    adaptor.addChild(root_0, NAME49_tree);
+                    NAME51=(Token)match(input,NAME,FOLLOW_NAME_in_validation_rulz322); 
+                    NAME51_tree = (Object)adaptor.create(NAME51);
+                    adaptor.addChild(root_0, NAME51_tree);
 
-                    LEFT_BRACKET50=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_validation_rulz312); 
-                    LEFT_BRACKET50_tree = (Object)adaptor.create(LEFT_BRACKET50);
-                    adaptor.addChild(root_0, LEFT_BRACKET50_tree);
+                    LEFT_BRACKET52=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_validation_rulz324); 
+                    LEFT_BRACKET52_tree = (Object)adaptor.create(LEFT_BRACKET52);
+                    adaptor.addChild(root_0, LEFT_BRACKET52_tree);
 
-                    pushFollow(FOLLOW_validation_body_in_validation_rulz314);
-                    validation_body51=validation_body();
+                    pushFollow(FOLLOW_validation_body_in_validation_rulz326);
+                    validation_body53=validation_body();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, validation_body51.getTree());
-                    RIGHT_BRACKET52=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_validation_rulz316); 
-                    RIGHT_BRACKET52_tree = (Object)adaptor.create(RIGHT_BRACKET52);
-                    adaptor.addChild(root_0, RIGHT_BRACKET52_tree);
+                    adaptor.addChild(root_0, validation_body53.getTree());
+                    RIGHT_BRACKET54=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_validation_rulz328); 
+                    RIGHT_BRACKET54_tree = (Object)adaptor.create(RIGHT_BRACKET54);
+                    adaptor.addChild(root_0, RIGHT_BRACKET54_tree);
 
 
-                    		Validation validation = new Validation((NAME49!=null?NAME49.getText():null));
+                    		Validation validation = new Validation((NAME51!=null?NAME51.getText():null));
                     		validation.setRules(validationRulzEntry);
                     		validationRulz.add(validation);
                     		validationRulzEntry = new ArrayList<ValidationRule>();
@@ -1518,56 +1592,56 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "validation_body"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:137:1: validation_body : ( validation_entry )+ ;
+    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:138:1: validation_body : ( validation_entry )+ ;
     public final TerraParser.validation_body_return validation_body() throws RecognitionException {
         TerraParser.validation_body_return retval = new TerraParser.validation_body_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        TerraParser.validation_entry_return validation_entry53 = null;
+        TerraParser.validation_entry_return validation_entry55 = null;
 
 
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:137:17: ( ( validation_entry )+ )
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:137:19: ( validation_entry )+
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:138:17: ( ( validation_entry )+ )
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:138:19: ( validation_entry )+
             {
             root_0 = (Object)adaptor.nil();
 
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:137:19: ( validation_entry )+
-            int cnt13=0;
-            loop13:
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:138:19: ( validation_entry )+
+            int cnt15=0;
+            loop15:
             do {
-                int alt13=2;
-                int LA13_0 = input.LA(1);
+                int alt15=2;
+                int LA15_0 = input.LA(1);
 
-                if ( (LA13_0==STRING_LITERAL||LA13_0==NEWLINE) ) {
-                    alt13=1;
+                if ( (LA15_0==STRING_LITERAL||LA15_0==NEWLINE) ) {
+                    alt15=1;
                 }
 
 
-                switch (alt13) {
+                switch (alt15) {
             	case 1 :
-            	    // /home/paulofreitas/Desktop/lang/TerraParser.g:137:19: validation_entry
+            	    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:138:19: validation_entry
             	    {
-            	    pushFollow(FOLLOW_validation_entry_in_validation_body325);
-            	    validation_entry53=validation_entry();
+            	    pushFollow(FOLLOW_validation_entry_in_validation_body337);
+            	    validation_entry55=validation_entry();
 
             	    state._fsp--;
 
-            	    adaptor.addChild(root_0, validation_entry53.getTree());
+            	    adaptor.addChild(root_0, validation_entry55.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    if ( cnt13 >= 1 ) break loop13;
+            	    if ( cnt15 >= 1 ) break loop15;
                         EarlyExitException eee =
-                            new EarlyExitException(13, input);
+                            new EarlyExitException(15, input);
                         throw eee;
                 }
-                cnt13++;
+                cnt15++;
             } while (true);
 
 
@@ -1597,72 +1671,72 @@ public class TerraParser extends Parser {
     };
 
     // $ANTLR start "validation_entry"
-    // /home/paulofreitas/Desktop/lang/TerraParser.g:139:1: validation_entry : ( NEWLINE | STRING_LITERAL ATTRIBUITION EXPRESSION );
+    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:140:1: validation_entry : ( NEWLINE | STRING_LITERAL ATTRIBUITION EXPRESSION );
     public final TerraParser.validation_entry_return validation_entry() throws RecognitionException {
         TerraParser.validation_entry_return retval = new TerraParser.validation_entry_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token NEWLINE54=null;
-        Token STRING_LITERAL55=null;
-        Token ATTRIBUITION56=null;
-        Token EXPRESSION57=null;
+        Token NEWLINE56=null;
+        Token STRING_LITERAL57=null;
+        Token ATTRIBUITION58=null;
+        Token EXPRESSION59=null;
 
-        Object NEWLINE54_tree=null;
-        Object STRING_LITERAL55_tree=null;
-        Object ATTRIBUITION56_tree=null;
-        Object EXPRESSION57_tree=null;
+        Object NEWLINE56_tree=null;
+        Object STRING_LITERAL57_tree=null;
+        Object ATTRIBUITION58_tree=null;
+        Object EXPRESSION59_tree=null;
 
         try {
-            // /home/paulofreitas/Desktop/lang/TerraParser.g:139:17: ( NEWLINE | STRING_LITERAL ATTRIBUITION EXPRESSION )
-            int alt14=2;
-            int LA14_0 = input.LA(1);
+            // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:140:17: ( NEWLINE | STRING_LITERAL ATTRIBUITION EXPRESSION )
+            int alt16=2;
+            int LA16_0 = input.LA(1);
 
-            if ( (LA14_0==NEWLINE) ) {
-                alt14=1;
+            if ( (LA16_0==NEWLINE) ) {
+                alt16=1;
             }
-            else if ( (LA14_0==STRING_LITERAL) ) {
-                alt14=2;
+            else if ( (LA16_0==STRING_LITERAL) ) {
+                alt16=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 14, 0, input);
+                    new NoViableAltException("", 16, 0, input);
 
                 throw nvae;
             }
-            switch (alt14) {
+            switch (alt16) {
                 case 1 :
-                    // /home/paulofreitas/Desktop/lang/TerraParser.g:139:19: NEWLINE
+                    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:140:19: NEWLINE
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    NEWLINE54=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_validation_entry333); 
-                    NEWLINE54_tree = (Object)adaptor.create(NEWLINE54);
-                    adaptor.addChild(root_0, NEWLINE54_tree);
+                    NEWLINE56=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_validation_entry345); 
+                    NEWLINE56_tree = (Object)adaptor.create(NEWLINE56);
+                    adaptor.addChild(root_0, NEWLINE56_tree);
 
 
                     }
                     break;
                 case 2 :
-                    // /home/paulofreitas/Desktop/lang/TerraParser.g:139:29: STRING_LITERAL ATTRIBUITION EXPRESSION
+                    // C:\\Documents and Settings\\paulo.freitas\\Desktop\\terra\\TerraParser.g:140:29: STRING_LITERAL ATTRIBUITION EXPRESSION
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    STRING_LITERAL55=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_validation_entry337); 
-                    STRING_LITERAL55_tree = (Object)adaptor.create(STRING_LITERAL55);
-                    adaptor.addChild(root_0, STRING_LITERAL55_tree);
+                    STRING_LITERAL57=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_validation_entry349); 
+                    STRING_LITERAL57_tree = (Object)adaptor.create(STRING_LITERAL57);
+                    adaptor.addChild(root_0, STRING_LITERAL57_tree);
 
-                    ATTRIBUITION56=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_validation_entry339); 
-                    ATTRIBUITION56_tree = (Object)adaptor.create(ATTRIBUITION56);
-                    adaptor.addChild(root_0, ATTRIBUITION56_tree);
+                    ATTRIBUITION58=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_validation_entry351); 
+                    ATTRIBUITION58_tree = (Object)adaptor.create(ATTRIBUITION58);
+                    adaptor.addChild(root_0, ATTRIBUITION58_tree);
 
-                    EXPRESSION57=(Token)match(input,EXPRESSION,FOLLOW_EXPRESSION_in_validation_entry341); 
-                    EXPRESSION57_tree = (Object)adaptor.create(EXPRESSION57);
-                    adaptor.addChild(root_0, EXPRESSION57_tree);
+                    EXPRESSION59=(Token)match(input,EXPRESSION,FOLLOW_EXPRESSION_in_validation_entry353); 
+                    EXPRESSION59_tree = (Object)adaptor.create(EXPRESSION59);
+                    adaptor.addChild(root_0, EXPRESSION59_tree);
 
 
-                    		ValidationRule valRule = new ValidationRule((STRING_LITERAL55!=null?STRING_LITERAL55.getText():null), (EXPRESSION57!=null?EXPRESSION57.getText():null));
+                    		ValidationRule valRule = new ValidationRule((STRING_LITERAL57!=null?STRING_LITERAL57.getText():null), (EXPRESSION59!=null?EXPRESSION59.getText():null));
                     		validationRulzEntry.add(valRule);
 
 
@@ -1698,7 +1772,7 @@ public class TerraParser extends Parser {
     public static final BitSet FOLLOW_DOMAIN_OBJECT_in_domain_object67 = new BitSet(new long[]{0x0000000002000000L});
     public static final BitSet FOLLOW_NAME_in_domain_object69 = new BitSet(new long[]{0x0000000008000000L});
     public static final BitSet FOLLOW_STRING_LITERAL_in_domain_object71 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_LEFT_BRACKET_in_domain_object73 = new BitSet(new long[]{0x0000000200046100L});
+    public static final BitSet FOLLOW_LEFT_BRACKET_in_domain_object73 = new BitSet(new long[]{0x0000000200846100L});
     public static final BitSet FOLLOW_body_in_domain_object75 = new BitSet(new long[]{0x0000000000000100L});
     public static final BitSet FOLLOW_RIGHT_BRACKET_in_domain_object78 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_PACKAGE_in_package_declaration90 = new BitSet(new long[]{0x0000000002000000L});
@@ -1707,48 +1781,50 @@ public class TerraParser extends Parser {
     public static final BitSet FOLLOW_IMPORT_in_import_declaration109 = new BitSet(new long[]{0x0000000002000000L});
     public static final BitSet FOLLOW_NAME_in_import_declaration111 = new BitSet(new long[]{0x0000000200000000L});
     public static final BitSet FOLLOW_NEWLINE_in_import_declaration113 = new BitSet(new long[]{0x0000000200000002L});
-    public static final BitSet FOLLOW_attr_in_body131 = new BitSet(new long[]{0x0000000200046002L});
-    public static final BitSet FOLLOW_operation_in_body135 = new BitSet(new long[]{0x0000000200046002L});
-    public static final BitSet FOLLOW_validation_rulz_in_body139 = new BitSet(new long[]{0x0000000200046002L});
-    public static final BitSet FOLLOW_TYPE_in_attr151 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_NAME_in_attr153 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_STRING_LITERAL_in_attr155 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_LEFT_BRACKET_in_attr157 = new BitSet(new long[]{0x0000000200018000L});
-    public static final BitSet FOLLOW_attr_body_in_attr159 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_RIGHT_BRACKET_in_attr161 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_property_in_attr_body174 = new BitSet(new long[]{0x0000000200018002L});
-    public static final BitSet FOLLOW_NEWLINE_in_property182 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_attr_prop_name_in_property186 = new BitSet(new long[]{0x0000000000000200L});
-    public static final BitSet FOLLOW_ATTRIBUITION_in_property188 = new BitSet(new long[]{0x0000000012400000L});
-    public static final BitSet FOLLOW_value_in_property191 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_expression_in_property193 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_attr_in_body131 = new BitSet(new long[]{0x0000000200846002L});
+    public static final BitSet FOLLOW_operation_in_body135 = new BitSet(new long[]{0x0000000200846002L});
+    public static final BitSet FOLLOW_validation_rulz_in_body139 = new BitSet(new long[]{0x0000000200846002L});
+    public static final BitSet FOLLOW_TYPE_in_attr153 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_LETTER_in_attr158 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_LETTER_in_attr160 = new BitSet(new long[]{0x0000000002800000L});
+    public static final BitSet FOLLOW_NAME_in_attr165 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_STRING_LITERAL_in_attr167 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_LEFT_BRACKET_in_attr169 = new BitSet(new long[]{0x0000000200018000L});
+    public static final BitSet FOLLOW_attr_body_in_attr171 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_RIGHT_BRACKET_in_attr173 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_property_in_attr_body186 = new BitSet(new long[]{0x0000000200018002L});
+    public static final BitSet FOLLOW_NEWLINE_in_property194 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_attr_prop_name_in_property198 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_ATTRIBUITION_in_property200 = new BitSet(new long[]{0x0000000012400000L});
+    public static final BitSet FOLLOW_value_in_property203 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_expression_in_property205 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_attr_prop_name0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_value213 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EXPRESSION_in_expression227 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_operation236 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OPERATION_in_operation240 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_OP_TYPE_in_operation242 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_NAME_in_operation244 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_STRING_LITERAL_in_operation246 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_LEFT_BRACKET_in_operation248 = new BitSet(new long[]{0x0000000200028000L});
-    public static final BitSet FOLLOW_op_body_in_operation250 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_RIGHT_BRACKET_in_operation252 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_op_prop_in_op_body264 = new BitSet(new long[]{0x0000000200028002L});
-    public static final BitSet FOLLOW_NEWLINE_in_op_prop272 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_op_prop_name_in_op_prop276 = new BitSet(new long[]{0x0000000000000200L});
-    public static final BitSet FOLLOW_ATTRIBUITION_in_op_prop278 = new BitSet(new long[]{0x0000000002400000L});
-    public static final BitSet FOLLOW_value_in_op_prop280 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_value225 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EXPRESSION_in_expression239 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_operation248 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OPERATION_in_operation252 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_OP_TYPE_in_operation254 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_NAME_in_operation256 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_STRING_LITERAL_in_operation258 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_LEFT_BRACKET_in_operation260 = new BitSet(new long[]{0x0000000200028000L});
+    public static final BitSet FOLLOW_op_body_in_operation262 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_RIGHT_BRACKET_in_operation264 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_op_prop_in_op_body276 = new BitSet(new long[]{0x0000000200028002L});
+    public static final BitSet FOLLOW_NEWLINE_in_op_prop284 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_op_prop_name_in_op_prop288 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_ATTRIBUITION_in_op_prop290 = new BitSet(new long[]{0x0000000002400000L});
+    public static final BitSet FOLLOW_value_in_op_prop292 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_op_prop_name0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_validation_rulz304 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_VALIDATION_RULE_in_validation_rulz308 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_NAME_in_validation_rulz310 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_LEFT_BRACKET_in_validation_rulz312 = new BitSet(new long[]{0x0000000208000000L});
-    public static final BitSet FOLLOW_validation_body_in_validation_rulz314 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_RIGHT_BRACKET_in_validation_rulz316 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_validation_entry_in_validation_body325 = new BitSet(new long[]{0x0000000208000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_validation_entry333 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_LITERAL_in_validation_entry337 = new BitSet(new long[]{0x0000000000000200L});
-    public static final BitSet FOLLOW_ATTRIBUITION_in_validation_entry339 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_EXPRESSION_in_validation_entry341 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_validation_rulz316 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_VALIDATION_RULE_in_validation_rulz320 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_NAME_in_validation_rulz322 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_LEFT_BRACKET_in_validation_rulz324 = new BitSet(new long[]{0x0000000208000000L});
+    public static final BitSet FOLLOW_validation_body_in_validation_rulz326 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_RIGHT_BRACKET_in_validation_rulz328 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_validation_entry_in_validation_body337 = new BitSet(new long[]{0x0000000208000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_validation_entry345 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_LITERAL_in_validation_entry349 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_ATTRIBUITION_in_validation_entry351 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_EXPRESSION_in_validation_entry353 = new BitSet(new long[]{0x0000000000000002L});
 
 }
