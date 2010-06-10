@@ -26,6 +26,7 @@ import org.apache.commons.lang.StringUtils;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
+import br.com.maisha.terra.lang.Import;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.wind.common.exception.MakeClassException;
 
@@ -37,14 +38,15 @@ import br.com.maisha.wind.common.exception.MakeClassException;
 public class ClassMaker implements IClassMaker {
 
 	/** */
-	private List<String> javaLangTypes = Arrays.asList("Integer", "Double", "Float", "Long", "Short", "Boolean", "String");
+	private List<String> javaLangTypes = Arrays.asList("Integer", "Double", "Float", "Long", "Short", "Boolean",
+			"String");
 
 	private Map<String, String> typeMap = new HashMap<String, String>();
-	
+
 	public ClassMaker() {
 		typeMap.put("Date", "java.util.Date");
 	}
-	
+
 	/**
 	 * 
 	 * @see br.com.maisha.terra.IClassMaker#make(br.com.maisha.terra.lang.DomainObject)
@@ -76,7 +78,7 @@ public class ClassMaker implements IClassMaker {
 
 			String field = "";
 			for (Attribute att : obj.getAtts()) {
-				field = "private " + getQualifiedType(att.getType()) + " " + att.getRef() + ";";
+				field = "private " + getQualifiedType(obj, att.getType()) + " " + att.getRef() + ";";
 				cc.addField(CtField.make(field, cc));
 				cc.addMethod(CtMethod.make(genSetMethod(att), cc));
 				cc.addMethod(CtMethod.make(genGetMethod(att), cc));
@@ -142,17 +144,30 @@ public class ClassMaker implements IClassMaker {
 		return idAnn;
 	}
 
-	private boolean isJavaLangType(String type){
+	private boolean isJavaLangType(String type) {
 		return javaLangTypes.contains(type);
 	}
-	
-	private String getQualifiedType(String type){
-		if(!isJavaLangType(type)){
-			return typeMap.get(type);
+
+	private String getQualifiedType(DomainObject dObj, String type) {
+		String returnType = type;
+		if (!isJavaLangType(type)) {
+			// procura no map de tipos
+			if (typeMap.containsKey(type)) {
+				returnType = typeMap.get(type);
+			} else {
+				// procura nos imports
+				for (Import imp : dObj.getImports()) {
+					String[] path = imp.getPath().split(".");
+					String last = path[path.length - 1];
+					if (type.equals(last)) {
+						returnType = imp.getPath();
+					}
+				}
+			}
 		}
-		return type;
+		return returnType;
 	}
-	
+
 	/**
 	 * 
 	 * @param att
@@ -164,9 +179,9 @@ public class ClassMaker implements IClassMaker {
 		method.append("public void set");
 		method.append(StringUtils.capitalize(att.getRef()));
 		method.append("(");
-		method.append(getQualifiedType(att.getType()));
+		method.append(getQualifiedType(att.getDomainObject(), att.getType()));
 		method.append(" v ){");
-		method.append(getQualifiedType(att.getType())).append(" oldValue = this.").append(att.getRef()).append(";");
+		method.append(getQualifiedType(att.getDomainObject(), att.getType())).append(" oldValue = this.").append(att.getRef()).append(";");
 		method.append("this.").append(att.getRef()).append(" = v;");
 		method.append("changeSupport.firePropertyChange(\"").append(att.getRef()).append("\", oldValue, v);");
 		method.append("}");
@@ -183,7 +198,7 @@ public class ClassMaker implements IClassMaker {
 		StringBuilder method = new StringBuilder();
 
 		method.append("public ");
-		method.append(getQualifiedType(att.getType()));
+		method.append(getQualifiedType(att.getDomainObject(), att.getType()));
 		method.append(" get");
 		method.append(StringUtils.capitalize(att.getRef()));
 		method.append("(){");
