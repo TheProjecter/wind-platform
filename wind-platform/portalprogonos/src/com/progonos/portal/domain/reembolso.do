@@ -1,5 +1,7 @@
 package com.progonos.portal.domain
 
+import com.progonos.portal.domain.Funcionario
+
 domain_object reembolso "Reembolso" {
 
 Date data "Data"{
@@ -12,11 +14,18 @@ presentation_type: date
 
 String observacoes "Observacoes"{
 x: 1
-y: 2
+y: 3
 presentation_type: textarea
 width: 300
 height: 80
 }
+
+Funcionario funcionario "Funcionario"{
+x: 1
+y: 2
+width: 150
+}
+
 
 operation groovy Save "Salvar"{
 file: SalvarReembolso.groovy
