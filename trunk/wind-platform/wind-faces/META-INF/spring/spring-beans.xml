@@ -19,7 +19,8 @@
 				<entry key="text" value-ref="textAttrRender" />
 				<entry key="textarea" value-ref="textAreaAttrRender" />
 				<entry key="checkbox" value-ref="checkboxAttrRender" />
-				<entry key="combo" value-ref="comboAttrRender" />				
+				<entry key="combo" value-ref="comboAttrRender" />
+				<entry key="date" value-ref="dateAttrRender" />	
 				
 			</map>
 		</property>
@@ -39,7 +40,8 @@
 	<bean name="textAttrRender" class="br.com.maisha.wind.faces.render.attr.TextAttrRender" />
 	<bean name="textAreaAttrRender" class="br.com.maisha.wind.faces.render.attr.TextAreaAttrRender" />
 	<bean name="checkboxAttrRender" class="br.com.maisha.wind.faces.render.attr.CheckboxRenderer" />
-	<bean name="comboAttrRender" class="br.com.maisha.wind.faces.render.attr.ComboboxAttrRender" />	
+	<bean name="comboAttrRender" class="br.com.maisha.wind.faces.render.attr.ComboboxAttrRender" />
+	<bean name="dateAttrRender" class="br.com.maisha.wind.faces.render.attr.DateTimeAttrRender" />		
 
 
 
