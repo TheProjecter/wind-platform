@@ -1,6 +1,7 @@
 package br.com.maisha.terra;
 
 import br.com.maisha.terra.lang.DomainObject;
+import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.common.exception.MakeClassException;
 import br.com.maisha.wind.common.exception.WindException;
 
@@ -19,5 +20,13 @@ public interface IClassMaker {
 	 * @throws WindException
 	 */
 	Class<?> make(ClassLoader cLoader, DomainObject dObj) throws MakeClassException;
+	
+	/**
+	 * 
+	 * @param cLoader
+	 * @param app
+	 * @throws MakeClassException
+	 */
+	void makeClasses(ClassLoader cLoader, WindApplication app) throws MakeClassException;
 
 }

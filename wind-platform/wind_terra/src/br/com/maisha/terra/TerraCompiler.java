@@ -8,8 +8,10 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 import org.antlr.runtime.ANTLRReaderStream;
+import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.TokenStream;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
@@ -50,13 +52,12 @@ public class TerraCompiler implements ITerraCompiler {
 	 * @throws IOException
 	 * @throws RecognitionException
 	 */
-	private DomainObject getAST(Reader reader) throws IOException,
-			RecognitionException {
-		TerraParser tokenParser = new TerraParser(getTokenStream(reader));
+	private DomainObject getAST(Reader reader) throws IOException, RecognitionException {
+
+		TerraParserParser tokenParser = new TerraParserParser(getTokenStream(reader));
 		tokenParser.domain_object();
 		DomainObject obj = tokenParser.domainObject;
-		log.debug("Domain Object compiled: "
-				+ ToStringBuilder.reflectionToString(obj));
+		log.debug("Domain Object compiled: " + ToStringBuilder.reflectionToString(obj));
 		reader.close();
 		return obj;
 	}
@@ -67,9 +68,14 @@ public class TerraCompiler implements ITerraCompiler {
 	 * @return
 	 * @throws IOException
 	 */
-	private CommonTokenStream getTokenStream(Reader reader) throws IOException {
-		TerraLexer lexer = new TerraLexer(new ANTLRReaderStream(reader));
-		return new CommonTokenStream(lexer);
+	private TokenStream getTokenStream(Reader reader) throws IOException {
+
+		CharStream charstream = new ANTLRReaderStream(reader);
+		TerraParserLexer lexer = new TerraParserLexer(charstream);
+
+		TokenStream tokenStream = new CommonTokenStream(lexer);
+
+		return tokenStream;
 	}
 
 }

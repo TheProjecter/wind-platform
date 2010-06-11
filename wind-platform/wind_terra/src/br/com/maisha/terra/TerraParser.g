@@ -1,12 +1,11 @@
-parser grammar TerraParser;
+grammar TerraParser;
 
 options {
   // We're going to output an AST.
   output = AST;
 
-  // We're going to use the tokens defined in our MathLexer grammar.
-  tokenVocab = TerraLexer;
 }
+
 
 @header { 
 package br.com.maisha.terra; 
@@ -38,6 +37,51 @@ private List<ValidationRule> validationRulzEntry = new ArrayList<ValidationRule>
 }
 
 
+ASSIGN: '=';
+LEFT_PAREN: '(';
+RIGHT_PAREN: ')';
+LEFT_BRACKET: '{';
+RIGHT_BRACKET: '}';
+
+ATTRIBUITION:':';
+DOMAIN_OBJECT:'domain_object';
+PACKAGE:'package';
+IMPORT:'import'; 
+VALIDATION_RULE:	'validationRule';
+//TYPE	:	'Integer' | 'Double' | 'Float' | 'Long' | 'Short' | 'Boolean' | 'String' | 'Date'  ;
+PROPERTY:	'x' | 'y' | 'colspan' | 'rowspan' | 'presentation_type' |  'disabled' | 'visible' | 'icon' | 'width' | 'height' | 'tooltip';
+ATTRIBUTE_PROPERTY: 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'event' | 'onetomany' | 'manytoone'  ;
+OPERATION_PROPERTY: 'class' | 'file' | 'validWhen' ;
+OPERATION: 'operation';
+
+OP_TYPE: 'java' | 'python' | 'groovy';
+
+NUMBER: INTEGER | FLOAT;
+fragment FLOAT: INTEGER '.' '0'..'9'+;
+fragment INTEGER: '0'..'9' '0'..'9'*;
+NAME: LETTER (LETTER | DIGIT |  '.' | '_' )+;
+STRING_LITERAL: '"' NONCONTROL_CHAR* '"';
+
+TYPE2	:	LETTER+;
+
+EXPRESSION
+	: '${'NONCONTROL_CHAR+'}';
+
+fragment NONCONTROL_CHAR: LETTER | DIGIT | SYMBOL | SPACE;
+fragment LETTER: LOWER | UPPER;
+fragment LOWER: 'a'..'z';
+fragment UPPER: 'A'..'Z';
+fragment DIGIT: '0'..'9';
+fragment SPACE: ' ' | '\t';
+
+fragment SYMBOL: '!' | '#'..'/' | ':'..'@' | '['..'`' | '{'..'~' ;
+
+
+
+NEWLINE: ('\r'? '\n')+;
+WHITESPACE: SPACE+ { $channel = HIDDEN; };
+
+
 
 domain_object
 	:	(package_declaration) (import_declaration)*  DOMAIN_OBJECT NAME STRING_LITERAL LEFT_BRACKET body? RIGHT_BRACKET{
@@ -67,11 +111,11 @@ import_declaration
 	}
 	;
 	
-body	:    (attr | operation | validation_rulz)+;
+body	:    (attr | operation | validation_rulz | NEWLINE)+;
 
 
-attr	:   (TYPE |  LETTER(LETTER)+) NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET {
-		Attribute att = new Attribute($TYPE.text, $NAME.text, $STRING_LITERAL.text);
+attr	:   type=NAME ref=NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET {
+		Attribute att = new Attribute($type.text, $ref.text, $STRING_LITERAL.text);
 		att.setDomainObject(domainObject);		
 		att.setProperties(props);
 		atts.add(att);
@@ -79,6 +123,8 @@ attr	:   (TYPE |  LETTER(LETTER)+) NAME STRING_LITERAL LEFT_BRACKET attr_body RI
 
 	}
 	;
+
+
 
 attr_body :  property+;
 
@@ -101,7 +147,7 @@ expression
 	:	EXPRESSION;
 
 
-operation:  NEWLINE | OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body RIGHT_BRACKET{
+operation:  OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body RIGHT_BRACKET{
 		Operation op = new Operation($OP_TYPE.text, $NAME.text, $STRING_LITERAL.text);
 		op.setDomainObject(domainObject);
 		op.setProperties(op_props);
@@ -128,7 +174,7 @@ op_prop:	NEWLINE | op_prop_name ATTRIBUITION value {
 op_prop_name	: PROPERTY | OPERATION_PROPERTY;
 
 
-validation_rulz: NEWLINE | VALIDATION_RULE NAME LEFT_BRACKET validation_body RIGHT_BRACKET{
+validation_rulz:  VALIDATION_RULE NAME LEFT_BRACKET validation_body RIGHT_BRACKET{
 		Validation validation = new Validation($NAME.text);
 		validation.setRules(validationRulzEntry);
 		validationRulz.add(validation);
