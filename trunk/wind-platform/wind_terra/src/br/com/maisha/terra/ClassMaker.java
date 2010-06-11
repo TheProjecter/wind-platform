@@ -1,5 +1,6 @@
 package br.com.maisha.terra;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -23,12 +24,16 @@ import javassist.bytecode.annotation.MemberValue;
 import javassist.bytecode.annotation.StringMemberValue;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.Import;
 import br.com.maisha.terra.lang.ModelReference;
+import br.com.maisha.terra.lang.PropertyInfo;
+import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.common.exception.MakeClassException;
+
 
 /**
  * 
@@ -37,23 +42,164 @@ import br.com.maisha.wind.common.exception.MakeClassException;
  */
 public class ClassMaker implements IClassMaker {
 
+	/**  Referencia para log. */
+	private static final Logger log = Logger.getLogger(ClassMaker.class);
+
 	/** */
 	private List<String> javaLangTypes = Arrays.asList("Integer", "Double", "Float", "Long", "Short", "Boolean",
 			"String");
 
+	/** */
 	private Map<String, String> typeMap = new HashMap<String, String>();
 
+	/**
+	 * 
+	 */
 	public ClassMaker() {
 		typeMap.put("Date", "java.util.Date");
 	}
 
 	/**
 	 * 
+	 * @see br.com.maisha.terra.IClassMaker#makeClasses(java.lang.ClassLoader,
+	 *      br.com.maisha.terra.lang.WindApplication)
+	 */
+	public void makeClasses(ClassLoader cLoader, WindApplication app) throws MakeClassException {
+		try {
+			log.debug("@@@ Creating java classes for " + app.getAppId());
+			ClassPool pool = ClassPool.getDefault();
+
+			pool.insertClassPath(new ClassClassPath(ModelReference.class));
+			Map<DomainObject, CtClass> map = new HashMap<DomainObject, CtClass>();
+			for (DomainObject dObj : app.getDomainObjects()) {
+				map.put(dObj, createDeclaratrion(pool, dObj));
+			}
+
+			for (Map.Entry<DomainObject, CtClass> entry : map.entrySet()) {
+				createFieldDeclarations(entry.getValue(), entry.getKey());
+			}
+
+			for (Map.Entry<DomainObject, CtClass> entry : map.entrySet()) {
+				DomainObject obj = entry.getKey();
+				obj.setObjectClass(entry.getValue().toClass(cLoader, null));
+				
+				describeClass(obj.getObjectClass());
+			}
+		} catch (CannotCompileException e) {
+			throw new MakeClassException(e);
+		}
+
+	}
+
+	/**
+	 * 
+	 * @param pool
+	 * @param obj
+	 * @return
+	 * @throws MakeClassException
+	 */
+	private CtClass createDeclaratrion(ClassPool pool, DomainObject obj) throws MakeClassException {
+		try {
+
+			CtClass modelReference = pool.get(ModelReference.class.getName());
+
+			CtClass cc = pool.makeClass(obj.getPckg() + "." + obj.getRef(), modelReference);
+
+			ClassFile cf = cc.getClassFile();
+			ConstPool cp = cf.getConstPool();
+
+			AnnotationsAttribute entityAnnotation = new AnnotationsAttribute(cp, AnnotationsAttribute.visibleTag);
+			entityAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.Entity", null));
+			cf.addAttribute(entityAnnotation);
+
+			createIdField(cc);
+
+			String setIdMethod = "public void setId(long id){this.id = id;}";
+			String getIdMethod = "public long getId(){return this.id;}";
+
+			cc.addMethod(CtMethod.make(setIdMethod, cc));
+			cc.addMethod(CtMethod.make(getIdMethod, cc));
+
+			return cc;
+		} catch (CannotCompileException e) {
+			throw new MakeClassException(e);
+		} catch (NotFoundException e) {
+			throw new MakeClassException(e);
+		}
+	}
+
+	/**
+	 * 
+	 * @param cc
+	 * @param obj
+	 * @throws MakeClassException
+	 */
+	private void createFieldDeclarations(CtClass cc, DomainObject obj) throws MakeClassException {
+		try {
+			String field = "";
+			for (Attribute att : obj.getAtts()) {
+				field = "private " + getQualifiedType(obj, att.getType()) + " " + att.getRef() + ";";
+				CtField ctField = CtField.make(field, cc);
+				ConstPool cp = ctField.getFieldInfo().getConstPool();
+				
+				// many to one
+				String manytoone = att.getPropertyValue(PropertyInfo.MANYTOONE);
+				if (manytoone != null) {
+					log.debug("@@@ Adding ManyToOne relationship for " + att.getRef());
+					AnnotationsAttribute manyToOneAnnotation = new AnnotationsAttribute(cp,
+							AnnotationsAttribute.visibleTag);
+					manyToOneAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.ManyToOne", null));
+					
+
+					Map<String, MemberValue> params = new HashMap<String, MemberValue>();
+					params.put("name", new StringMemberValue(att.getRef(), ctField.getFieldInfo().getConstPool()));
+					manyToOneAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.JoinColumn", null));
+					
+					ctField.getFieldInfo().addAttribute(manyToOneAnnotation);
+
+				}
+				
+				cc.addField(ctField);
+				cc.addMethod(CtMethod.make(genSetMethod(att), cc));
+				cc.addMethod(CtMethod.make(genGetMethod(att), cc));
+			}
+		} catch (CannotCompileException e) {
+			throw new MakeClassException(e);
+		}
+	}
+
+	private void describeClass(Class cl){
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("\n\npublic class ");
+		sb.append(cl.getName());
+		sb.append("{\n\n");
+		
+		try{
+		for(Field f : cl.getDeclaredFields()){
+			for(java.lang.annotation.Annotation ann : f.getDeclaredAnnotations()){
+				sb.append("@");
+				sb.append(ann.annotationType().getName());
+				sb.append("\n");
+			}
+			sb.append("private ");
+			sb.append(f.getType().getName());
+			sb.append(" ");
+			sb.append(f.getName());
+			sb.append("; \n\n");
+		}
+		}catch(Throwable e){}
+		sb.append("\n\n}");
+		log.debug(sb.toString());
+	}
+	
+	/**
+	 * 
 	 * @see br.com.maisha.terra.IClassMaker#make(br.com.maisha.terra.lang.DomainObject)
 	 */
 	public Class<?> make(ClassLoader cLoader, DomainObject obj) throws MakeClassException {
 		try {
-			ClassPool pool = ClassPool.getDefault();
+			/*ClassPool pool = ClassPool.getDefault();
 
 			pool.insertClassPath(new ClassClassPath(ModelReference.class));
 
@@ -78,16 +224,18 @@ public class ClassMaker implements IClassMaker {
 
 			String field = "";
 			for (Attribute att : obj.getAtts()) {
+				CtField ctField = null;
+
 				field = "private " + getQualifiedType(obj, att.getType()) + " " + att.getRef() + ";";
-				cc.addField(CtField.make(field, cc));
+				ctField = CtField.make(field, cc);
+
+				cc.addField(ctField);
 				cc.addMethod(CtMethod.make(genSetMethod(att), cc));
 				cc.addMethod(CtMethod.make(genGetMethod(att), cc));
 			}
-
-			return cc.toClass(cLoader, null);
-		} catch (CannotCompileException e) {
-			throw new MakeClassException(e);
-		} catch (NotFoundException e) {
+			*/
+			return null;//cc.toClass(cLoader, null);
+		} catch (Exception e) {
 			throw new MakeClassException(e);
 		}
 	}
@@ -157,10 +305,12 @@ public class ClassMaker implements IClassMaker {
 			} else {
 				// procura nos imports
 				for (Import imp : dObj.getImports()) {
-					String[] path = imp.getPath().split(".");
-					String last = path[path.length - 1];
-					if (type.equals(last)) {
-						returnType = imp.getPath();
+					String[] path = imp.getPath().split("\\.");
+					if (path != null && path.length > 0) {
+						String last = path[path.length - 1];
+						if (type.equals(last)) {
+							returnType = imp.getPath();
+						}
 					}
 				}
 			}
@@ -181,7 +331,8 @@ public class ClassMaker implements IClassMaker {
 		method.append("(");
 		method.append(getQualifiedType(att.getDomainObject(), att.getType()));
 		method.append(" v ){");
-		method.append(getQualifiedType(att.getDomainObject(), att.getType())).append(" oldValue = this.").append(att.getRef()).append(";");
+		method.append(getQualifiedType(att.getDomainObject(), att.getType())).append(" oldValue = this.").append(
+				att.getRef()).append(";");
 		method.append("this.").append(att.getRef()).append(" = v;");
 		method.append("changeSupport.firePropertyChange(\"").append(att.getRef()).append("\", oldValue, v);");
 		method.append("}");

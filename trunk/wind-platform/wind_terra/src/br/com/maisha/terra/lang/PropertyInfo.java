@@ -99,6 +99,14 @@ public class PropertyInfo<T> {
 	public static final PropertyInfo<String> TOOLTIP = new PropertyInfo<String>(
 			"tooltip", null, String.class, false);	
 	
+	/** Descricao da propriedade onetomany */
+	public static final PropertyInfo<String> ONTOMANY = new PropertyInfo<String>(
+			"onetomany", null, String.class, false);	
+	
+	/** Descricao da propriedade manytoone */
+	public static final PropertyInfo<String> MANYTOONE = new PropertyInfo<String>(
+			"manytoone", null, String.class, false);		
+	
 	/** Nome da propriedade. */
 	private String propName;
 
