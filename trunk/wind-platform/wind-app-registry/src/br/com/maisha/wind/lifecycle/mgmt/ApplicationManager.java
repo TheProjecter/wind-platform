@@ -83,7 +83,7 @@ public class ApplicationManager implements IApplicationManager {
 					app.addDomainObject(dObj);
 
 					// make java object
-					dObj.setObjectClass(classMaker.make(persistentStorage.getClassLoader(), dObj));
+					//dObj.setObjectClass(classMaker.make(persistentStorage.getClassLoader(), dObj));
 					
 					dObj.setApplication(app);
 
@@ -94,6 +94,8 @@ public class ApplicationManager implements IApplicationManager {
 					// TODO throws exception
 				}
 			}
+			
+			classMaker.makeClasses(persistentStorage.getClassLoader(), app);
 
 			// load it's resource bundles
 			for (ResourceBundleEntry rbEntry : app.getResourceBundles()) {
