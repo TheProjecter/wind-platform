@@ -2,7 +2,7 @@ package com.progonos.portal.domain
 
 import com.progonos.portal.domain.Funcionario
 
-domain_object reembolso "Reembolso" {
+domain_object Reembolso "Reembolso" {
 
 Date data "Data"{
 x: 1
@@ -24,6 +24,7 @@ Funcionario funcionario "Funcionario"{
 x: 1
 y: 2
 width: 150
+manytoone: fk_funcionario
 }
 
 
