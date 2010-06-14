@@ -18,6 +18,7 @@ import javassist.bytecode.ClassFile;
 import javassist.bytecode.ConstPool;
 import javassist.bytecode.FieldInfo;
 import javassist.bytecode.annotation.Annotation;
+import javassist.bytecode.annotation.BooleanMemberValue;
 import javassist.bytecode.annotation.EnumMemberValue;
 import javassist.bytecode.annotation.IntegerMemberValue;
 import javassist.bytecode.annotation.MemberValue;
@@ -34,7 +35,6 @@ import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.common.exception.MakeClassException;
 
-
 /**
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
@@ -42,7 +42,7 @@ import br.com.maisha.wind.common.exception.MakeClassException;
  */
 public class ClassMaker implements IClassMaker {
 
-	/**  Referencia para log. */
+	/** Referencia para log. */
 	private static final Logger log = Logger.getLogger(ClassMaker.class);
 
 	/** */
@@ -82,7 +82,7 @@ public class ClassMaker implements IClassMaker {
 			for (Map.Entry<DomainObject, CtClass> entry : map.entrySet()) {
 				DomainObject obj = entry.getKey();
 				obj.setObjectClass(entry.getValue().toClass(cLoader, null));
-				
+
 				describeClass(obj.getObjectClass());
 			}
 		} catch (CannotCompileException e) {
@@ -138,30 +138,38 @@ public class ClassMaker implements IClassMaker {
 		try {
 			String field = "";
 			for (Attribute att : obj.getAtts()) {
-				field = "private " + getQualifiedType(obj, att.getType()) + " " + att.getRef() + ";";
-				CtField ctField = CtField.make(field, cc);
-				ConstPool cp = ctField.getFieldInfo().getConstPool();
-				
-				// many to one
-				String manytoone = att.getPropertyValue(PropertyInfo.MANYTOONE);
-				if (manytoone != null) {
-					log.debug("@@@ Adding ManyToOne relationship for " + att.getRef());
-					AnnotationsAttribute manyToOneAnnotation = new AnnotationsAttribute(cp,
-							AnnotationsAttribute.visibleTag);
-					manyToOneAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.ManyToOne", null));
-					
+				if (!att.getPropertyValue(PropertyInfo.TRANSIENT)) {
+					field = "private " + getQualifiedType(obj, att.getType()) + " " + att.getRef() + ";";
+					CtField ctField = CtField.make(field, cc);
+					ConstPool cp = ctField.getFieldInfo().getConstPool();
 
-					Map<String, MemberValue> params = new HashMap<String, MemberValue>();
-					params.put("name", new StringMemberValue(att.getRef(), ctField.getFieldInfo().getConstPool()));
-					manyToOneAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.JoinColumn", null));
-					
-					ctField.getFieldInfo().addAttribute(manyToOneAnnotation);
+					AnnotationsAttribute fieldAnnotation = new AnnotationsAttribute(cp, AnnotationsAttribute.visibleTag);
 
+					// many to one
+					String manytoone = att.getPropertyValue(PropertyInfo.MANYTOONE);
+					if (manytoone != null) {
+						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.ManyToOne", null));
+
+						Map<String, MemberValue> params = new HashMap<String, MemberValue>();
+						params.put("name", new StringMemberValue(att.getRef(), cp));
+						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.JoinColumn", null));
+					} else {
+						Map<String, MemberValue> columnParams = new HashMap<String, MemberValue>();
+						columnParams.put("name", new StringMemberValue(att.getRef(), cp));
+						columnParams.put("nullable", new BooleanMemberValue(!att
+								.getPropertyValue(PropertyInfo.REQUIRED), cp));
+						columnParams
+								.put("length", new IntegerMemberValue(cp, att.getPropertyValue(PropertyInfo.WIDTH)));
+						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.Column", columnParams));
+
+					}
+
+					ctField.getFieldInfo().addAttribute(fieldAnnotation);
+
+					cc.addField(ctField);
+					cc.addMethod(CtMethod.make(genSetMethod(att), cc));
+					cc.addMethod(CtMethod.make(genGetMethod(att), cc));
 				}
-				
-				cc.addField(ctField);
-				cc.addMethod(CtMethod.make(genSetMethod(att), cc));
-				cc.addMethod(CtMethod.make(genGetMethod(att), cc));
 			}
 		} catch (CannotCompileException e) {
 			throw new MakeClassException(e);
@@ -192,53 +200,7 @@ public class ClassMaker implements IClassMaker {
 		sb.append("\n\n}");
 		log.debug(sb.toString());
 	}
-	
-	/**
-	 * 
-	 * @see br.com.maisha.terra.IClassMaker#make(br.com.maisha.terra.lang.DomainObject)
-	 */
-	public Class<?> make(ClassLoader cLoader, DomainObject obj) throws MakeClassException {
-		try {
-			/*ClassPool pool = ClassPool.getDefault();
 
-			pool.insertClassPath(new ClassClassPath(ModelReference.class));
-
-			CtClass modelReference = pool.get(ModelReference.class.getName());
-
-			CtClass cc = pool.makeClass(obj.getPckg() + "." + obj.getRef(), modelReference);
-
-			ClassFile cf = cc.getClassFile();
-			ConstPool cp = cf.getConstPool();
-
-			AnnotationsAttribute entityAnnotation = new AnnotationsAttribute(cp, AnnotationsAttribute.visibleTag);
-			entityAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.Entity", null));
-			cf.addAttribute(entityAnnotation);
-
-			createIdField(cc);
-
-			String setIdMethod = "public void setId(long id){this.id = id;}";
-			String getIdMethod = "public long getId(){return this.id;}";
-
-			cc.addMethod(CtMethod.make(setIdMethod, cc));
-			cc.addMethod(CtMethod.make(getIdMethod, cc));
-
-			String field = "";
-			for (Attribute att : obj.getAtts()) {
-				CtField ctField = null;
-
-				field = "private " + getQualifiedType(obj, att.getType()) + " " + att.getRef() + ";";
-				ctField = CtField.make(field, cc);
-
-				cc.addField(ctField);
-				cc.addMethod(CtMethod.make(genSetMethod(att), cc));
-				cc.addMethod(CtMethod.make(genGetMethod(att), cc));
-			}
-			*/
-			return null;//cc.toClass(cLoader, null);
-		} catch (Exception e) {
-			throw new MakeClassException(e);
-		}
-	}
 
 	private void createIdField(CtClass cc) throws CannotCompileException {
 		String id = "private long id; ";

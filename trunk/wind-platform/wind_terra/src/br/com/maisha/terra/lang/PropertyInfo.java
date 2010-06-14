@@ -73,11 +73,11 @@ public class PropertyInfo<T> {
 
 	/** Descricao da propriedade width */
 	public static final PropertyInfo<Integer> WIDTH = new PropertyInfo<Integer>(
-			"width", null, Integer.class, false);
+			"width", 255, Integer.class, false);
 
 	/** Descricao da propriedade height */
 	public static final PropertyInfo<Integer> HEIGHT = new PropertyInfo<Integer>(
-			"height", null, Integer.class, false);
+			"height", 20, Integer.class, false);
 
 	/** Descricao da propriedade event */
 	public static final PropertyInfo<String> EVENT = new PropertyInfo<String>(
@@ -106,6 +106,10 @@ public class PropertyInfo<T> {
 	/** Descricao da propriedade manytoone */
 	public static final PropertyInfo<String> MANYTOONE = new PropertyInfo<String>(
 			"manytoone", null, String.class, false);		
+
+	/** Descricao da propriedade transient */
+	public static final PropertyInfo<Boolean> TRANSIENT = new PropertyInfo<Boolean>(
+			"transient", false, Boolean.class, false);			
 	
 	/** Nome da propriedade. */
 	private String propName;
