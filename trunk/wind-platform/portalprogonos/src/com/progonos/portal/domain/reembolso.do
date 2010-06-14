@@ -25,6 +25,7 @@ x: 1
 y: 2
 width: 150
 manytoone: fk_funcionario
+presentation_type: related
 }
 
 
