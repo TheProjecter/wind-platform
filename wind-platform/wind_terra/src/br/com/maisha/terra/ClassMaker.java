@@ -168,7 +168,7 @@ public class ClassMaker implements IClassMaker {
 		}
 	}
 
-	private void describeClass(Class cl){
+	private void describeClass(Class<?> cl){
 		
 		StringBuffer sb = new StringBuffer();
 		sb.append("\n\npublic class ");
