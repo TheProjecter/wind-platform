@@ -59,4 +59,12 @@ public interface IApplicationRegistry extends Component {
 	 * @return
 	 */
 	DomainObject getObject(String appId, String objectId);
+	
+	/**
+	 * 
+	 * @param appId
+	 * @param type
+	 * @return
+	 */
+	DomainObject getObjectByType(String appId, String type);
 }

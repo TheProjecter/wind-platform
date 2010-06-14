@@ -20,8 +20,7 @@ import br.com.maisha.terra.lang.WindApplication;
 public class ApplicationRegistry implements IApplicationRegistry {
 
 	/** Log ref. */
-	private static final Logger log = Logger
-			.getLogger(ApplicationRegistry.class);
+	private static final Logger log = Logger.getLogger(ApplicationRegistry.class);
 
 	/** HashMap registry. */
 	private Map<String, WindApplication> registry = new HashMap<String, WindApplication>();
@@ -48,8 +47,7 @@ public class ApplicationRegistry implements IApplicationRegistry {
 	 */
 	public boolean register(WindApplication app) {
 		if (registry.containsKey(app.getAppId())) {
-			log.error("Registry already contains an application "
-					+ "registered under the given id [" + app.getAppId()
+			log.error("Registry already contains an application " + "registered under the given id [" + app.getAppId()
 					+ "] ... " + "choose a different one!");
 			return false;
 		}
@@ -91,4 +89,22 @@ public class ApplicationRegistry implements IApplicationRegistry {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @param appId
+	 * @param type
+	 * @return
+	 */
+	public DomainObject getObjectByType(String appId, String type) {
+		WindApplication app = retrieve(appId);
+		if (app != null) {
+			for (DomainObject dObj : app.getDomainObjects()) {
+				String dObjType =  dObj.getRef();
+				if(dObjType.equals(type)){
+					return dObj;
+				}
+			}
+		}
+		return null;
+	}
 }
