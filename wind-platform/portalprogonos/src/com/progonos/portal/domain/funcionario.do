@@ -10,7 +10,7 @@ width: 150
 }
 
 operation groovy Save "Salvar"{
-file: SalvarReembolso.groovy
+file: SalvarFuncionario.groovy
 icon: save.gif
 }
 

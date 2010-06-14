@@ -18,9 +18,7 @@ class Save{
 	
 	Object execute(){
 		api.save("portal_progonos", model);
-		api.success(model.meta, "com.progonos.portal.reembolso.save.success", null);
-		
-		
+		api.success(model.meta, "com.progonos.portal.funcionario.save.success", null);
 		return ctx
 	}
 	
