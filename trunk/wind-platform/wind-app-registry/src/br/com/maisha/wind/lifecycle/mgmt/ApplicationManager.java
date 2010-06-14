@@ -82,9 +82,6 @@ public class ApplicationManager implements IApplicationManager {
 					DomainObject dObj = langCompiler.compile(dObjIptStream);
 					app.addDomainObject(dObj);
 
-					// make java object
-					//dObj.setObjectClass(classMaker.make(persistentStorage.getClassLoader(), dObj));
-					
 					dObj.setApplication(app);
 
 					// fire model event
