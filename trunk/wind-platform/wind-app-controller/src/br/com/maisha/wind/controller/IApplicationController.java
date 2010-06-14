@@ -48,6 +48,20 @@ public interface IApplicationController {
 	 * @return
 	 */
 	Object getObjectValue(Object instance, String attributeName);
-	
+
+	/**
+	 * 
+	 * @param obj
+	 * @param lst
+	 * @return
+	 */
 	List<Map<String, Object>> toMap(DomainObject obj, List<ModelReference> lst);
+	
+	/**
+	 * 
+	 * @param script
+	 * @param context
+	 * @return
+	 */
+	 Object runScript(String script, Map<String, Object> context); 
 }
