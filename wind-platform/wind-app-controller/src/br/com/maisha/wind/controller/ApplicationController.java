@@ -247,6 +247,26 @@ public class ApplicationController implements IApplicationController {
 
 	/**
 	 * 
+	 * @see br.com.maisha.wind.controller.IApplicationController#runScript(java.lang.String, java.util.Map)
+	 */
+	public Object runScript(String script, Map<String, Object> context) {
+		Object ret = null;
+		try {
+			ScriptEngine juelEngine = engineManager.getEngineByName("juel");
+
+			for (Map.Entry<String, Object> entry : context.entrySet()) {
+				juelEngine.put(entry.getKey(), entry.getValue());
+			}
+
+			ret = juelEngine.eval(script);
+		} catch (Exception e) {
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
+		}
+		return ret;
+	}
+
+	/**
+	 * 
 	 * @see br.com.maisha.wind.controller.IApplicationController#filter(br.com.maisha.terra.lang.DomainObject)
 	 */
 	@SuppressWarnings("unchecked")
@@ -262,11 +282,11 @@ public class ApplicationController implements IApplicationController {
 	public List<Map<String, Object>> toMap(DomainObject obj, List<ModelReference> lst) {
 
 		List<Map<String, Object>> lstMap = new ArrayList<Map<String, Object>>();
-		
-		if(lst == null || lst.isEmpty()){
+
+		if (lst == null || lst.isEmpty()) {
 			return lstMap;
 		}
-		
+
 		try {
 			ScriptEngine juelEngine = engineManager.getEngineByName("juel");
 
@@ -276,6 +296,7 @@ public class ApplicationController implements IApplicationController {
 				for (Attribute attr : obj.getAtts()) {
 					map.put(attr.getRef(), juelEngine.eval("${ref." + attr.getRef() + "}"));
 				}
+				map.put("ref", ref);
 				lstMap.add(map);
 			}
 		} catch (Exception e) {
