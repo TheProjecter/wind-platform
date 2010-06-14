@@ -3,7 +3,6 @@ grammar TerraParser;
 options {
   // We're going to output an AST.
   output = AST;
-
 }
 
 
@@ -48,9 +47,9 @@ DOMAIN_OBJECT:'domain_object';
 PACKAGE:'package';
 IMPORT:'import'; 
 VALIDATION_RULE:	'validationRule';
-//TYPE	:	'Integer' | 'Double' | 'Float' | 'Long' | 'Short' | 'Boolean' | 'String' | 'Date'  ;
 PROPERTY:	'x' | 'y' | 'colspan' | 'rowspan' | 'presentation_type' |  'disabled' | 'visible' | 'icon' | 'width' | 'height' | 'tooltip';
-ATTRIBUTE_PROPERTY: 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'event' | 'onetomany' | 'manytoone'  ;
+ATTRIBUTE_PROPERTY: 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'event';
+PERSISTENT_PROPERTY: 'onetomany' | 'manytoone' | 'transient' ;  
 OPERATION_PROPERTY: 'class' | 'file' | 'validWhen' ;
 OPERATION: 'operation';
 
