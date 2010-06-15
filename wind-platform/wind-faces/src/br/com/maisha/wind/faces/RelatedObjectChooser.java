@@ -139,4 +139,9 @@ public class RelatedObjectChooser extends TitleAreaDialog {
 		super.okPressed();
 	}
 
+	public ModelReference getRelated() {
+		return related;
+	}
+
+	
 }
