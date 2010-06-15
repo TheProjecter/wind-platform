@@ -103,21 +103,35 @@ public class EditionView extends ViewPart implements IRender {
 	public void render(Object model) {
 		log.debug("Opening [" + model + "] in the EditionView... ");
 
-		DomainObject object = (DomainObject) model;
+		final DomainObject object = (DomainObject) model;
 		setPartName(object.getLabel());
 
 		try {
 			modelInstance = (ModelReference) object.getObjectClass().newInstance();
 			modelInstance.setMeta(object);
-			
-			final ModelReference ref = modelInstance;
-			Display.getCurrent().asyncExec(new Runnable() {				
+
+			Display.getCurrent().asyncExec(new Runnable() {
+
+				@Override
 				public void run() {
-					appController.evalExpressions(ref);
-					
+					Map<String, Object> context = new HashMap<String, Object>();
+					context.put("ref", modelInstance);
+					context.put("appId", object.getApplication().getAppId());
+					context.put("objId", object.getRef());
+					appController.runScript("${ ref.setAppId(appId)}", context);
+					appController.runScript("${ref.setObjId(objId)}", context);
+
 				}
 			});
-			
+
+			final ModelReference ref = modelInstance;
+			Display.getCurrent().asyncExec(new Runnable() {
+				public void run() {
+					appController.evalExpressions(ref);
+
+				}
+			});
+
 			modelInstance.addPropertyChangeListener(new ELListener());
 
 		} catch (Exception e) {
