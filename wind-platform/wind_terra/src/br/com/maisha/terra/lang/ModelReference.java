@@ -16,6 +16,7 @@ public class ModelReference {
 
 	private DomainObject meta;
 
+
 	/** Property change. */
 	protected PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
@@ -53,11 +54,16 @@ public class ModelReference {
 		changeSupport.removePropertyChangeListener(propertyName, listener);
 	}
 
+	/** @see #meta */
 	public DomainObject getMeta() {
 		return meta;
 	}
 
+	/** @see #meta */
 	public void setMeta(DomainObject meta) {
 		this.meta = meta;
 	}
+
+
+
 }
