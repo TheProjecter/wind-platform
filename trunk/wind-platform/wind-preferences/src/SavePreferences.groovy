@@ -29,7 +29,7 @@ class Save{
 		
 		prefService.put("general", "currentLocale", model.locale);
 		prefService.put("general", "maxResultsDisplayed", model.maxResultsDisplayed.toString());
-		
+		prefService.put("general", "datePattern", model.datePattern);
 		
 		"wind_preferences.preferences.saved".success();
 		return ctx
