@@ -48,7 +48,7 @@ PACKAGE:'package';
 IMPORT:'import'; 
 VALIDATION_RULE:	'validationRule';
 PROPERTY:	'x' | 'y' | 'colspan' | 'rowspan' | 'presentation_type' |  'disabled' | 'visible' | 'icon' | 'width' | 'height' | 'tooltip';
-ATTRIBUTE_PROPERTY: 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'event';
+ATTRIBUTE_PROPERTY: 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'event' | 'toString';
 PERSISTENT_PROPERTY: 'onetomany' | 'manytoone' | 'transient' ;  
 OPERATION_PROPERTY: 'class' | 'file' | 'validWhen' ;
 OPERATION: 'operation';
