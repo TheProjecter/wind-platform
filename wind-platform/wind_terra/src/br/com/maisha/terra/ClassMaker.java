@@ -120,6 +120,22 @@ public class ClassMaker implements IClassMaker {
 			cc.addMethod(CtMethod.make(setIdMethod, cc));
 			cc.addMethod(CtMethod.make(getIdMethod, cc));
 
+			// create objId and appId columns
+			cc.addField(CtField.make("private String appId;", cc));
+			cc.addField(CtField.make("private String objId;", cc));
+
+			String setAppIdMethod = "public void setAppId(String appId){this.appId = appId;}";
+			String getAppIdMethod = "public String getAppId(){return this.appId;}";
+
+			cc.addMethod(CtMethod.make(setAppIdMethod, cc));
+			cc.addMethod(CtMethod.make(getAppIdMethod, cc));
+
+			String setObjIdMethod = "public void setObjId(String objId){this.objId = objId;}";
+			String getObjIdMethod = "public String getObjId(){return this.objId;}";
+
+			cc.addMethod(CtMethod.make(setObjIdMethod, cc));
+			cc.addMethod(CtMethod.make(getObjIdMethod, cc));
+
 			return cc;
 		} catch (CannotCompileException e) {
 			throw new MakeClassException(e);
@@ -176,31 +192,31 @@ public class ClassMaker implements IClassMaker {
 		}
 	}
 
-	private void describeClass(Class<?> cl){
-		
+	private void describeClass(Class<?> cl) {
+
 		StringBuffer sb = new StringBuffer();
 		sb.append("\n\npublic class ");
 		sb.append(cl.getName());
 		sb.append("{\n\n");
-		
-		try{
-		for(Field f : cl.getDeclaredFields()){
-			for(java.lang.annotation.Annotation ann : f.getDeclaredAnnotations()){
-				sb.append("@");
-				sb.append(ann.annotationType().getName());
-				sb.append("\n");
+
+		try {
+			for (Field f : cl.getDeclaredFields()) {
+				for (java.lang.annotation.Annotation ann : f.getDeclaredAnnotations()) {
+					sb.append("@");
+					sb.append(ann.annotationType().getName());
+					sb.append("\n");
+				}
+				sb.append("private ");
+				sb.append(f.getType().getName());
+				sb.append(" ");
+				sb.append(f.getName());
+				sb.append("; \n\n");
 			}
-			sb.append("private ");
-			sb.append(f.getType().getName());
-			sb.append(" ");
-			sb.append(f.getName());
-			sb.append("; \n\n");
+		} catch (Throwable e) {
 		}
-		}catch(Throwable e){}
 		sb.append("\n\n}");
 		log.debug(sb.toString());
 	}
-
 
 	private void createIdField(CtClass cc) throws CannotCompileException {
 		String id = "private long id; ";
