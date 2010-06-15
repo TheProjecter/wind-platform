@@ -1,5 +1,7 @@
 package br.com.maisha.wind.faces.render.attr;
 
+import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -52,7 +54,7 @@ public class RelatedObjectAttrRender extends BaseAttrRender {
 
 		composite.setLayout(new GridLayout(2, false));
 
-		Text text = new Text(composite, SWT.BORDER | SWT.SINGLE);
+		final Text text = new Text(composite, SWT.BORDER | SWT.SINGLE);
 		text.setEditable(false);
 
 		Button bt = new Button(composite, SWT.NONE);
@@ -72,7 +74,14 @@ public class RelatedObjectAttrRender extends BaseAttrRender {
 				// opens the dialog for choosing...
 				RelatedObjectChooser chooser = new RelatedObjectChooser(attr, modelInstance, related, e.widget
 						.getDisplay().getActiveShell());
-				chooser.open();
+				chooser.setBlockOnOpen(true);
+				int retCode = chooser.open();
+				if (Window.OK == retCode) {
+					ModelReference relatedRef = chooser.getRelated();
+					if (related != null) {
+						text.setText(related.toString());
+					}
+				}
 			}
 
 			public void widgetDefaultSelected(SelectionEvent e) {
