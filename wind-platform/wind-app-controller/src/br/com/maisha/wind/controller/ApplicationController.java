@@ -247,7 +247,8 @@ public class ApplicationController implements IApplicationController {
 
 	/**
 	 * 
-	 * @see br.com.maisha.wind.controller.IApplicationController#runScript(java.lang.String, java.util.Map)
+	 * @see br.com.maisha.wind.controller.IApplicationController#runScript(java.lang.String,
+	 *      java.util.Map)
 	 */
 	public Object runScript(String script, Map<String, Object> context) {
 		Object ret = null;
@@ -271,7 +272,15 @@ public class ApplicationController implements IApplicationController {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<ModelReference> filter(DomainObject dobj) {
-		return (List<ModelReference>) persistentStorage.getAll(dobj.getApplication().getAppId(), dobj);
+		List<ModelReference> ret = (List<ModelReference>) persistentStorage.getAll(dobj.getApplication().getAppId(),
+				dobj);
+		if (ret != null && !ret.isEmpty()) {
+			for (ModelReference ref : ret) {
+				ref.setMeta(dobj);
+			}
+		}
+
+		return ret;
 	}
 
 	/**

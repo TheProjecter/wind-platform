@@ -50,7 +50,7 @@ public class PlatformMessageRegistry {
 	 * 
 	 * @return
 	 */
-	private Locale getCurrentLocale() {
+	public Locale getCurrentLocale() {
 		Locale loc = Locale.getDefault();
 		try {
 			String strLocale = prefStore.get("general", "currentLocale", "pt_BR");
@@ -60,6 +60,16 @@ public class PlatformMessageRegistry {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 		return loc;
+	}
+
+	/**
+	 * 
+	 * @param key
+	 * @param def
+	 * @return
+	 */
+	public String getPreference(String key, String def) {
+		return prefStore.get("general", key, def);
 	}
 
 	/**
