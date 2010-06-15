@@ -7,13 +7,13 @@ String nome "Nome"{
 x: 1
 y: 1
 width: 150
+toString: true
 }
 
 String telefone "Telefone"{
 x: 1
 y: 2
 width: 150
-mask: "NN NNNN-NNNN"
 }
 
 String email "Email"{
