@@ -1,5 +1,6 @@
 package br.com.maisha.wind.controller.storage;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +79,50 @@ public class PersistentStorage implements IStorage {
 		}
 	}
 
+	/**
+	 * 
+	 * @param appId
+	 * @param clazz
+	 * @param id
+	 * @return
+	 */
+	public Object getById(String appId, Class<?> clazz, Serializable id) {
+		Object ret = null;
+
+		SessionFactory sessionFactory = sessionFactoryRegistry.get(appId);
+		Session sess = sessionFactory.openSession();
+		try {
+			ret = sess.get(clazz, id);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+		} finally {
+			sess.flush();
+			sess.close();
+		}
+		return ret;
+	}
+
+	/**
+	 * 
+	 * @param appId
+	 * @param ref
+	 */
+	public void update(String appId, ModelReference ref) {
+		SessionFactory sessionFactory = sessionFactoryRegistry.get(appId);
+		Session sess = sessionFactory.openSession();
+		Transaction transaction = sess.beginTransaction();
+		try {
+			sess.merge(ref);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			log.error(e.getMessage(), e);
+		} finally {
+			sess.flush();
+			sess.close();
+		}
+	}
+	
 	/**
 	 * 
 	 * @param appId

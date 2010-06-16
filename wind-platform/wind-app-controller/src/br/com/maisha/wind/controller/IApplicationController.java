@@ -64,4 +64,10 @@ public interface IApplicationController {
 	 * @return
 	 */
 	 Object runScript(String script, Map<String, Object> context); 
+	 
+	 /**
+	  * 
+	  * @param ref
+	  */
+	 void openObjectInstance(ModelReference ref);
 }
