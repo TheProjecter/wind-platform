@@ -17,6 +17,7 @@ import org.eclipse.ui.part.ViewPart;
 
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
+import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.controller.model.UserMessage;
@@ -127,7 +128,7 @@ public class MessageView extends ViewPart implements IRender {
 	 * @see br.com.maisha.wind.faces.render.IRender#render(java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")
-	public void render(Object model) {
+	public void render(ChangeType ct, Object model) {
 		log.debug("Messages changed...");
 		if (model instanceof List<?>) {
 			List<UserMessage> msg = (List<UserMessage>) model;

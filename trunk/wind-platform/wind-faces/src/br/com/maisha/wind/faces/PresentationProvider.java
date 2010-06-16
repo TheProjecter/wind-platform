@@ -26,8 +26,7 @@ import br.com.maisha.wind.lifecycle.mgmt.IApplicationManager;
 public class PresentationProvider implements IPresentationProvider {
 
 	/** Log ref. */
-	private static final Logger log = Logger
-			.getLogger(PresentationProvider.class);
+	private static final Logger log = Logger.getLogger(PresentationProvider.class);
 
 	/** Lista de renderizadores resgistrados neste Presentation Provider. */
 	private List<IRender> render = new ArrayList<IRender>();
@@ -41,10 +40,11 @@ public class PresentationProvider implements IPresentationProvider {
 	 */
 	public void render(final Object model, final LevelType level, final ChangeType change) {
 		if (Application.getApp() != null && PlatformUI.isWorkbenchRunning()) {
+			log.debug("Processing change [" + change + " at level [" + level + "]");
 			for (IRender r : render) {
 				if (r.getModelLevel() == level) {
 					log.debug("		Call render [" + r + "]");
-					r.render(model);
+					r.render(change, model);
 				}
 			}
 		}
@@ -75,8 +75,7 @@ public class PresentationProvider implements IPresentationProvider {
 	 */
 	public void processMenu(String appId, String objectId) {
 		log.debug("Processing menu click at [" + objectId + "]");
-		IApplicationManager appMgr = ServiceProvider.getInstance().getService(
-				IApplicationManager.class,
+		IApplicationManager appMgr = ServiceProvider.getInstance().getService(IApplicationManager.class,
 				Activator.getDefault().getBundle().getBundleContext());
 
 		appMgr.openObject(appId, objectId);

@@ -1,5 +1,6 @@
 package br.com.maisha.wind.faces.render;
 
+import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 
 /**
@@ -16,7 +17,7 @@ public interface IRender {
 	 * @param model
 	 *            Model object to render.
 	 */
-	void render(Object model);
+	void render(ChangeType ct, Object model);
 
 	/**
 	 * Returns the {@link LevelType} this render act.

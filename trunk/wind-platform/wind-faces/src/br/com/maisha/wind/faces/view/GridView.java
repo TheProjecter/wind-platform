@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
@@ -18,6 +21,7 @@ import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.factory.ServiceProvider;
+import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
@@ -58,6 +62,17 @@ public class GridView extends ViewPart implements IRender {
 		viewer.getTable().setHeaderVisible(true);
 		viewer.getTable().setLinesVisible(true);
 
+		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+
+			public void selectionChanged(SelectionChangedEvent event) {
+				IStructuredSelection sel = (IStructuredSelection) event.getSelection();
+				if(!sel.isEmpty()){
+					Map<String, Object> map = (Map<String, Object>) sel.getFirstElement();
+					appCtrl.openObjectInstance((ModelReference) map.get("ref"));
+				}
+			}
+		});
+
 		viewer.setContentProvider(new GridViewContentProvider());
 	}
 
@@ -81,42 +96,43 @@ public class GridView extends ViewPart implements IRender {
 	 * 
 	 * @see br.com.maisha.wind.faces.render.IRender#render(java.lang.Object)
 	 */
-	public void render(Object model) {
-		log.debug("Updating grid view... ");
+	public void render(ChangeType ct, Object model) {
+		if (ct.equals(ChangeType.ObjectOpened) || ct.equals(ChangeType.ValueChanged)) {
+			log.debug("Updating grid view... ");
+			if (model instanceof DomainObject) {
+				final DomainObject dObj = (DomainObject) model;
 
-		if (model instanceof DomainObject) {
-			final DomainObject dObj = (DomainObject) model;
-
-			for (TableColumn col : viewer.getTable().getColumns()) {
-				col.dispose();
-			}
-
-			final Map<Integer, String> map = new HashMap<Integer, String>();
-			int i = 0;
-			for (Attribute attr : dObj.getAtts()) {
-				TableViewerColumn col = new TableViewerColumn(viewer, SWT.NONE);
-				col.getColumn().setText(attr.getLabel());
-				col.getColumn().setWidth(attr.getPropertyValue(PropertyInfo.WIDTH));
-				col.getColumn().setResizable(true);
-				col.getColumn().setMoveable(false);
-
-				map.put(i, attr.getRef());
-
-				i++;
-			}
-
-			Display.getCurrent().asyncExec(new Runnable() {
-				public void run() {
-					List<ModelReference> data = appCtrl.filter(dObj);
-					List<Map<String, Object>> dataMap = appCtrl.toMap(dObj, data);
-					viewer.setLabelProvider(new GridViewLabelProvider(map));
-					viewer.setInput(dataMap);
-					String totalResults = PlatformMessageRegistry.getInstance().getMessage(
-							"wind_faces.gridview.totalResults", new Object[] { dataMap.size() });
-					setContentDescription(totalResults);
+				for (TableColumn col : viewer.getTable().getColumns()) {
+					col.dispose();
 				}
-			});
 
+				final Map<Integer, String> map = new HashMap<Integer, String>();
+				int i = 0;
+				for (Attribute attr : dObj.getAtts()) {
+					TableViewerColumn col = new TableViewerColumn(viewer, SWT.NONE);
+					col.getColumn().setText(attr.getLabel());
+					col.getColumn().setWidth(attr.getPropertyValue(PropertyInfo.WIDTH));
+					col.getColumn().setResizable(true);
+					col.getColumn().setMoveable(false);
+
+					map.put(i, attr.getRef());
+
+					i++;
+				}
+
+				Display.getCurrent().asyncExec(new Runnable() {
+					public void run() {
+						List<ModelReference> data = appCtrl.filter(dObj);
+						List<Map<String, Object>> dataMap = appCtrl.toMap(dObj, data);
+						viewer.setLabelProvider(new GridViewLabelProvider(map));
+						viewer.setInput(dataMap);
+						String totalResults = PlatformMessageRegistry.getInstance().getMessage(
+								"wind_faces.gridview.totalResults", new Object[] { dataMap.size() });
+						setContentDescription(totalResults);
+					}
+				});
+
+			}
 		}
 	}
 

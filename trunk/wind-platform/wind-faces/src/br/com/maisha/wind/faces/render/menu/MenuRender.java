@@ -11,6 +11,7 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.WindApplication;
+import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.faces.rcp.RCPUtil;
 import br.com.maisha.wind.faces.render.BaseRender;
@@ -38,7 +39,7 @@ public class MenuRender extends BaseRender {
 	 * 
 	 * @see br.com.maisha.wind.faces.render.IRender#render(java.lang.Object)
 	 */
-	public void render(Object model) {
+	public void render(ChangeType ct, Object model) {
 		if (!(model instanceof WindApplication)) {
 			log.error("This render is intended to recieve a "
 					+ "WindApplication as model, but [" + model.getClass()
