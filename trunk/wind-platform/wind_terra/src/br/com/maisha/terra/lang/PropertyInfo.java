@@ -66,7 +66,7 @@ public class PropertyInfo<T> {
 	public static final PropertyInfo<Integer> WIDTH = new PropertyInfo<Integer>("width", 255, Integer.class, false);
 
 	/** Descricao da propriedade height */
-	public static final PropertyInfo<Integer> HEIGHT = new PropertyInfo<Integer>("height", 20, Integer.class, false);
+	public static final PropertyInfo<Integer> HEIGHT = new PropertyInfo<Integer>("height", 17, Integer.class, false);
 
 	/** Descricao da propriedade event */
 	public static final PropertyInfo<String> EVENT = new PropertyInfo<String>("event", null, String.class, false);
