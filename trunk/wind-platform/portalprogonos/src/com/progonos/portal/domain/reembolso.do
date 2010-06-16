@@ -7,9 +7,18 @@ domain_object Reembolso "Reembolso" {
 Date data "Data"{
 x: 1
 y: 1
-width: 100
-height: 20
+width: 120
 presentation_type: date
+required: true
+}
+
+Funcionario funcionario "Funcionario"{
+x: 1
+y: 2
+width: 250
+manytoone: fk_funcionario
+presentation_type: related
+required: true
 }
 
 String observacoes "Observacoes"{
@@ -20,18 +29,19 @@ width: 300
 height: 80
 }
 
-Funcionario funcionario "Funcionario"{
+Boolean fechado "Fechado"{
 x: 1
-y: 2
-width: 150
-manytoone: fk_funcionario
-presentation_type: related
+y: 4
+visible: false
 }
-
 
 operation groovy Save "Salvar"{
 file: SalvarReembolso.groovy
 icon: save.gif
+}
+
+operation groovy Close "Fechar"{
+file: FecharReembolso.groovy
 }
 
 }
