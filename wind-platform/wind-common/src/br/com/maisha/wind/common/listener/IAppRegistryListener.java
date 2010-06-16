@@ -12,7 +12,7 @@ public interface IAppRegistryListener {
 	}
 
 	public enum ChangeType {
-		Added, Removed, ValueChanged, ObjectOpened, ObjectClosed
+		Added, Removed, ValueChanged, ObjectOpened, ObjectClosed, InstanceOpened
 	}
 
 	/**
