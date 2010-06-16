@@ -316,6 +316,14 @@ public class ApplicationController implements IApplicationController {
 
 	}
 
+	/**
+	 * 
+	 * @param ref
+	 */
+	public void openObjectInstance(ModelReference ref){
+		modelListener.fireEvent(null, ref, LevelType.Object, ChangeType.InstanceOpened);
+	}
+	
 	/** @see #modelListener */
 	public IAppModelListenerRegistry getModelListener() {
 		return modelListener;

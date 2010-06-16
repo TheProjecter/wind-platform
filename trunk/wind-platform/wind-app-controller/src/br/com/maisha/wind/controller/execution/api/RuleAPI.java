@@ -1,5 +1,7 @@
 package br.com.maisha.wind.controller.execution.api;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang.StringUtils;
 
 import br.com.maisha.terra.lang.DomainObject;
@@ -33,6 +35,16 @@ public class RuleAPI {
 	public void save(String appId, ModelReference d){
 		persistentStorage.save(appId, d);
 	}
+	
+	public Object getById(String appId, Class<?> clazz, Serializable id){
+		return persistentStorage.getById(appId, clazz, id);
+	}
+	
+	
+	public void update(String appId, ModelReference ref){
+		persistentStorage.update(appId, ref);
+	}
+	                                                     
 	
 	/**
 	 * 

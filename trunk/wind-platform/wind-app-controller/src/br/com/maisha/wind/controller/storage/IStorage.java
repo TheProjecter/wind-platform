@@ -1,5 +1,6 @@
 package br.com.maisha.wind.controller.storage;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.cfg.Configuration;
@@ -37,4 +38,20 @@ public interface IStorage {
 	 * @return
 	 */
 	List<?> getAll(String appId,  DomainObject dObj);
+	
+	/**
+	 * 
+	 * @param appId
+	 * @param clazz
+	 * @param id
+	 * @return
+	 */
+	Object getById(String appId, Class<?> clazz, Serializable id);
+	
+	/**
+	 * 
+	 * @param appId
+	 * @param ref
+	 */
+	void update(String appId, ModelReference ref);
 }
