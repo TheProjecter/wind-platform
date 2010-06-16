@@ -11,6 +11,7 @@ import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.common.factory.ServiceProvider;
+import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.faces.IPresentationProvider;
 import br.com.maisha.wind.faces.rcp.Activator;
@@ -72,7 +73,7 @@ public class ModuleOverview extends ViewPart implements IRender {
 	 * 
 	 * @see br.com.maisha.wind.faces.render.IRender#render(java.lang.Object)
 	 */
-	public void render(Object model) {
+	public void render(ChangeType ct, Object model) {
 		if (model != null) {
 			if (!(model instanceof WindApplication)) {
 				log.error("This render is intended to recieve a "

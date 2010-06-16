@@ -1,6 +1,5 @@
 package br.com.maisha.wind.faces.render.attr;
 
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -14,8 +13,8 @@ import org.eclipse.swt.widgets.Text;
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
-import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Property.PresentationType;
+import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.faces.RelatedObjectChooser;
 import br.com.maisha.wind.faces.rcp.Activator;
@@ -52,7 +51,12 @@ public class RelatedObjectAttrRender extends BaseAttrRender {
 		setColspan(gd, attr);
 		setRowspan(gd, attr);
 
-		composite.setLayout(new GridLayout(2, false));
+		GridLayout layout = new GridLayout(2, false);
+		layout.marginHeight = 0;
+		layout.marginWidth = 0;
+		layout.verticalSpacing = 0;
+		layout.horizontalSpacing = 0;
+		composite.setLayout(layout);
 
 		final Text text = new Text(composite, SWT.BORDER | SWT.SINGLE);
 		text.setEditable(false);

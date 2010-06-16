@@ -16,6 +16,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.ViewPart;
+import org.springframework.beans.BeanUtils;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
@@ -25,6 +26,7 @@ import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
+import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.controller.execution.el.ELListener;
@@ -58,8 +60,6 @@ public class EditionView extends ViewPart implements IRender {
 
 	/** */
 	private ModelReference modelInstance;
-
-	private IAction clearAction;
 
 	/**
 	 * 
@@ -100,45 +100,48 @@ public class EditionView extends ViewPart implements IRender {
 	 * 
 	 * @see br.com.maisha.wind.faces.render.IRender#render(java.lang.Object)
 	 */
-	public void render(Object model) {
+	public void render(ChangeType ct, Object model) {
 		log.debug("Opening [" + model + "] in the EditionView... ");
 
-		final DomainObject object = (DomainObject) model;
-		setPartName(object.getLabel());
+		if (ChangeType.InstanceOpened.equals(ct)) {
+			BeanUtils.copyProperties(model, modelInstance);
+		} else {
+			try {
+				final DomainObject object = (DomainObject) model;
+				setPartName(object.getLabel());
 
-		try {
-			modelInstance = (ModelReference) object.getObjectClass().newInstance();
-			modelInstance.setMeta(object);
+				modelInstance = (ModelReference) object.getObjectClass().newInstance();
+				modelInstance.setMeta(object);
 
-			Display.getCurrent().asyncExec(new Runnable() {
+				Display.getCurrent().asyncExec(new Runnable() {
 
-				@Override
-				public void run() {
-					Map<String, Object> context = new HashMap<String, Object>();
-					context.put("ref", modelInstance);
-					context.put("appId", object.getApplication().getAppId());
-					context.put("objId", object.getRef());
-					appController.runScript("${ ref.setAppId(appId)}", context);
-					appController.runScript("${ref.setObjId(objId)}", context);
+					@Override
+					public void run() {
+						Map<String, Object> context = new HashMap<String, Object>();
+						context.put("ref", modelInstance);
+						context.put("appId", object.getApplication().getAppId());
+						context.put("objId", object.getRef());
+						appController.runScript("${ ref.setAppId(appId)}", context);
+						appController.runScript("${ref.setObjId(objId)}", context);
 
-				}
-			});
+					}
+				});
 
-			final ModelReference ref = modelInstance;
-			Display.getCurrent().asyncExec(new Runnable() {
-				public void run() {
-					appController.evalExpressions(ref);
+				final ModelReference ref = modelInstance;
+				Display.getCurrent().asyncExec(new Runnable() {
+					public void run() {
+						appController.evalExpressions(ref);
 
-				}
-			});
+					}
+				});
 
-			modelInstance.addPropertyChangeListener(new ELListener());
+				modelInstance.addPropertyChangeListener(new ELListener());
 
-		} catch (Exception e) {
-			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
+				createUserInterface(object);
+			} catch (Exception e) {
+				ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
+			}
 		}
-
-		createUserInterface(object);
 	}
 
 	/**

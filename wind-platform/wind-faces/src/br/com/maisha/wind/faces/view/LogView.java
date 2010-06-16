@@ -21,6 +21,7 @@ import org.eclipse.ui.part.ViewPart;
 import br.com.maisha.wind.common.exception.ErrorLog;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
+import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.faces.IPresentationProvider;
@@ -111,7 +112,7 @@ public class LogView extends ViewPart implements IRender {
 	 * @see br.com.maisha.wind.faces.render.IRender#render(java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")
-	public void render(Object model) {
+	public void render(ChangeType ct, Object model) {
 		log.debug("Rendering Log View...");
 
 		if (model instanceof ErrorLog) {
