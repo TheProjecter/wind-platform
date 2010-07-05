@@ -11,6 +11,10 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TableColumn;
@@ -30,6 +34,8 @@ import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.render.IRender;
 
 public class GridView extends ViewPart implements IRender {
+
+	public static final String ATTRIBUTE_COLUMN_DATA_KEY = "attr";
 
 	/** View's ID. */
 	public static final String ID = "br.com.maisha.wind.faces.view.gridView";
@@ -66,7 +72,7 @@ public class GridView extends ViewPart implements IRender {
 
 			public void selectionChanged(SelectionChangedEvent event) {
 				IStructuredSelection sel = (IStructuredSelection) event.getSelection();
-				if(!sel.isEmpty()){
+				if (!sel.isEmpty()) {
 					Map<String, Object> map = (Map<String, Object>) sel.getFirstElement();
 					appCtrl.openObjectInstance((ModelReference) map.get("ref"));
 				}
@@ -74,6 +80,7 @@ public class GridView extends ViewPart implements IRender {
 		});
 
 		viewer.setContentProvider(new GridViewContentProvider());
+		viewer.setComparator(new GridViewComparator());
 	}
 
 	/**
@@ -111,9 +118,33 @@ public class GridView extends ViewPart implements IRender {
 				for (Attribute attr : dObj.getAtts()) {
 					TableViewerColumn col = new TableViewerColumn(viewer, SWT.NONE);
 					col.getColumn().setText(attr.getLabel());
-					col.getColumn().setWidth(attr.getPropertyValue(PropertyInfo.WIDTH));
 					col.getColumn().setResizable(true);
 					col.getColumn().setMoveable(false);
+					col.getColumn().setData(ATTRIBUTE_COLUMN_DATA_KEY, attr);
+
+					GC gc = new GC(col.getColumn().getParent());
+					Point pt = gc.textExtent(attr.getLabel());
+
+					int width = pt.x + 20;
+					int attrWidth = attr.getPropertyValue(PropertyInfo.WIDTH) / 2;
+					if (attrWidth > width) {
+						width = attrWidth;
+					}
+					col.getColumn().setWidth(width);
+
+					col.getColumn().addSelectionListener(new SelectionListener() {
+
+						public void widgetSelected(SelectionEvent e) {
+							viewer.getTable().setSortColumn((TableColumn) e.getSource());
+							int sortDir = viewer.getTable().getSortDirection();
+							viewer.getTable().setSortDirection(sortDir == SWT.UP ? SWT.DOWN : SWT.UP);
+							viewer.refresh();
+						}
+
+						public void widgetDefaultSelected(SelectionEvent e) {
+							widgetSelected(e);
+						}
+					});
 
 					map.put(i, attr.getRef());
 
