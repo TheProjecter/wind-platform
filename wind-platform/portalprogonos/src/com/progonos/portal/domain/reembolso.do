@@ -1,6 +1,7 @@
 package com.progonos.portal.domain
 
 import com.progonos.portal.domain.Funcionario
+import com.progonos.portal.domain.ItemReembolso
 
 domain_object Reembolso "Reembolso" {
 
@@ -21,6 +22,8 @@ presentation_type: related
 required: true
 }
 
+
+
 String observacoes "Observacoes"{
 x: 1
 y: 3
@@ -33,6 +36,13 @@ Boolean fechado "Fechado"{
 x: 1
 y: 4
 visible: false
+}
+
+ItemReembolso item "Item"{
+x: 1
+y: 5
+onetomany: reembolso
+presentation_type: embedded_object
 }
 
 operation groovy Save "Salvar"{
