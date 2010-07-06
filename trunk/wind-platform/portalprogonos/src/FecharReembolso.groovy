@@ -17,6 +17,11 @@ class Close{
 	}
 	
 	Object execute(){
+		if(model.fechado){
+			api.warn(model.meta, "com.progonos.portal.reembolso.close.alreadyClosed", null);
+			return ctx
+		}
+	
 		// update reembolso com flag closed == true
 		model.fechado = true
 		api.update("portal_progonos", model)
