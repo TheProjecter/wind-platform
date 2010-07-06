@@ -83,7 +83,9 @@ public class ClassMaker implements IClassMaker {
 				DomainObject obj = entry.getKey();
 				obj.setObjectClass(entry.getValue().toClass(cLoader, null));
 
-				describeClass(obj.getObjectClass());
+				if(log.isDebugEnabled()){
+					describeClass(obj.getObjectClass());
+				}
 			}
 		} catch (CannotCompileException e) {
 			throw new MakeClassException(e);
@@ -155,7 +157,7 @@ public class ClassMaker implements IClassMaker {
 			String field = "";
 			for (Attribute att : obj.getAtts()) {
 				if (!att.getPropertyValue(PropertyInfo.TRANSIENT)) {
-					field = "private " + getQualifiedType(obj, att.getType()) + " " + att.getRef() + ";";
+					field = "private " + getQualifiedType(att, att.getType()) + " " + att.getRef() + ";";
 					CtField ctField = CtField.make(field, cc);
 					ConstPool cp = ctField.getFieldInfo().getConstPool();
 
@@ -163,13 +165,21 @@ public class ClassMaker implements IClassMaker {
 
 					// many to one
 					String manytoone = att.getPropertyValue(PropertyInfo.MANYTOONE);
+					String onetomany = att.getPropertyValue(PropertyInfo.ONTOMANY);
+					
 					if (manytoone != null) {
 						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.ManyToOne", null));
 
 						Map<String, MemberValue> params = new HashMap<String, MemberValue>();
-						params.put("name", new StringMemberValue(att.getRef(), cp));
+						params.put("name", new StringMemberValue(manytoone, cp));
 						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.JoinColumn", null));
-					} else {
+					}else if(onetomany != null){
+						
+						Map<String, MemberValue> params = new HashMap<String, MemberValue>();
+						params.put("mappedBy", new StringMemberValue(onetomany, cp));
+						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.OneToMany", null));
+						
+					}else {
 						Map<String, MemberValue> columnParams = new HashMap<String, MemberValue>();
 						columnParams.put("name", new StringMemberValue(att.getRef(), cp));
 						columnParams.put("nullable", new BooleanMemberValue(!att
@@ -202,11 +212,11 @@ public class ClassMaker implements IClassMaker {
 		try {
 			for (Field f : cl.getDeclaredFields()) {
 				for (java.lang.annotation.Annotation ann : f.getDeclaredAnnotations()) {
-					sb.append("@");
+					sb.append("\t@");
 					sb.append(ann.annotationType().getName());
 					sb.append("\n");
 				}
-				sb.append("private ");
+				sb.append("\tprivate ");
 				sb.append(f.getType().getName());
 				sb.append(" ");
 				sb.append(f.getName());
@@ -214,7 +224,7 @@ public class ClassMaker implements IClassMaker {
 			}
 		} catch (Throwable e) {
 		}
-		sb.append("\n\n}");
+		sb.append("\n}\n");
 		log.debug(sb.toString());
 	}
 
@@ -274,7 +284,19 @@ public class ClassMaker implements IClassMaker {
 		return javaLangTypes.contains(type);
 	}
 
-	private String getQualifiedType(DomainObject dObj, String type) {
+	/**
+	 * 
+	 * @param dObj
+	 * @param type
+	 * @return
+	 */
+	private String getQualifiedType(Attribute att, String type) {
+		DomainObject dObj = att.getDomainObject();
+		
+		if(att.getPropertyValue(PropertyInfo.ONTOMANY) != null){
+			return "java.util.Set";
+		}
+		
 		String returnType = type;
 		if (!isJavaLangType(type)) {
 			// procura no map de tipos
@@ -307,9 +329,9 @@ public class ClassMaker implements IClassMaker {
 		method.append("public void set");
 		method.append(StringUtils.capitalize(att.getRef()));
 		method.append("(");
-		method.append(getQualifiedType(att.getDomainObject(), att.getType()));
+		method.append(getQualifiedType(att, att.getType()));
 		method.append(" v ){");
-		method.append(getQualifiedType(att.getDomainObject(), att.getType())).append(" oldValue = this.").append(
+		method.append(getQualifiedType(att, att.getType())).append(" oldValue = this.").append(
 				att.getRef()).append(";");
 		method.append("this.").append(att.getRef()).append(" = v;");
 		method.append("changeSupport.firePropertyChange(\"").append(att.getRef()).append("\", oldValue, v);");
@@ -327,7 +349,7 @@ public class ClassMaker implements IClassMaker {
 		StringBuilder method = new StringBuilder();
 
 		method.append("public ");
-		method.append(getQualifiedType(att.getDomainObject(), att.getType()));
+		method.append(getQualifiedType(att, att.getType()));
 		method.append(" get");
 		method.append(StringUtils.capitalize(att.getRef()));
 		method.append("(){");
