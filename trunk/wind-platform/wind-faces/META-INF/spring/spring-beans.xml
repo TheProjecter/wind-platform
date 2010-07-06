@@ -22,6 +22,7 @@
 				<entry key="combo" value-ref="comboAttrRender" />
 				<entry key="date" value-ref="dateAttrRender" />
 				<entry key="related" value-ref="relatedRender" />
+				<entry key="embedded_object" value-ref="embeddedObjectRender" />
 			</map>
 		</property>
 	</bean>
@@ -47,7 +48,8 @@
 		class="br.com.maisha.wind.faces.render.attr.DateTimeAttrRender" />
 	<bean name="relatedRender"
 		class="br.com.maisha.wind.faces.render.attr.RelatedObjectAttrRender" />
-
+	<bean name="embeddedObjectRender"
+		class="br.com.maisha.wind.faces.render.attr.EmbeddedObjectAttrRender" />
 
 
 

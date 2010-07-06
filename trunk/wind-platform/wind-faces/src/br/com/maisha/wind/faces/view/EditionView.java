@@ -9,13 +9,16 @@ import org.apache.log4j.Logger;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.ViewPart;
+import org.python.modules.newmodule;
 import org.springframework.beans.BeanUtils;
 
 import br.com.maisha.terra.lang.Attribute;
@@ -69,7 +72,7 @@ public class EditionView extends ViewPart implements IRender {
 		// object contents panel
 		this.contents = new Composite(parent, SWT.NONE);
 		this.contents.setLayout(new GridLayout(1, false));
-
+		
 		this.presProvider = ServiceProvider.getInstance().getService(IPresentationProvider.class,
 				Activator.getDefault().getBundle().getBundleContext());
 
