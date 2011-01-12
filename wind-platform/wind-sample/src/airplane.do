@@ -15,7 +15,7 @@ String code "Code"{
 x: 2
 y: 1
 required: ${this.capacity > 20}
-mask: LLNN
+mask: currency
 width: 80
 }
 
