@@ -19,6 +19,7 @@ import javassist.bytecode.ConstPool;
 import javassist.bytecode.FieldInfo;
 import javassist.bytecode.annotation.Annotation;
 import javassist.bytecode.annotation.BooleanMemberValue;
+import javassist.bytecode.annotation.ClassMemberValue;
 import javassist.bytecode.annotation.EnumMemberValue;
 import javassist.bytecode.annotation.IntegerMemberValue;
 import javassist.bytecode.annotation.MemberValue;
@@ -157,27 +158,31 @@ public class ClassMaker implements IClassMaker {
 			String field = "";
 			for (Attribute att : obj.getAtts()) {
 				if (!att.getPropertyValue(PropertyInfo.TRANSIENT)) {
+					
+					// many to one
+					String manytoone = att.getPropertyValue(PropertyInfo.MANYTOONE);
+					String onetomany = att.getPropertyValue(PropertyInfo.ONTOMANY);				
+					
 					field = "private " + getQualifiedType(att, att.getType()) + " " + att.getRef() + ";";
 					CtField ctField = CtField.make(field, cc);
 					ConstPool cp = ctField.getFieldInfo().getConstPool();
 
 					AnnotationsAttribute fieldAnnotation = new AnnotationsAttribute(cp, AnnotationsAttribute.visibleTag);
 
-					// many to one
-					String manytoone = att.getPropertyValue(PropertyInfo.MANYTOONE);
-					String onetomany = att.getPropertyValue(PropertyInfo.ONTOMANY);
+
 					
 					if (manytoone != null) {
 						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.ManyToOne", null));
 
 						Map<String, MemberValue> params = new HashMap<String, MemberValue>();
 						params.put("name", new StringMemberValue(manytoone, cp));
-						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.JoinColumn", null));
+						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.JoinColumn", params));
 					}else if(onetomany != null){
 						
 						Map<String, MemberValue> params = new HashMap<String, MemberValue>();
 						params.put("mappedBy", new StringMemberValue(onetomany, cp));
-						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.OneToMany", null));
+						params.put("targetEntity", new ClassMemberValue(getRelatedObjectName(att, att.getType()),  cp));
+						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.OneToMany", params));
 						
 					}else {
 						Map<String, MemberValue> columnParams = new HashMap<String, MemberValue>();
@@ -293,7 +298,7 @@ public class ClassMaker implements IClassMaker {
 	private String getQualifiedType(Attribute att, String type) {
 		DomainObject dObj = att.getDomainObject();
 		
-		if(att.getPropertyValue(PropertyInfo.ONTOMANY) != null){
+		if(StringUtils.isNotBlank( att.getPropertyValue(PropertyInfo.ONTOMANY))){
 			return "java.util.Set";
 		}
 		
@@ -304,17 +309,33 @@ public class ClassMaker implements IClassMaker {
 				returnType = typeMap.get(type);
 			} else {
 				// procura nos imports
-				for (Import imp : dObj.getImports()) {
-					String[] path = imp.getPath().split("\\.");
-					if (path != null && path.length > 0) {
-						String last = path[path.length - 1];
-						if (type.equals(last)) {
-							returnType = imp.getPath();
-						}
-					}
+				returnType = getRelatedObjectName(att, type);
+			}
+		}
+		return returnType;
+	}
+	
+	/**
+	 * 
+	 * @param att
+	 * @param type
+	 * @return
+	 */
+	private String getRelatedObjectName(Attribute att, String type){
+		DomainObject dObj = att.getDomainObject();
+		String returnType = type;
+		
+		// procura nos imports
+		for (Import imp : dObj.getImports()) {
+			String[] path = imp.getPath().split("\\.");
+			if (path != null && path.length > 0) {
+				String last = path[path.length - 1];
+				if (type.equals(last)) {
+					returnType = imp.getPath();
 				}
 			}
 		}
+		
 		return returnType;
 	}
 
