@@ -11,7 +11,7 @@ tooltip: wind.sample.airbus.weight.tooltip
 }
 
 
-String code "Code"{
+String code "label.airbus.code"{
 x: 2
 y: 1
 required: ${this.capacity > 20}

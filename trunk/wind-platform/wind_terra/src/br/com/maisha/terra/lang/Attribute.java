@@ -20,6 +20,9 @@ public class Attribute extends TerraClass {
 	private String label;
 
 	/** */
+	private String i18nLabel;
+	
+	/** */
 	private Map<String, Property> properties = new HashMap<String, Property>();
 
 	/** */
@@ -38,6 +41,7 @@ public class Attribute extends TerraClass {
 
 		if (!label.trim().isEmpty()) {
 			this.label = label.substring(1, label.length() - 1);
+			this.i18nLabel = this.label;
 		}
 	}
 
@@ -79,6 +83,15 @@ public class Attribute extends TerraClass {
 
 	public void setDomainObject(DomainObject domainObject) {
 		this.domainObject = domainObject;
+	}
+
+	
+	public String getI18nLabel() {
+		return i18nLabel;
+	}
+
+	public void setI18nLabel(String i18nLabel) {
+		this.i18nLabel = i18nLabel;
 	}
 
 	/**

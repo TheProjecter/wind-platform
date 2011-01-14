@@ -171,4 +171,18 @@ public class WindApplication {
 		this.bundleId = bundleId;
 	}
 
+	/**
+	 * Returns either Current or Default localized resources bundles.
+	 * The one that is not null, current preferred
+	 *  
+	 * @return
+	 */
+	public List<ResourceBundle> getCurrentOrDefaultResourceBundles(){
+		List<ResourceBundle> result = getResouceBundle(getCurrentLocale());
+		if(result == null){
+			result = getResouceBundle(new Locale(getDefaultLocale()));
+		}
+		return result;
+	}
+	
 }

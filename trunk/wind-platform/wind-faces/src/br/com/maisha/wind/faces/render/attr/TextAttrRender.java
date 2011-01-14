@@ -1,5 +1,10 @@
 package br.com.maisha.wind.faces.render.attr;
 
+import java.text.MessageFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
+
 import org.apache.log4j.Logger;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.BeansObservables;
@@ -8,7 +13,9 @@ import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
 import br.com.maisha.terra.lang.Attribute;
@@ -63,9 +70,37 @@ public class TextAttrRender extends BaseAttrRender {
 			text.setTextLimit(maxLength);
 		}
 
-		String mask = attr.getPropertyValue(PropertyInfo.MASK);
+		final String mask = attr.getPropertyValue(PropertyInfo.MASK);
 		if (mask.trim().length() > 0) {
-			text.addListener(SWT.Verify, new MaskListener(mask, false));
+			/*text.addListener(SWT.Verify, new Listener() {
+				
+				@Override
+				public void handleEvent(Event event) {
+					
+					log.debug("\n\n@@@ Verify Event");
+					MessageFormat mf = new MessageFormat("{0, number, "+mask+"}", new Locale("pt", "BR"));
+					
+					Number n = null;
+					try{
+						Object[] doxo = mf.parse(event.text);
+						n = (Number) doxo[0];
+					}catch(Exception e){
+						try {
+							n = NumberFormat.getInstance(new Locale("pt", "BR")).parse(event.text);
+						} catch (ParseException e1) {
+							e1.printStackTrace();
+						}
+					}
+					
+					
+					String result = mf.format(new Object[]{n});
+					
+					log.debug("@@@ Evaluated to: " + result +"\n\n");
+					((Text)event.widget).setText(result);
+					event.doit = false;
+					
+				}
+			});*/
 		}
 
 		GridData gd = getLayoutData();

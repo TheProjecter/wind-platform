@@ -31,4 +31,10 @@ public interface IApplicationManager extends Component {
 	 */
 	void closeObject(String appId, String objectId);
 
+	/**
+	 * Configures all labels for all domain objects in every application
+	 * installed in the platform.
+	 * @param context
+	 */
+	void configureAllLabels(BundleContext context);
 }
