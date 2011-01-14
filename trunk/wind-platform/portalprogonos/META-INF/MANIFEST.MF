@@ -6,6 +6,6 @@ Bundle-Version: 1.0.0
 Bundle-Activator: com.progonos.portal.rcp.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.rap.ui,
- wind_app_registry;bundle-version="1.0.0"
+ wind_app_controller;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
