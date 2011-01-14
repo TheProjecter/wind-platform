@@ -9,16 +9,13 @@ import org.apache.log4j.Logger;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.ViewPart;
-import org.python.modules.newmodule;
 import org.springframework.beans.BeanUtils;
 
 import br.com.maisha.terra.lang.Attribute;
@@ -35,6 +32,7 @@ import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.controller.execution.el.ELListener;
 import br.com.maisha.wind.faces.IPresentationProvider;
 import br.com.maisha.wind.faces.action.BaseAction;
+import br.com.maisha.wind.faces.action.ClearEditionViewAction;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.render.IRender;
 import br.com.maisha.wind.faces.render.attr.IAttributeRender;
@@ -141,6 +139,7 @@ public class EditionView extends ViewPart implements IRender {
 				modelInstance.addPropertyChangeListener(new ELListener());
 
 				createUserInterface(object);
+				configureDefaultToolBar(object);
 			} catch (Exception e) {
 				ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 			}
@@ -300,6 +299,15 @@ public class EditionView extends ViewPart implements IRender {
 		log.debug("Rendering Operation [ " + op + " ]");
 		IAction act = new BaseAction(op, modelInstance);
 		tbm.add(act);
+	}
+	
+	/**
+	 * 
+	 */
+	private void configureDefaultToolBar(DomainObject object){
+		IToolBarManager  tbm = getViewSite().getActionBars().getToolBarManager();
+		IAction clearEditionView = new ClearEditionViewAction(object, modelInstance);
+		tbm.add(clearEditionView);
 	}
 
 }
