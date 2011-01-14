@@ -3,8 +3,11 @@ package br.com.maisha.wind.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.osgi.framework.BundleContext;
+
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
+import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 
 /**
@@ -56,18 +59,36 @@ public interface IApplicationController {
 	 * @return
 	 */
 	List<Map<String, Object>> toMap(DomainObject obj, List<ModelReference> lst);
-	
+
 	/**
 	 * 
 	 * @param script
 	 * @param context
 	 * @return
 	 */
-	 Object runScript(String script, Map<String, Object> context); 
-	 
-	 /**
-	  * 
-	  * @param ref
-	  */
-	 void openObjectInstance(ModelReference ref);
+	Object runScript(String script, Map<String, Object> context);
+
+	/**
+	 * 
+	 * @param ref
+	 */
+	void openObjectInstance(ModelReference ref);
+
+	/**
+	 * Configures all labels for all domain objects in every application
+	 * installed in the platform.
+	 * 
+	 * @param context
+	 */
+	void configureAllLabels(BundleContext context);
+	
+	/**
+	 * Configures all labels for all domain objects in every application
+	 * installed in the platform.
+	 * 
+	 * @param context
+	 * @param app
+	 * 
+	 */
+	void configureAllLabels(BundleContext context, WindApplication app);
 }

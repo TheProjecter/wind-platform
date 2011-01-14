@@ -21,4 +21,20 @@
 	<osgi:service id="appModelListenerRegistryCtrlOsgi" ref="appModelListenerRegistryCtrl"
 		interface="br.com.maisha.wind.common.listener.IAppModelListenerRegistry">
 	</osgi:service>
+	
+	
+	<osgi:reference id="appRegistryLangCompiler" interface="br.com.maisha.terra.ITerraCompiler" />
+
+	<osgi:reference id="appRegistryClassMaker" interface="br.com.maisha.terra.IClassMaker" />
+
+	
+	<osgi:service id="appRegistryOsgi" ref="appRegistry"
+		interface="br.com.maisha.wind.lifecycle.registry.IApplicationRegistry">
+	</osgi:service>
+
+	
+	<osgi:service id="appRegistryApplicationManagerOsgi" ref="appRegistryApplicationManager"
+		interface="br.com.maisha.wind.lifecycle.mgmt.IApplicationManager">
+	</osgi:service>
+	
 </beans>

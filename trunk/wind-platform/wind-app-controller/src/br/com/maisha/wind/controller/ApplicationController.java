@@ -7,7 +7,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
@@ -22,17 +25,19 @@ import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
+import br.com.maisha.terra.lang.Operation.OperationType;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Validation;
 import br.com.maisha.terra.lang.ValidationRule;
-import br.com.maisha.terra.lang.Operation.OperationType;
+import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.common.converter.IConverterService;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppModelListenerRegistry;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
+import br.com.maisha.wind.common.preferences.IPreferenceStore;
 import br.com.maisha.wind.controller.execution.api.RuleAPI;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.controller.model.UserMessage;
@@ -41,6 +46,7 @@ import br.com.maisha.wind.controller.rcp.Activator;
 import br.com.maisha.wind.controller.storage.IStorage;
 import br.com.maisha.wind.controller.validator.IValidator;
 import br.com.maisha.wind.controller.validator.ValidatorRegistry;
+import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
 
 /**
  * 
@@ -64,6 +70,9 @@ public class ApplicationController implements IApplicationController {
 
 	/** */
 	private IStorage persistentStorage;
+	
+	/** The application registry. */
+	private IApplicationRegistry registry;
 
 	/**
 	 * 
@@ -90,16 +99,14 @@ public class ApplicationController implements IApplicationController {
 			monitor.setTaskName("Executing operation...");
 
 			ScriptEngine engine = engineManager.getEngineByName(op.getType());
-
 			Invocable invocable = (Invocable) engine;
 
 			BundleContext bundle = ctx.getOperation().getDomainObject().getApplication().getBundleContext();
-
 			URL ruleUrl = bundle.getBundle().getEntry("/src/" + op.getPropertyValue(PropertyInfo.FILE));
 
 			InputStream is = ruleUrl.openStream();
 			Reader r = new InputStreamReader(is);
-
+			
 			engine.eval(r);
 			ctx.setLog(log);
 			engine.put("ctx", ctx);
@@ -318,6 +325,56 @@ public class ApplicationController implements IApplicationController {
 
 	}
 
+	
+
+
+	public void configureAllLabels(BundleContext context) {
+		List<WindApplication> apps = registry.retrieve();
+		if (apps != null) {
+			for (WindApplication app : apps) {
+				configureAllLabels(context, app);
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @param context
+	 * @param app
+	 */
+	public void configureAllLabels(BundleContext context, WindApplication app) {
+
+		IPreferenceStore prefs = ServiceProvider.getInstance().getService(IPreferenceStore.class, context);
+
+		String strLoc = prefs.get("general", "currentLocale", "pt_BR"); // TODO
+		// constantes
+		String[] spltLoc = strLoc.split("_");
+		Locale loc = new Locale(spltLoc[0], spltLoc[1]);
+
+		List<ResourceBundle> rbs = app.getResouceBundle(loc);
+
+		if (rbs != null) {
+			for (DomainObject dObj : app.getDomainObjects()) {
+				for (Attribute attr : dObj.getAtts()) {
+					for (ResourceBundle rb : rbs) {
+						try {
+
+							String label = rb.getString(attr.getLabel());
+							if (label != null) {
+								attr.setI18nLabel(label);
+							}
+
+						} catch (MissingResourceException mre) {
+							attr.setI18nLabel(attr.getLabel());
+						}
+					}
+				}
+			}
+		}
+
+	}
+	
+	
 	/**
 	 * 
 	 * @param ref
@@ -346,12 +403,18 @@ public class ApplicationController implements IApplicationController {
 		this.validatorRegisty = validatorRegisty;
 	}
 
+	/** @see ApplicationController#persistentStorage */
 	public IStorage getPersistentStorage() {
 		return persistentStorage;
 	}
 
+	/** @see ApplicationController#persistentStorage */
 	public void setPersistentStorage(IStorage persistentStorage) {
 		this.persistentStorage = persistentStorage;
 	}
 
+	/** @see ApplicationController#registry */
+	public void setRegistry(IApplicationRegistry registry) {
+		this.registry = registry;
+	}
 }
