@@ -16,6 +16,7 @@
 		<property name="modelListener" ref="appModelListenerRegistryOsgi" />
 		<property name="validatorRegisty" ref="validatorRegisty" />
 		<property name="persistentStorage" ref="persistentStorage"/>
+		<property name="registry" ref="appRegistry"/>
 	</bean>
 
 
@@ -53,6 +54,25 @@
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename" value="messages" />
+	</bean>
+
+
+
+	<bean name="appRegistry" scope="singleton" 
+		class="br.com.maisha.wind.lifecycle.registry.ApplicationRegistry" />
+
+
+
+	<bean name="appCfgReader" class="br.com.maisha.wind.lifecycle.mgmt.AppCfgReader" />
+
+	<bean name="appRegistryApplicationManager" class="br.com.maisha.wind.lifecycle.mgmt.ApplicationManager">
+		<property name="langCompiler" ref="appRegistryLangCompiler" />
+		<property name="registry" ref="appRegistry" />
+		<property name="appCfgReader" ref="appCfgReader" />
+		<property name="classMaker" ref="appRegistryClassMaker" />
+		<property name="modelListeners" ref="appModelListenerRegistryOsgi" />
+		<property name="persistentStorage" ref="persistentStorage"/>
+		<property name="appCtrl" ref="applicationController"/>
 	</bean>
 
 </beans>
