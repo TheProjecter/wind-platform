@@ -88,7 +88,9 @@ public class ApplicationController implements IApplicationController {
 
 			// run operation
 			monitor.setTaskName("Executing operation...");
+
 			ScriptEngine engine = engineManager.getEngineByName(op.getType());
+
 			Invocable invocable = (Invocable) engine;
 
 			BundleContext bundle = ctx.getOperation().getDomainObject().getApplication().getBundleContext();
