@@ -7,7 +7,6 @@ Bundle-Version: 1.0.0
 Bundle-Activator: br.com.maisha.wind.faces.rcp.Activator
 Require-Bundle: org.eclipse.rap.ui,
  wind_lib;bundle-version="1.0.0",
- wind_app_registry;bundle-version="1.0.0",
  wind_common;bundle-version="1.0.0",
  org.springframework.beans;bundle-version="2.5.6",
  org.springframework.context;bundle-version="2.5.6",
