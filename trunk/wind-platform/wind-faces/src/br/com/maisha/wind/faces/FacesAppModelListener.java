@@ -5,7 +5,7 @@ import org.eclipse.swt.widgets.Display;
 
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener;
-import br.com.maisha.wind.lifecycle.rcp.Activator;
+import br.com.maisha.wind.faces.rcp.Activator;
 
 /**
  * 

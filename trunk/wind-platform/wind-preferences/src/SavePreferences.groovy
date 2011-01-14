@@ -1,4 +1,4 @@
-import br.com.maisha.wind.lifecycle.mgmt.IApplicationManager;
+import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.preferences.IPreferenceStore;
 
@@ -32,8 +32,8 @@ class Save{
 		prefService.put("general", "datePattern", model.datePattern);
 		
 		
-		IApplicationManager appMgr = ServiceProvider.getInstance().getService(
-				IApplicationManager.class, BCtx);
+		IApplicationController appMgr = ServiceProvider.getInstance().getService(
+				IApplicationController.class, bCtx);
 		appMgr.configureAllLabels(bCtx);
 		
 		"wind_preferences.preferences.saved".success();

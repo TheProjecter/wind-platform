@@ -117,7 +117,7 @@ public class GridView extends ViewPart implements IRender {
 				int i = 0;
 				for (Attribute attr : dObj.getAtts()) {
 					TableViewerColumn col = new TableViewerColumn(viewer, SWT.NONE);
-					col.getColumn().setText(attr.getLabel());
+					col.getColumn().setText(attr.getI18nLabel());
 					col.getColumn().setResizable(true);
 					col.getColumn().setMoveable(false);
 					col.getColumn().setData(ATTRIBUTE_COLUMN_DATA_KEY, attr);
