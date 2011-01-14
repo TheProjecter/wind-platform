@@ -1,5 +1,11 @@
 package br.com.maisha.wind.faces.render.attr;
 
+import java.util.List;
+import java.util.Locale;
+import java.util.MissingFormatArgumentException;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.BeansObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
@@ -13,10 +19,14 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
+import org.hibernate.engine.loading.LoadContexts;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
+import br.com.maisha.terra.lang.WindApplication;
+import br.com.maisha.wind.common.factory.ServiceProvider;
+import br.com.maisha.wind.common.preferences.IPreferenceStore;
 import br.com.maisha.wind.faces.databinding.RequiredObservableValue;
 
 /**
@@ -75,10 +85,12 @@ public abstract class BaseAttrRender implements IAttributeRender {
 	 */
 	protected Label createLabel(Composite parent, Attribute attr) {
 		Label label = new Label(parent, SWT.NONE);
-		label.setText(attr.getLabel());
+		label.setText(attr.getI18nLabel());
 		setRequiredLabel(attr, label);
 		return label;
 	}
+
+
 
 	/**
 	 * 

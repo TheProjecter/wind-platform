@@ -62,8 +62,23 @@
          category="org.eclipse.ui"
          class="org.eclipse.ui.ExtensionFactory:progressView"
          id="org.eclipse.ui.views.ProgressView">
-   </view>      
-      
+   </view>            
    </extension>
+
+
+<!-- Logo Customization -->
+
+
+	<extension point="org.eclipse.rap.ui.layouts">
+		<layout id="org.eclipse.rap.design.example.business.layout">
+			<layoutSet class="br.com.maisha.wind.faces.layout.business.LogoInitializer"
+				id="br.com.maisha.wind.faces.business.logo"
+				name="Logo Overriding"
+				overridesId="org.eclipse.rap.design.example.layoutset.logo" >
+				
+			</layoutSet>
+		</layout>
+	</extension>
+
 
 </plugin>

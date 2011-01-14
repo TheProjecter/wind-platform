@@ -1,7 +1,7 @@
+import br.com.maisha.wind.lifecycle.mgmt.IApplicationManager;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.preferences.IPreferenceStore;
 
-import org.osgi.service.prefs.PreferencesService;
 
 class Save{
 
@@ -30,6 +30,11 @@ class Save{
 		prefService.put("general", "currentLocale", model.locale);
 		prefService.put("general", "maxResultsDisplayed", model.maxResultsDisplayed.toString());
 		prefService.put("general", "datePattern", model.datePattern);
+		
+		
+		IApplicationManager appMgr = ServiceProvider.getInstance().getService(
+				IApplicationManager.class, BCtx);
+		appMgr.configureAllLabels(bCtx);
 		
 		"wind_preferences.preferences.saved".success();
 		return ctx
