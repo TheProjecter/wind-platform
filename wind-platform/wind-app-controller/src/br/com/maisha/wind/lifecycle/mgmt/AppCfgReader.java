@@ -1,11 +1,17 @@
 package br.com.maisha.wind.lifecycle.mgmt;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 
 import org.apache.commons.digester.Digester;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import br.com.maisha.terra.lang.ResourceBundleEntry;
 import br.com.maisha.terra.lang.WindApplication;
+import br.com.maisha.wind.controller.rcp.Activator;
 
 /**
  * 
@@ -20,7 +26,8 @@ public class AppCfgReader implements IAppCfgReader {
 	 */
 	public WindApplication read(InputStream is) throws Exception {
 		Digester d = new Digester();
-		d.setValidating(false);
+		d.setEntityResolver(new DTDEntityResolver());
+		d.setValidating(true);
 
 		d.addObjectCreate("app", WindApplication.class);
 		d.addSetProperties("app", "name", "name");
@@ -37,6 +44,25 @@ public class AppCfgReader implements IAppCfgReader {
 		WindApplication app = (WindApplication) d.parse(is);
 
 		return app;
+	}
+	
+
+	/**
+	 * 
+	 * @author Paulo Freitas (pfreitas1@gmail.com)
+	 *
+	 */
+	class DTDEntityResolver implements EntityResolver{
+
+		/**
+		 * 
+		 * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
+		 */
+		public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
+			URL url = Activator.getDefault().getBundle().getResource("wind-app-cfg.dtd");
+			return new InputSource(url.openStream());
+		}
+		
 	}
 
 }
