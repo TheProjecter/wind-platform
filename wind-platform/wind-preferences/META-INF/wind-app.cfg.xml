@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE app SYSTEM 'wind-app-cfg'>
 <app name="Preferences" appId="wind_preferences" locale="pt_BR">
 	<bundle id="messages"  path="messages" locale="pt_BR"/>
 </app>
