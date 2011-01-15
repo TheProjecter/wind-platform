@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE app SYSTEM 'wind-app-cfg'>
 <app name="Trip Control" appId="trip_control">
 
 </app>
