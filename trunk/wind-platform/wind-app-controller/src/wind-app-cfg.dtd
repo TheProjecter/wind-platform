@@ -1,0 +1,8 @@
+<!ELEMENT app (bundle*)>
+<!ATTLIST app name CDATA #REQUIRED>
+<!ATTLIST app appId CDATA #REQUIRED>
+<!ATTLIST app locale CDATA #IMPLIED> 
+<!ELEMENT bundle (#PCDATA)>
+<!ATTLIST bundle id CDATA #REQUIRED>
+<!ATTLIST bundle path CDATA #REQUIRED>
+<!ATTLIST bundle locale CDATA #REQUIRED>

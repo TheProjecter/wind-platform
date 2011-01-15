@@ -1,5 +1,5 @@
 Manifest-Version: 2.0
-Spring-Context: *;create-asynchronously:=true
+Spring-Context: *;create-asynchronously:=false
 Bundle-ManifestVersion: 2
 Bundle-Name: Wind_app_controller
 Bundle-SymbolicName: wind_app_controller
@@ -213,7 +213,7 @@ Require-Bundle: wind_terra;bundle-version="1.0.0",
  org.eclipse.core.runtime,
  com.springsource.org.apache.commons.lang;bundle-version="2.4.0",
  org.springframework.context;bundle-version="2.5.6",
- org.eclipse.rap.ui;bundle-version="1.3.1",
+ org.eclipse.rap.ui,
  com.springsource.org.apache.commons.digester;bundle-version="1.8.1"
 Bundle-ClassPath: lib/jython-engine.jar,
  lib/jython.jar,
