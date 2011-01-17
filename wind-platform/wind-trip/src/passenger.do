@@ -2,32 +2,30 @@ package br.com.maisha.wind.trip
 
 domain_object passenger "Passenger" {
 
-
-
-String name "Name"{
+String name "label.passenger.name"{
 	x: 1
 	y: 1
 	required: true
 	width: 280
+	colspan: 2
 }
 
-Integer age "Age"{
-	x: 2
-	y: 1
-	width: ${meta.attribute('name').property('width') / 5}
-}
-
-Boolean smoker "Smoker"{
+Integer age "label.passenger.age"{
 	x: 1
 	y: 2
-	presentation_type: checkbox
-
+	width: 50
 }
 
-Integer sit "Sit"{
+Integer sit "label.passenger.sit"{
+	x: 1
+	y: 3
+	disabled: ${!this.smoker}
+	width: 50 
+}
+
+Boolean smoker "label.passenger.smoker"{
 	x: 2
-	y: 2
-	disabled: ${this.smoker}
+	y: 3
+	presentation_type: checkbox
 }
-
 }
