@@ -209,6 +209,10 @@ public class ApplicationController implements IApplicationController {
 			ScriptEngine juelEngine = engineManager.getEngineByName("juel");
 			DomainObject meta = modelInstance.getMeta();
 
+			if(meta == null){
+				return;
+			}
+			
 			log.debug("Evaluating expressions for " + meta.getLabel());
 
 			juelEngine.put("this", modelInstance);

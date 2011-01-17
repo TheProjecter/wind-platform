@@ -50,7 +50,7 @@ public class CheckboxRenderer extends BaseAttrRender {
 		
 		Button checkbox = new Button(parent, SWT.CHECK);
 		checkbox.setData(attr.getRef());
-		checkbox.setText(attr.getLabel());
+		checkbox.setText(attr.getI18nLabel());
 
 		// tooltip
 		String tooltip = attr.getPropertyValue(PropertyInfo.TOOLTIP);
