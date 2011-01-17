@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE app SYSTEM 'wind-app-cfg'>
-<app name="Trip Control" appId="trip_control">
-
+<app name="Trip Control" appId="trip_control" locale="pt_BR">
+	<bundle id="messagesPt"  path="msg_pt_BR" locale="pt_BR"/>
+	<bundle id="messagesEn"  path="msg_en_US" locale="en_US"/>
 </app>
