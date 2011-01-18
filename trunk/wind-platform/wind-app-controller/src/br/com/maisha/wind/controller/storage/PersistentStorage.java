@@ -68,7 +68,7 @@ public class PersistentStorage implements IStorage {
 		Session sess = sessionFactory.openSession();
 		Transaction transaction = sess.beginTransaction();
 		try {
-			sess.save(ref);
+			sess.saveOrUpdate(ref);
 			transaction.commit();
 		} catch (Exception e) {
 			transaction.rollback();
@@ -122,6 +122,27 @@ public class PersistentStorage implements IStorage {
 			sess.close();
 		}
 	}
+	
+	/**
+	 * 
+	 * @param appId
+	 * @param ref
+	 */
+	public void delete(String appId, ModelReference ref) {
+		SessionFactory sessionFactory = sessionFactoryRegistry.get(appId);
+		Session sess = sessionFactory.openSession();
+		Transaction transaction = sess.beginTransaction();
+		try {
+			sess.delete(ref);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			log.error(e.getMessage(), e);
+		} finally {
+			sess.flush();
+			sess.close();
+		}
+	}	
 	
 	/**
 	 * 
