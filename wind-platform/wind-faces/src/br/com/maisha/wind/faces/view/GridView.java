@@ -81,6 +81,8 @@ public class GridView extends ViewPart implements IRender {
 
 		viewer.setContentProvider(new GridViewContentProvider());
 		viewer.setComparator(new GridViewComparator());
+		
+		getSite().setSelectionProvider(viewer);
 	}
 
 	/**

@@ -1,6 +1,7 @@
 package br.com.maisha.wind.faces.action;
 
 import java.net.URL;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -10,8 +11,11 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.osgi.framework.Bundle;
 
@@ -23,6 +27,8 @@ import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.faces.rcp.Activator;
+import br.com.maisha.wind.faces.rcp.RCPUtil;
+import br.com.maisha.wind.faces.view.GridView;
 
 /**
  * 
@@ -50,9 +56,9 @@ public class BaseAction extends Action implements IWorkbenchAction {
 		this.op = op;
 		this.model = model;
 		setId(op.getRef());
-		setDescription(op.getLabel());
-		setText(op.getLabel());
-		setToolTipText(op.getLabel());
+		setDescription(op.getI18nLabel());
+		setText(op.getI18nLabel());
+		setToolTipText(op.getI18nLabel());
 
 		String iconPath = op.getPropertyValue(PropertyInfo.ICON);
 		if (iconPath != null) {
@@ -77,7 +83,15 @@ public class BaseAction extends Action implements IWorkbenchAction {
 		final ExecutionContext<ModelReference> exeCtx = new ExecutionContext<ModelReference>();
 
 		try {
-
+			List<?> selection = null;
+			ISelectionService selServ =  RCPUtil.getWorkbenchWindow().getSelectionService();
+			ISelection sel = selServ.getSelection(GridView.ID);
+			if(sel != null && sel instanceof IStructuredSelection){
+				selection = ((IStructuredSelection)sel).toList();
+			}
+			
+			exeCtx.setGridSelection(selection);
+			
 			ExecuteOperationJob job = new ExecuteOperationJob("Executing Operation...", exeCtx, Display.getCurrent());
 			job.schedule();
 

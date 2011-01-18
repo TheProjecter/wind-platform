@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
+import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.faces.rcp.Activator;
 
 /**
@@ -30,9 +31,12 @@ public class ClearEditionViewAction extends Action implements IWorkbenchAction {
 	 */
 	public ClearEditionViewAction(DomainObject object, ModelReference ref) {
 		setId("wind.faces.edition.clear");
-		setDescription("Clear");
-		setText("Clear");
-		setToolTipText("Clear");
+		
+		String labelClear = PlatformMessageRegistry.getInstance().getMessage("wind_faces.messageview.clear");
+		
+		setDescription(labelClear);
+		setText(labelClear);
+		setToolTipText(labelClear);
 
 		setImageDescriptor(ImageDescriptor.createFromImage(Activator.getImageDescriptor("icons/clear.gif")
 				.createImage()));
