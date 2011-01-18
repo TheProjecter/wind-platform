@@ -28,4 +28,13 @@ Boolean smoker "label.passenger.smoker"{
 	y: 3
 	presentation_type: checkbox
 }
+
+operation groovy SavePassengerAction "label.global.save"{
+file: SavePassengerAction.groovy
+}
+
+operation groovy DeletePassengerAction "label.global.delete"{
+file: DeletePassengerAction.groovy
+}
+
 }
