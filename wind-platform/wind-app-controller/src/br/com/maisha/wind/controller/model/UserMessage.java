@@ -164,7 +164,7 @@ public class UserMessage implements Serializable {
 					try {
 						String msg = rb.getString(i18nMessage);
 						if (msg != null) {
-							formattedMessage = MessageFormat.format(msg, param);
+							formattedMessage = MessageFormat.format(msg, param.toArray(new Object[] {}));
 							break;
 						}
 					} catch (MissingResourceException mre) {

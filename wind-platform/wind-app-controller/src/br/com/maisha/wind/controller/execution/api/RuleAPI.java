@@ -44,6 +44,11 @@ public class RuleAPI {
 	public void update(String appId, ModelReference ref){
 		persistentStorage.update(appId, ref);
 	}
+	
+	
+	public void delete(String appId, ModelReference ref){
+		persistentStorage.delete(appId, ref);
+	}	
 	                                                     
 	
 	/**

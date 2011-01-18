@@ -31,6 +31,9 @@ public class ExecutionContext<T> {
 
 	/** Message list. */
 	private List<UserMessage> messages = new ArrayList<UserMessage>();
+	
+	/** Grid Selection */
+	private List<?> gridSelection = null;
 
 	/** @see #operation */
 	public Operation getOperation() {
@@ -82,4 +85,16 @@ public class ExecutionContext<T> {
 		this.log = log;
 	}
 
+	/** @see #gridSelection */
+	public List<?> getGridSelection() {
+		return gridSelection;
+	}
+
+	/** @see #gridSelection */
+	public void setGridSelection(List<?> gridSelection) {
+		this.gridSelection = gridSelection;
+	}
+
+	
+	
 }

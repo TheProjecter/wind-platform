@@ -54,4 +54,12 @@ public interface IStorage {
 	 * @param ref
 	 */
 	void update(String appId, ModelReference ref);
+	
+	
+	/**
+	 * 
+	 * @param appId
+	 * @param ref
+	 */
+	void delete(String appId, ModelReference ref);	
 }

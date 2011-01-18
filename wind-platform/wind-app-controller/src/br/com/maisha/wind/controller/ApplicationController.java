@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -70,7 +71,7 @@ public class ApplicationController implements IApplicationController {
 
 	/** */
 	private IStorage persistentStorage;
-	
+
 	/** The application registry. */
 	private IApplicationRegistry registry;
 
@@ -106,7 +107,7 @@ public class ApplicationController implements IApplicationController {
 
 			InputStream is = ruleUrl.openStream();
 			Reader r = new InputStreamReader(is);
-			
+
 			engine.eval(r);
 			ctx.setLog(log);
 			engine.put("ctx", ctx);
@@ -285,11 +286,31 @@ public class ApplicationController implements IApplicationController {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<ModelReference> filter(DomainObject dobj) {
-		List<ModelReference> ret = (List<ModelReference>) persistentStorage.getAll(dobj.getApplication().getAppId(),
-				dobj);
-		if (ret != null && !ret.isEmpty()) {
-			for (ModelReference ref : ret) {
-				ref.setMeta(dobj);
+		List<ModelReference> ret = Collections.EMPTY_LIST;
+
+		// procura por operacao "filtro"
+		Operation filterOp = null;
+		List<Operation> ops = dobj.getOperations();
+		for (Operation op : ops) {
+			if ("filter".equalsIgnoreCase(op.getRef())) {
+				filterOp = op;
+				break;
+			}
+		}
+
+		if (filterOp != null) {
+			//utiliza operacao filtro
+			ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
+			ctx.setOperation(filterOp);
+			ctx.setInstance(null); //TODO
+			runOperation(ctx);
+		} else {
+			//nenhuma operacao filtro especificada... utiliza getAll
+			ret = (List<ModelReference>) persistentStorage.getAll(dobj.getApplication().getAppId(), dobj);
+			if (ret != null && !ret.isEmpty()) {
+				for (ModelReference ref : ret) {
+					ref.setMeta(dobj);
+				}
 			}
 		}
 
@@ -329,9 +350,6 @@ public class ApplicationController implements IApplicationController {
 
 	}
 
-	
-
-
 	public void configureAllLabels(BundleContext context) {
 		List<WindApplication> apps = registry.retrieve();
 		if (apps != null) {
@@ -361,16 +379,13 @@ public class ApplicationController implements IApplicationController {
 			for (DomainObject dObj : app.getDomainObjects()) {
 				for (Attribute attr : dObj.getAtts()) {
 					for (ResourceBundle rb : rbs) {
-						try {
-
-							String label = rb.getString(attr.getLabel());
-							if (label != null) {
-								attr.setI18nLabel(label);
-							}
-
-						} catch (MissingResourceException mre) {
-							attr.setI18nLabel(attr.getLabel());
-						}
+						attr.setI18nLabel(getBundleMessage(rb, attr.getLabel()));
+					}
+				}
+				
+				for(Operation op : dObj.getOperations()){
+					for (ResourceBundle rb : rbs) {
+						op.setI18nLabel(getBundleMessage(rb, op.getLabel()));
 					}
 				}
 			}
@@ -378,15 +393,37 @@ public class ApplicationController implements IApplicationController {
 
 	}
 	
+	/**
+	 * 
+	 * @param rb
+	 * @param key
+	 * @return
+	 */
+	private String getBundleMessage(ResourceBundle rb, String key){
+		String ret = "";
+		try {
+
+			String label = rb.getString(key);
+			if (label != null) {
+				ret = label;
+			}
+
+		} catch (MissingResourceException mre) {
+			ret = key;
+		}
+		
+		return ret;
+	}
 	
+
 	/**
 	 * 
 	 * @param ref
 	 */
-	public void openObjectInstance(ModelReference ref){
+	public void openObjectInstance(ModelReference ref) {
 		modelListener.fireEvent(null, ref, LevelType.Object, ChangeType.InstanceOpened);
 	}
-	
+
 	/** @see #modelListener */
 	public IAppModelListenerRegistry getModelListener() {
 		return modelListener;
