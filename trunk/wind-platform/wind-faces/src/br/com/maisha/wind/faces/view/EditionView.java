@@ -79,6 +79,8 @@ public class EditionView extends ViewPart implements IRender {
 
 		presProvider.registerRender(this);
 
+		
+		
 	}
 
 	/**
