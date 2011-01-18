@@ -17,9 +17,9 @@ class DeletePassengerAction{
 	}
 	
 	Object execute(){
-		api.delete("trip_control", model)
+		ctx.gridSelection.each() { api.delete("trip_control", it.get("ref")) }
 		api.info(model.meta, "msg.passengers.delete.success", model.name)
-				
+		
 		return ctx
 	}
 	
