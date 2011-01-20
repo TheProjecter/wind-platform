@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -56,7 +58,14 @@ public class PersistentStorage implements IStorage {
 	 * @return
 	 */
 	public SessionFactory getSessionFactory(String appId) {
-		return sessionFactoryRegistry.get(appId);
+		SessionFactory sessionFactory = sessionFactoryRegistry.get(appId);
+
+		if (sessionFactory == null) {
+			log.error("There is no SessionFactory for " + appId);
+			return null;
+		}
+		
+		return sessionFactory;
 	}
 
 	/**
@@ -64,7 +73,7 @@ public class PersistentStorage implements IStorage {
 	 * @param ref
 	 */
 	public void save(String appId, ModelReference ref) {
-		SessionFactory sessionFactory = sessionFactoryRegistry.get(appId);
+		SessionFactory sessionFactory = getSessionFactory(appId);
 		Session sess = sessionFactory.openSession();
 		Transaction transaction = sess.beginTransaction();
 		try {
@@ -89,7 +98,7 @@ public class PersistentStorage implements IStorage {
 	public Object getById(String appId, Class<?> clazz, Serializable id) {
 		Object ret = null;
 
-		SessionFactory sessionFactory = sessionFactoryRegistry.get(appId);
+		SessionFactory sessionFactory = getSessionFactory(appId);
 		Session sess = sessionFactory.openSession();
 		try {
 			ret = sess.get(clazz, id);
@@ -108,7 +117,7 @@ public class PersistentStorage implements IStorage {
 	 * @param ref
 	 */
 	public void update(String appId, ModelReference ref) {
-		SessionFactory sessionFactory = sessionFactoryRegistry.get(appId);
+		SessionFactory sessionFactory = getSessionFactory(appId);
 		Session sess = sessionFactory.openSession();
 		Transaction transaction = sess.beginTransaction();
 		try {
@@ -129,7 +138,7 @@ public class PersistentStorage implements IStorage {
 	 * @param ref
 	 */
 	public void delete(String appId, ModelReference ref) {
-		SessionFactory sessionFactory = sessionFactoryRegistry.get(appId);
+		SessionFactory sessionFactory = getSessionFactory(appId);
 		Session sess = sessionFactory.openSession();
 		Transaction transaction = sess.beginTransaction();
 		try {
@@ -151,13 +160,7 @@ public class PersistentStorage implements IStorage {
 	 * @return
 	 */
 	public List<?> getAll(String appId, DomainObject dObj) {
-		SessionFactory sessionFactory = sessionFactoryRegistry.get(appId);
-
-		if (sessionFactory == null) {
-			log.error("There is no SessionFactory for " + appId);
-			return null;
-		}
-
+		SessionFactory sessionFactory = getSessionFactory(appId);
 		Session sess = sessionFactory.openSession();
 		Transaction transaction = sess.beginTransaction();
 		try {
@@ -174,5 +177,36 @@ public class PersistentStorage implements IStorage {
 		}
 		return null;
 	}
+	
+	/**
+	 * 
+	 * @param appId
+	 * @param d
+	 * @return
+	 */
+	public List<?> filter(String appId, ModelReference d, String query, Object ... param){
+		SessionFactory sessionFactory = getSessionFactory(appId);
+		
+		Session sess = sessionFactory.openSession();
+		Transaction transaction = sess.beginTransaction();
+		
+		DomainObject dObj = d.getMeta();
+		
+		try {
+			if(StringUtils.isNotBlank(query)){
+				Query q = sess.createQuery(query);
+				q.setProperties(d);
+				return q.list();
+			}
+		} catch (Exception e) {
+			transaction.rollback();
+			log.error(e.getMessage(), e);
+		} finally {
+			sess.flush();
+			sess.close();
+		}
+		return null;
+	}
+		
 
 }

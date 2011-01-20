@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.springframework.ui.Model;
 
+import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
 
 /**
@@ -35,6 +37,9 @@ public class ExecutionContext<T> {
 	/** Grid Selection */
 	private List<?> gridSelection = null;
 
+	/** Objects to be displayed in Grid View */
+	private List<ModelReference> gridData = null;
+	
 	/** @see #operation */
 	public Operation getOperation() {
 		return operation;
@@ -93,6 +98,16 @@ public class ExecutionContext<T> {
 	/** @see #gridSelection */
 	public void setGridSelection(List<?> gridSelection) {
 		this.gridSelection = gridSelection;
+	}
+
+	/** @see #gridData */
+	public List<ModelReference> getGridData() {
+		return gridData;
+	}
+
+	/** @see #gridData */
+	public void setGridData(List<ModelReference> gridData) {
+		this.gridData = gridData;
 	}
 
 	
