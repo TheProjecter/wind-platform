@@ -37,4 +37,7 @@ operation groovy DeletePassengerAction "label.global.delete"{
 file: DeletePassengerAction.groovy
 }
 
+operation groovy FilterPassengerAction "label.global.filter"{
+file: FilterPassengerAction.groovy
+}
 }
