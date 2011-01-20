@@ -62,4 +62,14 @@ public interface IStorage {
 	 * @param ref
 	 */
 	void delete(String appId, ModelReference ref);	
+
+	/**
+	 * 
+	 * @param appId
+	 * @param d
+	 * @param query
+	 * @param param
+	 * @return
+	 */
+	List<?> filter(String appId, ModelReference d, String query, Object ... param);
 }

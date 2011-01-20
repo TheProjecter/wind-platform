@@ -1,6 +1,7 @@
 package br.com.maisha.wind.controller.execution.api;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -32,6 +33,7 @@ public class RuleAPI {
 		this.ctx = ctx;
 	}
 
+
 	public void save(String appId, ModelReference d){
 		persistentStorage.save(appId, d);
 	}
@@ -49,6 +51,12 @@ public class RuleAPI {
 	public void delete(String appId, ModelReference ref){
 		persistentStorage.delete(appId, ref);
 	}	
+	
+	public List<?> filter(String appId, ModelReference d, String query, Object ... param){
+		return persistentStorage.filter(appId, d, query, param);
+	}
+
+
 	                                                     
 	
 	/**
