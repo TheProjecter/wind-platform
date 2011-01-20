@@ -31,15 +31,15 @@ public class MenuRender extends BaseRender {
 	 * 
 	 * @see br.com.maisha.wind.faces.render.IRender#getModelLevel()
 	 */
-	public LevelType getModelLevel() {
-		return LevelType.Application;
+	public LevelType[] getModelLevel() {
+		return new LevelType[] { LevelType.Application };
 	}
 
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.IRender#render(java.lang.Object)
 	 */
-	public void render(ChangeType ct, Object model) {
+	public void render(LevelType level, ChangeType ct, Object model) {
 		if (!(model instanceof WindApplication)) {
 			log.error("This render is intended to recieve a "
 					+ "WindApplication as model, but [" + model.getClass()

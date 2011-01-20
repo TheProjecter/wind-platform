@@ -95,15 +95,15 @@ public class EditionView extends ViewPart implements IRender {
 	 * 
 	 * @see br.com.maisha.wind.faces.render.IRender#getModelLevel()
 	 */
-	public LevelType getModelLevel() {
-		return LevelType.Object;
+	public LevelType[] getModelLevel() {
+		return new LevelType[]{ LevelType.Object };
 	}
 
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.IRender#render(java.lang.Object)
 	 */
-	public void render(ChangeType ct, Object model) {
+	public void render(LevelType level, ChangeType ct, Object model) {
 		log.debug("Opening [" + model + "] in the EditionView... ");
 
 		if (ChangeType.InstanceOpened.equals(ct)) {
