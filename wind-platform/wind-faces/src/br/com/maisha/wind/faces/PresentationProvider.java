@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.ui.PlatformUI;
 
@@ -42,9 +43,9 @@ public class PresentationProvider implements IPresentationProvider {
 		if (Application.getApp() != null && PlatformUI.isWorkbenchRunning()) {
 			log.debug("Processing change [" + change + " at level [" + level + "]");
 			for (IRender r : render) {
-				if (r.getModelLevel() == level) {
+				if (ArrayUtils.contains(r.getModelLevel(), level)) {
 					log.debug("		Call render [" + r + "]");
-					r.render(change, model);
+					r.render(level, change, model);
 				}
 			}
 		}

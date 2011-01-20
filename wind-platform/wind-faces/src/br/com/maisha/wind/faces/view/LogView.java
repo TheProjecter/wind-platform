@@ -103,8 +103,8 @@ public class LogView extends ViewPart implements IRender {
 	 * 
 	 * @see br.com.maisha.wind.faces.render.IRender#getModelLevel()
 	 */
-	public LevelType getModelLevel() {
-		return LevelType.Exception;
+	public LevelType[] getModelLevel() {
+		return new LevelType[]{ LevelType.Exception };
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class LogView extends ViewPart implements IRender {
 	 * @see br.com.maisha.wind.faces.render.IRender#render(java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")
-	public void render(ChangeType ct, Object model) {
+	public void render(LevelType level, ChangeType ct, Object model) {
 		log.debug("Rendering Log View...");
 
 		if (model instanceof ErrorLog) {

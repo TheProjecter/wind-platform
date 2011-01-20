@@ -17,7 +17,7 @@ public interface IRender {
 	 * @param model
 	 *            Model object to render.
 	 */
-	void render(ChangeType ct, Object model);
+	void render(LevelType leve, ChangeType ct, Object model);
 
 	/**
 	 * Returns the {@link LevelType} this render act.
@@ -25,5 +25,5 @@ public interface IRender {
 	 * @see LevelType
 	 * @return Level of this render.
 	 */
-	LevelType getModelLevel();
+	LevelType[] getModelLevel();
 }

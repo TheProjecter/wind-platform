@@ -119,8 +119,8 @@ public class MessageView extends ViewPart implements IRender {
 	 * 
 	 * @see br.com.maisha.wind.faces.render.IRender#getModelLevel()
 	 */
-	public LevelType getModelLevel() {
-		return LevelType.Message;
+	public LevelType[] getModelLevel() {
+		return new LevelType[] { LevelType.Message };
 	}
 
 	/**
@@ -128,7 +128,7 @@ public class MessageView extends ViewPart implements IRender {
 	 * @see br.com.maisha.wind.faces.render.IRender#render(java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")
-	public void render(ChangeType ct, Object model) {
+	public void render(LevelType level, ChangeType ct, Object model) {
 		log.debug("Messages changed...");
 		if (model instanceof List<?>) {
 			List<UserMessage> msg = (List<UserMessage>) model;
