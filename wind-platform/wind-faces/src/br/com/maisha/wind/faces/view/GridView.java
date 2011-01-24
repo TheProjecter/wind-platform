@@ -49,13 +49,13 @@ public class GridView extends ViewPart implements IRender {
 
 	/** */
 	private IApplicationController appCtrl;
-	
+
 	/** Current Domain Object. */
 	private DomainObject dObj;
 
 	/** Grid View Column Map (Used to configure labels). */
 	private Map<Integer, String> map;
-	
+
 	/**
 	 * 
 	 * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
@@ -88,7 +88,7 @@ public class GridView extends ViewPart implements IRender {
 
 		viewer.setContentProvider(new GridViewContentProvider());
 		viewer.setComparator(new GridViewComparator());
-		
+
 		getSite().setSelectionProvider(viewer);
 	}
 
@@ -105,17 +105,19 @@ public class GridView extends ViewPart implements IRender {
 	 * @see br.com.maisha.wind.faces.render.IRender#getModelLevel()
 	 */
 	public LevelType[] getModelLevel() {
-		return new LevelType[] {LevelType.GridData, LevelType.Object};
+		return new LevelType[] { LevelType.GridData, LevelType.Object };
 	}
 
 	/**
 	 * 
-	 * @see br.com.maisha.wind.faces.render.IRender#render(br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType, br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType, java.lang.Object)
+	 * @see br.com.maisha.wind.faces.render.IRender#render(br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType,
+	 *      br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType,
+	 *      java.lang.Object)
 	 */
 	public void render(final LevelType level, final ChangeType ct, final Object model) {
-		if(LevelType.Object.equals(level)){
+		if (LevelType.Object.equals(level)) {
 			// objeto aberto...
-			
+
 			if (model instanceof DomainObject) {
 				dObj = (DomainObject) model;
 
@@ -159,36 +161,45 @@ public class GridView extends ViewPart implements IRender {
 					map.put(i, attr.getRef());
 
 					i++;
-				}	
+				}
 			}
 		}
-		
-		
+
 		if (ct.equals(ChangeType.ObjectOpened) || ct.equals(ChangeType.ValueChanged)) {
 			log.debug("Updating grid view... ");
-			
 
 			Display.getCurrent().asyncExec(new Runnable() {
 				public void run() {
 					// configures label provider
 					viewer.setLabelProvider(new GridViewLabelProvider(map));
-					
-					//input data
+
+					// input data
 					List<ModelReference> data = null;
-					if(LevelType.Object.equals(level)){
-						//TODO verify abrir filtrando
+					if (LevelType.Object.equals(level)) {
+						// TODO verify abrir filtrando
 						data = appCtrl.filter(dObj);
-					}else if(LevelType.GridData.equals(level)){
-						data = (ArrayList<ModelReference>) model;
+					} else if (LevelType.GridData.equals(level)) {
+						if (model == null) {
+
+						} else {
+							data = (ArrayList<ModelReference>) model;
+						}
 					}
 
 					List<Map<String, Object>> dataMap = appCtrl.toMap(dObj, data);
 					viewer.setInput(dataMap);
-					
+
 					// total results
-					String totalResults = PlatformMessageRegistry.getInstance().getMessage(
-							"wind_faces.gridview.totalResults", new Object[] { dataMap.size() });
-					setContentDescription(totalResults);
+					String contentDescription = "";
+					if (dataMap.size() > 0) {
+						contentDescription = PlatformMessageRegistry.getInstance().getMessage(
+								"wind_faces.gridview.totalResults", new Object[] { dataMap.size() });
+					} else {
+						contentDescription = PlatformMessageRegistry.getInstance().getMessage(
+								"wind_faces.gridview.noResults");
+					}
+					setContentDescription(contentDescription);
+
 				}
 			});
 		}
