@@ -141,9 +141,8 @@ public class ApplicationController implements IApplicationController {
 		}
 		
 		// process grid data
-		if(ctx.getGridData() != null && !ctx.getGridData().isEmpty()){
-			modelListener.fireEvent(null, ctx.getGridData(), LevelType.GridData, ChangeType.ValueChanged);
-		}
+		modelListener.fireEvent(null, ctx.getGridData(), LevelType.GridData, ChangeType.ValueChanged);
+		
 	}
 
 	public ExecutionContext<ModelReference> processValidations(ExecutionContext<ModelReference> ctx) {
