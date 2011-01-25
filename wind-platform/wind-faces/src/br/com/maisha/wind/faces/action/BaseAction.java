@@ -25,6 +25,7 @@ import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.controller.IApplicationController;
+import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.rcp.RCPUtil;
@@ -92,7 +93,11 @@ public class BaseAction extends Action implements IWorkbenchAction {
 			
 			exeCtx.setGridSelection(selection);
 			
-			ExecuteOperationJob job = new ExecuteOperationJob("Executing Operation...", exeCtx, Display.getCurrent());
+			ExecuteOperationJob job = new ExecuteOperationJob(
+					PlatformMessageRegistry.getInstance().getMessage("wind_faces.operation.running"), 
+					exeCtx, 
+					Display.getCurrent());
+			
 			job.schedule();
 
 		} catch (Exception e) {

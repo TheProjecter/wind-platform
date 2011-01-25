@@ -44,7 +44,7 @@ public class ClearEditionViewAction extends Action implements IWorkbenchAction {
 		setDescription(labelClear);
 		setText(labelClear);
 		setToolTipText(labelClear);
-
+		
 		setImageDescriptor(ImageDescriptor.createFromImage(Activator.getImageDescriptor("icons/clear.gif")
 				.createImage()));
 		
