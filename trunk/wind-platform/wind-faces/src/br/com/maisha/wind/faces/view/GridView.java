@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -19,12 +23,15 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.PropertyInfo;
+import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
@@ -97,7 +104,12 @@ public class GridView extends ViewPart implements IRender {
 	 * @see org.eclipse.ui.part.WorkbenchPart#setFocus()
 	 */
 	public void setFocus() {
-
+		try {
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPages()[0].showView(GridView.ID, null,
+					IWorkbenchPage.VIEW_ACTIVATE);
+		} catch (Exception e) {
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
+		}
 	}
 
 	/**
@@ -162,33 +174,70 @@ public class GridView extends ViewPart implements IRender {
 
 					i++;
 				}
+				
+				// configures label provider
+				viewer.setLabelProvider(new GridViewLabelProvider(map));				
 			}
 		}
 
-		if (ct.equals(ChangeType.ObjectOpened) || ct.equals(ChangeType.ValueChanged)) {
+		if (ct.equals(ChangeType.ObjectOpened) || 
+				(LevelType.GridData.equals(level) && ct.equals(ChangeType.ValueChanged))) {
 			log.debug("Updating grid view... ");
 
-			Display.getCurrent().asyncExec(new Runnable() {
-				public void run() {
-					// configures label provider
-					viewer.setLabelProvider(new GridViewLabelProvider(map));
+			LoadGridDataJob job = new LoadGridDataJob(
+					PlatformMessageRegistry.getInstance().getMessage("wind_faces.gridView.loadData"), 
+					level, 
+					model,
+					Display.getCurrent());
+			job.schedule();
+		}
+	}
+	
+	/**
+	 * Responsible for load data that will be shown in grid. 
+	 * 
+	 * @author Paulo Freitas (pfreitas1@gmail.com)
+	 */
+	class LoadGridDataJob extends Job{
 
+		private LevelType level;
+		
+		private Object model;
+		
+		private Display display;
+		
+		/**
+		 * Configures Job Name.
+		 * @param name
+		 */
+		public LoadGridDataJob(String name, LevelType level, Object model, Display display) {
+			super(name);
+			this.level = level;
+			this.model = model;
+			this.display = display;
+		}
+
+		/**
+		 * Do the thing. 
+		 * @see org.eclipse.core.runtime.jobs.Job#run(org.eclipse.core.runtime.IProgressMonitor)
+		 */
+		protected IStatus run(final IProgressMonitor monitor) {
+			display.asyncExec(new Runnable() {
+				public void run() {
 					// input data
 					List<ModelReference> data = null;
 					if (LevelType.Object.equals(level)) {
-						// TODO verify abrir filtrando
-						data = appCtrl.filter(dObj);
-					} else if (LevelType.GridData.equals(level)) {
-						if (model == null) {
-
-						} else {
-							data = (ArrayList<ModelReference>) model;
+						if(dObj.getPropertyValue(PropertyInfo.OPEN_FILTERING)){
+							data = appCtrl.filter(dObj, monitor);
 						}
+					} else if (LevelType.GridData.equals(level)) {
+						data = (ArrayList<ModelReference>) model;
+						
 					}
-
+		
 					List<Map<String, Object>> dataMap = appCtrl.toMap(dObj, data);
 					viewer.setInput(dataMap);
-
+		
 					// total results
 					String contentDescription = "";
 					if (dataMap.size() > 0) {
@@ -198,11 +247,14 @@ public class GridView extends ViewPart implements IRender {
 						contentDescription = PlatformMessageRegistry.getInstance().getMessage(
 								"wind_faces.gridview.noResults");
 					}
-					setContentDescription(contentDescription);
-
+					setContentDescription(contentDescription);	
+					
+					setFocus();
 				}
 			});
+			return Status.OK_STATUS;
 		}
+		
 	}
 
 }
