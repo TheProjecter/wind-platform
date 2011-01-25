@@ -3,6 +3,7 @@ package br.com.maisha.wind.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.osgi.framework.BundleContext;
 
 import br.com.maisha.terra.lang.DomainObject;
@@ -42,7 +43,7 @@ public interface IApplicationController {
 	 * @param dobj
 	 * @return
 	 */
-	List<ModelReference> filter(DomainObject dobj);
+	List<ModelReference> filter(DomainObject dobj, IProgressMonitor monitor);
 
 	/**
 	 * 
