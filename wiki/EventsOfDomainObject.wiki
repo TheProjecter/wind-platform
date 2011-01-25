@@ -13,8 +13,6 @@ A Domain Object can trigger the following events during its manipulation:
   * After Open
   * Before Close
   * After Close
-  * Before Run Operation
-  * After Run Operation
   
 
 To handle an event, user must specify a EventHandler at object level. The EventHandler get called when an event occurs and can do something in response.
