@@ -30,6 +30,7 @@ private List<Attribute> atts = new ArrayList<Attribute>();
 private List<Operation> ops = new ArrayList<Operation>();
 private Map<String, Property> props = new HashMap<String, Property>();
 private Map<String, Property> op_props = new HashMap<String, Property>();
+private Map<String, Property> obj_props = new HashMap<String, Property>();
 private List<Import> imports = new ArrayList<Import>();
 private List<Validation> validationRulz = new ArrayList<Validation>();
 private List<ValidationRule> validationRulzEntry = new ArrayList<ValidationRule>();
@@ -48,9 +49,9 @@ PACKAGE:'package';
 IMPORT:'import'; 
 VALIDATION_RULE:	'validationRule';
 PROPERTY:	'x' | 'y' | 'colspan' | 'rowspan' | 'presentation_type' |  'disabled' | 'visible' | 'icon' | 'width' | 'height' | 'tooltip';
-ATTRIBUTE_PROPERTY: 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'event' | 'toString';
-PERSISTENT_PROPERTY: 'onetomany' | 'manytoone' | 'transient' ;  
-OPERATION_PROPERTY: 'class' | 'file' | 'validWhen' ;
+ATTRIBUTE_PROPERTY: 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'event' | 'toString' | 'onetomany' | 'manytoone' | 'transient' ;
+OPERATION_PROPERTY: 'class' | 'file' | 'validWhen' | 'is_filter' | 'validate' ;
+OBJECT_PROPERTY: 'open_filtering' | 'event_handler';
 OPERATION: 'operation';
 
 OP_TYPE: 'java' | 'python' | 'groovy';
@@ -58,7 +59,7 @@ OP_TYPE: 'java' | 'python' | 'groovy';
 NUMBER: INTEGER | FLOAT;
 fragment FLOAT: INTEGER '.' '0'..'9'+;
 fragment INTEGER: '0'..'9' '0'..'9'*;
-NAME: LETTER (LETTER | DIGIT |  '.' | '_' )+;
+NAME: LETTER (LETTER | DIGIT |  '.' | '_' | '/' )+;
 STRING_LITERAL: '"' NONCONTROL_CHAR* '"';
 
 TYPE2	:	LETTER+;
@@ -90,8 +91,10 @@ domain_object
 		domainObject.setOperations(ops);
 		domainObject.setImports(imports);
 		domainObject.setValidations(validationRulz);
+		domainObject.setProperties(obj_props);
 		atts = new ArrayList<Attribute>();
 		ops = new ArrayList<Operation>();
+		obj_props = new HashMap<String, Property>();
 		validationRulz = new ArrayList<Validation>();
 	}
 	;
@@ -110,8 +113,21 @@ import_declaration
 	}
 	;
 	
-body	:    (attr | operation | validation_rulz | NEWLINE)+;
+body	:    (attr | operation | validation_rulz | obj_property | NEWLINE)+;
 
+obj_property: OBJECT_PROPERTY ATTRIBUITION (value|expression) {
+		IConverterService convService = ServiceProvider.getInstance()
+				.getService(IConverterService.class,
+						Activator.getDefault().getBundle().getBundleContext());
+						
+		Class<?> type = PropertyInfo.getPropertyInfo($OBJECT_PROPERTY.text).getType();
+		Object propValue = convService.convert(type, $value.text);
+		
+		Property p = new Property($OBJECT_PROPERTY.text, propValue);
+		p.setExpression($expression.text);
+		obj_props.put($OBJECT_PROPERTY.text, p);		
+}
+;
 
 attr	:   type=NAME ref=NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET {
 		Attribute att = new Attribute($type.text, $ref.text, $STRING_LITERAL.text);

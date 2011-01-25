@@ -13,6 +13,7 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.TokenStream;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.log4j.Logger;
 
 import br.com.maisha.terra.lang.DomainObject;
@@ -57,7 +58,7 @@ public class TerraCompiler implements ITerraCompiler {
 		TerraParserParser tokenParser = new TerraParserParser(getTokenStream(reader));
 		tokenParser.domain_object();
 		DomainObject obj = tokenParser.domainObject;
-		log.debug("Domain Object compiled: " + ToStringBuilder.reflectionToString(obj));
+		log.debug("Domain Object compiled: " + ToStringBuilder.reflectionToString(obj, ToStringStyle.MULTI_LINE_STYLE));
 		reader.close();
 		return obj;
 	}
