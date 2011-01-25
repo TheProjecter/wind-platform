@@ -88,10 +88,12 @@ public class ApplicationController implements IApplicationController {
 			IProgressMonitor monitor = ctx.getMonitor();
 
 			// validation phase
-			monitor.setTaskName("Validating...");
-			ctx = processValidations(ctx);
-			if (!ctx.getMessages().isEmpty()) {
-				return ctx;
+			if(op.getPropertyValue(PropertyInfo.VALIDATE)){
+				monitor.setTaskName("Validating...");
+				ctx = processValidations(ctx);
+				if (!ctx.getMessages().isEmpty()) {
+					return ctx;
+				}
 			}
 
 			monitor.worked(10);
@@ -286,17 +288,17 @@ public class ApplicationController implements IApplicationController {
 
 	/**
 	 * 
-	 * @see br.com.maisha.wind.controller.IApplicationController#filter(br.com.maisha.terra.lang.DomainObject)
+	 * @see br.com.maisha.wind.controller.IApplicationController#filter(br.com.maisha.terra.lang.DomainObject, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<ModelReference> filter(DomainObject dobj) {
+	public List<ModelReference> filter(DomainObject dobj, IProgressMonitor monitor) {
 		List<ModelReference> ret = Collections.EMPTY_LIST;
 
 		// procura por operacao "filtro"
 		Operation filterOp = null;
 		List<Operation> ops = dobj.getOperations();
 		for (Operation op : ops) {
-			if ("filter".equalsIgnoreCase(op.getRef())) {
+			if (op.getPropertyValue(PropertyInfo.IS_FILTER)) {
 				filterOp = op;
 				break;
 			}
@@ -306,8 +308,10 @@ public class ApplicationController implements IApplicationController {
 			//utiliza operacao filtro
 			ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 			ctx.setOperation(filterOp);
-			ctx.setInstance(null); //TODO
+			ctx.setInstance(null); // there is no instance because user just opened the object.
+			ctx.setMonitor(monitor);
 			runOperation(ctx);
+			ret = ctx.getGridData();
 		} else {
 			//nenhuma operacao filtro especificada... utiliza getAll
 			ret = (List<ModelReference>) persistentStorage.getAll(dobj.getApplication().getAppId(), dobj);
@@ -406,17 +410,61 @@ public class ApplicationController implements IApplicationController {
 	private String getBundleMessage(ResourceBundle rb, String key){
 		String ret = "";
 		try {
-
 			String label = rb.getString(key);
 			if (label != null) {
 				ret = label;
 			}
-
 		} catch (MissingResourceException mre) {
 			ret = key;
 		}
-		
 		return ret;
+	}
+	
+	/**
+	 * 
+	 * @param dObj
+	 * @param ct
+	 * @param level
+	 */
+	public void fireObjectEventHandler(DomainObject dObj, ChangeType ct, LevelType level){
+		try{
+			String type = "";
+			
+			String file = dObj.getPropertyValue(PropertyInfo.EVENT_HANDLER);
+			if(StringUtils.isBlank(file)){
+				return;
+			}
+			
+			type = file.substring(file.indexOf("."));
+			OperationType opType = OperationType.valueOf(type);
+			
+			String className = "";
+			
+			ScriptEngine engine = engineManager.getEngineByName(type);
+			Invocable invocable = (Invocable) engine;
+	
+			BundleContext bundle = dObj.getApplication().getBundleContext();
+			URL ruleUrl = bundle.getBundle().getEntry("/src/" + file);
+	
+			InputStream is = ruleUrl.openStream();
+			Reader r = new InputStreamReader(is);
+	
+			engine.eval(r);
+			ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
+			ctx.setLog(log);
+			engine.put("ctx", ctx);
+			RuleAPI api = new RuleAPI(ctx);
+			api.setPersistentStorage(persistentStorage);
+			engine.put("api", api);
+	
+			engine.eval("rule = " + (opType.getUseNewOperator() ? "new " : "") + className + "(ctx, api)");
+			Object o = engine.get("rule");
+	
+			ctx = (ExecutionContext<ModelReference>) invocable.invokeMethod(o, "execute");		
+		}catch(Exception e){
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
+		}
+		
 	}
 	
 
