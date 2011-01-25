@@ -1,7 +1,9 @@
 package br.com.maisha.terra.lang;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * TODO javadoc.
@@ -24,6 +26,8 @@ public class DomainObject extends TerraClass {
 	private List<Operation> operations = new ArrayList<Operation>();
 
 	private List<Validation> validations = new ArrayList<Validation>();
+	
+	private Map<String, Property> properties = new HashMap<String, Property>();
 	
 	/** Java class that represents this domain object. */
 	private Class<?> objectClass;
@@ -139,7 +143,34 @@ public class DomainObject extends TerraClass {
 		}
 		return null;
 	}
+
+	/**
+	 * 
+	 * @param <T>
+	 * @param pInfo
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public <T> T getPropertyValue(PropertyInfo<T> pInfo) {
+		if (properties != null && pInfo.getPropName() != null) {
+			Property p = properties.get(pInfo.getPropName());
+			if (p == null) {
+				return pInfo.getDefaultValue();
+			}
+			return (T) p.getValue();
+		}
+		return null;
+	}	
 	
+		
+	public Map<String, Property> getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Map<String, Property> properties) {
+		this.properties = properties;
+	}
+
 	public Attribute attribute(String name){
 		return getAttribute(name);
 	}

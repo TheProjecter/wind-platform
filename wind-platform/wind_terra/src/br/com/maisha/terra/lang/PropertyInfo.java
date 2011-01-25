@@ -99,6 +99,21 @@ public class PropertyInfo<T> {
 	public static final PropertyInfo<Boolean> TOSTRING = new PropertyInfo<Boolean>("toString", false, Boolean.class,
 			false);
 
+	/** Descricao da propriedade open_filtering */
+	public static final PropertyInfo<Boolean> OPEN_FILTERING = new PropertyInfo<Boolean>("open_filtering", false, Boolean.class,
+			false);
+	
+	/** Descricao da propriedade is_filter */
+	public static final PropertyInfo<Boolean> IS_FILTER = new PropertyInfo<Boolean>("is_filter", false, Boolean.class,
+			false);
+	
+	/** Descricao da propriedade validate */
+	public static final PropertyInfo<Boolean> VALIDATE = new PropertyInfo<Boolean>("validate", true, Boolean.class,
+			false);	
+	
+	/** Descricao da propriedade event_handler */
+	public static final PropertyInfo<String> EVENT_HANDLER = new PropertyInfo<String>("event_handler", null, String.class, false);
+	
 	/** Nome da propriedade. */
 	private String propName;
 
