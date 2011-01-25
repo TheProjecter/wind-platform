@@ -1,5 +1,8 @@
 package br.com.maisha.wind.faces.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Event;
@@ -8,6 +11,8 @@ import org.springframework.beans.BeanUtils;
 
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
+import br.com.maisha.wind.common.factory.ServiceProvider;
+import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.faces.rcp.Activator;
 
@@ -23,6 +28,8 @@ public class ClearEditionViewAction extends Action implements IWorkbenchAction {
 	
 	/** */
 	private ModelReference ref;
+	
+	private IApplicationController appController;
 	
 	/**
 	 * 
@@ -40,6 +47,9 @@ public class ClearEditionViewAction extends Action implements IWorkbenchAction {
 
 		setImageDescriptor(ImageDescriptor.createFromImage(Activator.getImageDescriptor("icons/clear.gif")
 				.createImage()));
+		
+		this.appController = ServiceProvider.getInstance().getService(IApplicationController.class,
+				Activator.getDefault().getBundle().getBundleContext());
 		
 		this.object = object;
 		this.ref = ref;
@@ -60,8 +70,19 @@ public class ClearEditionViewAction extends Action implements IWorkbenchAction {
 		super.runWithEvent(event);
 		
 		try {
-			Object newRef = object.getObjectClass().newInstance();
+			ModelReference newRef = (ModelReference) object.getObjectClass().newInstance();
+			
+			Map<String, Object> context = new HashMap<String, Object>();
+			context.put("ref", newRef);
+			context.put("appId", object.getApplication().getAppId());
+			context.put("objId", object.getRef());
+			appController.runScript("${ ref.setAppId(appId)}", context);
+			appController.runScript("${ref.setObjId(objId)}", context);
+
+			newRef.setMeta(object);
+			
 			BeanUtils.copyProperties(newRef, ref);
+			ref.toString();
 		} catch (Exception e) {
 			// TODO handle
 			e.printStackTrace();

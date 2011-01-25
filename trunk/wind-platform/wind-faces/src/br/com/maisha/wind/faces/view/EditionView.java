@@ -113,32 +113,7 @@ public class EditionView extends ViewPart implements IRender {
 				final DomainObject object = (DomainObject) model;
 				setPartName(object.getLabel());
 
-				modelInstance = (ModelReference) object.getObjectClass().newInstance();
-				modelInstance.setMeta(object);
-
-				Display.getCurrent().asyncExec(new Runnable() {
-
-					@Override
-					public void run() {
-						Map<String, Object> context = new HashMap<String, Object>();
-						context.put("ref", modelInstance);
-						context.put("appId", object.getApplication().getAppId());
-						context.put("objId", object.getRef());
-						appController.runScript("${ ref.setAppId(appId)}", context);
-						appController.runScript("${ref.setObjId(objId)}", context);
-
-					}
-				});
-
-				final ModelReference ref = modelInstance;
-				Display.getCurrent().asyncExec(new Runnable() {
-					public void run() {
-						appController.evalExpressions(ref);
-
-					}
-				});
-
-				modelInstance.addPropertyChangeListener(new ELListener());
+				configureModelInstance(object);
 
 				createUserInterface(object);
 				configureDefaultToolBar(object);
@@ -148,6 +123,40 @@ public class EditionView extends ViewPart implements IRender {
 		}
 	}
 
+	/**
+	 * 
+	 * @param object
+	 * @throws Exception
+	 */
+	private void configureModelInstance(final DomainObject object) throws Exception{
+		modelInstance = (ModelReference) object.getObjectClass().newInstance();
+		modelInstance.setMeta(object);
+
+		Display.getCurrent().asyncExec(new Runnable() {
+
+			@Override
+			public void run() {
+				Map<String, Object> context = new HashMap<String, Object>();
+				context.put("ref", modelInstance);
+				context.put("appId", object.getApplication().getAppId());
+				context.put("objId", object.getRef());
+				appController.runScript("${ ref.setAppId(appId)}", context);
+				appController.runScript("${ref.setObjId(objId)}", context);
+
+			}
+		});
+
+		final ModelReference ref = modelInstance;
+		Display.getCurrent().asyncExec(new Runnable() {
+			public void run() {
+				appController.evalExpressions(ref);
+
+			}
+		});
+
+		modelInstance.addPropertyChangeListener(new ELListener());
+	}
+	
 	/**
 	 * Sets up the user interface for the given domain object.
 	 * 
