@@ -36,6 +36,6 @@ domain_object preferences "Preferences" {
 An EventHandler can be written in Java, Groovy or Python as these are the languages supported by the platform. 
 
 *Note*
-<span style="color:#FFEAC0;display:block;">
+<span style="background-color:#FFEAC0;display:block;">
 Once an EventHandler *does not* run in UI-Thread it can not do changes to the UI Widgets directly. To change a widget an EventHandler must change the meta (Domain Object).
 </span>
