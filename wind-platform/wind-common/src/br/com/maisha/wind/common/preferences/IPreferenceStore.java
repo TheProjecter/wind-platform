@@ -1,5 +1,7 @@
 package br.com.maisha.wind.common.preferences;
 
+import org.osgi.service.prefs.Preferences;
+
 /**
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
@@ -23,5 +25,12 @@ public interface IPreferenceStore {
 	 * @return
 	 */
 	String get(String node, String key, String defaultValue);
+	
+	/**
+	 * 
+	 * @param node
+	 * @return
+	 */
+	Preferences getNode(String node);
 	
 }

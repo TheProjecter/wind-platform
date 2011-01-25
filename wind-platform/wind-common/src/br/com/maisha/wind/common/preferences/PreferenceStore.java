@@ -1,7 +1,6 @@
 package br.com.maisha.wind.common.preferences;
 
 import org.apache.log4j.Logger;
-import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 import org.osgi.service.prefs.PreferencesService;
 
@@ -45,6 +44,14 @@ public class PreferenceStore implements IPreferenceStore {
 	public String get(String node, String key, String defaultValue) {
 		Preferences pref = prefService.getSystemPreferences().node(node);
 		return pref.get(key, defaultValue);
+	}
+	
+	/**
+	 * 
+	 * @see br.com.maisha.wind.common.preferences.IPreferenceStore#getNode(java.lang.String)
+	 */
+	public Preferences getNode(String node){
+		return prefService.getSystemPreferences().node(node);
 	}
 
 	/** @see #prefService */
