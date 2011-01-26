@@ -9,6 +9,8 @@ import org.osgi.framework.BundleContext;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.WindApplication;
+import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
+import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 
 /**
@@ -92,4 +94,12 @@ public interface IApplicationController {
 	 * 
 	 */
 	void configureAllLabels(BundleContext context, WindApplication app);
+	
+	/**
+	 * 
+	 * @param dObj
+	 * @param ct
+	 * @param level
+	 */
+	void handleObjectEvent(DomainObject dObj, ChangeType ct, LevelType level);
 }

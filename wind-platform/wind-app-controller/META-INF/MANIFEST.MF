@@ -23,6 +23,7 @@ Import-Package: org.apache.commons.logging;version="1.1.1",
  org.python.util
 Export-Package: br.com.maisha.wind.controller,
  br.com.maisha.wind.controller.execution.el,
+ br.com.maisha.wind.controller.listener,
  br.com.maisha.wind.controller.message,
  br.com.maisha.wind.controller.model,
  br.com.maisha.wind.controller.storage,

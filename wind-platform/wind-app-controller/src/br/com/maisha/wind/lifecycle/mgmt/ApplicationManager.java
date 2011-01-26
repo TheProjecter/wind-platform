@@ -139,9 +139,25 @@ public class ApplicationManager implements IApplicationManager {
 	 *      java.lang.String)
 	 */
 	public void openObject(String appId, String objectId) {
+		//verify if there is an opened object
+		if(openedObject != null){
+			//if there is any, closes it
+			closeObject(openedObject);
+		}
+		
 		DomainObject obj = registry.getObject(appId, objectId);
 		openedObject = obj;
-		modelListeners.fireEvent(null, openedObject, LevelType.Object, ChangeType.ObjectOpened);
+		openObject(openedObject);
+	}
+	
+	/**
+	 * 
+	 * @param obj
+	 */
+	private void openObject(DomainObject obj){
+		modelListeners.fireEvent(null, obj, LevelType.Object, ChangeType.BeforeObjectOpen);
+		modelListeners.fireEvent(null, obj, LevelType.Object, ChangeType.ObjectOpen);
+		modelListeners.fireEvent(null, obj, LevelType.Object, ChangeType.AfterObjectOpen);
 	}
 
 	/**
@@ -150,8 +166,19 @@ public class ApplicationManager implements IApplicationManager {
 	 *      java.lang.String)
 	 */
 	public void closeObject(String appId, String objectId) {
+		DomainObject obj = registry.getObject(appId, objectId);
+		closeObject(obj);
 		openedObject = null;
-		modelListeners.fireEvent(null, null, LevelType.Object, ChangeType.ObjectClosed);
+	}
+	
+	/**
+	 * 
+	 * @param dObj
+	 */
+	private void closeObject(DomainObject dObj){
+		modelListeners.fireEvent(null, dObj, LevelType.Object, ChangeType.BeforeObjectClose);
+		modelListeners.fireEvent(null, dObj, LevelType.Object, ChangeType.ObjectClose);
+		modelListeners.fireEvent(null, dObj, LevelType.Object, ChangeType.AfterObjectClose);
 	}
 
 	/** @see ApplicationManager#appCfgReader */
