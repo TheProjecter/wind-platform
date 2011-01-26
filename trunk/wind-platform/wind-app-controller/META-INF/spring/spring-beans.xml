@@ -74,6 +74,11 @@
 		<property name="persistentStorage" ref="persistentStorage"/>
 		<property name="appCtrl" ref="applicationController"/>
 	</bean>
+	
+	<bean name="domainObjectEventListener" class="br.com.maisha.wind.controller.listener.DomainObjectEventListener">
+		<property name="appCtrl" ref="applicationController"/>
+		<property name="appModelListenerRegisty" ref="appModelListenerRegistryOsgi"/>
+	</bean>
 
 </beans>
 

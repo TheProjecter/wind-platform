@@ -40,6 +40,7 @@ import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.common.preferences.IPreferenceStore;
 import br.com.maisha.wind.controller.execution.api.RuleAPI;
+import br.com.maisha.wind.controller.listener.DomainObjectEventHandler;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.controller.model.UserMessage;
 import br.com.maisha.wind.controller.model.UserMessage.MessageKind;
@@ -426,8 +427,9 @@ public class ApplicationController implements IApplicationController {
 	 * @param ct
 	 * @param level
 	 */
-	public void fireObjectEventHandler(DomainObject dObj, ChangeType ct, LevelType level){
+	public void handleObjectEvent(DomainObject dObj, ChangeType ct, LevelType level){
 		try{
+			log.debug("	Handling Domain Object Event Level[ " + level + " ] ChangeType[ " + ct + " ]");
 			String type = "";
 			
 			String file = dObj.getPropertyValue(PropertyInfo.EVENT_HANDLER);
@@ -435,10 +437,10 @@ public class ApplicationController implements IApplicationController {
 				return;
 			}
 			
-			type = file.substring(file.indexOf("."));
+			type = file.substring(file.indexOf(".") + 1);
 			OperationType opType = OperationType.valueOf(type);
 			
-			String className = "";
+			String className = file.substring(file.lastIndexOf("/") + 1, file.indexOf("."));
 			
 			ScriptEngine engine = engineManager.getEngineByName(type);
 			Invocable invocable = (Invocable) engine;
@@ -448,8 +450,10 @@ public class ApplicationController implements IApplicationController {
 	
 			InputStream is = ruleUrl.openStream();
 			Reader r = new InputStreamReader(is);
-	
 			engine.eval(r);
+			
+			
+			// preparing to execute
 			ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 			ctx.setLog(log);
 			engine.put("ctx", ctx);
@@ -458,9 +462,10 @@ public class ApplicationController implements IApplicationController {
 			engine.put("api", api);
 	
 			engine.eval("rule = " + (opType.getUseNewOperator() ? "new " : "") + className + "(ctx, api)");
-			Object o = engine.get("rule");
-	
-			ctx = (ExecutionContext<ModelReference>) invocable.invokeMethod(o, "execute");		
+			Object result = engine.get("rule");
+			
+			//execute
+			invocable.invokeMethod(result, StringUtils.uncapitalize(ct.name()), ctx);
 		}catch(Exception e){
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
