@@ -8,11 +8,20 @@ package br.com.maisha.wind.common.listener;
 public interface IAppRegistryListener {
 
 	public enum LevelType {
-		Application, Object, Property, Operation, Message, Exception, GridData
+		Application, Object, Message, Exception, GridData
 	}
 
 	public enum ChangeType {
-		Added, Removed, ValueChanged, ObjectOpened, ObjectClosed, InstanceOpened
+		Added, 
+		Removed, 
+		ValueChanged, 
+		BeforeObjectOpen, 
+		ObjectOpen, 
+		AfterObjectOpen, 
+		BeforeObjectClose,
+		ObjectClose, 
+		AfterObjectClose, 
+		InstanceOpened
 	}
 
 	/**
@@ -22,7 +31,6 @@ public interface IAppRegistryListener {
 	 * @param level
 	 * @param change
 	 */
-	void modelChanged(Object oldValue, Object newValue, LevelType level,
-			ChangeType change);
+	void modelChanged(Object oldValue, Object newValue, LevelType level, ChangeType change);
 
 }
