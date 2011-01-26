@@ -180,7 +180,7 @@ public class GridView extends ViewPart implements IRender {
 			}
 		}
 
-		if (ct.equals(ChangeType.ObjectOpened) || 
+		if (ct.equals(ChangeType.ObjectOpen) || 
 				(LevelType.GridData.equals(level) && ct.equals(ChangeType.ValueChanged))) {
 			log.debug("Updating grid view... ");
 
