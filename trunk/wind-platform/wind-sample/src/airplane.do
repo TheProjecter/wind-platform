@@ -3,6 +3,8 @@ package br.com.maisha.wind.sample
 import location
 domain_object airbus "A 380" {
 
+event_handler: br/com/maisha/wind/sample/handler/AirplaneHander.groovy
+
 Double weight "Weight"{
 x: 1
 y: 1

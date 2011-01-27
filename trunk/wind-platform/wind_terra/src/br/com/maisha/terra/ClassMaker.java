@@ -34,6 +34,7 @@ import br.com.maisha.terra.lang.Import;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.WindApplication;
+import br.com.maisha.terra.lang.Property.PresentationType;
 import br.com.maisha.wind.common.exception.MakeClassException;
 
 /**
@@ -167,10 +168,14 @@ public class ClassMaker implements IClassMaker {
 					CtField ctField = CtField.make(field, cc);
 					ConstPool cp = ctField.getFieldInfo().getConstPool();
 
+					if(PresentationType.COMBO.equals(att.getPropertyValue(PropertyInfo.PRESENTATION_TYPE))){
+						String itemsField = "private String[] items;";
+						CtField ctItemsField = CtField.make(itemsField, cc);
+						cc.addField(ctItemsField);
+					}
+					
 					AnnotationsAttribute fieldAnnotation = new AnnotationsAttribute(cp, AnnotationsAttribute.visibleTag);
 
-
-					
 					if (manytoone != null) {
 						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.ManyToOne", null));
 
@@ -296,7 +301,6 @@ public class ClassMaker implements IClassMaker {
 	 * @return
 	 */
 	private String getQualifiedType(Attribute att, String type) {
-		DomainObject dObj = att.getDomainObject();
 		
 		if(StringUtils.isNotBlank( att.getPropertyValue(PropertyInfo.ONTOMANY))){
 			return "java.util.Set";
