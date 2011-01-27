@@ -40,7 +40,6 @@ import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.common.preferences.IPreferenceStore;
 import br.com.maisha.wind.controller.execution.api.RuleAPI;
-import br.com.maisha.wind.controller.listener.DomainObjectEventHandler;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.controller.model.UserMessage;
 import br.com.maisha.wind.controller.model.UserMessage.MessageKind;
