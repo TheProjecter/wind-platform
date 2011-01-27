@@ -6,4 +6,18 @@ This page describes and discusses how to properly treat exceptions when coding [
 
 
 = When to throw and when to catch =
-All exceptions should be thrown to the presentation layer (i.e wind-faces module). There it will be presented to the user, logged, or both. An utility class (br.com.maisha.commom.exception.ExceptionHandler) from wind-commom module, may help to catch an exception.
+All exceptions should be thrown to the presentation layer (i.e wind-faces module). There it will be presented to the user, logged, or both. An utility class (br.com.maisha.commom.exception.ExceptionHandler) from wind-commom module, may help to handle an exception. 
+
+{{{
+
+try{
+
+ ...
+
+}catch(Exception e){
+
+ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
+
+}
+
+}}}
