@@ -16,7 +16,7 @@ try{
 
 }catch(Exception e){
 
-ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
+     ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 
 }
 
