@@ -1,6 +1,5 @@
 package br.com.maisha.wind.faces.render.attr;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.BeansObservables;
@@ -18,8 +17,8 @@ import org.eclipse.swt.widgets.Label;
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Property;
-import br.com.maisha.terra.lang.Property.PresentationType;
 import br.com.maisha.terra.lang.PropertyInfo;
+import br.com.maisha.terra.lang.Property.PresentationType;
 import br.com.maisha.wind.controller.model.UserMessage;
 
 /**
@@ -80,7 +79,7 @@ public class ComboboxAttrRender extends BaseAttrRender {
 		dbctx.bindValue(SWTObservables.observeSelection(cb), observable);
 
 		ISWTObservableList widgetValue = WidgetProperties.items().observe(cb);
-		IObservableList modelValue =  BeansObservables.observeList(modelInstance, attr.getRef() + StringUtils.capitalize("list"));
+		IObservableList modelValue = BeansObservables.observeList(modelInstance, attr.getRef() + "List");
 		dbctx.bindList(widgetValue, modelValue); 
 	}
 	

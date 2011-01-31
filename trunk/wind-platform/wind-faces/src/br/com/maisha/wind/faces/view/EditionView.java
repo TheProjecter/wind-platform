@@ -13,7 +13,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.ViewPart;
 import org.springframework.beans.BeanUtils;
@@ -29,7 +28,6 @@ import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.IApplicationController;
-import br.com.maisha.wind.controller.execution.el.ELListener;
 import br.com.maisha.wind.faces.IPresentationProvider;
 import br.com.maisha.wind.faces.action.BaseAction;
 import br.com.maisha.wind.faces.action.ClearEditionViewAction;
@@ -53,13 +51,13 @@ public class EditionView extends ViewPart implements IRender {
 	/** Painel que contem os elementos graficos da area de edicao. */
 	private Composite contents;
 
-	/** */
+	/** Presentantion Provider */
 	private IPresentationProvider presProvider;
 
-	/** */
+	/** Application Controller */
 	private IApplicationController appController;
 
-	/** */
+	/** Current model instance. */
 	private ModelReference modelInstance;
 
 	/**
@@ -78,9 +76,6 @@ public class EditionView extends ViewPart implements IRender {
 				Activator.getDefault().getBundle().getBundleContext());
 
 		presProvider.registerRender(this);
-
-		
-		
 	}
 
 	/**
@@ -114,7 +109,7 @@ public class EditionView extends ViewPart implements IRender {
 				final DomainObject object = (DomainObject) model;
 				setPartName(object.getLabel());
 
-				configureModelInstance(object);
+				modelInstance = appController.createNewInstance(object);
 
 				createUserInterface(object);
 				configureDefaultToolBar(object);
@@ -124,40 +119,6 @@ public class EditionView extends ViewPart implements IRender {
 		}
 	}
 
-	/**
-	 * 
-	 * @param object
-	 * @throws Exception
-	 */
-	private void configureModelInstance(final DomainObject object) throws Exception{
-		modelInstance = (ModelReference) object.getObjectClass().newInstance();
-		modelInstance.setMeta(object);
-
-		Display.getCurrent().asyncExec(new Runnable() {
-
-			@Override
-			public void run() {
-				Map<String, Object> context = new HashMap<String, Object>();
-				context.put("ref", modelInstance);
-				context.put("appId", object.getApplication().getAppId());
-				context.put("objId", object.getRef());
-				appController.runScript("${ ref.setAppId(appId)}", context);
-				appController.runScript("${ref.setObjId(objId)}", context);
-
-			}
-		});
-
-		final ModelReference ref = modelInstance;
-		Display.getCurrent().asyncExec(new Runnable() {
-			public void run() {
-				appController.evalExpressions(ref);
-
-			}
-		});
-
-		modelInstance.addPropertyChangeListener(new ELListener());
-	}
-	
 	/**
 	 * Sets up the user interface for the given domain object.
 	 * 

@@ -85,7 +85,7 @@ public class ClassMaker implements IClassMaker {
 				DomainObject obj = entry.getKey();
 				obj.setObjectClass(entry.getValue().toClass(cLoader, null));
 
-				if(log.isDebugEnabled()){
+				if (log.isDebugEnabled()) {
 					describeClass(obj.getObjectClass());
 				}
 			}
@@ -159,21 +159,19 @@ public class ClassMaker implements IClassMaker {
 			String field = "";
 			for (Attribute att : obj.getAtts()) {
 				if (!att.getPropertyValue(PropertyInfo.TRANSIENT)) {
-					
+
 					// many to one
 					String manytoone = att.getPropertyValue(PropertyInfo.MANYTOONE);
-					String onetomany = att.getPropertyValue(PropertyInfo.ONTOMANY);				
-					
+					String onetomany = att.getPropertyValue(PropertyInfo.ONTOMANY);
+
 					field = "private " + getQualifiedType(att, att.getType()) + " " + att.getRef() + ";";
 					CtField ctField = CtField.make(field, cc);
 					ConstPool cp = ctField.getFieldInfo().getConstPool();
 
-					if(PresentationType.COMBO.equals(att.getPropertyValue(PropertyInfo.PRESENTATION_TYPE))){
-						String itemsField = "private String[] items;";
-						CtField ctItemsField = CtField.make(itemsField, cc);
-						cc.addField(ctItemsField);
+					if (PresentationType.COMBO.getValue().equals(att.getPropertyValue(PropertyInfo.PRESENTATION_TYPE))) {
+						createComboItemsProperty(cc, att);
 					}
-					
+
 					AnnotationsAttribute fieldAnnotation = new AnnotationsAttribute(cp, AnnotationsAttribute.visibleTag);
 
 					if (manytoone != null) {
@@ -182,14 +180,14 @@ public class ClassMaker implements IClassMaker {
 						Map<String, MemberValue> params = new HashMap<String, MemberValue>();
 						params.put("name", new StringMemberValue(manytoone, cp));
 						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.JoinColumn", params));
-					}else if(onetomany != null){
-						
+					} else if (onetomany != null) {
+
 						Map<String, MemberValue> params = new HashMap<String, MemberValue>();
 						params.put("mappedBy", new StringMemberValue(onetomany, cp));
-						params.put("targetEntity", new ClassMemberValue(getRelatedObjectName(att, att.getType()),  cp));
+						params.put("targetEntity", new ClassMemberValue(getRelatedObjectName(att, att.getType()), cp));
 						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.OneToMany", params));
-						
-					}else {
+
+					} else {
 						Map<String, MemberValue> columnParams = new HashMap<String, MemberValue>();
 						columnParams.put("name", new StringMemberValue(att.getRef(), cp));
 						columnParams.put("nullable", new BooleanMemberValue(!att
@@ -210,6 +208,41 @@ public class ClassMaker implements IClassMaker {
 		} catch (CannotCompileException e) {
 			throw new MakeClassException(e);
 		}
+	}
+
+	/**
+	 * 
+	 * @param cc
+	 * @param att
+	 * @throws Exception
+	 */
+	private void createComboItemsProperty(CtClass cc, Attribute att) throws CannotCompileException {
+		String itemsField = "private String[] " + att.getRef() + "List;";
+		CtField ctItemsField = CtField.make(itemsField, cc);
+		cc.addField(ctItemsField);
+
+		StringBuffer method = new StringBuffer();
+		method.append("public void set");
+		method.append(StringUtils.capitalize(att.getRef() + "List"));
+		method.append("(String[] v){");
+		method.append("String[]").append(" oldValue = this.").append(att.getRef() + "List").append(";");
+		method.append("this.").append(att.getRef() + "List").append(" = v;");
+		method.append("changeSupport.firePropertyChange(\"").append(att.getRef() + "List").append("\", oldValue, v);");
+		method.append("}");
+		cc.addMethod(CtMethod.make(method.toString(), cc));
+
+		method = new StringBuffer();
+		method.append("public ");
+		method.append("String[] ");
+		method.append(" get");
+		method.append(StringUtils.capitalize(att.getRef() + "List"));
+		method.append("(){");
+		method.append("return this.");
+		method.append(att.getRef() + "List");
+		method.append(";");
+		method.append("}");
+		cc.addMethod(CtMethod.make(method.toString(), cc));
+
 	}
 
 	private void describeClass(Class<?> cl) {
@@ -301,11 +334,11 @@ public class ClassMaker implements IClassMaker {
 	 * @return
 	 */
 	private String getQualifiedType(Attribute att, String type) {
-		
-		if(StringUtils.isNotBlank( att.getPropertyValue(PropertyInfo.ONTOMANY))){
+
+		if (StringUtils.isNotBlank(att.getPropertyValue(PropertyInfo.ONTOMANY))) {
 			return "java.util.Set";
 		}
-		
+
 		String returnType = type;
 		if (!isJavaLangType(type)) {
 			// procura no map de tipos
@@ -318,17 +351,17 @@ public class ClassMaker implements IClassMaker {
 		}
 		return returnType;
 	}
-	
+
 	/**
 	 * 
 	 * @param att
 	 * @param type
 	 * @return
 	 */
-	private String getRelatedObjectName(Attribute att, String type){
+	private String getRelatedObjectName(Attribute att, String type) {
 		DomainObject dObj = att.getDomainObject();
 		String returnType = type;
-		
+
 		// procura nos imports
 		for (Import imp : dObj.getImports()) {
 			String[] path = imp.getPath().split("\\.");
@@ -339,7 +372,7 @@ public class ClassMaker implements IClassMaker {
 				}
 			}
 		}
-		
+
 		return returnType;
 	}
 
@@ -356,8 +389,8 @@ public class ClassMaker implements IClassMaker {
 		method.append("(");
 		method.append(getQualifiedType(att, att.getType()));
 		method.append(" v ){");
-		method.append(getQualifiedType(att, att.getType())).append(" oldValue = this.").append(
-				att.getRef()).append(";");
+		method.append(getQualifiedType(att, att.getType())).append(" oldValue = this.").append(att.getRef())
+				.append(";");
 		method.append("this.").append(att.getRef()).append(" = v;");
 		method.append("changeSupport.firePropertyChange(\"").append(att.getRef()).append("\", oldValue, v);");
 		method.append("}");

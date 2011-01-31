@@ -23,15 +23,12 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.PropertyInfo;
-import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
@@ -104,12 +101,7 @@ public class GridView extends ViewPart implements IRender {
 	 * @see org.eclipse.ui.part.WorkbenchPart#setFocus()
 	 */
 	public void setFocus() {
-		try {
-			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPages()[0].showView(GridView.ID, null,
-					IWorkbenchPage.VIEW_ACTIVATE);
-		} catch (Exception e) {
-			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
-		}
+
 	}
 
 	/**

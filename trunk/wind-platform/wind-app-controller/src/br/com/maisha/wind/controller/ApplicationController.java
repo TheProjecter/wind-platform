@@ -20,18 +20,19 @@ import javax.script.ScriptEngineManager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.osgi.framework.BundleContext;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
-import br.com.maisha.terra.lang.Operation.OperationType;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Validation;
 import br.com.maisha.terra.lang.ValidationRule;
 import br.com.maisha.terra.lang.WindApplication;
+import br.com.maisha.terra.lang.Operation.OperationType;
 import br.com.maisha.wind.common.converter.IConverterService;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
@@ -40,6 +41,7 @@ import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.common.preferences.IPreferenceStore;
 import br.com.maisha.wind.controller.execution.api.RuleAPI;
+import br.com.maisha.wind.controller.execution.el.ELListener;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.controller.model.UserMessage;
 import br.com.maisha.wind.controller.model.UserMessage.MessageKind;
@@ -74,6 +76,9 @@ public class ApplicationController implements IApplicationController {
 
 	/** The application registry. */
 	private IApplicationRegistry registry;
+	
+	/** Current model being edited;  */
+	private ModelReference currentInstance;
 
 	/**
 	 * 
@@ -147,7 +152,12 @@ public class ApplicationController implements IApplicationController {
 		
 	}
 
-	public ExecutionContext<ModelReference> processValidations(ExecutionContext<ModelReference> ctx) {
+	/**
+	 * 
+	 * @param ctx
+	 * @return
+	 */
+	private ExecutionContext<ModelReference> processValidations(ExecutionContext<ModelReference> ctx) {
 		try {
 			ModelReference modelInstance = ctx.getInstance();
 			DomainObject meta = modelInstance.getMeta();
@@ -212,7 +222,7 @@ public class ApplicationController implements IApplicationController {
 				return;
 			}
 			IConverterService convService = ServiceProvider.getInstance().getService(IConverterService.class,
-					Activator.getDefault());
+					Activator.getDefault()); //TODO injetar com spring
 			ScriptEngine juelEngine = engineManager.getEngineByName("juel");
 			DomainObject meta = modelInstance.getMeta();
 
@@ -247,9 +257,7 @@ public class ApplicationController implements IApplicationController {
 
 	/**
 	 * 
-	 * @param instance
-	 * @param attributeName
-	 * @return
+	 * @see br.com.maisha.wind.controller.IApplicationController#getObjectValue(java.lang.Object, java.lang.String)
 	 */
 	public Object getObjectValue(Object instance, String attributeName) {
 		Object ret = null;
@@ -358,6 +366,10 @@ public class ApplicationController implements IApplicationController {
 
 	}
 
+	/**
+	 * 
+	 * @see br.com.maisha.wind.controller.IApplicationController#configureAllLabels(org.osgi.framework.BundleContext)
+	 */
 	public void configureAllLabels(BundleContext context) {
 		List<WindApplication> apps = registry.retrieve();
 		if (apps != null) {
@@ -369,8 +381,7 @@ public class ApplicationController implements IApplicationController {
 
 	/**
 	 * 
-	 * @param context
-	 * @param app
+	 * @see br.com.maisha.wind.controller.IApplicationController#configureAllLabels(org.osgi.framework.BundleContext, br.com.maisha.terra.lang.WindApplication)
 	 */
 	public void configureAllLabels(BundleContext context, WindApplication app) {
 
@@ -455,9 +466,13 @@ public class ApplicationController implements IApplicationController {
 			// preparing to execute
 			ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 			ctx.setLog(log);
-			engine.put("ctx", ctx);
+			ctx.setInstance(currentInstance);
+			ctx.setMonitor(new NullProgressMonitor());
+			
 			RuleAPI api = new RuleAPI(ctx);
 			api.setPersistentStorage(persistentStorage);
+			
+			engine.put("ctx", ctx);
 			engine.put("api", api);
 	
 			engine.eval("rule = " + (opType.getUseNewOperator() ? "new " : "") + className + "(ctx, api)");
@@ -474,10 +489,49 @@ public class ApplicationController implements IApplicationController {
 
 	/**
 	 * 
-	 * @param ref
+	 * @see br.com.maisha.wind.controller.IApplicationController#openObjectInstance(br.com.maisha.terra.lang.ModelReference)
 	 */
 	public void openObjectInstance(ModelReference ref) {
+		this.currentInstance = ref;
 		modelListener.fireEvent(null, ref, LevelType.Object, ChangeType.InstanceOpened);
+	}
+	
+	
+	/**
+	 * 
+	 * @see br.com.maisha.wind.controller.IApplicationController#createNewInstance(br.com.maisha.terra.lang.DomainObject)
+	 */
+	public ModelReference createNewInstance(DomainObject dObj) {
+		try{
+			currentInstance = (ModelReference) dObj.getObjectClass().newInstance();
+			currentInstance.setMeta(dObj);
+
+			// configures Application Id and Object Id in the recently created instance.
+			Map<String, Object> context = new HashMap<String, Object>();
+			context.put("ref", currentInstance);
+			context.put("appId", dObj.getApplication().getAppId());
+			context.put("objId", dObj.getRef());
+			runScript("${ref.setAppId(appId)}", context);
+			runScript("${ref.setObjId(objId)}", context);
+
+			// evaluates metaobject attribute expressions
+			evalExpressions(currentInstance);
+			
+			// listen for changes in the values of instance attributes and reevaluate the metaobject 
+			currentInstance.addPropertyChangeListener(new ELListener());
+		}catch(Exception e){
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
+		}
+		return currentInstance;
+	}
+	
+	
+	/**
+	 * 
+	 * @see br.com.maisha.wind.controller.IApplicationController#getCurrentModelInstance()
+	 */
+	public ModelReference getCurrentModelInstance() {
+		return currentInstance;
 	}
 
 	/** @see #modelListener */
