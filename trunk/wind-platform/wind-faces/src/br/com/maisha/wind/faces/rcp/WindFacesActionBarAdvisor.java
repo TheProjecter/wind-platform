@@ -5,12 +5,15 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.GroupMarker;
+import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.osgi.framework.internal.core.Msg;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -103,6 +106,16 @@ public class WindFacesActionBarAdvisor extends ActionBarAdvisor {
 		log.debug("Menu Bar filled... ");
 	}
 
+	/**
+	 * 
+	 * @see org.eclipse.ui.application.ActionBarAdvisor#fillCoolBar(org.eclipse.jface.action.ICoolBarManager)
+	 */
+	protected void fillCoolBar(ICoolBarManager coolBar) {
+		IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.LEFT);
+		toolbar.add(aboutAction);
+		coolBar.add(toolbar);
+	}
+	
 	/**
 	 * 
 	 * @see org.eclipse.ui.application.ActionBarAdvisor#fillStatusLine(org.eclipse.jface.action.IStatusLineManager)

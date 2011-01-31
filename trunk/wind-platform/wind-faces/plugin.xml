@@ -80,5 +80,24 @@
 		</layout>
 	</extension>
 
+   <extension
+         point="org.eclipse.rap.ui.themes">
+      <theme
+            id="br.maisha.wind.faces.theme.default"
+            name="Wind Default Theme"
+            file="wind-default.css" />
+   </extension>
+
+
+<extension
+         point="org.eclipse.rap.ui.branding">
+      <branding
+            defaultEntrypointId="wind_faces.Application"
+            id="br.maisha.wind.faces.brandind"
+            servletName="rap"
+            themeId="org.eclipse.rap.design.example.business.theme"
+            title="Wind Platform">
+      </branding>
+   </extension>
 
 </plugin>
