@@ -31,9 +31,10 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
 	    configurer.setShowCoolBar( true );
 	    configurer.setTitle( "Wind" );
-	    configurer.setShellStyle( SWT.TITLE | SWT.MAX | SWT.RESIZE );
+	    configurer.setShellStyle( SWT.NO_TRIM);
 	    configurer.setShowStatusLine(true);
 	    configurer.setShowProgressIndicator( true );
+	    
 	}
 	
 	public WindFacesActionBarAdvisor getActionBarAdvisor() {
@@ -43,6 +44,11 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 	@Override
 	public void postWindowCreate() {
 		super.postWindowCreate();
+		
+		//Shell shell = getWindowConfigurer().getWindow().getShell();
+		//shell.setMaximized( true );
+		
+		
 		IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
 	    Display display = configurer.getWindow().getWorkbench().getDisplay();
 	    Shell shell = configurer.getWindow().getShell();
@@ -51,8 +57,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 	    // Get the resolution
 	    Rectangle pDisplayBounds = display.getBounds();
 
-	    int nMinWidth = pDisplayBounds.width - 100;
-	    int nMinHeight = pDisplayBounds.height - 100;
+	    int nMinWidth = pDisplayBounds.width - 20;
+	    int nMinHeight = pDisplayBounds.height - 20;
 	    
 	    // This formulae calculate the shell's Left ant Top
 	    int nLeft = (pDisplayBounds.width - nMinWidth) / 2;
@@ -60,5 +66,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
 	    // Set shell bounds,
 	    shell.setBounds( nLeft, nTop, nMinWidth, nMinHeight );
+	    
 	}
 }
