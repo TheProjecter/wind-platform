@@ -11,6 +11,7 @@ domain_object preferences "Preferences" {
 		y: 1
 		width: 120
 		required:true
+		presentation_type: combo
 	}
 	
 	Integer maxResultsDisplayed "Max Results to Display"{

@@ -102,4 +102,18 @@ public interface IApplicationController {
 	 * @param level
 	 */
 	void handleObjectEvent(DomainObject dObj, ChangeType ct, LevelType level);
+	
+	/**
+	 * Creates a new instance of the given DomainObject.
+	 * The created instance is accessible by {@link #getCurrentModelInstance())
+	 * @param dObj
+	 * @return
+	 */
+	ModelReference createNewInstance(DomainObject dObj);
+	
+	/**
+	 * Returns the current model instance. 
+	 * @return Current Model Instance
+	 */
+	ModelReference getCurrentModelInstance();
 }

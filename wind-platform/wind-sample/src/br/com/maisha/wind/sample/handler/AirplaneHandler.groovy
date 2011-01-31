@@ -1,13 +1,13 @@
 import br.com.maisha.wind.controller.listener.DomainObjectEventHandler;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 
-class PreferencesEventHandler implements DomainObjectEventHandler{
+class AirplaneHandler implements DomainObjectEventHandler{
 
 	def ctx
 	def api
 	def log
 
-	PreferencesEventHandler(ctx, api){
+	AirplaneHandler(ctx, api){
 		this.ctx = ctx
 		this.api = api
 		this.log = ctx.log
@@ -16,12 +16,12 @@ class PreferencesEventHandler implements DomainObjectEventHandler{
 	
 	ExecutionContext<?> beforeObjectOpen(ExecutionContext<Object> ctx){
 		log.debug("@@@  Hey I'm a groovy handler!!!");
-		ctx.instance.typeItems = ;
 	}
 	
 	
 	ExecutionContext<?> afterObjectOpen(ExecutionContext<Object> ctx) {
 		
+
 	}
 	
 	
