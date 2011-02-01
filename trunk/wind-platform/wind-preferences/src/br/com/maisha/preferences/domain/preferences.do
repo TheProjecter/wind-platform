@@ -36,6 +36,7 @@ domain_object preferences "Preferences" {
 	operation groovy Filter "Filter"{
 		file: /br/com/maisha/preferences/rules/FilterPreferences.groovy
 		is_filter: true;
+		validate: false;
 	}
 
 
