@@ -28,7 +28,7 @@
             class="br.com.maisha.wind.faces.view.MessageView"
             icon="icons/messageView.gif"
             id="br.com.maisha.wind.faces.view.messageView"
-            name="Message View">
+            name="Message">
       </view>
       
 	  <view
@@ -44,7 +44,7 @@
       </view>
       
       <view
-            name="Grid View"
+            name="Grid"
             class="br.com.maisha.wind.faces.view.GridView"
             icon="icons/grid.gif"
             id="br.com.maisha.wind.faces.view.gridView">
@@ -54,10 +54,10 @@
             class="br.com.maisha.wind.faces.view.LogView"
             icon="icons/logView.gif"
             id="br.com.maisha.wind.faces.view.logView"
-            name="Log View">
+            name="Log">
       </view>        
    <view
-         name="Progress View"
+         name="Progress"
          icon="icons/pview.gif"
          category="org.eclipse.ui"
          class="org.eclipse.ui.ExtensionFactory:progressView"

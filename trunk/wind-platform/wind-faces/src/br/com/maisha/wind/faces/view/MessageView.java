@@ -110,6 +110,7 @@ public class MessageView extends ViewPart implements IRender {
 		try {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPages()[0].showView(MessageView.ID, null,
 					IWorkbenchPage.VIEW_ACTIVATE);
+			 
 		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
