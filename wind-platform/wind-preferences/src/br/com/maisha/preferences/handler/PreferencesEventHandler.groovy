@@ -15,7 +15,7 @@ class PreferencesEventHandler implements DomainObjectEventHandler{
 
 	
 	ExecutionContext<?> beforeObjectOpen(ExecutionContext<Object> ctx){
-		log.debug("@@@  Hey I'm a groovy handler!!!");
+
 	}
 	
 	
