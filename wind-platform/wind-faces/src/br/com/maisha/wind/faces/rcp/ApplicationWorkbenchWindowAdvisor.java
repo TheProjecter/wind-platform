@@ -4,10 +4,15 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
+
+import br.com.maisha.wind.faces.view.LogView;
+import br.com.maisha.wind.faces.view.MessageView;
 
 /**
  * Configures the initial size and appearance of a workbench window.
@@ -67,5 +72,22 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 	    // Set shell bounds,
 	    shell.setBounds( nLeft, nTop, nMinWidth, nMinHeight );
 	    
+	    
+		try{
+			//Message View
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(MessageView.ID,
+				null, IWorkbenchPage.VIEW_CREATE);
+			
+			//Log View
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(LogView.ID,
+					null, IWorkbenchPage.VIEW_CREATE);
+			
+			//Progress View
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("org.eclipse.ui.views.ProgressView",
+					null, IWorkbenchPage.VIEW_CREATE);
+			
+		}catch(Exception e){
+			// silently ignore
+		}
 	}
 }
