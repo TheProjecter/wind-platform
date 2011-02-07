@@ -4,7 +4,7 @@ Bundle-Name: Apache Commons Lang
 Bundle-SymbolicName: com.springsource.org.apache.commons.lang
 Bundle-Version: 2.4.0
 Bundle-Vendor: SpringSource
-Export-Package: org.apache.commons.lang;version="2.4.0",org.apache.commons.lang.builder;version="2.4.0",org.apache.commons.lang.enum;version="2.4.0",org.apache.commons.lang.enums;version="2.4.0",org.apache.commons.lang.exception;version="2.4.0",org.apache.commons.lang.math;version="2.4.0",org.apache.commons.lang.mutable;version="2.4.0",org.apache.commons.lang.text;version="2.4.0",org.apache.commons.lang.time;version="2.4.0"
+Export-Package: org.apache.commons.lang;version="2.4.0",org.apache.commons.lang.builder;version="2.4.0",org.apache.commons.lang.enums;version="2.4.0",org.apache.commons.lang.exception;version="2.4.0",org.apache.commons.lang.math;version="2.4.0",org.apache.commons.lang.mutable;version="2.4.0",org.apache.commons.lang.text;version="2.4.0",org.apache.commons.lang.time;version="2.4.0"
 Specification-Version: 2.4
 Implementation-Title: Commons Lang
 Archiver-Version: Plexus Archiver
