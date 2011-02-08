@@ -14,16 +14,18 @@
  <UserPref name="type" datatype="string" />
  <Content type="html">
  <![CDATA[
+ <link href="http://wind-platform.googlecode.com/svn/trunk/wind-platform/documentation/wiki_notes/note.css" rel="stylesheet" type="text/css">
  <script type="text/javascript" src="http://wind-platform.googlecode.com/svn/trunk/wind-platform/documentation/wiki_notes/note.js"></script>
  <script>
  function startNote() {
-   gcNote('__UP_text__', '__UP_type__', 
-               document.getElementById('noteContainer'));
+ 	var container = document.getElementById('noteContainer');
+ 	container.setAttribute("class", '__UP_type__');
+ 	gcNote('__UP_text__', '__UP_type__', container);
  }
  gadgets.util.registerOnLoadHandler(startNote);
  </script>
 
- <div id="noteContainer"/>
+ <div id="noteContainer" class=""/>
  ]]>
  </Content>
 </Module>
