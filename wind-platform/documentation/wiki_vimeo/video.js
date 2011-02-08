@@ -21,6 +21,7 @@ function extractVimeoId(url) {
 function gcVideoMain(video_url, flashEmbedCallback, container) {
   if (video_url) {
     var id;
+    alert("video_url: "+video_url);
     if ((id = extractYoutubeId(video_url))) {
       // &rel=0 disables the mouseover for related videos.
       flashEmbedCallback("http://www.youtube.com/v/" + id + "&rel=0", "video", 8);
