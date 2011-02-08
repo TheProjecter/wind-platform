@@ -21,7 +21,6 @@ function extractVimeoId(url) {
 function gcVideoMain(video_url, flashEmbedCallback, container) {
   if (video_url) {
     var id;
-    alert("video_url: "+video_url);
     if ((id = extractYoutubeId(video_url))) {
       // &rel=0 disables the mouseover for related videos.
       flashEmbedCallback("http://www.youtube.com/v/" + id + "&rel=0", "video", 8);
@@ -35,6 +34,7 @@ function gcVideoMain(video_url, flashEmbedCallback, container) {
           "video", 8);
     }else {
       // TODO: video_url should be HTML escaped.
+      container.innerHTML = "<p>id: " + id + "</p>";
       container.innerHTML = "<p>Oops!  You asked us to play '<b>" + video_url + "</b>'.</p>";
       container.innerHTML += "<p>I do not know how to play this kind of video.</p>";
       container.innerHTML += "<p>Is it a Google Video or YouTube URL?</p>";
