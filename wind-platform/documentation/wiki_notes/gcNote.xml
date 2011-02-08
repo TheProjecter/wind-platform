@@ -10,7 +10,8 @@
     height="344">
    <Require feature="flash"/>
  </ModulePrefs>
- <UserPref name="video" datatype="string" />
+ <UserPref name="text" datatype="string" />
+ <UserPref name="type" datatype="string" />
  <Content type="html">
  <![CDATA[
  <script type="text/javascript" src="http://wind-platform.googlecode.com/svn/trunk/wind-platform/documentation/wiki_notes/note.js"></script>
