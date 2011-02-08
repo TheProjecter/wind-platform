@@ -8,8 +8,7 @@
     author_email="gadgets.feedback@gmail.com"
     width="425"
     height="344">
-   <Require feature="flash"/>
- </ModulePrefs>
+</ModulePrefs>
  <UserPref name="text" datatype="string" />
  <UserPref name="type" datatype="string" />
  <Content type="html">
@@ -25,7 +24,7 @@
  gadgets.util.registerOnLoadHandler(startNote);
  </script>
 
- <div id="noteContainer" class=""/>
+ <div id="noteContainer" style="height:60px"/>
  ]]>
  </Content>
 </Module>

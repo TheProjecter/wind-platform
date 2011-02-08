@@ -1,7 +1,10 @@
 .tip{
-	background-color: 56ffff;
-	padding-left: 50px;
-	border: 1 solid black;
+	background:url("http://wind-platform.googlecode.com/svn/trunk/wind-platform/documentation/wiki_notes/tip.png") no-repeat scroll 0 0 #56FFFF;
+	font-family:sans-serif;
+	font-size:13px;
+	overflow:hidden;
+	padding-left:50px;
+	padding-top:10px;
 }
 
 iframe{
