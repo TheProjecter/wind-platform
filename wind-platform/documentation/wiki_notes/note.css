@@ -1,6 +1,9 @@
 .tip{
-
-	background-color: blue;
-	padding: 8px;
+	background-color: 56ffff;
+	padding-left: 50px;
 	border: 1 solid black;
+}
+
+iframe{
+	border: 0px;
 }
