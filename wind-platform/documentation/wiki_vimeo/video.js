@@ -30,7 +30,7 @@ function gcVideoMain(video_url, flashEmbedCallback, container) {
           "video", 8);
     } else if ((id = extractVimeoId(video_url))) {
       flashEmbedCallback(
-          "http://player.vimeo.com/video/" + id,
+          "http://vimeo.com/moogaloop.swf?clip_id=" + id ",
           "video", 8);
     }else {
       // TODO: video_url should be HTML escaped.
