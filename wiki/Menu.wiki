@@ -1,5 +1,5 @@
 <ul>
-<li>Glossary</li>
+<li>[Glossary Glossary]</li>
 <li>User Guide</li>
 <ul>
 <li> </li>
