@@ -2,7 +2,7 @@
 <li>Glossary</li>
 <li>User Guide</li>
 <ul>
-<li>Page 1</li>
+<li> </li>
 </ul>
 <li>Architeture</li>
 <ul>
