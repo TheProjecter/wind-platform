@@ -22,8 +22,7 @@ It must implement a method with name *execute* that will be called by the execut
 
 {{{
 def Object execute(){
-   api.save("trip_control", model)
-   api.info(model.meta, "msg.passengers.save.success", model.name)
+   api.save("appId", model)
    return ctx
 }
 }}}
