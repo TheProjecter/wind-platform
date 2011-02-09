@@ -1,0 +1,15 @@
+#summary This document describes how Business Rules works on the platform
+
+= Introduction =
+
+A *Business Rule* is a small and well-defined unit of code. It has a purpose, or goal to modify the *Domain Model* producing a result.
+It is a good practice to design a Business Rule in a way it has a Single Responsability. The advantage is the ease in testing, bug identification and correction and reusability. 
+In many cases, each Business Rule is part of a bigger picture. A business process can use the same business rules in different ways in order to produce different results. Thus, simple and well-defined rules are easier to be reusable.
+
+
+= Business Rules =
+
+= Business Process =
+
+== Chain ==
+== BPMN Process ==
