@@ -2,7 +2,8 @@
 <li>[Glossary Glossary]</li>
 <li>User Guide</li>
 <ul>
-<li> </li>
+<li>[Validation Validation]</li>
+<li>[EventsOfDomainObject Domain Object's Event]</li>
 </ul>
 <li>Architeture</li>
 <ul>
@@ -12,9 +13,7 @@
 <ul>
 <li>DevEnvironment</li>
 <li>AccessFilesOfWindApplications</li>
-<li>EventsOfDomainObject</li>
 <li>ExceptionHandling</li>
-<li>[Validation Validation]</li>
 <li>ValueBinding</li>
 <li>WindAppRegistry</li>
 <li>WindFaces</li>
