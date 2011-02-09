@@ -2,7 +2,7 @@
 
 = How to configure a Dev Environment =
 
-  # [Download http://www.eclipse.org/rap/downloads/]and install current Eclipse for RCP/RAP Development.
+  # [http://www.eclipse.org/rap/downloads/ Download]and install current Eclipse for RCP/RAP Development.
   # Install RAP Target. When Eclipse restarts, install RAP Target Platform from welcome screen.
   # Install Subversive Plugin.
   # Checkout projects from wind-platform
