@@ -1,4 +1,6 @@
  * SampleObject
  * ExceptionHandling
 
- <p><ul> <li>iforums简介</li> <ul> <li><a href="http://code.google.com/p/iforums/wiki/introduction" rel="nofollow">iforums简介</a></li> <li><a href="http://code.google.com/p/iforums/wiki/features" rel="nofollow">iforums的特点</a></li> <li><a href="http://code.google.com/p/iforums/wiki/version" rel="nofollow">iforums的版本</a></li> </ul> <li>安装和升级</li> <ul> <li><a href="http://code.google.com/p/iforums/wiki/installation" rel="nofollow">新安装</a></li> <li><a href="http://code.google.com/p/iforums/wiki/installation_tips" rel="nofollow">安装注意事项</a></li> </ul> <li>搜索</li> <ul> <li><a rel="nofollow">建立帖子索引</a> </li> </ul> <li>定制化和集成</li> <ul> <li><a rel="nofollow">设定和代码集成</a> </li> <li><a rel="nofollow">模版和风格</a> </li> <li><a rel="nofollow">登陆和授权集成</a> </li> </ul> <li>后台管理</li> <ul> <li><a rel="nofollow">统计</a> </li> <li><a rel="nofollow">用户组</a> </li> <li><a rel="nofollow">用户</a> </li> <li><a rel="nofollow">分类</a> </li> <li><a rel="nofollow">版块</a> </li> <li><a rel="nofollow">排名</a> </li> <li><a rel="nofollow">表情</a> </li> <li><a rel="nofollow">附件</a> </li> <li><a rel="nofollow">缓存</a> </li> <li><a href="http://code.google.com/p/iforums/wiki/vcode" rel="nofollow">开启验证码</a></li> </ul> </ul> </p>
+<ul>
+<li>add</li>
+</ul>
