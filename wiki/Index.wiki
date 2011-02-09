@@ -1,1 +1,1 @@
-DOxo
+<wiki:gadget url="http://wind-platform.googlecode.com/svn/trunk/wind-platform/documentation/wiki_vimeo/gcVideo.xml" up_video="http://vimeo.com/19453197" width="640" height="360" />
