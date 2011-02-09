@@ -14,7 +14,7 @@
 <li>AccessFilesOfWindApplications</li>
 <li>EventsOfDomainObject</li>
 <li>ExceptionHandling</li>
-<li>Validation</li>
+<li>[Validation Validation]</li>
 <li>ValueBinding</li>
 <li>WindAppRegistry</li>
 <li>WindFaces</li>
