@@ -1,0 +1,6 @@
+#summary This document covers the concept of the Execution Context
+
+= Introduction =
+
+Basically a Execution Context holds all information of the execution of a [RuleAPI Business Rule]
+
