@@ -2,10 +2,12 @@
 
 = How to configure a Dev Environment =
 
-  # Download and install current Eclipse for Plugin Development.
-  # Install RAP. When Eclipse restarts, install RAP Target Platform from welcome screen.
-  # Install M2 Maven Plugin.
+  # [Download http://www.eclipse.org/rap/downloads/]and install current Eclipse for RCP/RAP Development.
+  # Install RAP Target. When Eclipse restarts, install RAP Target Platform from welcome screen.
   # Install Subversive Plugin.
   # Checkout projects from wind-platform
 
 Simple like that!
+
+This screencast walks you trough the steps to configure a development environment
+<wiki:gadget url="http://wind-platform.googlecode.com/svn/trunk/wind-platform/documentation/wiki_vimeo/gcVideo.xml" up_video="http://vimeo.com/19687128" width="640" height="360" />
