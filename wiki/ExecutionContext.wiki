@@ -2,5 +2,4 @@
 
 = Introduction =
 
-Basically a Execution Context holds all information of the execution of a [RuleAPI Business Rule]
-
+Basically a Execution Context holds all information of the execution of a [RuleEngine Business Rule]
