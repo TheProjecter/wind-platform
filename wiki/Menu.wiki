@@ -1,21 +1,4 @@
  * SampleObject
  * ExceptionHandling
 
-<ul class="treeleafcontainer">
-<li class="treeleaf"><a href="/p/nestorurquiza/wiki/SpringMVCTutorial">SpringMVCTutorial</a></li>
-<li class="treeleaf"><a href="/p/nestorurquiza/wiki/LiferayTipsAndTricks ">LiferayTipsAndTricks </a></li>
-<li class="treeleaf"><a href="/p/nestorurquiza/wiki/CustomizingLiferay  ">CustomizingLiferay  </a></li>
-<li class="treeleaf"><a href="/p/nestorurquiza/wiki/Index">Index</a></li>
-<li class="treeleaf"><a href="/p/nestorurquiza/wiki/MavenizingLiferayExtensionImplementationJARFile ">MavenizingLiferayExtensionImplementationJARFile </a></li>
-<li class="treeleaf"><a href="/p/nestorurquiza/wiki/DroolsDataTransformation ">DroolsDataTransformation </a></li>
-<li class="treeleaf"><a href="/p/nestorurquiza/wiki/WindowsApache22ModJkTutorial">WindowsApache22ModJkTutorial</a></li>
-<li class="treeleaf"><a href="/p/nestorurquiza/wiki/SwfUploadFlashPluginForLiferayPlugins ">SwfUploadFlashPluginForLiferayPlugins </a></li>
-<li class="treeleaf"><a href="/p/nestorurquiza/wiki/AxisDynamicBindingTutorial ">AxisDynamicBindingTutorial </a></li>
-<li class="treeleaf"><a href="/p/nestorurquiza/wiki/MvcFrameworks">MvcFrameworks</a></li>
-<li class="treeleaf"><a href="/p/nestorurquiza/wiki/MavenTutorial">MavenTutorial</a></li>
-<li class="treeleaf"><a href="/p/nestorurquiza/wiki/AmazonFeedsParser">AmazonFeedsParser</a></li>
-<li class="treeleaf"><a href="/p/nestorurquiza/wiki/BuildingAndDeployingLiferayJspPortletsWithMaven ">BuildingAndDeployingLiferayJspPortletsWithMaven </a></li>
-<li class="treeleaf"><a href="/p/nestorurquiza/wiki/GlassfishLiferayJPAHibernateTutorial  ">GlassfishLiferayJPAHibernateTutorial  </a></li>
-<li class="treeleaf"><a href="/p/nestorurquiza/wiki/BuildingAndDeployingSpringMVCPetPortalWithMaven ">BuildingAndDeployingSpringMVCPetPortalWithMaven </a></li>
-<li class="treeleaf"><a href="/p/nestorurquiza/wiki/Axis2DynamicBindingTutorial">Axis2DynamicBindingTutorial</a></li>
-</ul>
+ <p><ul> <li>iforums简介</li> <ul> <li><a href="http://code.google.com/p/iforums/wiki/introduction" rel="nofollow">iforums简介</a></li> <li><a href="http://code.google.com/p/iforums/wiki/features" rel="nofollow">iforums的特点</a></li> <li><a href="http://code.google.com/p/iforums/wiki/version" rel="nofollow">iforums的版本</a></li> </ul> <li>安装和升级</li> <ul> <li><a href="http://code.google.com/p/iforums/wiki/installation" rel="nofollow">新安装</a></li> <li><a href="http://code.google.com/p/iforums/wiki/installation_tips" rel="nofollow">安装注意事项</a></li> </ul> <li>搜索</li> <ul> <li><a rel="nofollow">建立帖子索引</a> </li> </ul> <li>定制化和集成</li> <ul> <li><a rel="nofollow">设定和代码集成</a> </li> <li><a rel="nofollow">模版和风格</a> </li> <li><a rel="nofollow">登陆和授权集成</a> </li> </ul> <li>后台管理</li> <ul> <li><a rel="nofollow">统计</a> </li> <li><a rel="nofollow">用户组</a> </li> <li><a rel="nofollow">用户</a> </li> <li><a rel="nofollow">分类</a> </li> <li><a rel="nofollow">版块</a> </li> <li><a rel="nofollow">排名</a> </li> <li><a rel="nofollow">表情</a> </li> <li><a rel="nofollow">附件</a> </li> <li><a rel="nofollow">缓存</a> </li> <li><a href="http://code.google.com/p/iforums/wiki/vcode" rel="nofollow">开启验证码</a></li> </ul> </ul> </p>
