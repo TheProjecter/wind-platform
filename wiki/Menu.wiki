@@ -1,6 +1,3 @@
- * SampleObject
- * ExceptionHandling
-
 <ul class="treeleafcontainer">
 <li class="treeopen">iforums </li>
 <ul class="treeleafcontainer">
