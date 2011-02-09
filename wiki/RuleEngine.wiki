@@ -31,9 +31,9 @@ def Object execute(){
 The Rule API is a portion of methods available to the developer that writes business rules.
  
 Listed bellow are the main kinds, or areas, of the Rule API:
-
- *Persistence
- *Validation
+ 
+ * Persistence
+ * Validation
 
 
 = Business Process =
