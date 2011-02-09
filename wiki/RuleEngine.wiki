@@ -8,6 +8,14 @@ In many cases, each Business Rule is part of a bigger picture. A business proces
 
 
 = Business Rules =
+A Business Rule can be written in Groovy or Python. It must implement a method with name *execute* that will be called by the execution engine.
+
+{{{
+def Object execute(){
+   api.save("trip_control", model)
+   api.info(model.meta, "msg.passengers.save.success", model.name)
+}
+}}}
 
 = Business Process =
 
