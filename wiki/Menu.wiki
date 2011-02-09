@@ -3,19 +3,19 @@
 <li>User Guide</li>
 <ul>
 <li>[Validation Validation]</li>
-<li>[EventsOfDomainObject Domain Object's Event]</li>
+<li>[EventsOfDomainObject Domain Object's Events]</li>
 </ul>
 <li>Architeture</li>
 <ul>
-<li>PlatformModule</li>
+<li>[PlatformModule Platform Modules Overview]</li>
 </ul>
 <li>Development Guide</li>
 <ul>
-<li>DevEnvironment</li>
-<li>AccessFilesOfWindApplications</li>
-<li>ExceptionHandling</li>
-<li>ValueBinding</li>
-<li>WindAppRegistry</li>
-<li>WindFaces</li>
+<li>[DevEnvironment Development Environment]</li>
+<li>[AccessFilesOfWindApplications How to Access Files placed inside Wind Applications]</li>
+<li>[ExceptionHandling Exception Handling]</li>
+<li>[ValueBinding Value Binding]</li>
+<li>[WindAppRegistry Application Registry]</li>
+<li>[WindFaces Wind Faces]</li>
 </ul>
 </ul>
