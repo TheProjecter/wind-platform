@@ -2,8 +2,8 @@
  * ExceptionHandling
 
 <ul class="treeleafcontainer"> 
-<li>aaa</li>
-<li>bb</li>
+<li class="treeopen">aaa</li>
+<li class="treeleaf">bb</li>
 <ul>
 <li>11</li>
 </ul>
