@@ -7,9 +7,38 @@ String.metaClass.warn={->
 	apiR.warn(model.meta, delegate, null);
 }
 
+String.metaClass.info={->
+	apiR.info(model.meta, delegate, null);
+}
+
+String.metaClass.error={->
+	apiR.error(model.meta, delegate, null);
+}
+
+String.metaClass.success={->
+	apiR.success(model.meta, delegate, null);
+}
+
+
 String.metaClass.warnWithParam={ param  ->
 	apiR.warn(model.meta, delegate, param as Object[]);
 }
+
+String.metaClass.infoWithParam={ param  ->
+	apiR.info(model.meta, delegate, param as Object[]);
+}
+
+String.metaClass.successWithParam={ param  ->
+	apiR.success(model.meta, delegate, param as Object[]);
+}
+
+String.metaClass.errorWithParam={ param  ->
+	apiR.error(model.meta, delegate, param as Object[]);
+}
+
+
+
+
 
 ModelReference.metaClass.save={->
 	print "SAVE: " + delegate
