@@ -87,7 +87,7 @@ public class RuleAPI {
 	 * 
 	 * @param message
 	 */
-	public void warn(DomainObject source, String message, Object... param) {
+	public void warn(DomainObject source, String message, Object[] param) {
 		message(source, MessageKind.WARNING, message, param);
 	}
 

@@ -27,12 +27,12 @@ import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
+import br.com.maisha.terra.lang.Operation.OperationType;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Validation;
 import br.com.maisha.terra.lang.ValidationRule;
 import br.com.maisha.terra.lang.WindApplication;
-import br.com.maisha.terra.lang.Operation.OperationType;
 import br.com.maisha.wind.common.converter.IConverterService;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
@@ -116,13 +116,16 @@ public class ApplicationController implements IApplicationController {
 			Reader r = new InputStreamReader(is);
 
 			engine.eval(r);
-			ctx.setLog(log);
-			engine.put("ctx", ctx);
-			RuleAPI api = new RuleAPI(ctx);
-			api.setPersistentStorage(persistentStorage);
-			engine.put("api", api);
 
-			engine.eval("rule = " + (type.getUseNewOperator() ? "new " : "") + op.getRef() + "(ctx, api)");
+			engine.put("ctx", ctx);
+			engine.put("model", ctx.getInstance());
+			engine.put("ctx", ctx);
+
+			loadAPI(engine);
+			
+			engine.eval("rule = " + (type.getUseNewOperator() ? "new " : "") + op.getRef() + "()");
+			engine.eval("rule.ctx = ctx");
+			engine.eval("rule.model = model");
 			Object o = engine.get("rule");
 
 			monitor.worked(5);
@@ -134,6 +137,18 @@ public class ApplicationController implements IApplicationController {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 		return ctx;
+	}
+	
+	
+	private void loadAPI(ScriptEngine engine)throws Exception{
+		BundleContext bCtx = Activator.getDefault();
+		URL url = bCtx.getBundle().getEntry(
+				"/src/br/com/maisha/wind/controller/execution/api/GroovyRuleAPI.groovy");
+		
+		InputStream is = url.openStream();
+		Reader r = new InputStreamReader(is);
+
+		engine.eval(r);
 	}
 
 	/**
