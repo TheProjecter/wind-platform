@@ -7,8 +7,8 @@ String.metaClass.warn={->
 	apiR.warn(model.meta, delegate, null);
 }
 
-String.metaClass.warnWithParam={ param ->
-	apiR.warn(model.meta, delegate, param);
+String.metaClass.warnWithParam={ param  ->
+	apiR.warn(model.meta, delegate, param as Object[]);
 }
 
 ModelReference.metaClass.save={->
@@ -18,3 +18,9 @@ ModelReference.metaClass.save={->
 ModelReference.metaClass.update={->
 	print "SAVE: " + delegate
 }
+
+ModelReference.metaClass.delete={->
+	print "SAVE: " + delegate
+}
+
+
