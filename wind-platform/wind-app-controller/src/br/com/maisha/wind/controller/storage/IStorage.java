@@ -29,7 +29,7 @@ public interface IStorage {
 	 * @param appId
 	 * @param ref
 	 */
-	void save(String appId, ModelReference ref);
+	void save(ModelReference ref);
 
 	/**
 	 * 
@@ -37,7 +37,7 @@ public interface IStorage {
 	 * @param dObj
 	 * @return
 	 */
-	List<?> getAll(String appId,  DomainObject dObj);
+	List<?> getAll(DomainObject dObj);
 	
 	/**
 	 * 
@@ -53,7 +53,7 @@ public interface IStorage {
 	 * @param appId
 	 * @param ref
 	 */
-	void update(String appId, ModelReference ref);
+	void update(ModelReference ref);
 	
 	
 	/**
@@ -61,7 +61,7 @@ public interface IStorage {
 	 * @param appId
 	 * @param ref
 	 */
-	void delete(String appId, ModelReference ref);	
+	void delete(ModelReference ref);	
 
 	/**
 	 * 
@@ -71,5 +71,5 @@ public interface IStorage {
 	 * @param param
 	 * @return
 	 */
-	List<?> filter(String appId, ModelReference d, String query, Object ... param);
+	List<?> filter(ModelReference d, String query, Object ... param);
 }
