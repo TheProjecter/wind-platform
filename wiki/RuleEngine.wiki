@@ -18,7 +18,7 @@ class Action{
 }
 }}}
 
-It must implement a method with name *execute* that will be called by the execution engine. Here is where the logic goes.
+It must implement a method with name *execute* that will be called by the execution engine. This is where the logic goes.
 
 {{{
 def execute(){
