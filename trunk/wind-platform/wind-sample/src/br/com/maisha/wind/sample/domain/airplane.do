@@ -76,12 +76,12 @@ validationRule doxo {
 }
 
 operation python CalculateCapacity "Passengers Capacity"{
-file: CalculateCapacity.py
+file: /br/com/maisha/wind/sample/rules/CalculateCapacity.py
 validWhen: doxo
 }
 
 operation groovy GroovyAction "Groovy Action"{
-file: Groovy.groovy
+file: /br/com/maisha/wind/sample/rules/Groovy.groovy
 }
 
 
