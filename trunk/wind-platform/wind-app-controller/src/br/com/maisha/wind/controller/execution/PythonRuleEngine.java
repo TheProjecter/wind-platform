@@ -14,7 +14,6 @@ import org.osgi.framework.BundleContext;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
 import br.com.maisha.terra.lang.PropertyInfo;
-import br.com.maisha.wind.controller.execution.api.RuleAPI;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 
 /**
@@ -50,7 +49,7 @@ public class PythonRuleEngine implements IRuleEngine {
 
 			engine.eval(r);
 			engine.put("ctx", ctx);
-			engine.put("api", new RuleAPI(ctx));
+			//engine.put("api", new PersistenceAPI(ctx));
 			engine.eval("rule = " + op.getRef() + "(ctx, api)");
 			Object o = engine.get("rule");
 

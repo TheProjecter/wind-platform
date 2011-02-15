@@ -72,7 +72,9 @@ public class PersistentStorage implements IStorage {
 	 * 
 	 * @param ref
 	 */
-	public void save(String appId, ModelReference ref) {
+	public void save(ModelReference ref) {
+		String appId = ref.getMeta().getApplication().getAppId();
+		
 		SessionFactory sessionFactory = getSessionFactory(appId);
 		Session sess = sessionFactory.openSession();
 		Transaction transaction = sess.beginTransaction();
@@ -116,7 +118,9 @@ public class PersistentStorage implements IStorage {
 	 * @param appId
 	 * @param ref
 	 */
-	public void update(String appId, ModelReference ref) {
+	public void update(ModelReference ref) {
+		String appId = ref.getMeta().getApplication().getAppId();
+		
 		SessionFactory sessionFactory = getSessionFactory(appId);
 		Session sess = sessionFactory.openSession();
 		Transaction transaction = sess.beginTransaction();
@@ -137,7 +141,9 @@ public class PersistentStorage implements IStorage {
 	 * @param appId
 	 * @param ref
 	 */
-	public void delete(String appId, ModelReference ref) {
+	public void delete(ModelReference ref) {
+		String appId = ref.getMeta().getApplication().getAppId();
+		
 		SessionFactory sessionFactory = getSessionFactory(appId);
 		Session sess = sessionFactory.openSession();
 		Transaction transaction = sess.beginTransaction();
@@ -159,7 +165,9 @@ public class PersistentStorage implements IStorage {
 	 * @param ref
 	 * @return
 	 */
-	public List<?> getAll(String appId, DomainObject dObj) {
+	public List<?> getAll(DomainObject dObj) {
+		String appId = dObj.getApplication().getAppId();
+		
 		SessionFactory sessionFactory = getSessionFactory(appId);
 		Session sess = sessionFactory.openSession();
 		Transaction transaction = sess.beginTransaction();
@@ -184,13 +192,14 @@ public class PersistentStorage implements IStorage {
 	 * @param d
 	 * @return
 	 */
-	public List<?> filter(String appId, ModelReference d, String query, Object ... param){
+	public List<?> filter(ModelReference d, String query, Object ... param){
+		String appId = d.getMeta().getApplication().getAppId();
+		
 		SessionFactory sessionFactory = getSessionFactory(appId);
 		
 		Session sess = sessionFactory.openSession();
 		Transaction transaction = sess.beginTransaction();
 		
-		DomainObject dObj = d.getMeta();
 		
 		try {
 			if(StringUtils.isNotBlank(query)){

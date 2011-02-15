@@ -27,12 +27,12 @@ import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
-import br.com.maisha.terra.lang.Operation.OperationType;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Validation;
 import br.com.maisha.terra.lang.ValidationRule;
 import br.com.maisha.terra.lang.WindApplication;
+import br.com.maisha.terra.lang.Operation.OperationType;
 import br.com.maisha.wind.common.converter.IConverterService;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
@@ -40,7 +40,6 @@ import br.com.maisha.wind.common.listener.IAppModelListenerRegistry;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.common.preferences.IPreferenceStore;
-import br.com.maisha.wind.controller.execution.api.RuleAPI;
 import br.com.maisha.wind.controller.execution.el.ELListener;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.controller.model.UserMessage;
@@ -71,7 +70,7 @@ public class ApplicationController implements IApplicationController {
 	/** Validator Registry. */
 	private ValidatorRegistry validatorRegisty;
 
-	/** */
+	/** Persistent storage (common implementation with hibernate) */
 	private IStorage persistentStorage;
 
 	/** The application registry. */
@@ -84,7 +83,6 @@ public class ApplicationController implements IApplicationController {
 	 * 
 	 * @see br.com.maisha.wind.controller.IApplicationController#runOperation(br.com.maisha.wind.controller.model.ExecutionContext)
 	 */
-	@SuppressWarnings("unchecked")
 	public ExecutionContext<ModelReference> runOperation(ExecutionContext<ModelReference> ctx) {
 
 		try {
@@ -115,13 +113,15 @@ public class ApplicationController implements IApplicationController {
 			InputStream is = ruleUrl.openStream();
 			Reader r = new InputStreamReader(is);
 
-			engine.eval(r);
+
 
 			engine.put("ctx", ctx);
 			engine.put("model", ctx.getInstance());
 			engine.put("ctx", ctx);
+			engine.put("storage", persistentStorage);
 
 			loadAPI(engine);
+			engine.eval(r);
 			
 			engine.eval("rule = " + (type.getUseNewOperator() ? "new " : "") + op.getRef() + "()");
 			engine.eval("rule.ctx = ctx");
@@ -129,7 +129,8 @@ public class ApplicationController implements IApplicationController {
 			Object o = engine.get("rule");
 
 			monitor.worked(5);
-			ctx = (ExecutionContext<ModelReference>) invocable.invokeMethod(o, "execute");
+			
+			invocable.invokeMethod(o, "execute");
 
 			modelListener.fireEvent(null, ctx.getOperation().getDomainObject(), LevelType.Object,
 					ChangeType.ValueChanged);
@@ -139,11 +140,15 @@ public class ApplicationController implements IApplicationController {
 		return ctx;
 	}
 	
-	
+	/**
+	 * 
+	 * @param engine
+	 * @throws Exception
+	 */
 	private void loadAPI(ScriptEngine engine)throws Exception{
 		BundleContext bCtx = Activator.getDefault();
 		URL url = bCtx.getBundle().getEntry(
-				"/src/br/com/maisha/wind/controller/execution/api/GroovyRuleAPI.groovy");
+				"/src/br/com/maisha/wind/controller/execution/api/groovy/GroovyRuleAPI.groovy");
 		
 		InputStream is = url.openStream();
 		Reader r = new InputStreamReader(is);
@@ -337,7 +342,7 @@ public class ApplicationController implements IApplicationController {
 			ret = ctx.getGridData();
 		} else {
 			//nenhuma operacao filtro especificada... utiliza getAll
-			ret = (List<ModelReference>) persistentStorage.getAll(dobj.getApplication().getAppId(), dobj);
+			ret = (List<ModelReference>) persistentStorage.getAll(dobj);
 			if (ret != null && !ret.isEmpty()) {
 				for (ModelReference ref : ret) {
 					ref.setMeta(dobj);
@@ -484,11 +489,9 @@ public class ApplicationController implements IApplicationController {
 			ctx.setInstance(currentInstance);
 			ctx.setMonitor(new NullProgressMonitor());
 			
-			RuleAPI api = new RuleAPI(ctx);
-			api.setPersistentStorage(persistentStorage);
-			
+			//TODO adequar com a nova API
 			engine.put("ctx", ctx);
-			engine.put("api", api);
+
 	
 			engine.eval("rule = " + (opType.getUseNewOperator() ? "new " : "") + className + "(ctx, api)");
 			Object result = engine.get("rule");

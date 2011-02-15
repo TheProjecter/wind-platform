@@ -1,64 +1,36 @@
 package br.com.maisha.wind.controller.execution.api;
 
-import java.io.Serializable;
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
+import br.com.maisha.terra.lang.Operation;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.controller.model.UserMessage;
 import br.com.maisha.wind.controller.model.UserMessage.MessageKind;
-import br.com.maisha.wind.controller.storage.IStorage;
 
 /**
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
-public class RuleAPI {
+public class MessageAPI {
+
+	/** Log ref. */
+	private static final Logger log = Logger.getLogger(MessageAPI.class);
 
 	/** */
 	private ExecutionContext<ModelReference> ctx;
-
-	/** */
-	private IStorage persistentStorage;
 
 	/**
 	 * 
 	 * @param ctx
 	 */
-	public RuleAPI(ExecutionContext<ModelReference> ctx) {
+	public MessageAPI(ExecutionContext<ModelReference> ctx) {
 		this.ctx = ctx;
 	}
 
-
-	public void save(String appId, ModelReference d){
-		persistentStorage.save(appId, d);
-	}
-	
-	public Object getById(String appId, Class<?> clazz, Serializable id){
-		return persistentStorage.getById(appId, clazz, id);
-	}
-	
-	
-	public void update(String appId, ModelReference ref){
-		persistentStorage.update(appId, ref);
-	}
-	
-	
-	public void delete(String appId, ModelReference ref){
-		persistentStorage.delete(appId, ref);
-	}	
-	
-	public List<?> filter(String appId, ModelReference d, String query, Object ... param){
-		return persistentStorage.filter(appId, d, query, param);
-	}
-
-
-	                                                     
-	
 	/**
 	 * 
 	 * @param message
@@ -102,28 +74,47 @@ public class RuleAPI {
 
 	/**
 	 * 
-	 * @param value
-	 * @return
+	 * @param op
+	 * @param message
 	 */
-	public boolean notNull(Object value) {
-		return value != null;
+	public void logDebug(Operation op, String message){
+		log(Level.DEBUG, op, message);
 	}
 
 	/**
 	 * 
-	 * @param string
-	 * @return
+	 * @param op
+	 * @param message
 	 */
-	public boolean notEmpty(String string) {
-		return !StringUtils.isEmpty(string) && !StringUtils.isBlank(string);
+	public void logInfo(Operation op, String message){
+		log(Level.INFO, op, message);
+	}	
+	
+	/**
+	 * 
+	 * @param op
+	 * @param message
+	 */
+	public void logError(Operation op, String message){
+		log(Level.ERROR, op, message);
+	}	
+	
+	/**
+	 * 
+	 * @param op
+	 * @param message
+	 */
+	public void logWarn(Operation op, String message){
+		log(Level.WARN, op, message);
 	}
-
-	public IStorage getPersistentStorage() {
-		return persistentStorage;
-	}
-
-	public void setPersistentStorage(IStorage persistentStorage) {
-		this.persistentStorage = persistentStorage;
+	
+	/**
+	 * 
+	 * @param source
+	 * @param message
+	 */
+	private void log(Level level, Operation op, String message) {
+		log.log(op.getLabel(), level, message, null);
 	}
 
 }
