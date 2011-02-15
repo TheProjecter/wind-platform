@@ -10,20 +10,19 @@ In many cases, each Business Rule is part of a bigger picture. A business proces
 = Business Rules =
 A Business Rule can be written in Groovy or Python. 
 
-It must implement a constructor that receives a reference to ExecutionContext and Rule API.
+It must define two variables, named *ctx* and *model*, that receives a reference to ExecutionContext and Model Instance respectively.
 {{{
-SomeBusinessRule(ctx, api){
-   this.ctx = ctx
-   this.api = api
+class Action{
+    def ctx
+    def model
 }
 }}}
 
-It must implement a method with name *execute* that will be called by the execution engine. The method must return the ExecutionContext reference.
+It must implement a method with name *execute* that will be called by the execution engine.
 
 {{{
-def Object execute(){
-   api.save("appId", model)
-   return ctx
+def execute(){
+   ctx.save(model)
 }
 }}}
 
