@@ -1,7 +1,10 @@
 package br.com.maisha.wind.controller.execution.api.groovy
 
+import java.text.DateFormat;
+import org.apache.commons.lang.StringUtils;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.terra.lang.ModelReference;
+import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.wind.controller.execution.api.MessageAPI;
 import br.com.maisha.wind.controller.execution.api.PersistenceAPI;
 
@@ -95,3 +98,57 @@ ExecutionContext.metaClass.select = { model, query ->
 	persistenceAPI.filter(model, query);
 }
 // END OF PERSISTENCE API //
+
+//-------------------------------------------------------------//
+
+// FORMATTING API //
+Date.metaClass.getProperty = {name ->
+	def originalName = name;
+	name = StringUtils.capitalize(name);
+	Date.metaClass."get$name" = { ->
+		def locSplited = name.split("_");
+		def DateFormat df = DateFormat.getDateInstance(
+				DateFormat.DEFAULT, 
+				new Locale(locSplited[0], locSplited[1]));
+		return df.format(delegate); 
+	}
+	
+	def metaProperty= Date.metaClass.getMetaProperty(originalName)
+	if(metaProperty){
+		return metaProperty.getProperty(delegate);
+	}
+}
+
+Date.metaClass.methodMissing = { String name, args->
+	Date.metaClass."$name" = { ->
+		def locSplited = name.split("_");
+		def DateFormat df = DateFormat.getDateInstance(
+				DateFormat.DEFAULT, 
+				new Locale(locSplited[0], locSplited[1]));
+		return df.format(delegate); 
+	}
+	
+	def metaMethod= Date.metaClass.getMetaMethod(name, args) 
+	if(metaMethod){
+		return metaMethod.invoke(delegate,args)
+	}
+}
+
+Date.metaClass.clearHour = { ->
+
+}
+
+Date.metaClass.hour = { String locale ->
+
+}
+
+Number.metaClass.currency = { String locale ->
+
+}
+
+Number.metaClass.percentOf = { total ->
+
+}
+//END OF FORMATTING API //
+
+//-------------------------------------------------------------//

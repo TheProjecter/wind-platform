@@ -1,3 +1,5 @@
+import java.util.Date;
+
 class GroovyAction{
 
 	def ctx;
@@ -11,7 +13,9 @@ class GroovyAction{
 		"message.key.error".error();
 		
 		// message with param
-		"airplane.passengerscapacity.weight.required".warnWithParam(["aa", "bb"])
+		if(!model.weight){
+			"airplane.passengerscapacity.weight.required".warnWithParam(["Weight"])
+		}
 
 		// log statements
 		("this is as log statement to log model referecence: [" + model + "] at debug level").logDebug();
@@ -21,6 +25,13 @@ class GroovyAction{
 		def result = ctx.select(model, "from airbus a  where a.code = :code")
 		ctx.setGridData(result);
 
+		def a = model.meta.code.required;
+		("A propriedade Code possui o atributo required com valor: " + a).logInfo();
+		
+		def d = new Date();
+		ctx.logInfo("Data formatada pt_BR: " + d.pt_BR());
+		ctx.logInfo("Data formatada en_US: " + d.en_US);
+		ctx.logInfo("Data formatada es_SP: " + d.es_SP);
 	}
 }
 

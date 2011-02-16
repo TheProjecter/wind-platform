@@ -21,7 +21,7 @@ public class Attribute extends TerraClass {
 
 	/** */
 	private String i18nLabel;
-	
+
 	/** */
 	private Map<String, Property> properties = new HashMap<String, Property>();
 
@@ -85,7 +85,6 @@ public class Attribute extends TerraClass {
 		this.domainObject = domainObject;
 	}
 
-	
 	public String getI18nLabel() {
 		return i18nLabel;
 	}
@@ -102,7 +101,7 @@ public class Attribute extends TerraClass {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> T getPropertyValue(PropertyInfo<T> pInfo) {
-		if (properties != null && pInfo.getPropName() != null) {
+		if (properties != null && pInfo != null && pInfo.getPropName() != null) {
 			Property p = properties.get(pInfo.getPropName());
 			if (p == null || p.getValue() == null) {
 				return pInfo.getDefaultValue();
@@ -121,6 +120,41 @@ public class Attribute extends TerraClass {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Get Method for property missing to use by Groovy.
+	 * <p/>
+	 * This enables you to call <code>def a = attr.required</code>, where "attr"
+	 * is a reference to this class and "required" is a property name. It's
+	 * possible to use any defined in {@link PropertyInfo}.
+	 * 
+	 * @param name
+	 *            Property name. One of those defined in {@link PropertyInfo}.
+	 * @return Returns the corresponding value of the property if there is any.
+	 */
+	@SuppressWarnings("unchecked")
+	public <T> T propertyMissing(String name) {
+		return (T) getPropertyValue(PropertyInfo.getPropertyInfo(name));
+	}
+
+	/**
+	 * Set Method for property missing to use by Groovy.
+	 * <p/>
+	 * This enables you to call <code>attr.required = true;</code>, where "attr"
+	 * is a reference to this class and "required" is a property name. It's
+	 * possible to use any defined in {@link PropertyInfo}.
+	 * 
+	 * @param name
+	 *            Property name. One of those defined in {@link PropertyInfo}.
+	 * @param value
+	 *            Value assigned to variable.
+	 */
+	public void propertyMissing(String name, Object value) {
+		Property p = getProperties().get(name);
+		if (p != null) {
+			p.setValue(value);
+		}
 	}
 
 	/**

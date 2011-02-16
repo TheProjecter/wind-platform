@@ -120,7 +120,7 @@ public class ApplicationController implements IApplicationController {
 			engine.put("ctx", ctx);
 			engine.put("storage", persistentStorage);
 
-			loadAPI(engine);
+			loadAPI(op.getType(), engine);
 			engine.eval(r);
 			
 			engine.eval("rule = " + (type.getUseNewOperator() ? "new " : "") + op.getRef() + "()");
@@ -145,15 +145,18 @@ public class ApplicationController implements IApplicationController {
 	 * @param engine
 	 * @throws Exception
 	 */
-	private void loadAPI(ScriptEngine engine)throws Exception{
+	private void loadAPI(String type, ScriptEngine engine)throws Exception{
 		BundleContext bCtx = Activator.getDefault();
-		URL url = bCtx.getBundle().getEntry(
-				"/src/br/com/maisha/wind/controller/execution/api/groovy/GroovyRuleAPI.groovy");
 		
-		InputStream is = url.openStream();
-		Reader r = new InputStreamReader(is);
-
-		engine.eval(r);
+		if("groovy".equalsIgnoreCase(type)){
+			URL url = bCtx.getBundle().getEntry(
+					"/src/br/com/maisha/wind/controller/execution/api/groovy/GroovyRuleAPI.groovy");
+			
+			InputStream is = url.openStream();
+			Reader r = new InputStreamReader(is);
+	
+			engine.eval(r);
+		}
 	}
 
 	/**
@@ -480,20 +483,23 @@ public class ApplicationController implements IApplicationController {
 	
 			InputStream is = ruleUrl.openStream();
 			Reader r = new InputStreamReader(is);
-			engine.eval(r);
-			
 			
 			// preparing to execute
 			ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
-			ctx.setLog(log);
 			ctx.setInstance(currentInstance);
 			ctx.setMonitor(new NullProgressMonitor());
-			
-			//TODO adequar com a nova API
-			engine.put("ctx", ctx);
+			ctx.setOperation(new Operation(type, className, ct.name()));
 
-	
-			engine.eval("rule = " + (opType.getUseNewOperator() ? "new " : "") + className + "(ctx, api)");
+			engine.put("model", ctx.getInstance());
+			engine.put("ctx", ctx);
+			engine.put("storage", persistentStorage);
+
+			loadAPI(type, engine);
+			engine.eval(r);
+			
+			engine.eval("rule = " + (opType.getUseNewOperator() ? "new " : "") + className + "()");
+			engine.eval("rule.ctx = ctx");
+			engine.eval("rule.model = model");
 			Object result = engine.get("rule");
 			
 			//execute

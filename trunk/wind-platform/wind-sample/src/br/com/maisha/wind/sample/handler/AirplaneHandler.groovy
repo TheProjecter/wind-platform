@@ -4,18 +4,10 @@ import br.com.maisha.wind.controller.model.ExecutionContext;
 class AirplaneHandler implements DomainObjectEventHandler{
 
 	def ctx
-	def api
-	def log
-
-	AirplaneHandler(ctx, api){
-		this.ctx = ctx
-		this.api = api
-		this.log = ctx.log
-	}
-
+	def model
 	
-	ExecutionContext<?> beforeObjectOpen(ExecutionContext<Object> ctx){
-		log.debug("@@@  Hey I'm a groovy handler!!!");
+	ExecutionContext<?> beforeObjectOpen(ExecutionContext<Object> ctx2){
+		ctx.logDebug("@@@  Hey I'm a groovy handler!!!");
 	}
 	
 	

@@ -26,9 +26,9 @@ public class DomainObject extends TerraClass {
 	private List<Operation> operations = new ArrayList<Operation>();
 
 	private List<Validation> validations = new ArrayList<Validation>();
-	
+
 	private Map<String, Property> properties = new HashMap<String, Property>();
-	
+
 	/** Java class that represents this domain object. */
 	private Class<?> objectClass;
 
@@ -116,7 +116,7 @@ public class DomainObject extends TerraClass {
 	public void setApplication(WindApplication application) {
 		this.application = application;
 	}
-	
+
 	public List<Validation> getValidations() {
 		return validations;
 	}
@@ -124,8 +124,7 @@ public class DomainObject extends TerraClass {
 	public void setValidations(List<Validation> validations) {
 		this.validations = validations;
 	}
-	
-	
+
 	public Attribute getAttribute(String name) {
 		for (Attribute attr : atts) {
 			if (attr.getRef().equals(name)) {
@@ -134,10 +133,10 @@ public class DomainObject extends TerraClass {
 		}
 		return null;
 	}
-	
-	public Validation getValidation(String ref){
-		for(Validation val : validations){
-			if(val.getRef().equals(ref)){
+
+	public Validation getValidation(String ref) {
+		for (Validation val : validations) {
+			if (val.getRef().equals(ref)) {
 				return val;
 			}
 		}
@@ -160,9 +159,8 @@ public class DomainObject extends TerraClass {
 			return (T) p.getValue();
 		}
 		return null;
-	}	
-	
-		
+	}
+
 	public Map<String, Property> getProperties() {
 		return properties;
 	}
@@ -171,7 +169,22 @@ public class DomainObject extends TerraClass {
 		this.properties = properties;
 	}
 
-	public Attribute attribute(String name){
+	public Attribute attribute(String name) {
+		return getAttribute(name);
+	}
+
+	/**
+	 * Get Method for property missing to use by Groovy.
+	 * <p/>
+	 * This enables you to call <code>meta.<ATTRIBUTE_NAME></code> where "meta"
+	 * is a reference to this class and <ATTRIBUTE_NAME> is the name of the
+	 * desired attribute.
+	 * 
+	 * @param name
+	 *            Attribute name.
+	 * @return Returns the corresponding {@link Attribute} if there is any.
+	 */
+	public Attribute propertyMissing(String name) {
 		return getAttribute(name);
 	}
 
@@ -187,7 +200,5 @@ public class DomainObject extends TerraClass {
 		sb.append("]");
 		return sb.toString();
 	}
-
-
 
 }
