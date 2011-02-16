@@ -4,13 +4,9 @@ import br.com.maisha.wind.controller.model.ExecutionContext;
 class PreferencesEventHandler implements DomainObjectEventHandler{
 
 	def ctx
-	def api
-	def log
+	def model
 
-	PreferencesEventHandler(ctx, api){
-		this.ctx = ctx
-		this.api = api
-		this.log = ctx.log
+	PreferencesEventHandler(){
 	}
 
 	

@@ -7,16 +7,10 @@ import br.com.maisha.terra.lang.ModelReference;
 class Filter{
 
 	def ctx
-	def api
-	def log
+	def model
 
-	Filter(ctx, api){
-		this.ctx = ctx
-		this.api = api
-		this.log = ctx.log
-	}
-	
-	Object execute(){
+
+	def execute(){
 		def bCtx = ctx.operation.domainObject.application.bundleContext
 		
 		IPreferenceStore prefService = ServiceProvider.getInstance().getService(
@@ -38,8 +32,7 @@ class Filter{
 		def list = new ArrayList<ModelReference>();
 		list.add(instance);
 		ctx.setGridData(list);
-		
-		return ctx
+
 	}
 	
 	

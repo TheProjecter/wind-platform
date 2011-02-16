@@ -3,7 +3,6 @@ package br.com.maisha.wind.controller.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import br.com.maisha.terra.lang.ModelReference;
@@ -26,9 +25,6 @@ public class ExecutionContext<T> {
 
 	/** Domain object instance. */
 	private T instance;
-
-	/** Log reference. */
-	private Logger log;
 
 	/** Message list. */
 	private List<UserMessage> messages = new ArrayList<UserMessage>();
@@ -77,16 +73,6 @@ public class ExecutionContext<T> {
 	/** @see #monitor */
 	public void setMonitor(IProgressMonitor monitor) {
 		this.monitor = monitor;
-	}
-
-	/** @see #log */
-	public Logger getLog() {
-		return log;
-	}
-
-	/** @see #log */
-	public void setLog(Logger log) {
-		this.log = log;
 	}
 
 	/** @see #gridSelection */

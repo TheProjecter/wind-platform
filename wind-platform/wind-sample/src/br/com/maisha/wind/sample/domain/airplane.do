@@ -67,7 +67,7 @@ presentation_type: textarea
 width: 300
 height: 80
 colspan: 2
-visible: ${this.capacity > 50}
+visible: ${this.weight > 50}
 }
 
 validationRule doxo {

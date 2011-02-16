@@ -6,22 +6,10 @@ import br.com.maisha.wind.common.preferences.IPreferenceStore;
 class Save{
 
 	def ctx
-	def api
 	def model
-	def log
 
-	Save(ctx, api){
-		this.ctx = ctx
-		this.api = api
-		this.model = ctx.instance
-		this.log = ctx.log
-	}
 	
-	Object execute(){
-		String.metaClass.success={->
-			api.success(model.meta, delegate, null)
-		}		
-		
+	def execute(){		
 		def bCtx = ctx.operation.domainObject.application.bundleContext
 		
 		IPreferenceStore prefService = ServiceProvider.getInstance().getService(
@@ -37,7 +25,6 @@ class Save{
 		appMgr.configureAllLabels(bCtx);
 		
 		"wind_preferences.preferences.saved".success();
-		return ctx
 	}
 	
 	
