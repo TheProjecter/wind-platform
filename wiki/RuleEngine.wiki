@@ -35,7 +35,7 @@ Listed bellow are the main areas (sub-APIs), of the Rule API:
  * Data Access, Validation and Manipulation
  * Integration with other systems (Message Queue, Webservices, etc)
  * Communication (Email, SMS, Fax)
- * Messaging and Logging
+ * [MessagingAndLogging Messaging and Logging]
  * XML and JSON Parsing
  * Chart and Report generation
 
