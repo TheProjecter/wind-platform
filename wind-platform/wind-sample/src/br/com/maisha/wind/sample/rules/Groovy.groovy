@@ -1,4 +1,5 @@
 import java.util.Date;
+import br.com.maisha.wind.common.preferences.IPreferenceStore;
 
 class GroovyAction{
 
@@ -32,6 +33,9 @@ class GroovyAction{
 		ctx.logInfo("Data formatada pt_BR: " + d.pt_BR());
 		ctx.logInfo("Data formatada en_US: " + d.en_US);
 		ctx.logInfo("Data formatada es_SP: " + d.es_SP);
+		
+		IPreferenceStore prefStore =  ctx.getService(IPreferenceStore.class);
+		ctx.logDebug("Preference Store reference: " + prefStore);
 	}
 }
 
