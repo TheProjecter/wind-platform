@@ -4,6 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.beans.BeanProperties;
+import org.eclipse.core.databinding.beans.BeansObservables;
+import org.eclipse.core.databinding.observable.list.IObservableList;
+import org.eclipse.jface.databinding.swt.ISWTObservableList;
+import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.jface.databinding.viewers.ViewerSupport;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -54,7 +61,7 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 
 	/** */
 	private Object seletedObject;
-	
+
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.attr.IAttributeRender#getPresentationType()
@@ -91,16 +98,15 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 
 			Composite fields = new Composite(group, SWT.NONE);
 			GridLayout layout = new GridLayout(6, false);
-			fields.setLayoutData(new GridData(GridData.FILL_BOTH));
+			fields.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			fields.setLayout(layout);
 
 			Composite spacer = new Composite(group, SWT.NONE);
-			spacer.setLayoutData(new GridData(GridData.FILL_BOTH));
+			spacer.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			spacer.setLayout(new GridLayout(3, false));
 
 			Label separator = new Label(spacer, SWT.HORIZONTAL | SWT.SEPARATOR);
 			GridData sepGd = new GridData(GridData.FILL_HORIZONTAL);
-			sepGd.horizontalAlignment = GridData.FILL;
 			separator.setLayoutData(sepGd);
 
 			Button addBt = new Button(spacer, SWT.PUSH);
@@ -127,7 +133,7 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 			remBt.addSelectionListener(new SelectionListener() {
 
 				public void widgetSelected(SelectionEvent e) {
-					if(seletedObject != null){
+					if (seletedObject != null) {
 						grid.remove(seletedObject);
 					}
 				}
@@ -145,7 +151,7 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 			grid.getTable().setHeaderVisible(true);
 			grid.getTable().setLinesVisible(true);
 			GridData gGridData = new GridData(GridData.FILL_BOTH);
-			gGridData.heightHint = 50;
+			gGridData.heightHint = 80;
 			grid.getTable().setLayoutData(gGridData);
 
 			// render attribute fields
@@ -168,17 +174,19 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 					}
 				}
 
-				render.render(rAttr, fields, ref);
+				if (rAttr.getPropertyValue(PropertyInfo.VISIBLE)) {
+					render.render(rAttr, fields, ref);
 
-				// create grid columns
-				TableViewerColumn col = new TableViewerColumn(grid, SWT.NONE);
-				col.getColumn().setText(rAttr.getLabel());
-				col.getColumn().setWidth(rAttr.getPropertyValue(PropertyInfo.WIDTH));
-				col.getColumn().setResizable(true);
-				col.getColumn().setMoveable(false);
+					// create grid columns
+					TableViewerColumn col = new TableViewerColumn(grid, SWT.NONE);
+					col.getColumn().setText(rAttr.getLabel());
+					col.getColumn().setWidth(rAttr.getPropertyValue(PropertyInfo.WIDTH));
+					col.getColumn().setResizable(true);
+					col.getColumn().setMoveable(false);
 
-				attNames.put(i, rAttr.getRef());
-				i++;
+					attNames.put(i, rAttr.getRef());
+					i++;
+				}
 			}
 
 			grid.setLabelProvider(new EmbeddedObjectLabelProvider(attNames));
@@ -190,8 +198,14 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 					BeanUtils.copyProperties(seletedObject, ref);
 				}
 			});
+
+			DataBindingContext dbctx = configureDataBindings(grid.getTable(), null, attr);
+
+			ViewerSupport.bind(grid, BeansObservables.observeSet(modelInstance, attr.getRef()), 
+					BeanProperties.value("descricao"));
 			
 			
+
 		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}

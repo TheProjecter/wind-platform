@@ -1,10 +1,5 @@
 package br.com.maisha.wind.faces.render.attr;
 
-import java.text.MessageFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.Locale;
-
 import org.apache.log4j.Logger;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.BeansObservables;
@@ -13,16 +8,14 @@ import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Property;
-import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Property.PresentationType;
+import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.controller.model.UserMessage;
 
 /**
