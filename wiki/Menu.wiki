@@ -18,5 +18,7 @@
 <li>[WindAppRegistry Application Registry]</li>
 <li>[WindFaces Wind Faces]</li>
 <li>[RuleEngine Rule Engine]</li>
+<ul>
+<li>[Persistence Persistence]</li>
 </ul>
 </ul>
