@@ -41,6 +41,5 @@ operation groovy FilterPassengerAction "label.global.filter"{
 file: FilterPassengerAction.groovy
 validate: false
 is_filter: true
-open_filtering:true
 }
 }

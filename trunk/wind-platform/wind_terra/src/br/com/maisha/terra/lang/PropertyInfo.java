@@ -16,10 +16,10 @@ public class PropertyInfo<T> {
 	private static Map<String, PropertyInfo<?>> pInfoMap = new HashMap<String, PropertyInfo<?>>();
 
 	/** Descricao da propriedade "x". */
-	public static final PropertyInfo<Integer> X = new PropertyInfo<Integer>("x", null, Integer.class, false);
+	public static final PropertyInfo<Integer> X = new PropertyInfo<Integer>("x", 0, Integer.class, false);
 
 	/** Descricao da propriedade y */
-	public static final PropertyInfo<Integer> Y = new PropertyInfo<Integer>("y", null, Integer.class, false);
+	public static final PropertyInfo<Integer> Y = new PropertyInfo<Integer>("y", 0, Integer.class, false);
 
 	/** Descricao da propriedade colspan */
 	public static final PropertyInfo<Integer> COL_SPAN = new PropertyInfo<Integer>("colspan", 0, Integer.class, false);
