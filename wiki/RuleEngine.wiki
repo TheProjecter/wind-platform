@@ -41,8 +41,3 @@ Listed bellow are the main areas (sub-APIs), of the Rule API:
 
  
 
-
-= Business Process =
-
-== Chain ==
-== BPMN Process ==
