@@ -135,15 +135,44 @@ Date.metaClass.methodMissing = { String name, args->
 }
 
 Date.metaClass.clearHour = { ->
+	Calendar c = Calendar.instance;
+	c.setTime(delegate)
+	c.set(Calendar.HOUR, 0)
+	c.set(Calendar.HOUR_OF_DAY, 0)
+	c.set(Calendar.MINUTE, 0)
+	c.set(Calendar.SECOND, 0)
+	c.set(Calendar.MILLISECOND, 0)
+	return c.getTime();
+}
 
+def getLocale(String locale){
+	def localeObj = Locale.default;
+	if(locale){
+		def locSplited = locale.split("_");
+	    localeObj = new Locale(locSplited[0], locSplited[1])
+	}
+	return localeObj;
 }
 
 Date.metaClass.hour = { String locale ->
-
+	def localeObj = getLocale(locale);
+	def DateFormat df = DateFormat.getTimeInstance(
+		DateFormat.DEFAULT, 
+		localeObj);
+	return df.format(delegate); 
 }
 
-Number.metaClass.currency = { String locale ->
 
+Number.metaClass.currency = { String locale ->
+	def localeObj = getLocale(locale);
+	def NumberFormat nf = NumberFormat.getCurrencyInstance(localeObj);
+	return nf.format(delegate);
+}
+
+Number.metaClass.percent = { String locale ->
+	def localeObj = getLocale(locale);
+	def NumberFormat nf = NumberFormat.getPercentInstance(localeObj);
+	return nf.format(delegate);
 }
 
 Number.metaClass.percentOf = { total ->
