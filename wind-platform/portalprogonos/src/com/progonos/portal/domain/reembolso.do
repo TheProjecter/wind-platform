@@ -33,24 +33,22 @@ height: 80
 }
 
 Boolean fechado "Fechado"{
-x: 1
-y: 4
 visible: false
 }
 
 ItemReembolso item "Item"{
 x: 1
-y: 5
+y: 4  
 onetomany: reembolso
 presentation_type: embedded_object
 }
 
-operation groovy Save "Salvar"{
+operation groovy Save "Salvar Reembolso"{
 file: SalvarReembolso.groovy
 icon: save.gif
 }
 
-operation groovy Close "Fechar"{
+operation groovy Close "Fechar Reembolso"{
 file: FecharReembolso.groovy
 }
 

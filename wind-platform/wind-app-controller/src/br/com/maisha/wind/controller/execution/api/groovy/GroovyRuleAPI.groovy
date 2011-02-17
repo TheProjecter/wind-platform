@@ -1,7 +1,10 @@
 package br.com.maisha.wind.controller.execution.api.groovy
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import org.apache.commons.lang.StringUtils;
+
+import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.DomainObject;
@@ -181,3 +184,11 @@ Number.metaClass.percentOf = { total ->
 //END OF FORMATTING API //
 
 //-------------------------------------------------------------//
+
+//END OF SERVICES API //
+ExecutionContext.metaClass.getService = { clazz ->
+	def bCtx = ctx?.operation?.domainObject?.application?.bundleContext;
+	if(bCtx){
+		return ServiceProvider.instance.getService(clazz, bCtx);
+	}
+}

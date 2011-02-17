@@ -7,22 +7,14 @@ import org.osgi.service.prefs.PreferencesService;
 class Save{
 
 	def ctx
-	def api
 	def model
-
-	Save(ctx, api){
-		this.ctx = ctx
-		this.api = api
-		this.model = ctx.instance
-	}
 	
-	Object execute(){
-		api.save("portal_progonos", model);
-		api.success(model.meta, "com.progonos.portal.reembolso.save.success", null);
+	def execute(){
+		ctx.logDebug("aaaaa");
 		
+		ctx.logDebug("aaa: " + model);
+		ctx.logDebug(model?.item);
 		
-		return ctx
+		"com.progonos.portal.reembolso.save.success".success();
 	}
-	
-	
 }
