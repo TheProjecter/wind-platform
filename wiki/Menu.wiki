@@ -20,5 +20,6 @@
 <li>[RuleEngine Rule Engine]</li>
 <ul>
 <li>[Persistence Persistence]</li>
+<li>[MessagingAndLogging  Messages And Log]</li>
 </ul>
 </ul>
