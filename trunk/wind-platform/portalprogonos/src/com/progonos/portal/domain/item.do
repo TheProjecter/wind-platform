@@ -2,7 +2,7 @@ package com.progonos.portal.domain
 
 import com.progonos.portal.domain.Reembolso
 
-domain_object ItemReembolso "ItemReembolso" {
+domain_object ItemReembolso "Item Reembolso" {
 
 
 String descricao "Descricao"{
