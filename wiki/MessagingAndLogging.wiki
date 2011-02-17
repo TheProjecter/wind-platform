@@ -38,3 +38,14 @@ Using keys (defined by a properties file)
 {{{
 ctx.warn("com.doxo.test.message", ["1st parameter"])
 }}}
+
+
+= Log = 
+There is four levels of log, info, warn, debug and error. For each level there is method at [ExecutionContext Execution Context].
+
+{{{
+ctx.logInfo("Log INFO");
+ctx.logWarn("Log WARN");
+ctx.logDebug("Log DEBUG");
+ctx.logError("Log ERROR");
+}}}
