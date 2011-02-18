@@ -1,16 +1,15 @@
 package br.com.maisha.wind.faces.render.attr;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.core.databinding.beans.BeanProperties;
 import org.eclipse.core.databinding.beans.BeansObservables;
-import org.eclipse.core.databinding.observable.list.IObservableList;
-import org.eclipse.jface.databinding.swt.ISWTObservableList;
-import org.eclipse.jface.databinding.swt.WidgetProperties;
-import org.eclipse.jface.databinding.viewers.ViewerSupport;
+import org.eclipse.core.databinding.observable.set.IObservableSet;
+import org.eclipse.core.databinding.observable.set.WritableSet;
+import org.eclipse.jface.databinding.viewers.ObservableSetContentProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -34,8 +33,8 @@ import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Property;
-import br.com.maisha.terra.lang.Property.PresentationType;
 import br.com.maisha.terra.lang.PropertyInfo;
+import br.com.maisha.terra.lang.Property.PresentationType;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.controller.IApplicationController;
@@ -62,6 +61,12 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 	/** */
 	private Object seletedObject;
 
+	/** */
+	private HashSet<Object> set = new HashSet<Object>();
+
+	/** */ 
+	IObservableSet gridSet = null;
+	
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.attr.IAttributeRender#getPresentationType()
@@ -84,8 +89,8 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 			IPresentationProvider presentation = ServiceProvider.getInstance().getService(IPresentationProvider.class,
 					Activator.getDefault().getBundle().getBundleContext());
 
-			final DomainObject related = registry.getObject(attr.getDomainObject().getApplication().getAppId(),
-					attr.getType());
+			final DomainObject related = registry.getObject(attr.getDomainObject().getApplication().getAppId(), attr
+					.getType());
 
 			new Label(parent, SWT.NONE);
 
@@ -117,7 +122,9 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 					try {
 						ModelReference input = (ModelReference) related.getObjectClass().newInstance();
 						BeanUtils.copyProperties(ref, input);
-						grid.add(input);
+						gridSet.add(input);
+						grid.setInput(gridSet);
+						ref.toString();
 					} catch (Exception ex) {
 						ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), ex, log);
 					}
@@ -134,7 +141,8 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 
 				public void widgetSelected(SelectionEvent e) {
 					if (seletedObject != null) {
-						grid.remove(seletedObject);
+						gridSet.remove(seletedObject);
+						grid.setInput(gridSet);
 					}
 				}
 
@@ -194,17 +202,23 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 			grid.addSelectionChangedListener(new ISelectionChangedListener() {
 				public void selectionChanged(SelectionChangedEvent event) {
 					IStructuredSelection sel = (IStructuredSelection) event.getSelection();
-					seletedObject = sel.getFirstElement();
-					BeanUtils.copyProperties(seletedObject, ref);
+					if(sel != null && sel.size() > 0){
+						seletedObject = sel.getFirstElement();
+						BeanUtils.copyProperties(seletedObject, ref);
+					}
 				}
 			});
 
 			DataBindingContext dbctx = configureDataBindings(grid.getTable(), null, attr);
 
-			ViewerSupport.bind(grid, BeansObservables.observeSet(modelInstance, attr.getRef()), 
-					BeanProperties.value("descricao"));
-			
-			
+			IObservableSet beanSet = BeansObservables.observeSet(modelInstance, attr.getRef());
+			gridSet = new WritableSet(set, Object.class);
+
+			dbctx.bindSet(gridSet, beanSet);
+
+			ObservableSetContentProvider contentProvider = new ObservableSetContentProvider();
+			grid.setContentProvider(contentProvider);
+			grid.setInput(gridSet);
 
 		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);

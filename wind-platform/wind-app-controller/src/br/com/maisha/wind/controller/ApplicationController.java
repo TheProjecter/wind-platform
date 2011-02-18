@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -75,8 +76,8 @@ public class ApplicationController implements IApplicationController {
 
 	/** The application registry. */
 	private IApplicationRegistry registry;
-	
-	/** Current model being edited;  */
+
+	/** Current model being edited; */
 	private ModelReference currentInstance;
 
 	/**
@@ -91,7 +92,7 @@ public class ApplicationController implements IApplicationController {
 			IProgressMonitor monitor = ctx.getMonitor();
 
 			// validation phase
-			if(op.getPropertyValue(PropertyInfo.VALIDATE)){
+			if (op.getPropertyValue(PropertyInfo.VALIDATE)) {
 				monitor.setTaskName("Validating...");
 				ctx = processValidations(ctx);
 				if (!ctx.getMessages().isEmpty()) {
@@ -113,8 +114,6 @@ public class ApplicationController implements IApplicationController {
 			InputStream is = ruleUrl.openStream();
 			Reader r = new InputStreamReader(is);
 
-
-
 			engine.put("ctx", ctx);
 			engine.put("model", ctx.getInstance());
 			engine.put("ctx", ctx);
@@ -122,14 +121,14 @@ public class ApplicationController implements IApplicationController {
 
 			loadAPI(op.getType(), engine);
 			engine.eval(r);
-			
+
 			engine.eval("rule = " + (type.getUseNewOperator() ? "new " : "") + op.getRef() + "()");
 			engine.eval("rule.ctx = ctx");
 			engine.eval("rule.model = model");
 			Object o = engine.get("rule");
 
 			monitor.worked(5);
-			
+
 			invocable.invokeMethod(o, "execute");
 
 			modelListener.fireEvent(null, ctx.getOperation().getDomainObject(), LevelType.Object,
@@ -139,22 +138,22 @@ public class ApplicationController implements IApplicationController {
 		}
 		return ctx;
 	}
-	
+
 	/**
 	 * 
 	 * @param engine
 	 * @throws Exception
 	 */
-	private void loadAPI(String type, ScriptEngine engine)throws Exception{
+	private void loadAPI(String type, ScriptEngine engine) throws Exception {
 		BundleContext bCtx = Activator.getDefault();
-		
-		if("groovy".equalsIgnoreCase(type)){
+
+		if ("groovy".equalsIgnoreCase(type)) {
 			URL url = bCtx.getBundle().getEntry(
 					"/src/br/com/maisha/wind/controller/execution/api/groovy/GroovyRuleAPI.groovy");
-			
+
 			InputStream is = url.openStream();
 			Reader r = new InputStreamReader(is);
-	
+
 			engine.eval(r);
 		}
 	}
@@ -169,10 +168,10 @@ public class ApplicationController implements IApplicationController {
 		if (ctx.getMessages() != null && !ctx.getMessages().isEmpty()) {
 			modelListener.fireEvent(null, ctx.getMessages(), LevelType.Message, ChangeType.Added);
 		}
-		
+
 		// process grid data
 		modelListener.fireEvent(null, ctx.getGridData(), LevelType.GridData, ChangeType.ValueChanged);
-		
+
 	}
 
 	/**
@@ -245,14 +244,14 @@ public class ApplicationController implements IApplicationController {
 				return;
 			}
 			IConverterService convService = ServiceProvider.getInstance().getService(IConverterService.class,
-					Activator.getDefault()); //TODO injetar com spring
+					Activator.getDefault()); // TODO injetar com spring
 			ScriptEngine juelEngine = engineManager.getEngineByName("juel");
 			DomainObject meta = modelInstance.getMeta();
 
-			if(meta == null){
+			if (meta == null) {
 				return;
 			}
-			
+
 			log.debug("Evaluating expressions for " + meta.getLabel());
 
 			juelEngine.put("this", modelInstance);
@@ -280,7 +279,8 @@ public class ApplicationController implements IApplicationController {
 
 	/**
 	 * 
-	 * @see br.com.maisha.wind.controller.IApplicationController#getObjectValue(java.lang.Object, java.lang.String)
+	 * @see br.com.maisha.wind.controller.IApplicationController#getObjectValue(java.lang.Object,
+	 *      java.lang.String)
 	 */
 	public Object getObjectValue(Object instance, String attributeName) {
 		Object ret = null;
@@ -319,7 +319,8 @@ public class ApplicationController implements IApplicationController {
 
 	/**
 	 * 
-	 * @see br.com.maisha.wind.controller.IApplicationController#filter(br.com.maisha.terra.lang.DomainObject, org.eclipse.core.runtime.IProgressMonitor)
+	 * @see br.com.maisha.wind.controller.IApplicationController#filter(br.com.maisha.terra.lang.DomainObject,
+	 *      org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@SuppressWarnings("unchecked")
 	public List<ModelReference> filter(DomainObject dobj, IProgressMonitor monitor) {
@@ -336,15 +337,16 @@ public class ApplicationController implements IApplicationController {
 		}
 
 		if (filterOp != null) {
-			//utiliza operacao filtro
+			// utiliza operacao filtro
 			ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 			ctx.setOperation(filterOp);
-			ctx.setInstance(null); // there is no instance because user just opened the object.
+			ctx.setInstance(null); // there is no instance because user just
+									// opened the object.
 			ctx.setMonitor(monitor);
 			runOperation(ctx);
 			ret = ctx.getGridData();
 		} else {
-			//nenhuma operacao filtro especificada... utiliza getAll
+			// nenhuma operacao filtro especificada... utiliza getAll
 			ret = (List<ModelReference>) persistentStorage.getAll(dobj);
 			if (ret != null && !ret.isEmpty()) {
 				for (ModelReference ref : ret) {
@@ -404,7 +406,8 @@ public class ApplicationController implements IApplicationController {
 
 	/**
 	 * 
-	 * @see br.com.maisha.wind.controller.IApplicationController#configureAllLabels(org.osgi.framework.BundleContext, br.com.maisha.terra.lang.WindApplication)
+	 * @see br.com.maisha.wind.controller.IApplicationController#configureAllLabels(org.osgi.framework.BundleContext,
+	 *      br.com.maisha.terra.lang.WindApplication)
 	 */
 	public void configureAllLabels(BundleContext context, WindApplication app) {
 
@@ -424,8 +427,8 @@ public class ApplicationController implements IApplicationController {
 						attr.setI18nLabel(getBundleMessage(rb, attr.getLabel()));
 					}
 				}
-				
-				for(Operation op : dObj.getOperations()){
+
+				for (Operation op : dObj.getOperations()) {
 					for (ResourceBundle rb : rbs) {
 						op.setI18nLabel(getBundleMessage(rb, op.getLabel()));
 					}
@@ -434,14 +437,14 @@ public class ApplicationController implements IApplicationController {
 		}
 
 	}
-	
+
 	/**
 	 * 
 	 * @param rb
 	 * @param key
 	 * @return
 	 */
-	private String getBundleMessage(ResourceBundle rb, String key){
+	private String getBundleMessage(ResourceBundle rb, String key) {
 		String ret = "";
 		try {
 			String label = rb.getString(key);
@@ -453,37 +456,37 @@ public class ApplicationController implements IApplicationController {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * 
 	 * @param dObj
 	 * @param ct
 	 * @param level
 	 */
-	public void handleObjectEvent(DomainObject dObj, ChangeType ct, LevelType level){
-		try{
+	public void handleObjectEvent(DomainObject dObj, ChangeType ct, LevelType level) {
+		try {
 			log.debug("	Handling Domain Object Event Level[ " + level + " ] ChangeType[ " + ct + " ]");
 			String type = "";
-			
+
 			String file = dObj.getPropertyValue(PropertyInfo.EVENT_HANDLER);
-			if(StringUtils.isBlank(file)){
+			if (StringUtils.isBlank(file)) {
 				return;
 			}
-			
+
 			type = file.substring(file.indexOf(".") + 1);
 			OperationType opType = OperationType.valueOf(type);
-			
+
 			String className = file.substring(file.lastIndexOf("/") + 1, file.indexOf("."));
-			
+
 			ScriptEngine engine = engineManager.getEngineByName(type);
 			Invocable invocable = (Invocable) engine;
-	
+
 			BundleContext bundle = dObj.getApplication().getBundleContext();
 			URL ruleUrl = bundle.getBundle().getEntry("/src/" + file);
-	
+
 			InputStream is = ruleUrl.openStream();
 			Reader r = new InputStreamReader(is);
-			
+
 			// preparing to execute
 			ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 			ctx.setInstance(currentInstance);
@@ -496,20 +499,19 @@ public class ApplicationController implements IApplicationController {
 
 			loadAPI(type, engine);
 			engine.eval(r);
-			
+
 			engine.eval("rule = " + (opType.getUseNewOperator() ? "new " : "") + className + "()");
 			engine.eval("rule.ctx = ctx");
 			engine.eval("rule.model = model");
 			Object result = engine.get("rule");
-			
-			//execute
+
+			// execute
 			invocable.invokeMethod(result, StringUtils.uncapitalize(ct.name()), ctx);
-		}catch(Exception e){
+		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
-		
+
 	}
-	
 
 	/**
 	 * 
@@ -519,8 +521,7 @@ public class ApplicationController implements IApplicationController {
 		this.currentInstance = ref;
 		modelListener.fireEvent(null, ref, LevelType.Object, ChangeType.InstanceOpened);
 	}
-	
-	
+
 	/**
 	 * 
 	 * @see br.com.maisha.wind.controller.IApplicationController#createNewInstance(br.com.maisha.terra.lang.DomainObject)
@@ -538,6 +539,16 @@ public class ApplicationController implements IApplicationController {
 			runScript("${ref.setAppId(appId)}", context);
 			runScript("${ref.setObjId(objId)}", context);
 
+			// configures relationships many-to-one with a new HashSet;
+			for(Attribute att: dObj.getAtts()){
+				if(StringUtils.isNotBlank(att.getPropertyValue(PropertyInfo.ONTOMANY))){
+					// relationship identified
+					context.put("hSet", new HashSet<Object>());
+					runScript("${ref.set"+StringUtils.capitalize(att.getRef())+"(hSet)}", context);		
+				}
+			}
+			
+			
 			// evaluates metaobject attribute expressions
 			evalExpressions(currentInstance);
 			
@@ -548,8 +559,7 @@ public class ApplicationController implements IApplicationController {
 		}
 		return currentInstance;
 	}
-	
-	
+
 	/**
 	 * 
 	 * @see br.com.maisha.wind.controller.IApplicationController#getCurrentModelInstance()

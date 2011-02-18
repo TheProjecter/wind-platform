@@ -13,7 +13,7 @@ class Save{
 		ctx.logDebug("aaaaa");
 		
 		ctx.logDebug("aaa: " + model);
-		ctx.logDebug(model?.item);
+		ctx.logDebug("bbb: " + model?.item);
 		
 		"com.progonos.portal.reembolso.save.success".success();
 	}
