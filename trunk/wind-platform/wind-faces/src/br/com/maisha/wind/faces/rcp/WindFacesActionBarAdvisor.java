@@ -1,7 +1,5 @@
 package br.com.maisha.wind.faces.rcp;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.GroupMarker;
@@ -11,22 +9,21 @@ import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchActionConstants;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.osgi.framework.BundleContext;
 
-import br.com.maisha.terra.lang.WindApplication;
-import br.com.maisha.wind.common.factory.ServiceProvider;
-import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
+import br.com.maisha.wind.common.exception.ExceptionHandler;
+import br.com.maisha.wind.faces.view.AboutView;
 
 /**
  * Creates, adds and disposes actions for the menus and action bars of each
@@ -59,8 +56,6 @@ public class WindFacesActionBarAdvisor extends ActionBarAdvisor {
 	 * @see org.eclipse.ui.application.ActionBarAdvisor#makeActions(org.eclipse.ui.IWorkbenchWindow)
 	 */
 	protected void makeActions(final IWorkbenchWindow window) {
-		final BundleContext ctx = Activator.getDefault().getBundle().getBundleContext();
-
 		// images
 		ImageDescriptor helpActionImage = AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.rap.demo",
 				"icons/help.gif");
@@ -71,18 +66,12 @@ public class WindFacesActionBarAdvisor extends ActionBarAdvisor {
 		// about action
 		aboutAction = new Action() {
 			public void run() {
-				Shell shell = window.getShell();
-
-				IApplicationRegistry appRegistry = ServiceProvider.getInstance().getService(IApplicationRegistry.class,
-						ctx);
-				
-				StringBuffer sb = new StringBuffer();
-				List<WindApplication> apps = appRegistry.retrieve();
-				for(WindApplication app : apps){
-					sb.append(app.getName()).append("\n");
+				try {
+					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(AboutView.ID, null,
+							IWorkbenchPage.VIEW_VISIBLE);
+				} catch (PartInitException e) {
+					ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 				}
-
-				MessageDialog.openInformation(shell, "Wind Platform", sb.toString());
 
 			}
 		};
@@ -115,7 +104,7 @@ public class WindFacesActionBarAdvisor extends ActionBarAdvisor {
 		toolbar.add(aboutAction);
 		coolBar.add(toolbar);
 	}
-	
+
 	/**
 	 * 
 	 * @see org.eclipse.ui.application.ActionBarAdvisor#fillStatusLine(org.eclipse.jface.action.IStatusLineManager)

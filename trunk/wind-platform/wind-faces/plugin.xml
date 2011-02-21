@@ -62,7 +62,13 @@
          category="org.eclipse.ui"
          class="org.eclipse.ui.ExtensionFactory:progressView"
          id="org.eclipse.ui.views.ProgressView">
-   </view>            
+   </view>      
+	<view
+		class=" br.com.maisha.wind.faces.view.AboutView"
+		icon="icons/help.gif"
+		id=" br.com.maisha.wind.faces.view.AboutView"
+		name="About">
+	</view>            
    </extension>
 
 
@@ -99,5 +105,6 @@
             title="Wind Platform">
       </branding>
    </extension>
+
 
 </plugin>
