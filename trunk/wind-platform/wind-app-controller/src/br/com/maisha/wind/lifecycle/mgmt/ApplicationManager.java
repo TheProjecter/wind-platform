@@ -74,25 +74,27 @@ public class ApplicationManager implements IApplicationManager {
 
 			// compile it's domain objects
 			Enumeration<URL> e = context.getBundle().findEntries("/bin", "*.do", true);
-			while (e.hasMoreElements()) {
-				URL dObjURL = e.nextElement();
-				InputStream dObjIptStream = dObjURL.openStream();
-				if (dObjIptStream != null) {
-
-					// interpret source code
-					DomainObject dObj = langCompiler.compile(dObjIptStream);
-					app.addDomainObject(dObj);
-
-					dObj.setApplication(app);
-
-					// fire model event
-					modelListeners.fireEvent(null, dObj, LevelType.Object, ChangeType.Added);
-				} else {
-					// TODO throws exception
+			if(e != null){
+				while (e.hasMoreElements()) {
+					URL dObjURL = e.nextElement();
+					InputStream dObjIptStream = dObjURL.openStream();
+					if (dObjIptStream != null) {
+	
+						// interpret source code
+						DomainObject dObj = langCompiler.compile(dObjIptStream);
+						app.addDomainObject(dObj);
+	
+						dObj.setApplication(app);
+	
+						// fire model event
+						modelListeners.fireEvent(null, dObj, LevelType.Object, ChangeType.Added);
+					} else {
+						// TODO throws exception
+					}
 				}
+	
+				classMaker.makeClasses(persistentStorage.getClassLoader(), app);
 			}
-
-			classMaker.makeClasses(persistentStorage.getClassLoader(), app);
 
 			// load it's resource bundles
 			for (ResourceBundleEntry rbEntry : app.getResourceBundles()) {
