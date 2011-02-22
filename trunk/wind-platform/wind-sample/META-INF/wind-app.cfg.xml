@@ -2,4 +2,11 @@
 <app name="Flight Control" appId="flight_control" locale="pt_BR">
 	<bundle id="messages"  path="doxo_pt_BR" locale="pt_BR"/>
 	<bundle id="messagesEn"  path="doxo_en_US" locale="en_US"/>
+	
+	<about>
+		<description>This is a common wind application</description>
+		<licence>EPL</licence>
+		<copyright>Paulo Freitas</copyright>
+	</about>
+	
 </app>
