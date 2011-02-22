@@ -72,8 +72,7 @@ public class AboutView extends ViewPart {
 		sform.setImage(PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FILE));
 		sform.setText("About Wind Platform");
 
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 2;
+		GridLayout layout = new GridLayout(2, false);
 		layout.marginHeight = 10;
 		layout.marginWidth = 6;
 		layout.horizontalSpacing = 20;
@@ -86,7 +85,7 @@ public class AboutView extends ViewPart {
 		section.setClient(client);
 		section.setText("Installed Applications");
 		section.setDescription("Use the switches below to control basic heading parameters.");
-		GridData gd = new GridData(GridData.FILL_BOTH);
+		GridData gd = new GridData(GridData.FILL_VERTICAL);
 		section.setLayoutData(gd);
 		layout = new GridLayout();
 		layout.marginWidth = 0;
@@ -155,13 +154,13 @@ public class AboutView extends ViewPart {
 		int tabIndex = tabFolder.getSelectionIndex();
 		switch (tabIndex) {
 		case 0:
-			text.setText(currentApp.getAppId());
+			text.setText(currentApp.getDescription());
 			break;
 		case 1:
-			
+			text.setText(currentApp.getLicence());
 			break;
 		case 2:
-			
+			text.setText(currentApp.getCopyright());
 			break;
 		default:
 			break;

@@ -9,7 +9,6 @@ import br.com.maisha.wind.faces.view.EditionView;
 import br.com.maisha.wind.faces.view.GridView;
 import br.com.maisha.wind.faces.view.LogView;
 import br.com.maisha.wind.faces.view.MessageView;
-import br.com.maisha.wind.faces.view.ModuleOverview;
 
 /**
  * Configures the perspective layout. This class is contributed through the
@@ -30,18 +29,18 @@ public class Perspective implements IPerspectiveFactory {
 		layout.setFixed(true);
 
 		// Module
-		layout.addView(ModuleOverview.ID, IPageLayout.LEFT, .2f,
-				editorArea);
+		//layout.addView(ModuleOverview.ID, IPageLayout.LEFT, .2f,
+		//		editorArea);
 
 		// Edition
-		IFolderLayout editorFolder = layout.createFolder("editorFolder", IPageLayout.TOP, .8f, editorArea);
+		IFolderLayout editorFolder = layout.createFolder("editorFolder", IPageLayout.TOP, .7f, editorArea);
 		editorFolder.addView(EditionView.ID);
 		editorFolder.addPlaceholder(AboutView.ID);
 		layout.getViewLayout(AboutView.ID).setCloseable(true);
 		
 		// Bottom Folder (Grid, Messages)
 		IFolderLayout bottomFolder = layout.createFolder("bottomFolder",
-				IPageLayout.BOTTOM, .6f, editorArea);
+				IPageLayout.BOTTOM, .3f, editorArea);
 		bottomFolder.addView(GridView.ID);
 		bottomFolder.addView(MessageView.ID);
 		bottomFolder.addView(LogView.ID);
