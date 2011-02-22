@@ -35,6 +35,12 @@ public class WindApplication {
 	/** Default locale for app internationalization. */
 	private Locale currentLocale;
 
+	private String description = "";
+
+	private String licence = "";
+
+	private String copyright = "";
+
 	/** Domain Objects living at this application. */
 	private List<DomainObject> domainObjects = new ArrayList<DomainObject>();
 
@@ -93,7 +99,7 @@ public class WindApplication {
 	/** @see #bundleContext */
 	public void setBundleContext(BundleContext bundleContext) {
 		this.bundleContext = bundleContext;
-		if(bundleContext != null){
+		if (bundleContext != null) {
 			setBundleId(bundleContext.getBundle().getBundleId());
 		}
 	}
@@ -171,18 +177,48 @@ public class WindApplication {
 		this.bundleId = bundleId;
 	}
 
+	/** @see #description */
+	public String getDescription() {
+		return description;
+	}
+
+	/** @see #description */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/** @see #licence */
+	public String getLicence() {
+		return licence;
+	}
+
+	/** @see #licence */
+	public void setLicence(String licence) {
+		this.licence = licence;
+	}
+
+	/** @see #copyright */
+	public String getCopyright() {
+		return copyright;
+	}
+
+	/** @see #copyright */
+	public void setCopyright(String copyright) {
+		this.copyright = copyright;
+	}
+
 	/**
-	 * Returns either Current or Default localized resources bundles.
-	 * The one that is not null, current preferred
-	 *  
+	 * Returns either Current or Default localized resources bundles. The one
+	 * that is not null, current preferred
+	 * 
 	 * @return
 	 */
-	public List<ResourceBundle> getCurrentOrDefaultResourceBundles(){
+	public List<ResourceBundle> getCurrentOrDefaultResourceBundles() {
 		List<ResourceBundle> result = getResouceBundle(getCurrentLocale());
-		if(result == null){
+		if (result == null) {
 			result = getResouceBundle(new Locale(getDefaultLocale()));
 		}
 		return result;
 	}
-	
+
 }

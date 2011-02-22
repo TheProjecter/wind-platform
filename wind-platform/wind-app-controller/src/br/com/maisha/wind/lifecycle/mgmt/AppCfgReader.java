@@ -33,6 +33,9 @@ public class AppCfgReader implements IAppCfgReader {
 		d.addSetProperties("app", "name", "name");
 		d.addSetProperties("app", "appId", "appId");
 		d.addSetProperties("app", "locale", "defaultLocale");
+		d.addCallMethod("app/about/description", "setDescription", 0);
+		d.addCallMethod("app/about/licence", "setLicence", 0);
+		d.addCallMethod("app/about/copyright", "setCopyright", 0);
 
 		d.addObjectCreate("app/bundle", ResourceBundleEntry.class);
 		d.addSetProperties("app/bundle", "id", "id");
