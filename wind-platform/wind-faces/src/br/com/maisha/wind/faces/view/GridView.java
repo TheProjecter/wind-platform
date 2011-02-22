@@ -10,6 +10,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -34,6 +37,8 @@ import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
+import br.com.maisha.wind.dataexporter.IDataExporter;
+import br.com.maisha.wind.dataexporter.IDataExporter.ExporterType;
 import br.com.maisha.wind.faces.IPresentationProvider;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.render.IRender;
@@ -59,6 +64,9 @@ public class GridView extends ViewPart implements IRender {
 
 	/** Grid View Column Map (Used to configure labels). */
 	private Map<Integer, String> map;
+
+	/** Action for clear message view. */
+	private IAction exportTextAction;
 
 	/**
 	 * 
@@ -94,6 +102,22 @@ public class GridView extends ViewPart implements IRender {
 		viewer.setComparator(new GridViewComparator());
 
 		getSite().setSelectionProvider(viewer);
+
+		createActions();
+		IToolBarManager tbManager = getViewSite().getActionBars().getToolBarManager();
+		tbManager.add(exportTextAction);
+	}
+
+	public void createActions() {
+		exportTextAction = new Action() {
+
+			public void run() {
+				IDataExporter exporter = ServiceProvider.getInstance().getService(IDataExporter.class,
+						Activator.getDefault().getBundle().getBundleContext());
+				exporter.export(new HashMap<String, Object>(), null, ExporterType.TEXT);
+			}
+		};
+		exportTextAction.setText("Export to Text");
 	}
 
 	/**
@@ -166,40 +190,38 @@ public class GridView extends ViewPart implements IRender {
 
 					i++;
 				}
-				
+
 				// configures label provider
-				viewer.setLabelProvider(new GridViewLabelProvider(map));				
+				viewer.setLabelProvider(new GridViewLabelProvider(map));
 			}
 		}
 
-		if (ct.equals(ChangeType.ObjectOpen) || 
-				(LevelType.GridData.equals(level) && ct.equals(ChangeType.ValueChanged))) {
+		if (ct.equals(ChangeType.ObjectOpen)
+				|| (LevelType.GridData.equals(level) && ct.equals(ChangeType.ValueChanged))) {
 			log.debug("Updating grid view... ");
 
-			LoadGridDataJob job = new LoadGridDataJob(
-					PlatformMessageRegistry.getInstance().getMessage("wind_faces.gridView.loadData"), 
-					level, 
-					model,
-					Display.getCurrent());
+			LoadGridDataJob job = new LoadGridDataJob(PlatformMessageRegistry.getInstance().getMessage(
+					"wind_faces.gridView.loadData"), level, model, Display.getCurrent());
 			job.schedule();
 		}
 	}
-	
+
 	/**
-	 * Responsible for load data that will be shown in grid. 
+	 * Responsible for load data that will be shown in grid.
 	 * 
 	 * @author Paulo Freitas (pfreitas1@gmail.com)
 	 */
-	class LoadGridDataJob extends Job{
+	class LoadGridDataJob extends Job {
 
 		private LevelType level;
-		
+
 		private Object model;
-		
+
 		private Display display;
-		
+
 		/**
 		 * Configures Job Name.
+		 * 
 		 * @param name
 		 */
 		public LoadGridDataJob(String name, LevelType level, Object model, Display display) {
@@ -210,7 +232,8 @@ public class GridView extends ViewPart implements IRender {
 		}
 
 		/**
-		 * Do the thing. 
+		 * Do the thing.
+		 * 
 		 * @see org.eclipse.core.runtime.jobs.Job#run(org.eclipse.core.runtime.IProgressMonitor)
 		 */
 		protected IStatus run(final IProgressMonitor monitor) {
@@ -219,17 +242,17 @@ public class GridView extends ViewPart implements IRender {
 					// input data
 					List<ModelReference> data = null;
 					if (LevelType.Object.equals(level)) {
-						if(dObj.getPropertyValue(PropertyInfo.OPEN_FILTERING)){
+						if (dObj.getPropertyValue(PropertyInfo.OPEN_FILTERING)) {
 							data = appCtrl.filter(dObj, monitor);
 						}
 					} else if (LevelType.GridData.equals(level)) {
 						data = (ArrayList<ModelReference>) model;
-						
+
 					}
-		
+
 					List<Map<String, Object>> dataMap = appCtrl.toMap(dObj, data);
 					viewer.setInput(dataMap);
-		
+
 					// total results
 					String contentDescription = "";
 					if (dataMap.size() > 0) {
@@ -239,14 +262,14 @@ public class GridView extends ViewPart implements IRender {
 						contentDescription = PlatformMessageRegistry.getInstance().getMessage(
 								"wind_faces.gridview.noResults");
 					}
-					setContentDescription(contentDescription);	
-					
+					setContentDescription(contentDescription);
+
 					setFocus();
 				}
 			});
 			return Status.OK_STATUS;
 		}
-		
+
 	}
 
 }
