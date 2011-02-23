@@ -75,14 +75,22 @@ validationRule doxo {
 "doxo2": ${this.miles < 30 }
 }
 
-operation python CalculateCapacity "Passengers Capacity"{
+operation python CalculateCapacity "Python"{
 file: br/com/maisha/wind/sample/rules/CalculateCapacity.py
 validWhen: doxo
 }
 
-operation groovy GroovyAction "Groovy Action"{
+operation groovy GroovyAction "Groovy"{
 file: br/com/maisha/wind/sample/rules/Groovy.groovy
 }
 
+operation groovy Save "Save"{
+file: br/com/maisha/wind/sample/rules/Save.groovy
+}
+
+operation groovy Filter "Filter"{
+file: br/com/maisha/wind/sample/rules/Filter.groovy
+validate: false
+}
 
 }
