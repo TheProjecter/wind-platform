@@ -10,10 +10,7 @@ import org.apache.log4j.Logger;
 
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.dataexporter.Activator;
-import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.Configuration;
-import freemarker.template.ObjectWrapper;
-import freemarker.template.SimpleHash;
 import freemarker.template.Template;
 
 /**
