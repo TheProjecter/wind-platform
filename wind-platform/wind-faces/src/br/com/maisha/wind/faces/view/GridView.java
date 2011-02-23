@@ -1,9 +1,5 @@
 package br.com.maisha.wind.faces.view;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,15 +10,12 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -32,7 +25,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.part.ViewPart;
-import org.osgi.framework.Bundle;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
@@ -43,12 +35,10 @@ import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
-import br.com.maisha.wind.dataexporter.IDataExporter;
-import br.com.maisha.wind.dataexporter.IDataExporter.ExporterType;
 import br.com.maisha.wind.faces.IPresentationProvider;
+import br.com.maisha.wind.faces.action.PrintAction;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.render.IRender;
-import br.com.maisha.wind.faces.view.print.GridPrintDialog;
 
 public class GridView extends ViewPart implements IRender {
 
@@ -73,7 +63,7 @@ public class GridView extends ViewPart implements IRender {
 	private Map<Integer, String> map;
 
 	/** Action for clear message view. */
-	private IAction exportTextAction;
+	private PrintAction printAction;
 
 	/**
 	 * 
@@ -112,58 +102,11 @@ public class GridView extends ViewPart implements IRender {
 
 		createActions();
 		IToolBarManager tbManager = getViewSite().getActionBars().getToolBarManager();
-		tbManager.add(exportTextAction);
+		tbManager.add(printAction);
 	}
 
 	public void createActions() {
-		exportTextAction = new Action() {
-
-			public void run() {
-				try {
-					IDataExporter exporter = ServiceProvider.getInstance().getService(IDataExporter.class,
-							Activator.getDefault().getBundle().getBundleContext());
-					Bundle b = Activator.getDefault().getBundle();
-					URL url = b.getEntry("/bin/grid.freemarker");
-					if (url != null) {
-
-						Map<String, Object> d = new HashMap<String, Object>();
-						d.put("root", viewer.getInput());
-						d.put("meta", dObj);
-						InputStream is = exporter.export(d, url.openStream(), ExporterType.TEXT);
-
-						if (is != null) {
-							try {
-								InputStreamReader r = new InputStreamReader(is);
-								StringWriter w = new StringWriter();
-								char[] buffer = new char[1024];
-								int n;
-								while ((n = r.read(buffer)) != -1) {
-									w.write(buffer);
-								}
-
-								String s = w.toString();
-
-								GridPrintDialog dialog = new GridPrintDialog(Display.getCurrent().getActiveShell(), s);
-								dialog.setBlockOnOpen(true);
-								int retCode = dialog.open();
-								if (Window.OK == retCode) {
-
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
-							} finally {
-								is.close();
-							}
-						}
-
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-			}
-		};
-		exportTextAction.setText("Print");
+		printAction = new PrintAction();
 	}
 
 	/**
@@ -245,7 +188,6 @@ public class GridView extends ViewPart implements IRender {
 		if (ct.equals(ChangeType.ObjectOpen)
 				|| (LevelType.GridData.equals(level) && ct.equals(ChangeType.ValueChanged))) {
 			log.debug("Updating grid view... ");
-
 			LoadGridDataJob job = new LoadGridDataJob(PlatformMessageRegistry.getInstance().getMessage(
 					"wind_faces.gridView.loadData"), level, model, Display.getCurrent());
 			job.schedule();
@@ -298,6 +240,10 @@ public class GridView extends ViewPart implements IRender {
 
 					List<Map<String, Object>> dataMap = appCtrl.toMap(dObj, data);
 					viewer.setInput(dataMap);
+
+					// updates print action - TODO dont think here it's the best
+					// place
+					printAction.configure(dataMap, dObj);
 
 					// total results
 					String contentDescription = "";
