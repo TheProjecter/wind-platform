@@ -8,6 +8,15 @@ body{
 	font-size: 12;
 	margin: 15px;
 }
+
+.table_header{
+	text-align: left;
+	background-color: #eaeaea;
+}
+
+.table_row{
+
+}
 </style>
 
 </head>
@@ -16,18 +25,26 @@ body{
 <body>
 
 <h1>${meta.label}</h1>
-
 <hr/>
-
 <br/>
 
-<ul>
-<#list root as row>
-	<#list row?keys as key>
-   	<li>${key}: <#if row[key]??>${row[key]}</#if></li>
+<table width="100%" border="0" cellpadding="2" cellspacing="0">
+
+	<tr class="table_header">
+		<#list meta.atts as att>
+			<th>${att.label}</th>
+		</#list>
+	</tr>
+
+	<#list root as row>
+		<tr class="table_row">
+			<#list meta.atts as att>
+				<td><#if row[att.ref]??>${row[att.ref]}</#if></td>
+			</#list>
+		</tr>
 	</#list>
-</#list>
-</ul>
+	
+</table>
 
 </body>
 </html>
