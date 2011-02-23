@@ -1,50 +1,49 @@
 <html>
+	<head>
 
-<head>
+		<style type="text/css">
+			body{
+				font-family: sans-serif;
+				font-size: 10px;
+				margin: 15px;
+			}
+			
+			.table_header{
+				text-align: left;
+				background-color: #eaeaea;
+			}
+			
+			.table_row{
+			
+			}
+		</style>
 
-<style type="text/css">
-body{
-	font-family: sans-serif;
-	font-size: 12;
-	margin: 15px;
-}
-
-.table_header{
-	text-align: left;
-	background-color: #eaeaea;
-}
-
-.table_row{
-
-}
-</style>
-
-</head>
+	</head>
 
 
-<body>
-
-<h1>${meta.label}</h1>
-<hr/>
-<br/>
-
-<table width="100%" border="0" cellpadding="2" cellspacing="0">
-
-	<tr class="table_header">
-		<#list meta.atts as att>
-			<th>${att.label}</th>
-		</#list>
-	</tr>
-
-	<#list root as row>
-		<tr class="table_row">
-			<#list meta.atts as att>
-				<td><#if row[att.ref]??>${row[att.ref]}</#if></td>
-			</#list>
-		</tr>
-	</#list>
+	<body>
 	
-</table>
-
-</body>
+		<h1>${meta.label}</h1>
+		<hr/>
+		<br/>
+		
+		<table width="100%" border="0" cellpadding="2" cellspacing="0">
+		
+			<tr class="table_header">
+				<#list meta.atts as att>
+					<th>${att.label}</th>
+				</#list>
+			</tr>
+		
+			<#list root as row>
+				<tr class="table_row">
+					<#list meta.atts as att>
+						<td><#if row[att.ref]??>${row[att.ref]}</#if></td>
+					</#list>
+				</tr>
+			</#list>
+			
+		</table>
+	
+	</body>
 </html>
