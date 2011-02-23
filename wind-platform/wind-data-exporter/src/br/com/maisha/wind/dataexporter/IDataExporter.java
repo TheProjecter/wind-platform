@@ -1,6 +1,5 @@
 package br.com.maisha.wind.dataexporter;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.Map;
 
@@ -26,6 +25,6 @@ public interface IDataExporter {
 		}
 	}
 
-	InputStream export(Map<String, Object> data, File template, ExporterType type);
+	InputStream export(Map<String, Object> data, InputStream template, ExporterType type);
 
 }

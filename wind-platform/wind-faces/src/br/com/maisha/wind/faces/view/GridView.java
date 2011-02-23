@@ -1,5 +1,9 @@
 package br.com.maisha.wind.faces.view;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +22,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -27,6 +32,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.part.ViewPart;
+import org.osgi.framework.Bundle;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
@@ -42,6 +48,7 @@ import br.com.maisha.wind.dataexporter.IDataExporter.ExporterType;
 import br.com.maisha.wind.faces.IPresentationProvider;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.render.IRender;
+import br.com.maisha.wind.faces.view.print.GridPrintDialog;
 
 public class GridView extends ViewPart implements IRender {
 
@@ -112,12 +119,51 @@ public class GridView extends ViewPart implements IRender {
 		exportTextAction = new Action() {
 
 			public void run() {
-				IDataExporter exporter = ServiceProvider.getInstance().getService(IDataExporter.class,
-						Activator.getDefault().getBundle().getBundleContext());
-				exporter.export(new HashMap<String, Object>(), null, ExporterType.TEXT);
+				try {
+					IDataExporter exporter = ServiceProvider.getInstance().getService(IDataExporter.class,
+							Activator.getDefault().getBundle().getBundleContext());
+					Bundle b = Activator.getDefault().getBundle();
+					URL url = b.getEntry("/bin/grid.freemarker");
+					if (url != null) {
+
+						Map<String, Object> d = new HashMap<String, Object>();
+						d.put("root", viewer.getInput());
+						d.put("meta", dObj);
+						InputStream is = exporter.export(d, url.openStream(), ExporterType.TEXT);
+
+						if (is != null) {
+							try {
+								InputStreamReader r = new InputStreamReader(is);
+								StringWriter w = new StringWriter();
+								char[] buffer = new char[1024];
+								int n;
+								while ((n = r.read(buffer)) != -1) {
+									w.write(buffer);
+								}
+
+								String s = w.toString();
+
+								GridPrintDialog dialog = new GridPrintDialog(Display.getCurrent().getActiveShell(), s);
+								dialog.setBlockOnOpen(true);
+								int retCode = dialog.open();
+								if (Window.OK == retCode) {
+
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+							} finally {
+								is.close();
+							}
+						}
+
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
 			}
 		};
-		exportTextAction.setText("Export to Text");
+		exportTextAction.setText("Print");
 	}
 
 	/**

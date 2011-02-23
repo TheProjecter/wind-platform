@@ -1,6 +1,5 @@
 package br.com.maisha.wind.dataexporter.exporter;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.Map;
 
@@ -14,9 +13,9 @@ public class PDFExporter implements IExporter {
 	/**
 	 * 
 	 * @see br.com.maisha.wind.dataexporter.exporter.IExporter#export(java.util.Map,
-	 *      java.io.File)
+	 *      java.io.InputStream)
 	 */
-	public InputStream export(Map<String, Object> model, File template) {
+	public InputStream export(Map<String, Object> model, InputStream template) {
 
 		return null;
 	}
