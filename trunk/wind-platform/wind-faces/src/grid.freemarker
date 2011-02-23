@@ -1,0 +1,33 @@
+<html>
+
+<head>
+
+<style type="text/css">
+body{
+	font-family: sans-serif;
+	font-size: 12;
+	margin: 15px;
+}
+</style>
+
+</head>
+
+
+<body>
+
+<h1>${meta.label}</h1>
+
+<hr/>
+
+<br/>
+
+<ul>
+<#list root as row>
+	<#list row?keys as key>
+   	<li>${key}: <#if row[key]??>${row[key]}</#if></li>
+	</#list>
+</#list>
+</ul>
+
+</body>
+</html>
