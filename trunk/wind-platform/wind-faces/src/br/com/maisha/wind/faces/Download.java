@@ -5,10 +5,11 @@ import java.io.InputStream;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.rwt.RWT;
+import org.eclipse.rwt.service.IServiceHandler;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
-import org.eclipse.swt.browser.ProgressEvent;
-import org.eclipse.swt.browser.ProgressListener;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
@@ -39,27 +40,20 @@ public class Download extends MessageDialog {
 	 */
 	protected Control createCustomArea(Composite parent) {
 		browser = new Browser(parent, SWT.BORDER);
-		browser.setVisible(false);
-		Object b = browser.getWebBrowser();
-		browser.addProgressListener(new ProgressListener() {
 
-			/**
-			 * 
-			 * @see org.eclipse.swt.browser.ProgressListener#completed(org.eclipse.swt.browser.ProgressEvent)
-			 */
-			public void completed(ProgressEvent event) {
-				close();
+		browser.addDisposeListener(new DisposeListener() {
 
-			}
+			@Override
+			public void widgetDisposed(DisposeEvent event) {
+				boolean stop = false;
+				do {
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				} while (RWT.getSessionStore().getAttribute("doxo") != null);
 
-			/**
-			 * 
-			 * @see org.eclipse.swt.browser.ProgressListener#changed(org.eclipse.swt.browser.ProgressEvent)
-			 */
-			public void changed(ProgressEvent event) {
-				System.out.println(event);
-				return;
-				
 			}
 		});
 
@@ -78,12 +72,33 @@ public class Download extends MessageDialog {
 
 	/**
 	 * 
+	 * @param filename
+	 * @return
+	 */
+	private String createDownloadUrl(String filename) {
+		StringBuilder url = new StringBuilder();
+		// url.append("<a href=\"");
+		url.append(RWT.getRequest().getContextPath());
+		url.append(RWT.getRequest().getServletPath());
+		url.append("?");
+		url.append(IServiceHandler.REQUEST_PARAM);
+		url.append("=downloadServiceHandler");
+		url.append("&filename=");
+		url.append(filename);
+		// url.append("\">ddd</a> ");
+		String encodedURL = RWT.getResponse().encodeURL(url.toString());
+		return encodedURL;
+	}
+
+	/**
+	 * 
 	 */
 	private void startDownload() {
-		browser
-				//.setUrl("http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/helios/SR2/eclipse-java-helios-SR2-linux-gtk.tar.gz&url=http://eclipse.c3sl.ufpr.br/technology/epp/downloads/release/helios/SR2/eclipse-java-helios-SR2-linux-gtk.tar.gz&mirror_id=576");
-		.setUrl("http://www.eclipse.org");
-
+		boolean k = false;
+		k = browser.execute(" window.location = \"" + createDownloadUrl("doxo") + "\"");
+		if (k) {
+			close();
+		}
 	}
 
 	/** @see #inputStream */

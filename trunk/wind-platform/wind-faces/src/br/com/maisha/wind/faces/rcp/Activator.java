@@ -2,13 +2,17 @@ package br.com.maisha.wind.faces.rcp;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.rwt.RWT;
+import org.eclipse.rwt.service.IServiceManager;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+
+import br.com.maisha.wind.faces.FileServiceHandler;
 
 /**
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
- *
+ * 
  */
 public class Activator extends AbstractUIPlugin {
 
@@ -38,6 +42,12 @@ public class Activator extends AbstractUIPlugin {
 		log.info("		Wind Faces Starting... ");
 		super.start(context);
 		plugin = this;
+		
+		IServiceManager manager = RWT.getServiceManager();
+		if(manager !=  null){
+			manager.registerServiceHandler("downloadServiceHandler", new FileServiceHandler());
+		}
+		
 		log.info("		Wind Faces Started ");
 	}
 
