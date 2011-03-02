@@ -97,4 +97,19 @@ public class GridPrintDialog extends TitleAreaDialog {
 		}
 	}
 
+	private void savePressed() {
+		b.execute("window.location = \"http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/helios/SR2/eclipse-java-helios-SR2-linux-gtk.tar.gz&url=http://eclipse.c3sl.ufpr.br/technology/epp/downloads/release/helios/SR2/eclipse-java-helios-SR2-linux-gtk.tar.gz&mirror_id=576\";");
+	}
+
+	/**
+	 * 
+	 * @see org.eclipse.jface.dialogs.Dialog#buttonPressed(int)
+	 */
+	protected void buttonPressed(int buttonId) {
+		super.buttonPressed(buttonId);
+		if (SAVE_ID == buttonId) {
+			savePressed();
+		}
+	}
+
 }

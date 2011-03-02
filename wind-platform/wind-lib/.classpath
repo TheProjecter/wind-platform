@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="lib/core-renderer.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/iText-2.0.8.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-io-2.0.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/freemarker.jar" sourcepath="/home/paulofreitas/.m2/repository/org/freemarker/freemarker/2.3.16/freemarker-2.3.16-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/hibernate-jpa-2.0-api-1.0.0.Final.jar"/>
