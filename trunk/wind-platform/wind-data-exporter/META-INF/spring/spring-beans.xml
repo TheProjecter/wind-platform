@@ -9,12 +9,14 @@
 			<map>
 				<entry key="text" value-ref="textExporter" />
 				<entry key="pdf" value-ref="pdfExporter" />
+				<entry key="xls" value-ref="excelExporter" />
 			</map>
 		</property>
 	</bean>
 	
 	<bean name="textExporter" class="br.com.maisha.wind.dataexporter.exporter.TextExporter" />
 	<bean name="pdfExporter" class="br.com.maisha.wind.dataexporter.exporter.PDFExporter" />
+	<bean name="excelExporter" class="br.com.maisha.wind.dataexporter.exporter.ExcelExporter" />
 	
 </beans>
 

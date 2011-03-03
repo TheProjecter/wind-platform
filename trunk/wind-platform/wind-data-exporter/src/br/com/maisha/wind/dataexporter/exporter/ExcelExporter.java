@@ -3,28 +3,26 @@ package br.com.maisha.wind.dataexporter.exporter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
 import java.util.Map;
+
+import net.sf.jxls.transformer.XLSTransformer;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
-import org.xhtmlrenderer.pdf.ITextRenderer;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.dataexporter.Activator;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
 
 /**
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
-public class PDFExporter implements IExporter {
+public class ExcelExporter implements IExporter {
 
 	/** Log ref. */
-	private static final Logger log = Logger.getLogger(PDFExporter.class);
+	private static final Logger log = Logger.getLogger(ExcelExporter.class);
 
 	/**
 	 * 
@@ -35,22 +33,16 @@ public class PDFExporter implements IExporter {
 		ByteArrayInputStream bais = null;
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try {
-			Configuration cfg = new Configuration();
-			Template t = new Template("templ", new InputStreamReader(template), cfg);
+			XLSTransformer transformer = new XLSTransformer();
+			Workbook wb = transformer.transformXLS(template, model);
 
-			StringWriter out = new StringWriter();
-			t.process(model, out);
+			baos = new ByteArrayOutputStream();
+			wb.write(baos);
 
-			String xhtml = out.getBuffer().toString();
-			ITextRenderer renderer = new ITextRenderer();
-			renderer.setDocumentFromString(xhtml);
-			renderer.layout();
-			renderer.createPDF(baos, true);
-			
 			bais = new ByteArrayInputStream(baos.toByteArray());
 		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getDefault().getBundle().getSymbolicName(), e, log);
-		} finally{
+		} finally {
 			IOUtils.closeQuietly(baos);
 		}
 		return bais;
