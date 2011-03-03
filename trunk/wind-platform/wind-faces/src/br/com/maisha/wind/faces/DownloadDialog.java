@@ -19,19 +19,28 @@ import org.eclipse.swt.widgets.Shell;
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
-public class Download extends MessageDialog {
+public class DownloadDialog extends MessageDialog {
 
+	/** */
+	private static final String FILE_KEY = "downloadServiceFile";
+
+	/** */
 	private InputStream inputStream;
 
+	/** */
 	private Browser browser;
+
+	/** */
+	private String extension;
 
 	/**
 	 * 
 	 * @param parentShell
 	 */
-	public Download(Shell parentShell) {
+	public DownloadDialog(Shell parentShell, String extension) {
 		super(parentShell, "Download", null, "Confirm Download??", QUESTION, new String[] {
 				IDialogConstants.get().YES_LABEL, IDialogConstants.get().NO_LABEL }, 0);
+		this.extension = extension;
 	}
 
 	/**
@@ -40,23 +49,23 @@ public class Download extends MessageDialog {
 	 */
 	protected Control createCustomArea(Composite parent) {
 		browser = new Browser(parent, SWT.BORDER);
-
 		browser.addDisposeListener(new DisposeListener() {
-
-			@Override
+			/**
+			 * @see org.eclipse.swt.events.DisposeListener#widgetDisposed(org.eclipse.swt.events.DisposeEvent)
+			 */
 			public void widgetDisposed(DisposeEvent event) {
-				boolean stop = false;
 				do {
 					try {
 						Thread.sleep(500);
 					} catch (InterruptedException e) {
-						e.printStackTrace();
+						// silently ignore
 					}
-				} while (RWT.getSessionStore().getAttribute("doxo") != null);
+				} while (RWT.getSessionStore().getAttribute(FILE_KEY) != null);
 
 			}
 		});
 
+		browser.setVisible(false);
 		return browser;
 	}
 
@@ -67,25 +76,26 @@ public class Download extends MessageDialog {
 	protected void buttonPressed(int buttonId) {
 		if (buttonId == 0) {
 			startDownload();
+		} else {
+			RWT.getSessionStore().setAttribute(FILE_KEY, null);
+			close();
 		}
 	}
 
 	/**
 	 * 
-	 * @param filename
 	 * @return
 	 */
-	private String createDownloadUrl(String filename) {
+	private String createDownloadUrl() {
 		StringBuilder url = new StringBuilder();
-		// url.append("<a href=\"");
 		url.append(RWT.getRequest().getContextPath());
 		url.append(RWT.getRequest().getServletPath());
 		url.append("?");
 		url.append(IServiceHandler.REQUEST_PARAM);
 		url.append("=downloadServiceHandler");
-		url.append("&filename=");
-		url.append(filename);
-		// url.append("\">ddd</a> ");
+		url.append("&filename=").append(FILE_KEY);
+		url.append("&extension=").append(extension);
+
 		String encodedURL = RWT.getResponse().encodeURL(url.toString());
 		return encodedURL;
 	}
@@ -94,8 +104,7 @@ public class Download extends MessageDialog {
 	 * 
 	 */
 	private void startDownload() {
-		boolean k = false;
-		k = browser.execute(" window.location = \"" + createDownloadUrl("doxo") + "\"");
+		boolean k = browser.execute(" window.location = \"" + createDownloadUrl() + "\"");
 		if (k) {
 			close();
 		}
@@ -106,7 +115,7 @@ public class Download extends MessageDialog {
 		this.inputStream = inputStream;
 
 		// stores data in the session.
-		RWT.getSessionStore().setAttribute("doxo", this.inputStream);
+		RWT.getSessionStore().setAttribute(FILE_KEY, this.inputStream);
 	}
 
 }

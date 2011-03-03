@@ -36,6 +36,7 @@ import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.faces.IPresentationProvider;
+import br.com.maisha.wind.faces.action.ExcelPrintAction;
 import br.com.maisha.wind.faces.action.PDFPrintAction;
 import br.com.maisha.wind.faces.action.PrintAction;
 import br.com.maisha.wind.faces.rcp.Activator;
@@ -68,7 +69,10 @@ public class GridView extends ViewPart implements IRender {
 
 	/** Action for export content as PDF. */
 	private PDFPrintAction exportPDFAction;
-	
+
+	/** Action for export content as Excel. */
+	private ExcelPrintAction exportExcelAction;
+
 	/**
 	 * 
 	 * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
@@ -104,16 +108,17 @@ public class GridView extends ViewPart implements IRender {
 
 		getSite().setSelectionProvider(viewer);
 
-		
 		createActions(parent);
 		IToolBarManager tbManager = getViewSite().getActionBars().getToolBarManager();
 		tbManager.add(printAction);
 		tbManager.add(exportPDFAction);
+		tbManager.add(exportExcelAction);
 	}
 
 	public void createActions(Composite parent) {
 		printAction = new PrintAction();
 		exportPDFAction = new PDFPrintAction(parent);
+		exportExcelAction = new ExcelPrintAction(parent);
 	}
 
 	/**
@@ -252,6 +257,7 @@ public class GridView extends ViewPart implements IRender {
 					// place
 					printAction.configure(dataMap, dObj);
 					exportPDFAction.configure(dataMap, dObj);
+					exportExcelAction.configure(dataMap, dObj);
 
 					// total results
 					String contentDescription = "";
