@@ -1,6 +1,5 @@
 package br.com.maisha.wind.dataexporter;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.Map;
 
