@@ -1,5 +1,6 @@
 package br.com.maisha.wind.faces.view.print;
 
+import org.apache.commons.io.IOUtils;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
@@ -12,6 +13,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
+import br.com.maisha.wind.faces.DownloadDialog;
 import br.com.maisha.wind.faces.rcp.Activator;
 
 /**
@@ -98,7 +100,9 @@ public class GridPrintDialog extends TitleAreaDialog {
 	}
 
 	private void savePressed() {
-		b.execute("window.location = \"http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/helios/SR2/eclipse-java-helios-SR2-linux-gtk.tar.gz&url=http://eclipse.c3sl.ufpr.br/technology/epp/downloads/release/helios/SR2/eclipse-java-helios-SR2-linux-gtk.tar.gz&mirror_id=576\";");
+		DownloadDialog download = new DownloadDialog(getShell(), "txt");
+		download.setInputStream(IOUtils.toInputStream(data));
+		download.open();
 	}
 
 	/**

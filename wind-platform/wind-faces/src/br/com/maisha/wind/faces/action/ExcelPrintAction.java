@@ -27,13 +27,13 @@ import br.com.maisha.wind.faces.rcp.Activator;
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
-public class PDFPrintAction extends Action implements IWorkbenchAction {
+public class ExcelPrintAction extends Action implements IWorkbenchAction {
 
 	/** Log ref. */
-	private static final Logger log = Logger.getLogger(PDFPrintAction.class);
+	private static final Logger log = Logger.getLogger(ExcelPrintAction.class);
 
 	/** */
-	private static final String PRINT_GRID_TEMPLATE = "/bin/grid.freemarker";
+	private static final String PRINT_GRID_TEMPLATE = "/bin/grid_excel.xls";
 
 	/** Grid contents. */
 	private List<Map<String, Object>> gridData;
@@ -54,18 +54,18 @@ public class PDFPrintAction extends Action implements IWorkbenchAction {
 	 * {@link #configure(List, DomainObject)} before.
 	 * 
 	 */
-	public PDFPrintAction(Composite parent) {
+	public ExcelPrintAction(Composite parent) {
 		this.parent = parent;
 
 		Bundle b = Activator.getDefault().getBundle();
 		this.exporter = ServiceProvider.getInstance().getService(IDataExporter.class, b.getBundleContext());
 		this.template = b.getEntry(PRINT_GRID_TEMPLATE);
 
-		setText("Export to PDF"); // TODO i18n
-		setToolTipText("Exports grid content as PDF...");
-		setDescription("Exports grid content as PDF...");
-		setImageDescriptor(Activator.getImageDescriptor("icons/file_pdf.png"));
-		setDisabledImageDescriptor(Activator.getImageDescriptor("icons/file_pdf.png"));
+		setText("Export to Excel"); // TODO i18n
+		setToolTipText("Exports grid content as Excel...");
+		setDescription("Exports grid content as Excel...");
+		setImageDescriptor(Activator.getImageDescriptor("icons/excel.gif"));
+		setDisabledImageDescriptor(Activator.getImageDescriptor("icons/excel.gif"));
 
 		// disabled by default... should call configure();
 		setEnabled(false);
@@ -95,12 +95,12 @@ public class PDFPrintAction extends Action implements IWorkbenchAction {
 				d.put("meta", meta);
 
 				InputStream tmplStream = template.openStream();
-				InputStream is = exporter.export(d, tmplStream, ExporterType.PDF);
+				InputStream is = exporter.export(d, tmplStream, ExporterType.XLS);
 
 				if (is != null) {
 					try {
 
-						DownloadDialog down = new DownloadDialog(parent.getShell(), "pdf");
+						DownloadDialog down = new DownloadDialog(parent.getShell(), "xls");
 						down.setInputStream(is);
 						down.open();
 
