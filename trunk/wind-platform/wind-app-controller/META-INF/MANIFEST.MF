@@ -1,5 +1,5 @@
 Manifest-Version: 2.0
-Spring-Context: *;create-asynchronously:=false
+Spring-Context: *;create-asynchronously:=false;wait-for-dependencies:=true
 Bundle-ManifestVersion: 2
 Bundle-Name: Wind_app_controller
 Bundle-SymbolicName: wind_app_controller
@@ -208,13 +208,11 @@ Export-Package: br.com.maisha.wind.controller,
  org.python.rmi,
  org.python.util
 Require-Bundle: wind_terra;bundle-version="1.0.0",
- org.apache.log4j;bundle-version="1.2.13",
  wind_lib;bundle-version="1.0.0",
  wind_common;bundle-version="1.0.0",
- org.eclipse.core.runtime,
+ org.apache.log4j;bundle-version="1.2.13",
  com.springsource.org.apache.commons.lang;bundle-version="2.4.0",
  org.springframework.context;bundle-version="2.5.6",
- org.eclipse.rap.ui,
  com.springsource.org.apache.commons.digester;bundle-version="1.8.1"
 Bundle-ClassPath: lib/jython-engine.jar,
  lib/jython.jar,
