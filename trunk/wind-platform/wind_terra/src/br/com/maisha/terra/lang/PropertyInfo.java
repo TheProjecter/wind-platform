@@ -25,7 +25,7 @@ public class PropertyInfo<T> {
 	public static final PropertyInfo<Integer> COL_SPAN = new PropertyInfo<Integer>("colspan", 0, Integer.class, false);
 
 	/** Descricao da propriedade rowspan */
-	public static final PropertyInfo<Integer> ROW_SPAN = new PropertyInfo<Integer>("rowspan", 0, Integer.class, false);
+	public static final PropertyInfo<Integer> ROW_SPAN = new PropertyInfo<Integer>("rowspan", 1, Integer.class, false);
 
 	/** Descricao da propriedade "presentation_type". */
 	public static final PropertyInfo<String> PRESENTATION_TYPE = new PropertyInfo<String>("presentation_type", "",

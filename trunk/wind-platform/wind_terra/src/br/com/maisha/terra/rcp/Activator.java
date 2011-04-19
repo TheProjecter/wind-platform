@@ -1,15 +1,19 @@
 package br.com.maisha.terra.rcp;
 
 import org.apache.log4j.Logger;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-public class Activator extends AbstractUIPlugin {
+public class Activator implements BundleActivator {
 
 	private static Logger log = Logger.getLogger(Activator.class);
 
 	// The shared instance
 	private static Activator plugin;
+	
+	// bundle ref.
+	private static Bundle bundle;
 
 	/*
 	 * (non-Javadoc)
@@ -20,8 +24,8 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public void start(BundleContext context) throws Exception {
 		log.info("		Wind Terra Starting... ");
-		super.start(context);
 		plugin = this;
+		bundle = context.getBundle();
 		log.info("		Wind Terra Started");
 	}
 
@@ -33,7 +37,7 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
-		super.stop(context);
+		bundle = null;
 		log.info("		Wind Terra Stopped");
 	}
 
@@ -42,8 +46,8 @@ public class Activator extends AbstractUIPlugin {
 	 * 
 	 * @return the shared instance
 	 */
-	public static Activator getDefault() {
-		return plugin;
+	public static Bundle getDefault() {
+		return bundle;
 	}
 
 }
