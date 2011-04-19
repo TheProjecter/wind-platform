@@ -1,7 +1,7 @@
 package br.com.maisha.wind.lifecycle;
 
 import org.apache.log4j.Logger;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 import br.com.maisha.wind.common.factory.ServiceProvider;
@@ -16,7 +16,7 @@ import br.com.maisha.wind.lifecycle.mgmt.IApplicationManager;
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
-public class WindActivator extends AbstractUIPlugin {
+public class WindActivator implements BundleActivator {
 
 	/** Log ref. */
 	private static final Logger log = Logger.getLogger(WindActivator.class);
@@ -29,7 +29,6 @@ public class WindActivator extends AbstractUIPlugin {
 		log.info(context.getBundle().getSymbolicName() + " ["
 				+ context.getBundle().getBundleId() + "] Starting... ");
 
-		super.start(context);
 		IApplicationManager appManager = ServiceProvider.getInstance()
 				.getService(IApplicationManager.class, Activator.getDefault().getBundle().getBundleContext());
 		appManager.registerApplication(context);
@@ -46,7 +45,6 @@ public class WindActivator extends AbstractUIPlugin {
 		log.info(context.getBundle().getSymbolicName() + " ["
 				+ context.getBundle().getBundleId() + "] Stopping... ");
 
-		super.stop(context);
 
 		log.info(context.getBundle().getSymbolicName() + " ["
 				+ context.getBundle().getBundleId() + "] Stopped... ");
