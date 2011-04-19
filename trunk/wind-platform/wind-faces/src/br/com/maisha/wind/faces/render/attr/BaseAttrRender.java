@@ -6,9 +6,14 @@ import java.util.MissingFormatArgumentException;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.eclipse.core.databinding.AggregateValidationStatus;
+import org.eclipse.core.databinding.Binding;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.BeansObservables;
+import org.eclipse.core.databinding.observable.ChangeEvent;
+import org.eclipse.core.databinding.observable.IChangeListener;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.rwt.graphics.Graphics;
 import org.eclipse.swt.SWT;
@@ -162,8 +167,11 @@ public abstract class BaseAttrRender implements IAttributeRender {
 
 	protected DataBindingContext configureDataBindings(Control control, Label label, Attribute attr) {
 
-		DataBindingContext dbctx = new DataBindingContext();
+		final DataBindingContext dbctx = new DataBindingContext();
 
+		
+	
+		
 		// data binding required...
 		if (label != null) {
 			IObservableValue reqLabelObservable = new RequiredObservableValue(label);
