@@ -1,8 +1,8 @@
 <!DOCTYPE app SYSTEM 'wind-app-cfg'>
-<app name="About Wind" appId="about" locale="pt_BR">
+<app name="About Wind" appId="about">
 	<about>
-		<description></description>
-		<licence></licence>
-		<copyright></copyright>
+		<description>This is a common wind application</description>
+		<licence>EPL</licence>
+		<copyright>Paulo Freitas</copyright>
 	</about>
 </app>
