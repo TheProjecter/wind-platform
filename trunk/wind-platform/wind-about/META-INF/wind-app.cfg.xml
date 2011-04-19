@@ -1,2 +1,8 @@
 <!DOCTYPE app SYSTEM 'wind-app-cfg'>
-<app name="About Wind" appId="about"></app>
+<app name="About Wind" appId="about" locale="pt_BR">
+	<about>
+		<description></description>
+		<licence></licence>
+		<copyright></copyright>
+	</about>
+</app>

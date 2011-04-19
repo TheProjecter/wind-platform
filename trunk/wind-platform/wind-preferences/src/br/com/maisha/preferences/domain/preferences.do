@@ -31,12 +31,15 @@ domain_object preferences "Preferences" {
 	operation groovy Save "Save"{
 		file: br/com/maisha/preferences/rules/SavePreferences.groovy
 		icon: icon/save.gif
+		tooltip: wind.preferences.action.tooltip.save
 	}
 	
 	operation groovy Filter "Filter"{
 		file: br/com/maisha/preferences/rules/FilterPreferences.groovy
-		is_filter: true;
-		validate: false;
+		icon: icon/filter.gif
+		tooltip: wind.preferences.action.tooltip.filter
+		is_filter: true
+		validate: false
 	}
 
 

@@ -95,6 +95,7 @@ public class ApplicationRegistry implements IApplicationRegistry {
 	 * @param type
 	 * @return
 	 */
+	@Deprecated
 	public DomainObject getObjectByType(String appId, String type) {
 		WindApplication app = retrieve(appId);
 		if (app != null) {
