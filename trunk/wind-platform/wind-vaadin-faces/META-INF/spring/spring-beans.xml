@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+
+
+
+	<bean name="presentationProvider" scope="singleton"
+		class="br.com.maisha.wind.faces.PresentationProvider">
+		<property name="render">
+			<list>
+				<ref bean="menuRenderer" />
+			</list>
+		</property>
+		<!-- property name="attrRender">
+			<map>
+				<entry key="text" value-ref="textAttrRender" />
+				<entry key="textarea" value-ref="textAreaAttrRender" />
+				<entry key="checkbox" value-ref="checkboxAttrRender" />
+				<entry key="combo" value-ref="comboAttrRender" />
+				<entry key="date" value-ref="dateAttrRender" />
+				<entry key="related" value-ref="relatedRender" />
+				<entry key="embedded_object" value-ref="embeddedObjectRender" />
+			</map>
+		</property -->
+	</bean>
+
+
+	<!-- Model Renders -->
+	<bean name="menuRenderer" class="br.com.maisha.wind.faces.render.MenuRender">
+		<property name="presentationProvider">
+			<ref bean="presentationProvider" />
+		</property>
+	</bean>
+
+
+
+	<!-- Attribute Renders 
+	<bean name="textAttrRender" class="br.com.maisha.wind.faces.render.attr.TextAttrRender" />
+	<bean name="textAreaAttrRender"
+		class="br.com.maisha.wind.faces.render.attr.TextAreaAttrRender" />
+	<bean name="checkboxAttrRender" class="br.com.maisha.wind.faces.render.attr.CheckboxRenderer" />
+	<bean name="comboAttrRender"
+		class="br.com.maisha.wind.faces.render.attr.ComboboxAttrRender" />
+	<bean name="dateAttrRender"
+		class="br.com.maisha.wind.faces.render.attr.DateTimeAttrRender" />
+	<bean name="relatedRender"
+		class="br.com.maisha.wind.faces.render.attr.RelatedObjectAttrRender" />
+	<bean name="embeddedObjectRender"
+		class="br.com.maisha.wind.faces.render.attr.EmbeddedObjectAttrRender" />
+-->
+
+
+
+</beans>
+
+
