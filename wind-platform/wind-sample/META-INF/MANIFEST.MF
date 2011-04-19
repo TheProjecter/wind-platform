@@ -1,16 +1,15 @@
 Manifest-Version: 2.0
-Spring-Context: *;create-asynchronously:=true;wait-for-dependencies:=true
+Spring-Context: *;create-asynchronously:=false;wait-for-dependencies:=true
 Bundle-ManifestVersion: 2
 Bundle-Name: Wind_sample Plug-in
 Bundle-SymbolicName: wind_sample; singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Activator: br.com.maisha.wind.sample.Activator
-Require-Bundle: org.eclipse.rap.ui,
- org.apache.log4j;bundle-version="1.2.13",
- wind_common;bundle-version="1.0.0",
+Require-Bundle: wind_common;bundle-version="1.0.0",
  wind_app_controller;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.servlet;version="2.4.0",
- javax.servlet.http;version="2.4.0"
+ javax.servlet.http;version="2.4.0",
+ org.osgi.framework;version="1.5.0"
 Eclipse-BuddyPolicy: dependent

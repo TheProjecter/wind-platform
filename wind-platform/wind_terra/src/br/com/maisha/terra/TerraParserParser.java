@@ -680,7 +680,7 @@ public class TerraParserParser extends Parser {
 
             		IConverterService convService = ServiceProvider.getInstance()
             				.getService(IConverterService.class,
-            						Activator.getDefault().getBundle().getBundleContext());
+            						Activator.getDefault().getBundleContext());
             						
             		Class<?> type = PropertyInfo.getPropertyInfo((OBJECT_PROPERTY20!=null?OBJECT_PROPERTY20.getText():null)).getType();
             		Object propValue = convService.convert(type, (value22!=null?input.toString(value22.start,value22.stop):null));
@@ -994,7 +994,7 @@ public class TerraParserParser extends Parser {
 
                     		IConverterService convService = ServiceProvider.getInstance()
                     				.getService(IConverterService.class,
-                    						Activator.getDefault().getBundle().getBundleContext());
+                    						Activator.getDefault().getBundleContext());
                     						
                     		Class<?> type = PropertyInfo.getPropertyInfo((attr_prop_name30!=null?input.toString(attr_prop_name30.start,attr_prop_name30.stop):null)).getType();
                     		Object propValue = convService.convert(type, (value32!=null?input.toString(value32.start,value32.stop):null));
@@ -1433,7 +1433,7 @@ public class TerraParserParser extends Parser {
 
                     		IConverterService convService = ServiceProvider.getInstance()
                     				.getService(IConverterService.class,
-                    						Activator.getDefault().getBundle().getBundleContext());
+                    						Activator.getDefault().getBundleContext());
                     						
                     		Class<?> type = PropertyInfo.getPropertyInfo((op_prop_name46!=null?input.toString(op_prop_name46.start,op_prop_name46.stop):null)).getType();
                     		Object propValue = convService.convert(type, (value48!=null?input.toString(value48.start,value48.stop):null));
