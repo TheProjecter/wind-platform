@@ -71,5 +71,5 @@ public interface IStorage {
 	 * @param param
 	 * @return
 	 */
-	List<?> filter(ModelReference d, String query, Object ... param);
+	List<?> filter(DomainObject d, String query, Object ... param);
 }

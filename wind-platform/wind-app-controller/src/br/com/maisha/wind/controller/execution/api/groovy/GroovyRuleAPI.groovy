@@ -97,8 +97,12 @@ ModelReference.metaClass.delete = { ->
 	persistenceAPI.delete(delegate);
 }
 
+ExecutionContext.metaClass.select = { model, query, param ->
+	persistenceAPI.filter(model, query, param as Object[]);
+}
+
 ExecutionContext.metaClass.select = { model, query ->
-	persistenceAPI.filter(model, query);
+	persistenceAPI.filter(model, query, null);
 }
 // END OF PERSISTENCE API //
 

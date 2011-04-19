@@ -66,5 +66,6 @@ public interface IApplicationRegistry extends Component {
 	 * @param type
 	 * @return
 	 */
+	@Deprecated
 	DomainObject getObjectByType(String appId, String type);
 }

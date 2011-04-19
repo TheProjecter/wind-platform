@@ -18,6 +18,8 @@ import org.hibernate.classic.Session;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.WindApplication;
+import br.com.maisha.wind.controller.IApplicationController;
+import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
 
 public class PersistentStorage implements IStorage {
 
@@ -26,6 +28,12 @@ public class PersistentStorage implements IStorage {
 
 	/** */
 	private static final Map<String, SessionFactory> sessionFactoryRegistry = new HashMap<String, SessionFactory>();
+
+	/** Reference to {@link IApplicationController} */
+	private IApplicationController appCtrl;
+
+	/** Reference to {@link IApplicationRegistry} */
+	private IApplicationRegistry appRegistry;
 
 	/**
 	 * 
@@ -40,7 +48,8 @@ public class PersistentStorage implements IStorage {
 	 * @param app
 	 */
 	public Configuration configure(WindApplication app) {
-		AnnotationConfiguration configuration = new AnnotationConfiguration().configure(app.getHibernateConfig());
+		AnnotationConfiguration configuration = new AnnotationConfiguration()
+				.configure(app.getHibernateConfig());
 
 		for (DomainObject object : app.getDomainObjects()) {
 			log.debug("@@@ Adding [" + object.getRef() + "] to hibernate");
@@ -48,7 +57,8 @@ public class PersistentStorage implements IStorage {
 			configuration.addAnnotatedClass(object.getObjectClass());
 		}
 
-		sessionFactoryRegistry.put(app.getAppId(), configuration.buildSessionFactory());
+		sessionFactoryRegistry.put(app.getAppId(),
+				configuration.buildSessionFactory());
 		return configuration;
 	}
 
@@ -64,7 +74,7 @@ public class PersistentStorage implements IStorage {
 			log.error("There is no SessionFactory for " + appId);
 			return null;
 		}
-		
+
 		return sessionFactory;
 	}
 
@@ -74,7 +84,7 @@ public class PersistentStorage implements IStorage {
 	 */
 	public void save(ModelReference ref) {
 		String appId = ref.getMeta().getApplication().getAppId();
-		
+
 		SessionFactory sessionFactory = getSessionFactory(appId);
 		Session sess = sessionFactory.openSession();
 		Transaction transaction = sess.beginTransaction();
@@ -120,7 +130,7 @@ public class PersistentStorage implements IStorage {
 	 */
 	public void update(ModelReference ref) {
 		String appId = ref.getMeta().getApplication().getAppId();
-		
+
 		SessionFactory sessionFactory = getSessionFactory(appId);
 		Session sess = sessionFactory.openSession();
 		Transaction transaction = sess.beginTransaction();
@@ -135,7 +145,7 @@ public class PersistentStorage implements IStorage {
 			sess.close();
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param appId
@@ -143,7 +153,7 @@ public class PersistentStorage implements IStorage {
 	 */
 	public void delete(ModelReference ref) {
 		String appId = ref.getMeta().getApplication().getAppId();
-		
+
 		SessionFactory sessionFactory = getSessionFactory(appId);
 		Session sess = sessionFactory.openSession();
 		Transaction transaction = sess.beginTransaction();
@@ -157,8 +167,8 @@ public class PersistentStorage implements IStorage {
 			sess.flush();
 			sess.close();
 		}
-	}	
-	
+	}
+
 	/**
 	 * 
 	 * @param appId
@@ -167,7 +177,7 @@ public class PersistentStorage implements IStorage {
 	 */
 	public List<?> getAll(DomainObject dObj) {
 		String appId = dObj.getApplication().getAppId();
-		
+
 		SessionFactory sessionFactory = getSessionFactory(appId);
 		Session sess = sessionFactory.openSession();
 		Transaction transaction = sess.beginTransaction();
@@ -185,27 +195,52 @@ public class PersistentStorage implements IStorage {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 
 	 * @param appId
 	 * @param d
 	 * @return
 	 */
-	public List<?> filter(ModelReference d, String query, Object ... param){
-		String appId = d.getMeta().getApplication().getAppId();
-		
+	public List<?> filter(DomainObject d, String query, Object... param) {
+		String appId = d.getApplication().getAppId();
+
 		SessionFactory sessionFactory = getSessionFactory(appId);
-		
+
 		Session sess = sessionFactory.openSession();
 		Transaction transaction = sess.beginTransaction();
-		
-		
+
 		try {
-			if(StringUtils.isNotBlank(query)){
+			if (StringUtils.isNotBlank(query)) {
 				Query q = sess.createQuery(query);
-				q.setProperties(d);
-				return q.list();
+
+				if(param != null){
+					int x = 0;
+					for (Object p : param) {
+						q.setParameter(x, p);
+						x++;
+					}
+				}
+
+				List<?> result = q.list();
+				if (result != null && result.size() > 0) {
+					if (ModelReference.class.isAssignableFrom(result.get(0)
+							.getClass())) {
+						
+						// sets a reference to it's Domain Object (meta)
+						List<ModelReference> refLst = (List<ModelReference>) result;
+						Map<String, Object> context = new HashMap<String, Object>();
+						context.put("appRegistry", appRegistry);
+						
+						for(ModelReference ref : refLst){
+							context.put("ref", ref);
+							appCtrl.runScript("${ref.setMeta(appRegistry.getObject(ref.getAppId(), ref.getObjId()))}", context);
+						}
+						return refLst;
+					}
+				}
+				
+				return result;
 			}
 		} catch (Exception e) {
 			transaction.rollback();
@@ -216,6 +251,24 @@ public class PersistentStorage implements IStorage {
 		}
 		return null;
 	}
-		
 
+	/** @see #appCtrl */
+	public void setAppCtrl(IApplicationController appCtrl) {
+		this.appCtrl = appCtrl;
+	}
+
+	/** @see #appCtrl */
+	public IApplicationController getAppCtrl() {
+		return appCtrl;
+	}
+
+	/** @see #appRegistry */
+	public void setAppRegistry(IApplicationRegistry appRegistry) {
+		this.appRegistry = appRegistry;
+	}
+
+	/** @see #appRegistry */
+	public IApplicationRegistry getAppRegistry() {
+		return appRegistry;
+	}
 }

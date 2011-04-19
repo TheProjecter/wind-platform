@@ -151,6 +151,7 @@ public class BaseAction extends Action implements IWorkbenchAction {
 				monitor.beginTask("Configuring context...", 100);
 
 				ctx.setInstance(model);
+				ctx.setMeta(op.getDomainObject());
 				ctx.setOperation(op);
 				ctx.setMonitor(monitor);
 				monitor.worked(10);

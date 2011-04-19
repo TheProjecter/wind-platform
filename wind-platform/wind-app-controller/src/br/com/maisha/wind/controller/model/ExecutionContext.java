@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 
+import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
 
@@ -20,6 +21,9 @@ public class ExecutionContext<T> {
 	/** Monitor. */
 	IProgressMonitor monitor;
 
+	/** Reference to current meta object. */
+	private DomainObject meta;
+	
 	/** Operation to run. */
 	private Operation operation;
 
@@ -93,6 +97,16 @@ public class ExecutionContext<T> {
 	/** @see #gridData */
 	public void setGridData(List<ModelReference> gridData) {
 		this.gridData = gridData;
+	}
+
+	/** @see #meta */
+	public DomainObject getMeta() {
+		return meta;
+	}
+
+	/** @see #meta */
+	public void setMeta(DomainObject meta) {
+		this.meta = meta;
 	}
 
 	

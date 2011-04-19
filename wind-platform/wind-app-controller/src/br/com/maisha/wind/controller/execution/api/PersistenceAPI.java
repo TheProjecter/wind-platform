@@ -3,6 +3,7 @@ package br.com.maisha.wind.controller.execution.api;
 import java.io.Serializable;
 import java.util.List;
 
+import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.wind.controller.storage.IStorage;
 
@@ -46,11 +47,11 @@ public class PersistenceAPI {
 		persistenceStorage.delete(ref);
 	}
 
-	public List<?> filter(ModelReference d, String query, Object... param) {
+	public List<?> filter(DomainObject d, String query, Object... param) {
 		return persistenceStorage.filter(d, query, param);
 	}
 	
-	public List<?> filter(ModelReference d, String query) {
+	public List<?> filter(DomainObject d, String query) {
 		return persistenceStorage.filter(d, query, (Object[])null);
 	}
 
