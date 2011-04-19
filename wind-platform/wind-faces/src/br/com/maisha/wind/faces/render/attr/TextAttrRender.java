@@ -1,9 +1,15 @@
 package br.com.maisha.wind.faces.render.attr;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.databinding.AggregateValidationStatus;
+import org.eclipse.core.databinding.Binding;
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.beans.BeansObservables;
+import org.eclipse.core.databinding.observable.ChangeEvent;
+import org.eclipse.core.databinding.observable.IChangeListener;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -106,13 +112,23 @@ public class TextAttrRender extends BaseAttrRender {
 		text.setEnabled(!attr.getPropertyValue(PropertyInfo.DISABLED));
 
 		// configure common bindings
-		DataBindingContext dbctx = configureDataBindings(text, l, attr);
+		final DataBindingContext dbctx = configureDataBindings(text, l, attr);
 
 		// configure value binding
 		IObservableValue observable = BeansObservables.observeValue(
 				modelInstance, attr.getRef());
 		dbctx.bindValue(SWTObservables.observeText(text, SWT.Modify),
 				observable);
-
+		
+		AggregateValidationStatus ag = new AggregateValidationStatus(dbctx, AggregateValidationStatus.MAX_SEVERITY);
+		ag.addChangeListener(new IChangeListener() {
+			public void handleChange(ChangeEvent event) {
+				for (Object o : dbctx.getBindings()) {
+					Binding binding = (Binding) o;
+					IStatus status = (IStatus) binding.getValidationStatus().getValue();
+					status.toString();
+				}
+			}
+		});	
 	}
 }
