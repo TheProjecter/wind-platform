@@ -20,8 +20,6 @@ import javax.script.ScriptEngineManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.osgi.framework.BundleContext;
 
 import br.com.maisha.terra.lang.Attribute;
@@ -91,22 +89,15 @@ public class ApplicationController implements IApplicationController {
 		try {
 			Operation op = ctx.getOperation();
 			OperationType type = OperationType.valueOf(op.getType());
-			IProgressMonitor monitor = ctx.getMonitor();
 
 			// validation phase
 			if (op.getPropertyValue(PropertyInfo.VALIDATE)
 					&& ctx.getInstance() != null && ctx.getMeta() != null) {
-				monitor.setTaskName("Validating...");
 				ctx = processValidations(ctx);
 				if (!ctx.getMessages().isEmpty()) {
 					return ctx;
 				}
 			}
-
-			monitor.worked(10);
-
-			// run operation TODO i18n
-			monitor.setTaskName("Executing operation...");
 
 			ScriptEngine engine = engineManager.getEngineByName(op.getType());
 			Invocable invocable = (Invocable) engine;
@@ -134,8 +125,6 @@ public class ApplicationController implements IApplicationController {
 			engine.eval("rule.model = model");
 			engine.eval("rule.meta = meta");
 			Object o = engine.get("rule");
-
-			monitor.worked(5);
 
 			invocable.invokeMethod(o, "execute");
 
@@ -270,12 +259,10 @@ public class ApplicationController implements IApplicationController {
 			if (modelInstance == null) {
 				return;
 			}
+			//TODO injetar com spring
 			IConverterService convService = ServiceProvider
 					.getInstance()
-					.getService(IConverterService.class, Activator.getDefault()); // TODO
-																					// injetar
-																					// com
-																					// spring
+					.getService(IConverterService.class, Activator.getDefault()); 
 			ScriptEngine juelEngine = engineManager.getEngineByName("juel");
 			DomainObject meta = modelInstance.getMeta();
 
@@ -356,14 +343,12 @@ public class ApplicationController implements IApplicationController {
 		return ret;
 	}
 
-	/**
-	 * 
-	 * @see br.com.maisha.wind.controller.IApplicationController#filter(br.com.maisha.terra.lang.DomainObject,
-	 *      org.eclipse.core.runtime.IProgressMonitor)
+	/*
+	 * (non-Javadoc)
+	 * @see br.com.maisha.wind.controller.IApplicationController#filter(br.com.maisha.terra.lang.DomainObject)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<ModelReference> filter(DomainObject dobj,
-			IProgressMonitor monitor) {
+	public List<ModelReference> filter(DomainObject dobj) {
 		List<ModelReference> ret = Collections.EMPTY_LIST;
 
 		// procura por operacao "filtro"
@@ -381,9 +366,9 @@ public class ApplicationController implements IApplicationController {
 			ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 			ctx.setOperation(filterOp);
 			ctx.setMeta(dobj);
-			ctx.setInstance(null); // there is no instance because user just
-									// opened the object.
-			ctx.setMonitor(monitor);
+			// there is no instance because user just opened the object.
+			ctx.setInstance(null); 
+
 			runOperation(ctx);
 			ret = ctx.getGridData();
 		} else {
@@ -538,7 +523,6 @@ public class ApplicationController implements IApplicationController {
 			// preparing to execute
 			ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 			ctx.setInstance(currentInstance);
-			ctx.setMonitor(new NullProgressMonitor());
 			ctx.setOperation(new Operation(type, className, ct.name()));
 
 			engine.put("model", ctx.getInstance());
