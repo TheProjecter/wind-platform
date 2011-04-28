@@ -153,7 +153,6 @@ public class BaseAction extends Action implements IWorkbenchAction {
 				ctx.setInstance(model);
 				ctx.setMeta(op.getDomainObject());
 				ctx.setOperation(op);
-				ctx.setMonitor(monitor);
 				monitor.worked(10);
 
 				// run operation...

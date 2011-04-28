@@ -243,7 +243,7 @@ public class GridView extends ViewPart implements IRender {
 					List<ModelReference> data = null;
 					if (LevelType.Object.equals(level)) {
 						if (dObj.getPropertyValue(PropertyInfo.OPEN_FILTERING)) {
-							data = appCtrl.filter(dObj, monitor);
+							data = appCtrl.filter(dObj);
 						}
 					} else if (LevelType.GridData.equals(level)) {
 						data = (ArrayList<ModelReference>) model;

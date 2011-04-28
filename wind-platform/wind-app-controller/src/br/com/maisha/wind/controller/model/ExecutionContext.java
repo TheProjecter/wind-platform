@@ -3,8 +3,6 @@ package br.com.maisha.wind.controller.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.runtime.IProgressMonitor;
-
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
@@ -17,9 +15,6 @@ import br.com.maisha.terra.lang.Operation;
  * 
  */
 public class ExecutionContext<T> {
-
-	/** Monitor. */
-	IProgressMonitor monitor;
 
 	/** Reference to current meta object. */
 	private DomainObject meta;
@@ -67,16 +62,6 @@ public class ExecutionContext<T> {
 	/** @see #messages */
 	public void setMessages(List<UserMessage> messages) {
 		this.messages = messages;
-	}
-
-	/** @see #monitor */
-	public IProgressMonitor getMonitor() {
-		return monitor;
-	}
-
-	/** @see #monitor */
-	public void setMonitor(IProgressMonitor monitor) {
-		this.monitor = monitor;
 	}
 
 	/** @see #gridSelection */

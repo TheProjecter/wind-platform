@@ -114,7 +114,7 @@ public class RelatedObjectChooser extends TitleAreaDialog {
 
 		Display.getCurrent().asyncExec(new Runnable() {
 			public void run() {
-				List<ModelReference> data = appCtrl.filter(dObj, new NullProgressMonitor());
+				List<ModelReference> data = appCtrl.filter(dObj);
 				List<Map<String, Object>> dataMap = appCtrl.toMap(dObj, data);
 				viewer.setLabelProvider(new GridViewLabelProvider(map));
 				viewer.setInput(dataMap);
