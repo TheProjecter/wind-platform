@@ -1,16 +1,20 @@
 package br.com.maisha.terra.lang;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 
- * @author Paulo
+ * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
 public class Property extends TerraClass {
 
 	/** */
 	public static enum PresentationType {
-		TEXT("text"), RADIO("radio"), CHECKBOX("checkbox"), COMBO("combo"), LIST("list"), TEXTAREA("textarea"), DATE(
-				"date"), RELATED("RELATED"), EMBEDDEDOBJECT("embedded_object");
+		TEXT("text"), RADIO("radio"), CHECKBOX("checkbox"), COMBO("combo"), LIST(
+				"list"), TEXTAREA("textarea"), DATE("date"), RELATED("RELATED"), EMBEDDEDOBJECT(
+				"embedded_object");
 
 		private String value;
 
@@ -28,6 +32,8 @@ public class Property extends TerraClass {
 	private Object value;
 
 	private String expression;
+
+	private List<ValidValue> validValues = new ArrayList<ValidValue>();
 
 	public Property(String propName, Object value) {
 		super();
@@ -59,6 +65,20 @@ public class Property extends TerraClass {
 
 	public void setExpression(String expression) {
 		this.expression = expression;
+	}
+
+	public void addValidValue(ValidValue vv) {
+		if (validValues != null) {
+			validValues.add(vv);
+		}
+	}
+
+	public List<ValidValue> getValidValues() {
+		return validValues;
+	}
+
+	public void setValidValues(List<ValidValue> validValues) {
+		this.validValues = validValues;
 	}
 
 	/**
