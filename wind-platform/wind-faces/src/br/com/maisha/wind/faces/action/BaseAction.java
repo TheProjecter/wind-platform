@@ -4,15 +4,26 @@ import java.net.URL;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.databinding.AggregateValidationStatus;
+import org.eclipse.core.databinding.Binding;
+import org.eclipse.core.databinding.observable.ChangeEvent;
+import org.eclipse.core.databinding.observable.IChangeListener;
+import org.eclipse.core.databinding.observable.IObservable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.databinding.swt.ISWTObservable;
+import org.eclipse.jface.fieldassist.ControlDecoration;
+import org.eclipse.jface.fieldassist.FieldDecoration;
+import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.ISelectionService;
@@ -81,6 +92,31 @@ public class BaseAction extends Action implements IWorkbenchAction {
 	 */
 	public void runWithEvent(Event event) {
 		log.debug("Running Action " + op);
+		
+//		AggregateValidationStatus ag = new AggregateValidationStatus(dbctx, AggregateValidationStatus.MAX_SEVERITY);
+//		ag.addChangeListener(new IChangeListener() {
+//			public void handleChange(ChangeEvent event) {
+//				IObservable obs = event.getObservable();
+//				for (Object o : dbctx.getBindings()) {
+//					Binding binding = (Binding) o;
+//					IStatus status = (IStatus) binding.getValidationStatus().getValue();
+//					status.toString();
+//					
+//					if(binding.getTarget() instanceof ISWTObservable){
+//						ISWTObservable swtObservable = (ISWTObservable) binding.getTarget();
+//						Control control = (Control) swtObservable.getWidget();
+//						ControlDecoration decoration = new ControlDecoration(control, SWT.RIGHT | SWT.BOTTOM);
+//						FieldDecoration fieldDecoration = FieldDecorationRegistry
+//					    .getDefault().getFieldDecoration(
+//					         FieldDecorationRegistry.DEC_ERROR);
+//						decoration.setImage(fieldDecoration.getImage());
+//						decoration.setDescriptionText("Erro!");
+//					}
+//				}
+//			}
+//		});	
+		
+		
 		final ExecutionContext<ModelReference> exeCtx = new ExecutionContext<ModelReference>();
 
 		try {

@@ -8,7 +8,7 @@ domain_object basic "Basic"{
 		x: 1
 		y: 1
 		required:true
-		width: 280
+		width: 340
 		colspan: 2
 	}
 	
@@ -27,22 +27,28 @@ domain_object basic "Basic"{
 		width: 40
 	}
 	
-	Double doxo "Altura"{
+	Double altura "Altura"{
 		x:1
 		y:3
 		colspan: 2
 		width: 40
 	}
 
+	Integer sexo "Sexo"{
+		x:1
+		y:4
+		presentation_type: combo
+		validValues: ["1": "Masculino", "2": "Feminino"]
+	}
 
 	operation groovy Save "Salvar"{
 		file: br/com/maisha/wind/sample/basic/rule/Save.groovy
-	}	
+	}
 	
 	operation groovy Filter "Filtrar"{
 		file: br/com/maisha/wind/sample/basic/rule/Filter.groovy
 		is_filter:true
 		validate: false
-	}		
+	}
 
 }

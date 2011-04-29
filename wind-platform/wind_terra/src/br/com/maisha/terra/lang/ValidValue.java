@@ -3,31 +3,45 @@ package br.com.maisha.terra.lang;
 /**
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
- *
+ * 
  */
-public class ValidValue extends TerraClass{
+public class ValidValue extends TerraClass {
 
-	private String codigo;
-	
-	private Object value;
+	/** Value Key */
+	private String key;
 
-	public String getCodigo() {
-		return codigo;
+	/** Value Itself */
+	private String value;
+
+	/** @see ValidValue#key */
+	public String getKey() {
+		return key;
 	}
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	/** @see ValidValue#key */
+	public void setKey(String key) {
+		this.key = key;
 	}
 
-	public Object getValue() {
+	/** @see ValidValue#value */
+	public String getValue() {
 		return value;
 	}
 
-	public void setValue(Object value) {
-		this.value = value;
+	/** @see ValidValue#value */
+	public void setValue(String value) {
+		if (!value.trim().isEmpty()) {
+			this.value = value.substring(1, value.length() - 1);
+		}
 	}
-	
-	
-	
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		return value.toString();
+	}
+
 }

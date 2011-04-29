@@ -110,6 +110,13 @@ public class Attribute extends TerraClass {
 		}
 		return null;
 	}
+	
+	public Property getProperty(String propName){
+		if (properties != null && propName != null) {
+			return properties.get(propName);
+		}
+		return null;
+	}
 
 	@SuppressWarnings("unchecked")
 	public <T> T property(String name) {

@@ -79,7 +79,8 @@ public class ComboboxAttrRender extends BaseAttrRender {
 		dbctx.bindValue(SWTObservables.observeSelection(cb), observable);
 
 		ISWTObservableList widgetValue = WidgetProperties.items().observe(cb);
-		IObservableList modelValue = BeansObservables.observeList(modelInstance, attr.getRef() + "List");
+		Property propValidValues = attr.getProperty(PropertyInfo.VALID_VALUES.getPropName());
+		IObservableList modelValue = BeansObservables.observeList(propValidValues, "validValues");
 		dbctx.bindList(widgetValue, modelValue); 
 	}
 	
