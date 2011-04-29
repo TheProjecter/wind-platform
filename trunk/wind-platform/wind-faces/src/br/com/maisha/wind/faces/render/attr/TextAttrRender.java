@@ -1,24 +1,13 @@
 package br.com.maisha.wind.faces.render.attr;
 
 import org.apache.log4j.Logger;
-import org.eclipse.core.databinding.AggregateValidationStatus;
-import org.eclipse.core.databinding.Binding;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.BeansObservables;
-import org.eclipse.core.databinding.observable.ChangeEvent;
-import org.eclipse.core.databinding.observable.IChangeListener;
-import org.eclipse.core.databinding.observable.IObservable;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jface.databinding.swt.ISWTObservable;
 import org.eclipse.jface.databinding.swt.SWTObservables;
-import org.eclipse.jface.fieldassist.ControlDecoration;
-import org.eclipse.jface.fieldassist.FieldDecoration;
-import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
@@ -124,28 +113,5 @@ public class TextAttrRender extends BaseAttrRender {
 				modelInstance, attr.getRef());
 		dbctx.bindValue(SWTObservables.observeText(text, SWT.Modify),
 				observable);
-		
-		AggregateValidationStatus ag = new AggregateValidationStatus(dbctx, AggregateValidationStatus.MAX_SEVERITY);
-		ag.addChangeListener(new IChangeListener() {
-			public void handleChange(ChangeEvent event) {
-				IObservable obs = event.getObservable();
-				for (Object o : dbctx.getBindings()) {
-					Binding binding = (Binding) o;
-					IStatus status = (IStatus) binding.getValidationStatus().getValue();
-					status.toString();
-					
-					if(binding.getTarget() instanceof ISWTObservable){
-						ISWTObservable swtObservable = (ISWTObservable) binding.getTarget();
-						Control control = (Control) swtObservable.getWidget();
-						ControlDecoration decoration = new ControlDecoration(control, SWT.RIGHT | SWT.BOTTOM);
-						FieldDecoration fieldDecoration = FieldDecorationRegistry
-					    .getDefault().getFieldDecoration(
-					         FieldDecorationRegistry.DEC_ERROR);
-						decoration.setImage(fieldDecoration.getImage());
-						decoration.setDescriptionText("Erro!");
-					}
-				}
-			}
-		});	
 	}
 }

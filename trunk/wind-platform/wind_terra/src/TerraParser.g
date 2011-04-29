@@ -17,6 +17,7 @@ import br.com.maisha.terra.lang.Operation;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Validation;
+import br.com.maisha.terra.lang.ValidValue;
 import br.com.maisha.terra.lang.ValidationRule;
 import br.com.maisha.terra.rcp.Activator;
 import br.com.maisha.wind.common.converter.IConverterService;
@@ -34,6 +35,7 @@ private Map<String, Property> obj_props = new HashMap<String, Property>();
 private List<Import> imports = new ArrayList<Import>();
 private List<Validation> validationRulz = new ArrayList<Validation>();
 private List<ValidationRule> validationRulzEntry = new ArrayList<ValidationRule>();
+private List<ValidValue> validValues = new ArrayList<ValidValue>();
 }
 
 
@@ -42,6 +44,8 @@ LEFT_PAREN: '(';
 RIGHT_PAREN: ')';
 LEFT_BRACKET: '{';
 RIGHT_BRACKET: '}';
+LEFT_BRACE: '[';
+RIGHT_BRACE: ']';
 
 ATTRIBUITION:':';
 DOMAIN_OBJECT:'domain_object';
@@ -49,7 +53,7 @@ PACKAGE:'package';
 IMPORT:'import'; 
 VALIDATION_RULE:	'validationRule';
 PROPERTY:	'x' | 'y' | 'colspan' | 'rowspan' | 'presentation_type' |  'disabled' | 'visible' | 'icon' | 'width' | 'height' | 'tooltip';
-ATTRIBUTE_PROPERTY: 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'event' | 'toString' | 'onetomany' | 'manytoone' | 'transient' ;
+ATTRIBUTE_PROPERTY: 'validValues' | 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'event' | 'toString' | 'onetomany' | 'manytoone' | 'transient' ;
 OPERATION_PROPERTY: 'class' | 'file' | 'validWhen' | 'is_filter' | 'validate' ;
 OBJECT_PROPERTY: 'open_filtering' | 'event_handler';
 OPERATION: 'operation';
@@ -118,7 +122,7 @@ body	:    (attr | operation | validation_rulz | obj_property | NEWLINE)+;
 obj_property: OBJECT_PROPERTY ATTRIBUITION (value|expression) {
 		IConverterService convService = ServiceProvider.getInstance()
 				.getService(IConverterService.class,
-						Activator.getDefault().getBundle().getBundleContext());
+						Activator.getDefault().getBundleContext());
 						
 		Class<?> type = PropertyInfo.getPropertyInfo($OBJECT_PROPERTY.text).getType();
 		Object propValue = convService.convert(type, $value.text);
@@ -143,24 +147,37 @@ attr	:   type=NAME ref=NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET 
 
 attr_body :  property+;
 
-property:	NEWLINE | attr_prop_name ATTRIBUITION (value|expression) {
+property:	NEWLINE | attr_prop_name ATTRIBUITION (value|expression|array) {
 		IConverterService convService = ServiceProvider.getInstance()
 				.getService(IConverterService.class,
-						Activator.getDefault().getBundle().getBundleContext());
+						Activator.getDefault().getBundleContext());
 						
 		Class<?> type = PropertyInfo.getPropertyInfo($attr_prop_name.text).getType();
 		Object propValue = convService.convert(type, $value.text);
 		
 		Property p = new Property($attr_prop_name.text, propValue);
 		p.setExpression($expression.text);
+		p.setValidValues(validValues);
 		props.put($attr_prop_name.text, p);
+		validValues = new ArrayList<ValidValue>();
 	}
 	;
+	
 attr_prop_name: PROPERTY|ATTRIBUTE_PROPERTY;
+
 value	:	(NUMBER | NAME);
+
 expression
 	:	EXPRESSION;
+	
+array : LEFT_BRACE validValue (',' validValue)* RIGHT_BRACE ;
 
+validValue: key=STRING_LITERAL ':' vValue=STRING_LITERAL{
+     ValidValue validValue = new ValidValue();
+     validValue.setKey($key.text);
+     validValue.setValue($vValue.text);
+     validValues.add(validValue);
+};
 
 operation:  OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body RIGHT_BRACKET{
 		Operation op = new Operation($OP_TYPE.text, $NAME.text, $STRING_LITERAL.text);
@@ -176,7 +193,7 @@ op_body	: op_prop+;
 op_prop:	NEWLINE | op_prop_name ATTRIBUITION value {
 		IConverterService convService = ServiceProvider.getInstance()
 				.getService(IConverterService.class,
-						Activator.getDefault().getBundle().getBundleContext());
+						Activator.getDefault().getBundleContext());
 						
 		Class<?> type = PropertyInfo.getPropertyInfo($op_prop_name.text).getType();
 		Object propValue = convService.convert(type, $value.text);

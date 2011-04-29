@@ -1,6 +1,8 @@
 package br.com.maisha.terra.lang;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -113,6 +115,9 @@ public class PropertyInfo<T> {
 	
 	/** Descricao da propriedade event_handler */
 	public static final PropertyInfo<String> EVENT_HANDLER = new PropertyInfo<String>("event_handler", null, String.class, false);
+	
+	/** Descricao da propriedade validValues */
+	public static final PropertyInfo<List<ValidValue>> VALID_VALUES = new PropertyInfo<List<ValidValue>>("validValues", new ArrayList<ValidValue>(), List.class, false);
 	
 	/** Nome da propriedade. */
 	private String propName;
