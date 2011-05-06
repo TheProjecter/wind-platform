@@ -4,8 +4,8 @@ Bundle-Name: Wind-basic-sample
 Bundle-SymbolicName: wind-basic-sample
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: br.com.maisha.wind.sample.basic.Activator
-Require-Bundle: org.eclipse.rap.ui;bundle-version="1.3.1",
- wind_app_controller;bundle-version="1.0.0",
+Require-Bundle: wind_app_controller;bundle-version="1.0.0",
  wind_common;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.osgi.framework;version="1.5.0"
