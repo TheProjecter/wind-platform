@@ -4,7 +4,7 @@
 	<bundle id="messages"  path="messages" locale="pt_BR"/>
 	
 	<about>
-		<description>This is a common wind application</description>
+		<description>Wind Preferences provides a mechanism for storing and retriving user preferences</description>
 		<licence>EPL</licence>
 		<copyright>Paulo Freitas</copyright>
 	</about>

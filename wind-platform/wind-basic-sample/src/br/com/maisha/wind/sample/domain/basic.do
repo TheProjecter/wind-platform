@@ -34,7 +34,7 @@ domain_object basic "Basic"{
 		width: 40
 	}
 
-	Integer sexo "Sexo"{
+	String sexo "Sexo"{
 		x:1
 		y:4
 		presentation_type: combo
