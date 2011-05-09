@@ -5,8 +5,6 @@ import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.BeansObservables;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
-import org.eclipse.jface.databinding.swt.ISWTObservableList;
-import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -17,8 +15,8 @@ import org.eclipse.swt.widgets.Label;
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Property;
-import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Property.PresentationType;
+import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.controller.model.UserMessage;
 
 /**
@@ -54,7 +52,7 @@ public class ComboboxAttrRender extends BaseAttrRender {
 
 		Combo cb = new Combo(parent, SWT.READ_ONLY);
 		cb.setData(attr.getRef());
-		
+
 		// tooltip
 		String tooltip = attr.getPropertyValue(PropertyInfo.TOOLTIP);
 		UserMessage um = new UserMessage(null, tooltip, attr.getDomainObject());
@@ -80,61 +78,61 @@ public class ComboboxAttrRender extends BaseAttrRender {
 
 		Property propValidValues = attr.getProperty(PropertyInfo.VALID_VALUES.getPropName());
 		IObservableList modelValue = BeansObservables.observeList(propValidValues, "validValues");
-		dbctx.bindList(WidgetProperties.items().observe(cb), modelValue); 
+		dbctx.bindList(WidgetProperties.items().observe(cb), modelValue);
+
 	}
-	
-	
-	 public static String getEventName(int eventType) {
-		    switch(eventType) {
-		      case SWT.None:
-		        return "null";
-		      case SWT.KeyDown:
-		        return "key down";
-		      case SWT.KeyUp:
-		        return "key up";
-		      case SWT.MouseDown:
-		        return "mouse down";
-		      case SWT.MouseUp:
-		        return "mouse up";
-		      case SWT.MouseDoubleClick:
-		        return "mouse double click";
-		      case SWT.Move:
-		        return "move";
-		      case SWT.Resize:
-		        return "resize";
-		      case SWT.Dispose:
-		        return "dispose";
-		      case SWT.Selection:
-		        return "selection";
-		      case SWT.DefaultSelection:
-		        return "default selection";
-		      case SWT.FocusIn:
-		        return "focus in";
-		      case SWT.FocusOut:
-		        return "focus out";
-		      case SWT.Expand:
-		        return "expand";
-		      case SWT.Collapse:
-		        return "collapse";
-		      case SWT.Close:
-		        return "close";
-		      case SWT.Show:
-		        return "show";
-		      case SWT.Hide:
-		        return "hide";
-		      case SWT.Modify:
-		        return "modify";
-		      case SWT.Verify:
-		        return "verify";
-		      case SWT.Activate:
-		        return "activate";
-		      case SWT.Deactivate:
-		        return "deactivate";
-		      case SWT.Traverse:
-		        return "traverse";
-		    }
-		    
-		    return "unkown ???";
-		  }
+
+	public static String getEventName(int eventType) {
+		switch (eventType) {
+		case SWT.None:
+			return "null";
+		case SWT.KeyDown:
+			return "key down";
+		case SWT.KeyUp:
+			return "key up";
+		case SWT.MouseDown:
+			return "mouse down";
+		case SWT.MouseUp:
+			return "mouse up";
+		case SWT.MouseDoubleClick:
+			return "mouse double click";
+		case SWT.Move:
+			return "move";
+		case SWT.Resize:
+			return "resize";
+		case SWT.Dispose:
+			return "dispose";
+		case SWT.Selection:
+			return "selection";
+		case SWT.DefaultSelection:
+			return "default selection";
+		case SWT.FocusIn:
+			return "focus in";
+		case SWT.FocusOut:
+			return "focus out";
+		case SWT.Expand:
+			return "expand";
+		case SWT.Collapse:
+			return "collapse";
+		case SWT.Close:
+			return "close";
+		case SWT.Show:
+			return "show";
+		case SWT.Hide:
+			return "hide";
+		case SWT.Modify:
+			return "modify";
+		case SWT.Verify:
+			return "verify";
+		case SWT.Activate:
+			return "activate";
+		case SWT.Deactivate:
+			return "deactivate";
+		case SWT.Traverse:
+			return "traverse";
+		}
+
+		return "unkown ???";
+	}
 
 }
