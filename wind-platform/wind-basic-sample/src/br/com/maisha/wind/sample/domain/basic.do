@@ -38,7 +38,7 @@ domain_object basic "Basic"{
 		x:1
 		y:4
 		presentation_type: combo
-		validValues: ["1": "Masculino", "2": "Feminino"]
+		validValues: ["Masculino", "Feminino"]
 	}
 
 	operation groovy Save "Salvar"{
