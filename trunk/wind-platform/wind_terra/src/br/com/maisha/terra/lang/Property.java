@@ -69,7 +69,9 @@ public class Property extends TerraClass {
 
 	public void addValidValue(ValidValue vv) {
 		if (validValues != null) {
+			Object oldValue = this.validValues;
 			validValues.add(vv);
+			changeSupport.firePropertyChange("validValues", oldValue, this.validValues);
 		}
 	}
 
