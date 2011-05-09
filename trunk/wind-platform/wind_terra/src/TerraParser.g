@@ -168,18 +168,13 @@ attr_prop_name: PROPERTY|ATTRIBUTE_PROPERTY;
 value	:	(NUMBER | NAME);
 
 expression
-	: EXPRESSION;
+	:	EXPRESSION;
 	
 array : LEFT_BRACE validValue (',' validValue)* RIGHT_BRACE ;
 
-validValue: key=STRING_LITERAL ':' vValue=STRING_LITERAL{
-     ValidValue validValue = new ValidValue();
-     validValue.setKey($key.text);
-     validValue.setValue($vValue.text);
-     validValues.add(validValue);
+validValue: vValue=STRING_LITERAL{
+     validValues.add(new ValidValue($vValue.text));
 };
-
-
 
 operation:  OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body RIGHT_BRACKET{
 		Operation op = new Operation($OP_TYPE.text, $NAME.text, $STRING_LITERAL.text);
