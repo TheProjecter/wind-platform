@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g 2011-04-29 15:58:15
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g 2011-05-09 14:43:15
  
 package br.com.maisha.terra; 
 import java.util.HashMap;
@@ -1321,44 +1321,29 @@ public class TerraParserParser extends Parser {
     };
 
     // $ANTLR start "validValue"
-    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:175:1: validValue : key= STRING_LITERAL ':' vValue= STRING_LITERAL ;
+    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:175:1: validValue : vValue= STRING_LITERAL ;
     public final TerraParserParser.validValue_return validValue() throws RecognitionException {
         TerraParserParser.validValue_return retval = new TerraParserParser.validValue_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token key=null;
         Token vValue=null;
-        Token char_literal43=null;
 
-        Object key_tree=null;
         Object vValue_tree=null;
-        Object char_literal43_tree=null;
 
         try {
-            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:175:11: (key= STRING_LITERAL ':' vValue= STRING_LITERAL )
-            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:175:13: key= STRING_LITERAL ':' vValue= STRING_LITERAL
+            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:175:11: (vValue= STRING_LITERAL )
+            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:175:13: vValue= STRING_LITERAL
             {
             root_0 = (Object)adaptor.nil();
 
-            key=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_validValue740); 
-            key_tree = (Object)adaptor.create(key);
-            adaptor.addChild(root_0, key_tree);
-
-            char_literal43=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_validValue742); 
-            char_literal43_tree = (Object)adaptor.create(char_literal43);
-            adaptor.addChild(root_0, char_literal43_tree);
-
-            vValue=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_validValue746); 
+            vValue=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_validValue740); 
             vValue_tree = (Object)adaptor.create(vValue);
             adaptor.addChild(root_0, vValue_tree);
 
 
-                 ValidValue validValue = new ValidValue();
-                 validValue.setKey((key!=null?key.getText():null));
-                 validValue.setValue((vValue!=null?vValue.getText():null));
-                 validValues.add(validValue);
+                 validValues.add(new ValidValue((vValue!=null?vValue.getText():null)));
 
 
             }
@@ -1387,67 +1372,67 @@ public class TerraParserParser extends Parser {
     };
 
     // $ANTLR start "operation"
-    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:182:1: operation : OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body RIGHT_BRACKET ;
+    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:179:1: operation : OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body RIGHT_BRACKET ;
     public final TerraParserParser.operation_return operation() throws RecognitionException {
         TerraParserParser.operation_return retval = new TerraParserParser.operation_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token OPERATION44=null;
-        Token OP_TYPE45=null;
-        Token NAME46=null;
-        Token STRING_LITERAL47=null;
-        Token LEFT_BRACKET48=null;
-        Token RIGHT_BRACKET50=null;
-        TerraParserParser.op_body_return op_body49 = null;
+        Token OPERATION43=null;
+        Token OP_TYPE44=null;
+        Token NAME45=null;
+        Token STRING_LITERAL46=null;
+        Token LEFT_BRACKET47=null;
+        Token RIGHT_BRACKET49=null;
+        TerraParserParser.op_body_return op_body48 = null;
 
 
-        Object OPERATION44_tree=null;
-        Object OP_TYPE45_tree=null;
-        Object NAME46_tree=null;
-        Object STRING_LITERAL47_tree=null;
-        Object LEFT_BRACKET48_tree=null;
-        Object RIGHT_BRACKET50_tree=null;
+        Object OPERATION43_tree=null;
+        Object OP_TYPE44_tree=null;
+        Object NAME45_tree=null;
+        Object STRING_LITERAL46_tree=null;
+        Object LEFT_BRACKET47_tree=null;
+        Object RIGHT_BRACKET49_tree=null;
 
         try {
-            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:182:10: ( OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body RIGHT_BRACKET )
-            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:182:13: OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body RIGHT_BRACKET
+            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:179:10: ( OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body RIGHT_BRACKET )
+            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:179:13: OPERATION OP_TYPE NAME STRING_LITERAL LEFT_BRACKET op_body RIGHT_BRACKET
             {
             root_0 = (Object)adaptor.nil();
 
-            OPERATION44=(Token)match(input,OPERATION,FOLLOW_OPERATION_in_operation755); 
-            OPERATION44_tree = (Object)adaptor.create(OPERATION44);
-            adaptor.addChild(root_0, OPERATION44_tree);
+            OPERATION43=(Token)match(input,OPERATION,FOLLOW_OPERATION_in_operation749); 
+            OPERATION43_tree = (Object)adaptor.create(OPERATION43);
+            adaptor.addChild(root_0, OPERATION43_tree);
 
-            OP_TYPE45=(Token)match(input,OP_TYPE,FOLLOW_OP_TYPE_in_operation757); 
-            OP_TYPE45_tree = (Object)adaptor.create(OP_TYPE45);
-            adaptor.addChild(root_0, OP_TYPE45_tree);
+            OP_TYPE44=(Token)match(input,OP_TYPE,FOLLOW_OP_TYPE_in_operation751); 
+            OP_TYPE44_tree = (Object)adaptor.create(OP_TYPE44);
+            adaptor.addChild(root_0, OP_TYPE44_tree);
 
-            NAME46=(Token)match(input,NAME,FOLLOW_NAME_in_operation759); 
-            NAME46_tree = (Object)adaptor.create(NAME46);
-            adaptor.addChild(root_0, NAME46_tree);
+            NAME45=(Token)match(input,NAME,FOLLOW_NAME_in_operation753); 
+            NAME45_tree = (Object)adaptor.create(NAME45);
+            adaptor.addChild(root_0, NAME45_tree);
 
-            STRING_LITERAL47=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_operation761); 
-            STRING_LITERAL47_tree = (Object)adaptor.create(STRING_LITERAL47);
-            adaptor.addChild(root_0, STRING_LITERAL47_tree);
+            STRING_LITERAL46=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_operation755); 
+            STRING_LITERAL46_tree = (Object)adaptor.create(STRING_LITERAL46);
+            adaptor.addChild(root_0, STRING_LITERAL46_tree);
 
-            LEFT_BRACKET48=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_operation763); 
-            LEFT_BRACKET48_tree = (Object)adaptor.create(LEFT_BRACKET48);
-            adaptor.addChild(root_0, LEFT_BRACKET48_tree);
+            LEFT_BRACKET47=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_operation757); 
+            LEFT_BRACKET47_tree = (Object)adaptor.create(LEFT_BRACKET47);
+            adaptor.addChild(root_0, LEFT_BRACKET47_tree);
 
-            pushFollow(FOLLOW_op_body_in_operation765);
-            op_body49=op_body();
+            pushFollow(FOLLOW_op_body_in_operation759);
+            op_body48=op_body();
 
             state._fsp--;
 
-            adaptor.addChild(root_0, op_body49.getTree());
-            RIGHT_BRACKET50=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_operation767); 
-            RIGHT_BRACKET50_tree = (Object)adaptor.create(RIGHT_BRACKET50);
-            adaptor.addChild(root_0, RIGHT_BRACKET50_tree);
+            adaptor.addChild(root_0, op_body48.getTree());
+            RIGHT_BRACKET49=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_operation761); 
+            RIGHT_BRACKET49_tree = (Object)adaptor.create(RIGHT_BRACKET49);
+            adaptor.addChild(root_0, RIGHT_BRACKET49_tree);
 
 
-            		Operation op = new Operation((OP_TYPE45!=null?OP_TYPE45.getText():null), (NAME46!=null?NAME46.getText():null), (STRING_LITERAL47!=null?STRING_LITERAL47.getText():null));
+            		Operation op = new Operation((OP_TYPE44!=null?OP_TYPE44.getText():null), (NAME45!=null?NAME45.getText():null), (STRING_LITERAL46!=null?STRING_LITERAL46.getText():null));
             		op.setDomainObject(domainObject);
             		op.setProperties(op_props);
             		ops.add(op);
@@ -1480,24 +1465,24 @@ public class TerraParserParser extends Parser {
     };
 
     // $ANTLR start "op_body"
-    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:191:1: op_body : ( op_prop )+ ;
+    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:188:1: op_body : ( op_prop )+ ;
     public final TerraParserParser.op_body_return op_body() throws RecognitionException {
         TerraParserParser.op_body_return retval = new TerraParserParser.op_body_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        TerraParserParser.op_prop_return op_prop51 = null;
+        TerraParserParser.op_prop_return op_prop50 = null;
 
 
 
         try {
-            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:191:9: ( ( op_prop )+ )
-            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:191:11: ( op_prop )+
+            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:188:9: ( ( op_prop )+ )
+            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:188:11: ( op_prop )+
             {
             root_0 = (Object)adaptor.nil();
 
-            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:191:11: ( op_prop )+
+            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:188:11: ( op_prop )+
             int cnt11=0;
             loop11:
             do {
@@ -1511,14 +1496,14 @@ public class TerraParserParser extends Parser {
 
                 switch (alt11) {
             	case 1 :
-            	    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:191:11: op_prop
+            	    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:188:11: op_prop
             	    {
-            	    pushFollow(FOLLOW_op_prop_in_op_body779);
-            	    op_prop51=op_prop();
+            	    pushFollow(FOLLOW_op_prop_in_op_body773);
+            	    op_prop50=op_prop();
 
             	    state._fsp--;
 
-            	    adaptor.addChild(root_0, op_prop51.getTree());
+            	    adaptor.addChild(root_0, op_prop50.getTree());
 
             	    }
             	    break;
@@ -1559,25 +1544,25 @@ public class TerraParserParser extends Parser {
     };
 
     // $ANTLR start "op_prop"
-    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:193:1: op_prop : ( NEWLINE | op_prop_name ATTRIBUITION value );
+    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:190:1: op_prop : ( NEWLINE | op_prop_name ATTRIBUITION value );
     public final TerraParserParser.op_prop_return op_prop() throws RecognitionException {
         TerraParserParser.op_prop_return retval = new TerraParserParser.op_prop_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token NEWLINE52=null;
-        Token ATTRIBUITION54=null;
-        TerraParserParser.op_prop_name_return op_prop_name53 = null;
+        Token NEWLINE51=null;
+        Token ATTRIBUITION53=null;
+        TerraParserParser.op_prop_name_return op_prop_name52 = null;
 
-        TerraParserParser.value_return value55 = null;
+        TerraParserParser.value_return value54 = null;
 
 
-        Object NEWLINE52_tree=null;
-        Object ATTRIBUITION54_tree=null;
+        Object NEWLINE51_tree=null;
+        Object ATTRIBUITION53_tree=null;
 
         try {
-            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:193:8: ( NEWLINE | op_prop_name ATTRIBUITION value )
+            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:190:8: ( NEWLINE | op_prop_name ATTRIBUITION value )
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -1595,48 +1580,48 @@ public class TerraParserParser extends Parser {
             }
             switch (alt12) {
                 case 1 :
-                    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:193:10: NEWLINE
+                    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:190:10: NEWLINE
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    NEWLINE52=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_op_prop787); 
-                    NEWLINE52_tree = (Object)adaptor.create(NEWLINE52);
-                    adaptor.addChild(root_0, NEWLINE52_tree);
+                    NEWLINE51=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_op_prop781); 
+                    NEWLINE51_tree = (Object)adaptor.create(NEWLINE51);
+                    adaptor.addChild(root_0, NEWLINE51_tree);
 
 
                     }
                     break;
                 case 2 :
-                    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:193:20: op_prop_name ATTRIBUITION value
+                    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:190:20: op_prop_name ATTRIBUITION value
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_op_prop_name_in_op_prop791);
-                    op_prop_name53=op_prop_name();
+                    pushFollow(FOLLOW_op_prop_name_in_op_prop785);
+                    op_prop_name52=op_prop_name();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, op_prop_name53.getTree());
-                    ATTRIBUITION54=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_op_prop793); 
-                    ATTRIBUITION54_tree = (Object)adaptor.create(ATTRIBUITION54);
-                    adaptor.addChild(root_0, ATTRIBUITION54_tree);
+                    adaptor.addChild(root_0, op_prop_name52.getTree());
+                    ATTRIBUITION53=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_op_prop787); 
+                    ATTRIBUITION53_tree = (Object)adaptor.create(ATTRIBUITION53);
+                    adaptor.addChild(root_0, ATTRIBUITION53_tree);
 
-                    pushFollow(FOLLOW_value_in_op_prop795);
-                    value55=value();
+                    pushFollow(FOLLOW_value_in_op_prop789);
+                    value54=value();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, value55.getTree());
+                    adaptor.addChild(root_0, value54.getTree());
 
                     		IConverterService convService = ServiceProvider.getInstance()
                     				.getService(IConverterService.class,
                     						Activator.getDefault().getBundleContext());
                     						
-                    		Class<?> type = PropertyInfo.getPropertyInfo((op_prop_name53!=null?input.toString(op_prop_name53.start,op_prop_name53.stop):null)).getType();
-                    		Object propValue = convService.convert(type, (value55!=null?input.toString(value55.start,value55.stop):null));
+                    		Class<?> type = PropertyInfo.getPropertyInfo((op_prop_name52!=null?input.toString(op_prop_name52.start,op_prop_name52.stop):null)).getType();
+                    		Object propValue = convService.convert(type, (value54!=null?input.toString(value54.start,value54.stop):null));
                     		
-                    		Property p = new Property((op_prop_name53!=null?input.toString(op_prop_name53.start,op_prop_name53.stop):null), propValue);
-                    		op_props.put((op_prop_name53!=null?input.toString(op_prop_name53.start,op_prop_name53.stop):null), p);
+                    		Property p = new Property((op_prop_name52!=null?input.toString(op_prop_name52.start,op_prop_name52.stop):null), propValue);
+                    		op_props.put((op_prop_name52!=null?input.toString(op_prop_name52.start,op_prop_name52.stop):null), p);
                     	
 
                     }
@@ -1667,27 +1652,27 @@ public class TerraParserParser extends Parser {
     };
 
     // $ANTLR start "op_prop_name"
-    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:206:1: op_prop_name : ( PROPERTY | OPERATION_PROPERTY );
+    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:203:1: op_prop_name : ( PROPERTY | OPERATION_PROPERTY );
     public final TerraParserParser.op_prop_name_return op_prop_name() throws RecognitionException {
         TerraParserParser.op_prop_name_return retval = new TerraParserParser.op_prop_name_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token set56=null;
+        Token set55=null;
 
-        Object set56_tree=null;
+        Object set55_tree=null;
 
         try {
-            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:206:14: ( PROPERTY | OPERATION_PROPERTY )
+            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:203:14: ( PROPERTY | OPERATION_PROPERTY )
             // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:
             {
             root_0 = (Object)adaptor.nil();
 
-            set56=(Token)input.LT(1);
+            set55=(Token)input.LT(1);
             if ( input.LA(1)==PROPERTY||input.LA(1)==OPERATION_PROPERTY ) {
                 input.consume();
-                adaptor.addChild(root_0, (Object)adaptor.create(set56));
+                adaptor.addChild(root_0, (Object)adaptor.create(set55));
                 state.errorRecovery=false;
             }
             else {
@@ -1722,55 +1707,55 @@ public class TerraParserParser extends Parser {
     };
 
     // $ANTLR start "validation_rulz"
-    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:209:1: validation_rulz : VALIDATION_RULE NAME LEFT_BRACKET validation_body RIGHT_BRACKET ;
+    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:206:1: validation_rulz : VALIDATION_RULE NAME LEFT_BRACKET validation_body RIGHT_BRACKET ;
     public final TerraParserParser.validation_rulz_return validation_rulz() throws RecognitionException {
         TerraParserParser.validation_rulz_return retval = new TerraParserParser.validation_rulz_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token VALIDATION_RULE57=null;
-        Token NAME58=null;
-        Token LEFT_BRACKET59=null;
-        Token RIGHT_BRACKET61=null;
-        TerraParserParser.validation_body_return validation_body60 = null;
+        Token VALIDATION_RULE56=null;
+        Token NAME57=null;
+        Token LEFT_BRACKET58=null;
+        Token RIGHT_BRACKET60=null;
+        TerraParserParser.validation_body_return validation_body59 = null;
 
 
-        Object VALIDATION_RULE57_tree=null;
-        Object NAME58_tree=null;
-        Object LEFT_BRACKET59_tree=null;
-        Object RIGHT_BRACKET61_tree=null;
+        Object VALIDATION_RULE56_tree=null;
+        Object NAME57_tree=null;
+        Object LEFT_BRACKET58_tree=null;
+        Object RIGHT_BRACKET60_tree=null;
 
         try {
-            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:209:16: ( VALIDATION_RULE NAME LEFT_BRACKET validation_body RIGHT_BRACKET )
-            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:209:19: VALIDATION_RULE NAME LEFT_BRACKET validation_body RIGHT_BRACKET
+            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:206:16: ( VALIDATION_RULE NAME LEFT_BRACKET validation_body RIGHT_BRACKET )
+            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:206:19: VALIDATION_RULE NAME LEFT_BRACKET validation_body RIGHT_BRACKET
             {
             root_0 = (Object)adaptor.nil();
 
-            VALIDATION_RULE57=(Token)match(input,VALIDATION_RULE,FOLLOW_VALIDATION_RULE_in_validation_rulz820); 
-            VALIDATION_RULE57_tree = (Object)adaptor.create(VALIDATION_RULE57);
-            adaptor.addChild(root_0, VALIDATION_RULE57_tree);
+            VALIDATION_RULE56=(Token)match(input,VALIDATION_RULE,FOLLOW_VALIDATION_RULE_in_validation_rulz814); 
+            VALIDATION_RULE56_tree = (Object)adaptor.create(VALIDATION_RULE56);
+            adaptor.addChild(root_0, VALIDATION_RULE56_tree);
 
-            NAME58=(Token)match(input,NAME,FOLLOW_NAME_in_validation_rulz822); 
-            NAME58_tree = (Object)adaptor.create(NAME58);
-            adaptor.addChild(root_0, NAME58_tree);
+            NAME57=(Token)match(input,NAME,FOLLOW_NAME_in_validation_rulz816); 
+            NAME57_tree = (Object)adaptor.create(NAME57);
+            adaptor.addChild(root_0, NAME57_tree);
 
-            LEFT_BRACKET59=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_validation_rulz824); 
-            LEFT_BRACKET59_tree = (Object)adaptor.create(LEFT_BRACKET59);
-            adaptor.addChild(root_0, LEFT_BRACKET59_tree);
+            LEFT_BRACKET58=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_validation_rulz818); 
+            LEFT_BRACKET58_tree = (Object)adaptor.create(LEFT_BRACKET58);
+            adaptor.addChild(root_0, LEFT_BRACKET58_tree);
 
-            pushFollow(FOLLOW_validation_body_in_validation_rulz826);
-            validation_body60=validation_body();
+            pushFollow(FOLLOW_validation_body_in_validation_rulz820);
+            validation_body59=validation_body();
 
             state._fsp--;
 
-            adaptor.addChild(root_0, validation_body60.getTree());
-            RIGHT_BRACKET61=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_validation_rulz828); 
-            RIGHT_BRACKET61_tree = (Object)adaptor.create(RIGHT_BRACKET61);
-            adaptor.addChild(root_0, RIGHT_BRACKET61_tree);
+            adaptor.addChild(root_0, validation_body59.getTree());
+            RIGHT_BRACKET60=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_validation_rulz822); 
+            RIGHT_BRACKET60_tree = (Object)adaptor.create(RIGHT_BRACKET60);
+            adaptor.addChild(root_0, RIGHT_BRACKET60_tree);
 
 
-            		Validation validation = new Validation((NAME58!=null?NAME58.getText():null));
+            		Validation validation = new Validation((NAME57!=null?NAME57.getText():null));
             		validation.setRules(validationRulzEntry);
             		validationRulz.add(validation);
             		validationRulzEntry = new ArrayList<ValidationRule>();
@@ -1802,24 +1787,24 @@ public class TerraParserParser extends Parser {
     };
 
     // $ANTLR start "validation_body"
-    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:216:1: validation_body : ( validation_entry )+ ;
+    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:213:1: validation_body : ( validation_entry )+ ;
     public final TerraParserParser.validation_body_return validation_body() throws RecognitionException {
         TerraParserParser.validation_body_return retval = new TerraParserParser.validation_body_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        TerraParserParser.validation_entry_return validation_entry62 = null;
+        TerraParserParser.validation_entry_return validation_entry61 = null;
 
 
 
         try {
-            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:216:17: ( ( validation_entry )+ )
-            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:216:19: ( validation_entry )+
+            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:213:17: ( ( validation_entry )+ )
+            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:213:19: ( validation_entry )+
             {
             root_0 = (Object)adaptor.nil();
 
-            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:216:19: ( validation_entry )+
+            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:213:19: ( validation_entry )+
             int cnt13=0;
             loop13:
             do {
@@ -1833,14 +1818,14 @@ public class TerraParserParser extends Parser {
 
                 switch (alt13) {
             	case 1 :
-            	    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:216:19: validation_entry
+            	    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:213:19: validation_entry
             	    {
-            	    pushFollow(FOLLOW_validation_entry_in_validation_body837);
-            	    validation_entry62=validation_entry();
+            	    pushFollow(FOLLOW_validation_entry_in_validation_body831);
+            	    validation_entry61=validation_entry();
 
             	    state._fsp--;
 
-            	    adaptor.addChild(root_0, validation_entry62.getTree());
+            	    adaptor.addChild(root_0, validation_entry61.getTree());
 
             	    }
             	    break;
@@ -1881,25 +1866,25 @@ public class TerraParserParser extends Parser {
     };
 
     // $ANTLR start "validation_entry"
-    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:218:1: validation_entry : ( NEWLINE | STRING_LITERAL ATTRIBUITION EXPRESSION );
+    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:215:1: validation_entry : ( NEWLINE | STRING_LITERAL ATTRIBUITION EXPRESSION );
     public final TerraParserParser.validation_entry_return validation_entry() throws RecognitionException {
         TerraParserParser.validation_entry_return retval = new TerraParserParser.validation_entry_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token NEWLINE63=null;
-        Token STRING_LITERAL64=null;
-        Token ATTRIBUITION65=null;
-        Token EXPRESSION66=null;
+        Token NEWLINE62=null;
+        Token STRING_LITERAL63=null;
+        Token ATTRIBUITION64=null;
+        Token EXPRESSION65=null;
 
-        Object NEWLINE63_tree=null;
-        Object STRING_LITERAL64_tree=null;
-        Object ATTRIBUITION65_tree=null;
-        Object EXPRESSION66_tree=null;
+        Object NEWLINE62_tree=null;
+        Object STRING_LITERAL63_tree=null;
+        Object ATTRIBUITION64_tree=null;
+        Object EXPRESSION65_tree=null;
 
         try {
-            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:218:17: ( NEWLINE | STRING_LITERAL ATTRIBUITION EXPRESSION )
+            // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:215:17: ( NEWLINE | STRING_LITERAL ATTRIBUITION EXPRESSION )
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1917,36 +1902,36 @@ public class TerraParserParser extends Parser {
             }
             switch (alt14) {
                 case 1 :
-                    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:218:19: NEWLINE
+                    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:215:19: NEWLINE
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    NEWLINE63=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_validation_entry845); 
-                    NEWLINE63_tree = (Object)adaptor.create(NEWLINE63);
-                    adaptor.addChild(root_0, NEWLINE63_tree);
+                    NEWLINE62=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_validation_entry839); 
+                    NEWLINE62_tree = (Object)adaptor.create(NEWLINE62);
+                    adaptor.addChild(root_0, NEWLINE62_tree);
 
 
                     }
                     break;
                 case 2 :
-                    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:218:29: STRING_LITERAL ATTRIBUITION EXPRESSION
+                    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:215:29: STRING_LITERAL ATTRIBUITION EXPRESSION
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    STRING_LITERAL64=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_validation_entry849); 
-                    STRING_LITERAL64_tree = (Object)adaptor.create(STRING_LITERAL64);
-                    adaptor.addChild(root_0, STRING_LITERAL64_tree);
+                    STRING_LITERAL63=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_validation_entry843); 
+                    STRING_LITERAL63_tree = (Object)adaptor.create(STRING_LITERAL63);
+                    adaptor.addChild(root_0, STRING_LITERAL63_tree);
 
-                    ATTRIBUITION65=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_validation_entry851); 
-                    ATTRIBUITION65_tree = (Object)adaptor.create(ATTRIBUITION65);
-                    adaptor.addChild(root_0, ATTRIBUITION65_tree);
+                    ATTRIBUITION64=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_validation_entry845); 
+                    ATTRIBUITION64_tree = (Object)adaptor.create(ATTRIBUITION64);
+                    adaptor.addChild(root_0, ATTRIBUITION64_tree);
 
-                    EXPRESSION66=(Token)match(input,EXPRESSION,FOLLOW_EXPRESSION_in_validation_entry853); 
-                    EXPRESSION66_tree = (Object)adaptor.create(EXPRESSION66);
-                    adaptor.addChild(root_0, EXPRESSION66_tree);
+                    EXPRESSION65=(Token)match(input,EXPRESSION,FOLLOW_EXPRESSION_in_validation_entry847); 
+                    EXPRESSION65_tree = (Object)adaptor.create(EXPRESSION65);
+                    adaptor.addChild(root_0, EXPRESSION65_tree);
 
 
-                    		ValidationRule valRule = new ValidationRule((STRING_LITERAL64!=null?STRING_LITERAL64.getText():null), (EXPRESSION66!=null?EXPRESSION66.getText():null));
+                    		ValidationRule valRule = new ValidationRule((STRING_LITERAL63!=null?STRING_LITERAL63.getText():null), (EXPRESSION65!=null?EXPRESSION65.getText():null));
                     		validationRulzEntry.add(valRule);
 
 
@@ -2021,31 +2006,29 @@ public class TerraParserParser extends Parser {
     public static final BitSet FOLLOW_38_in_array724 = new BitSet(new long[]{0x0000000020000000L});
     public static final BitSet FOLLOW_validValue_in_array726 = new BitSet(new long[]{0x0000004000000400L});
     public static final BitSet FOLLOW_RIGHT_BRACE_in_array730 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_LITERAL_in_validValue740 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_ATTRIBUITION_in_validValue742 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_STRING_LITERAL_in_validValue746 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OPERATION_in_operation755 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_OP_TYPE_in_operation757 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_NAME_in_operation759 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_STRING_LITERAL_in_operation761 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_LEFT_BRACKET_in_operation763 = new BitSet(new long[]{0x0000001000050000L});
-    public static final BitSet FOLLOW_op_body_in_operation765 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_RIGHT_BRACKET_in_operation767 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_op_prop_in_op_body779 = new BitSet(new long[]{0x0000001000050002L});
-    public static final BitSet FOLLOW_NEWLINE_in_op_prop787 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_op_prop_name_in_op_prop791 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_ATTRIBUITION_in_op_prop793 = new BitSet(new long[]{0x0000000009000000L});
-    public static final BitSet FOLLOW_value_in_op_prop795 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_LITERAL_in_validValue740 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OPERATION_in_operation749 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_OP_TYPE_in_operation751 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_NAME_in_operation753 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_STRING_LITERAL_in_operation755 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_LEFT_BRACKET_in_operation757 = new BitSet(new long[]{0x0000001000050000L});
+    public static final BitSet FOLLOW_op_body_in_operation759 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_RIGHT_BRACKET_in_operation761 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_op_prop_in_op_body773 = new BitSet(new long[]{0x0000001000050002L});
+    public static final BitSet FOLLOW_NEWLINE_in_op_prop781 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_op_prop_name_in_op_prop785 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_ATTRIBUITION_in_op_prop787 = new BitSet(new long[]{0x0000000009000000L});
+    public static final BitSet FOLLOW_value_in_op_prop789 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_op_prop_name0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_VALIDATION_RULE_in_validation_rulz820 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_NAME_in_validation_rulz822 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_LEFT_BRACKET_in_validation_rulz824 = new BitSet(new long[]{0x0000001020000000L});
-    public static final BitSet FOLLOW_validation_body_in_validation_rulz826 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_RIGHT_BRACKET_in_validation_rulz828 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_validation_entry_in_validation_body837 = new BitSet(new long[]{0x0000001020000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_validation_entry845 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_LITERAL_in_validation_entry849 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_ATTRIBUITION_in_validation_entry851 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_EXPRESSION_in_validation_entry853 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_VALIDATION_RULE_in_validation_rulz814 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_NAME_in_validation_rulz816 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_LEFT_BRACKET_in_validation_rulz818 = new BitSet(new long[]{0x0000001020000000L});
+    public static final BitSet FOLLOW_validation_body_in_validation_rulz820 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_RIGHT_BRACKET_in_validation_rulz822 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_validation_entry_in_validation_body831 = new BitSet(new long[]{0x0000001020000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_validation_entry839 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_LITERAL_in_validation_entry843 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_ATTRIBUITION_in_validation_entry845 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_EXPRESSION_in_validation_entry847 = new BitSet(new long[]{0x0000000000000002L});
 
 }

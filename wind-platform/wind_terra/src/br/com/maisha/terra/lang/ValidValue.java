@@ -7,20 +7,23 @@ package br.com.maisha.terra.lang;
  */
 public class ValidValue extends TerraClass {
 
-	/** Value Key */
-	private String key;
-
 	/** Value Itself */
 	private String value;
 
-	/** @see ValidValue#key */
-	public String getKey() {
-		return key;
+	/**
+	 * Empty Constructor
+	 */
+	public ValidValue() {
 	}
 
-	/** @see ValidValue#key */
-	public void setKey(String key) {
-		this.key = key;
+	/**
+	 * Constructor configures Key and Value.
+	 * 
+	 * @param value
+	 *            Valid Value itself.
+	 */
+	public ValidValue(String value) {
+		setValue(value);
 	}
 
 	/** @see ValidValue#value */
