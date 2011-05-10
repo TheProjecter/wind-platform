@@ -7,7 +7,7 @@ class Save{
 
 	def ctx
 	def model
-
+	def meta
 	
 	def execute(){		
 		def bCtx = ctx.operation.domainObject.application.bundleContext

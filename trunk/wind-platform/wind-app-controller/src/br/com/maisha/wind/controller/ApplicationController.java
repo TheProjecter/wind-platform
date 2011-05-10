@@ -524,6 +524,7 @@ public class ApplicationController implements IApplicationController {
 			ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 			ctx.setInstance(currentInstance);
 			ctx.setOperation(new Operation(type, className, ct.name()));
+			ctx.setMeta(dObj);
 
 			engine.put("model", ctx.getInstance());
 			engine.put("ctx", ctx);

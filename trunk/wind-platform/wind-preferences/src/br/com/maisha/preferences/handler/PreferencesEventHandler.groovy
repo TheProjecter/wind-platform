@@ -1,5 +1,6 @@
 import br.com.maisha.wind.controller.listener.DomainObjectEventHandler;
 import br.com.maisha.wind.controller.model.ExecutionContext;
+import  br.com.maisha.terra.lang.ValidValue;
 
 class PreferencesEventHandler implements DomainObjectEventHandler{
 
@@ -16,14 +17,6 @@ class PreferencesEventHandler implements DomainObjectEventHandler{
 	
 	
 	ExecutionContext<?> afterObjectOpen(ExecutionContext<Object> ctx) {
-		def localesDsc = [];
-		def locales = Locale.getAvailableLocales();
-		
-		locales.each(){localesDsc << "${it}"};
-		localesDsc.sort(){it.values}
-		
-		ctx.instance.localeList = localesDsc;
-		
 		return ctx;
 	}
 	
