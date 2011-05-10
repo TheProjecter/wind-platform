@@ -275,7 +275,7 @@ public class ApplicationController implements IApplicationController {
 			juelEngine.put("this", modelInstance);
 			juelEngine.put("meta", meta);
 
-			for (Attribute attr : meta.getAtts()) {
+			for (Attribute attr : meta.getAtts()) { 
 				for (Map.Entry<String, Property> entry : attr.getProperties()
 						.entrySet()) {
 					Property prop = entry.getValue();
