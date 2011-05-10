@@ -18,13 +18,15 @@ domain_object basic "Basic"{
 		required:true
 		presentation_type: date
 		width: 120
+		value: ${this.birhtDate == null ? currDate : this.birhtDate}
 	}
 	
-	Integer age "Idade"{
+	Integer age "Dias de Vida"{
 		x:2
 		y:2
 		disabled:false
-		width: 40
+		width: 70
+		value: ${ (currDate.time - this.birhtDate.time) / (1000 * 60 * 60 * 24) }
 	}
 	
 	Double altura "Altura"{
@@ -32,6 +34,7 @@ domain_object basic "Basic"{
 		y:3
 		colspan: 2
 		width: 40
+		value: ${this.altura == null ? 1.80 : this.altura}
 	}
 
 	String sexo "Sexo"{

@@ -33,4 +33,35 @@ public class DoubleConverter implements IConverter {
 		}
 	}
 
+	/**
+	 * Convert the given {@link Object} to {@link Double}
+	 * 
+	 * @param value
+	 *            Value to be converted.
+	 * @return Converted value.
+	 */
+	@Converter(fromType = Object.class, toType = Double.class)
+	public Double toDouble(Object value) {
+		try {
+			if (value instanceof Double) {
+				return (Double) value;
+			}
+		} catch (Exception e) {
+			log.error("Error while converting [" + value + "] to Double", e);
+		}
+		return Double.valueOf(0.0);
+	}
+
+	/**
+	 * Convert the given {@link Double} to {@link Object}
+	 * 
+	 * @param value
+	 *            Value to be converted.
+	 * @return Converted value.
+	 */
+	@Converter(fromType = Double.class, toType = Object.class)
+	public Object toDouble(Double value) {
+		return value;
+	}
+
 }
