@@ -12,9 +12,8 @@ public class Property extends TerraClass {
 
 	/** */
 	public static enum PresentationType {
-		TEXT("text"), RADIO("radio"), CHECKBOX("checkbox"), COMBO("combo"), LIST(
-				"list"), TEXTAREA("textarea"), DATE("date"), RELATED("RELATED"), EMBEDDEDOBJECT(
-				"embedded_object");
+		TEXT("text"), RADIO("radio"), CHECKBOX("checkbox"), COMBO("combo"), LIST("list"), TEXTAREA("textarea"), DATE("date"), RELATED(
+				"RELATED"), EMBEDDEDOBJECT("embedded_object");
 
 		private String value;
 
@@ -54,9 +53,8 @@ public class Property extends TerraClass {
 	}
 
 	public void setValue(Object value) {
-		Object oldValue = this.value;
 		this.value = value;
-		changeSupport.firePropertyChange("value", oldValue, this.value);
+		changeSupport.firePropertyChange("value", null, value);
 	}
 
 	public String getExpression() {
@@ -69,9 +67,8 @@ public class Property extends TerraClass {
 
 	public void addValidValue(ValidValue vv) {
 		if (validValues != null) {
-			Object oldValue = this.validValues;
 			validValues.add(vv);
-			changeSupport.firePropertyChange("validValues", oldValue, this.validValues);
+			changeSupport.firePropertyChange("validValues", null, validValues);
 		}
 	}
 

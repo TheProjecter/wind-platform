@@ -12,6 +12,7 @@ domain_object preferences "Preferences" {
 		width: 120
 		required:true
 		presentation_type: combo
+		validValues: ["pt_BR", "en_US"]
 	}
 	
 	Integer maxResultsDisplayed "Max Results to Display"{

@@ -6,9 +6,8 @@ class Filter{
 	def model
 	def meta
 
-
 	def execute(){
-		meta.sexo.validValues.add(new ValidValue("\"Added\""));
+		meta.sexo.getProperty("validValues").addValidValue(new ValidValue("\"Added\""));
 	
 		def list = ctx.select(meta, "select b from basic b");
 		ctx.setGridData(list);

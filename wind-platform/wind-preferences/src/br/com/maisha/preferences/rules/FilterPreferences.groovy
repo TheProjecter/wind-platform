@@ -8,6 +8,7 @@ class Filter{
 
 	def ctx
 	def model
+	def meta
 
 
 	def execute(){
