@@ -11,7 +11,6 @@ import br.com.maisha.wind.common.exception.MakeClassException;
  */
 public interface IClassMaker {
 
-
 	/**
 	 * 
 	 * @param cLoader
@@ -20,4 +19,10 @@ public interface IClassMaker {
 	 */
 	void makeClasses(ClassLoader cLoader, WindApplication app) throws MakeClassException;
 
+	/**
+	 * 
+	 * @param app
+	 * @throws MakeClassException
+	 */
+	void detachClasses(WindApplication app) throws MakeClassException;
 }

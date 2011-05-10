@@ -28,6 +28,14 @@ public interface IApplicationRegistry extends Component {
 	boolean register(WindApplication app);
 
 	/**
+	 * Removes the given application from registry.
+	 * 
+	 * @param app
+	 *            App to remove.
+	 */
+	boolean unregister(WindApplication app);	
+	
+	/**
 	 * Gets the application corresponding to the given id.
 	 * 
 	 * @param appId

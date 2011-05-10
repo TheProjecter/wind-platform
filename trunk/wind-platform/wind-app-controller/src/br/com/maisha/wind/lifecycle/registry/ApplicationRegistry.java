@@ -47,12 +47,27 @@ public class ApplicationRegistry implements IApplicationRegistry {
 	 */
 	public boolean register(WindApplication app) {
 		if (registry.containsKey(app.getAppId())) {
-			log.error("Registry already contains an application " + "registered under the given id [" + app.getAppId()
-					+ "] ... " + "choose a different one!");
+			log.error("Registry already contains an application " + "registered under the given id [" + app.getAppId() + "] ... "
+					+ "choose a different one!");
 			return false;
 		}
 		this.registry.put(app.getAppId(), app);
 		log.debug("		Application [" + app.getAppId() + "] registered...");
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.com.maisha.wind.lifecycle.registry.IApplicationRegistry#unregister(br.com.maisha.terra.lang.WindApplication)
+	 */
+	public boolean unregister(WindApplication app) {
+		if (!registry.containsKey(app.getAppId())) {
+			log.error("Registry does not know the application registered under the given id [" + app.getAppId() + "] ...");
+			return false;
+		}
+		this.registry.remove(app.getAppId());
+		log.debug("		Application [" + app.getAppId() + "] unregistered...");
 		return true;
 	}
 
@@ -74,8 +89,7 @@ public class ApplicationRegistry implements IApplicationRegistry {
 
 	/**
 	 * 
-	 * @see br.com.maisha.wind.lifecycle.registry.IApplicationRegistry#getObject(java.lang.String,
-	 *      java.lang.String)
+	 * @see br.com.maisha.wind.lifecycle.registry.IApplicationRegistry#getObject(java.lang.String, java.lang.String)
 	 */
 	public DomainObject getObject(String appId, String objectId) {
 		WindApplication app = retrieve(appId);
@@ -100,8 +114,8 @@ public class ApplicationRegistry implements IApplicationRegistry {
 		WindApplication app = retrieve(appId);
 		if (app != null) {
 			for (DomainObject dObj : app.getDomainObjects()) {
-				String dObjType =  dObj.getRef();
-				if(dObjType.equals(type)){
+				String dObjType = dObj.getRef();
+				if (dObjType.equals(type)) {
 					return dObj;
 				}
 			}

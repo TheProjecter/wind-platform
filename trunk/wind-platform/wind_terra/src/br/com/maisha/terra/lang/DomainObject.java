@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javassist.CtClass;
+
 /**
  * TODO javadoc.
  * 
@@ -29,6 +31,8 @@ public class DomainObject extends TerraClass {
 
 	private Map<String, Property> properties = new HashMap<String, Property>();
 
+	private CtClass ctClass;
+	
 	/** Java class that represents this domain object. */
 	private Class<?> objectClass;
 
@@ -171,6 +175,16 @@ public class DomainObject extends TerraClass {
 
 	public Attribute attribute(String name) {
 		return getAttribute(name);
+	}
+
+	
+	
+	public CtClass getCtClass() {
+		return ctClass;
+	}
+
+	public void setCtClass(CtClass ctClass) {
+		this.ctClass = ctClass;
 	}
 
 	/**

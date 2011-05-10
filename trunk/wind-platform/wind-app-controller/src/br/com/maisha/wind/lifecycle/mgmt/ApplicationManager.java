@@ -55,7 +55,7 @@ public class ApplicationManager implements IApplicationManager {
 
 	/** Application Controller. */
 	private IApplicationController appCtrl;
-	
+
 	/**
 	 * 
 	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#loadApplication()
@@ -74,25 +74,25 @@ public class ApplicationManager implements IApplicationManager {
 
 			// compile it's domain objects
 			Enumeration<URL> e = context.getBundle().findEntries("/bin", "*.do", true);
-			if(e != null){
+			if (e != null) {
 				while (e.hasMoreElements()) {
 					URL dObjURL = e.nextElement();
 					InputStream dObjIptStream = dObjURL.openStream();
 					if (dObjIptStream != null) {
-	
+
 						// interpret source code
 						DomainObject dObj = langCompiler.compile(dObjIptStream);
 						app.addDomainObject(dObj);
-	
+
 						dObj.setApplication(app);
-	
+
 						// fire model event
 						modelListeners.fireEvent(null, dObj, LevelType.Object, ChangeType.Added);
 					} else {
 						// TODO throws exception
 					}
 				}
-	
+
 				classMaker.makeClasses(persistentStorage.getClassLoader(), app);
 			}
 
@@ -100,8 +100,8 @@ public class ApplicationManager implements IApplicationManager {
 			for (ResourceBundleEntry rbEntry : app.getResourceBundles()) {
 				URL rbPath = context.getBundle().getResource(rbEntry.getPath() + ".properties");
 				if (rbPath == null) {
-					log.error("Could not find resource under the given path [" + rbEntry.getPath() + "] for app ["
-							+ app.getAppId() + "]...");
+					log.error("Could not find resource under the given path [" + rbEntry.getPath() + "] for app [" + app.getAppId()
+							+ "]...");
 					continue;
 				}
 				String[] langCountry = rbEntry.getLocale().split("_");
@@ -135,28 +135,63 @@ public class ApplicationManager implements IApplicationManager {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#unregisterApplication(org.osgi.framework.BundleContext)
+	 */
+	public void unregisterApplication(BundleContext context) {
+		try {
+			log.debug("		Unregistering Wind Application");
+
+			// reads it's configuration file
+			URL appCfg = context.getBundle().getEntry("/META-INF/wind-app.cfg.xml");
+			WindApplication app = appCfgReader.read(appCfg.openStream());
+			
+			String appId = app.getAppId();
+			
+			log.debug("		App: [" + app.getAppId() + "] " + app.getName() + " is going to be uninstalled");
+
+			// get app from registry
+			app = registry.retrieve(appId);
+			if (app == null) {
+				log.error("Registry does not know the application registered under the given id [" + appId + "] ...");
+				return;
+			}
+
+			// detach classes created with javassist
+			classMaker.detachClasses(app);
+			
+			if (registry.unregister(app)) {
+				modelListeners.fireEvent(null, app, LevelType.Application, ChangeType.Removed);
+			}
+
+		} catch (Exception e) {
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
+		}
+	}
+
 	/**
 	 * 
-	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#openObject(java.lang.String,
-	 *      java.lang.String)
+	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#openObject(java.lang.String, java.lang.String)
 	 */
 	public void openObject(String appId, String objectId) {
-		//verify if there is an opened object
-		if(openedObject != null){
-			//if there is any, closes it
+		// verify if there is an opened object
+		if (openedObject != null) {
+			// if there is any, closes it
 			closeObject(openedObject);
 		}
-		
+
 		DomainObject obj = registry.getObject(appId, objectId);
 		openedObject = obj;
 		openObject(openedObject);
 	}
-	
+
 	/**
 	 * 
 	 * @param obj
 	 */
-	private void openObject(DomainObject obj){
+	private void openObject(DomainObject obj) {
 		modelListeners.fireEvent(null, obj, LevelType.Object, ChangeType.BeforeObjectOpen);
 		modelListeners.fireEvent(null, obj, LevelType.Object, ChangeType.ObjectOpen);
 		modelListeners.fireEvent(null, obj, LevelType.Object, ChangeType.AfterObjectOpen);
@@ -164,20 +199,19 @@ public class ApplicationManager implements IApplicationManager {
 
 	/**
 	 * 
-	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#closeObject(java.lang.String,
-	 *      java.lang.String)
+	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#closeObject(java.lang.String, java.lang.String)
 	 */
 	public void closeObject(String appId, String objectId) {
 		DomainObject obj = registry.getObject(appId, objectId);
 		closeObject(obj);
 		openedObject = null;
 	}
-	
+
 	/**
 	 * 
 	 * @param dObj
 	 */
-	private void closeObject(DomainObject dObj){
+	private void closeObject(DomainObject dObj) {
 		modelListeners.fireEvent(null, dObj, LevelType.Object, ChangeType.BeforeObjectClose);
 		modelListeners.fireEvent(null, dObj, LevelType.Object, ChangeType.ObjectClose);
 		modelListeners.fireEvent(null, dObj, LevelType.Object, ChangeType.AfterObjectClose);

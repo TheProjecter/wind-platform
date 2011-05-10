@@ -32,9 +32,9 @@ import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.Import;
 import br.com.maisha.terra.lang.ModelReference;
+import br.com.maisha.terra.lang.Property.PresentationType;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.WindApplication;
-import br.com.maisha.terra.lang.Property.PresentationType;
 import br.com.maisha.wind.common.exception.MakeClassException;
 
 /**
@@ -48,8 +48,7 @@ public class ClassMaker implements IClassMaker {
 	private static final Logger log = Logger.getLogger(ClassMaker.class);
 
 	/** */
-	private List<String> javaLangTypes = Arrays.asList("Integer", "Double", "Float", "Long", "Short", "Boolean",
-			"String");
+	private List<String> javaLangTypes = Arrays.asList("Integer", "Double", "Float", "Long", "Short", "Boolean", "String");
 
 	/** */
 	private Map<String, String> typeMap = new HashMap<String, String>();
@@ -61,10 +60,20 @@ public class ClassMaker implements IClassMaker {
 		typeMap.put("Date", "java.util.Date");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.com.maisha.terra.IClassMaker#detachClasses(br.com.maisha.terra.lang.WindApplication)
+	 */
+	public void detachClasses(WindApplication app) throws MakeClassException {
+		for (DomainObject dObj : app.getDomainObjects()) {
+			dObj.getCtClass().detach();
+		}
+	}
+
 	/**
 	 * 
-	 * @see br.com.maisha.terra.IClassMaker#makeClasses(java.lang.ClassLoader,
-	 *      br.com.maisha.terra.lang.WindApplication)
+	 * @see br.com.maisha.terra.IClassMaker#makeClasses(java.lang.ClassLoader, br.com.maisha.terra.lang.WindApplication)
 	 */
 	public void makeClasses(ClassLoader cLoader, WindApplication app) throws MakeClassException {
 		try {
@@ -84,6 +93,7 @@ public class ClassMaker implements IClassMaker {
 			for (Map.Entry<DomainObject, CtClass> entry : map.entrySet()) {
 				DomainObject obj = entry.getKey();
 				obj.setObjectClass(entry.getValue().toClass(cLoader, null));
+				obj.setCtClass(entry.getValue());
 
 				if (log.isDebugEnabled()) {
 					describeClass(obj.getObjectClass());
@@ -190,10 +200,8 @@ public class ClassMaker implements IClassMaker {
 					} else {
 						Map<String, MemberValue> columnParams = new HashMap<String, MemberValue>();
 						columnParams.put("name", new StringMemberValue(att.getRef(), cp));
-						columnParams.put("nullable", new BooleanMemberValue(!att
-								.getPropertyValue(PropertyInfo.REQUIRED), cp));
-						columnParams
-								.put("length", new IntegerMemberValue(cp, att.getPropertyValue(PropertyInfo.WIDTH)));
+						columnParams.put("nullable", new BooleanMemberValue(!att.getPropertyValue(PropertyInfo.REQUIRED), cp));
+						columnParams.put("length", new IntegerMemberValue(cp, att.getPropertyValue(PropertyInfo.WIDTH)));
 						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.Column", columnParams));
 
 					}
@@ -295,10 +303,8 @@ public class ClassMaker implements IClassMaker {
 
 		AnnotationsAttribute idAnnotation = new AnnotationsAttribute(fi.getConstPool(), AnnotationsAttribute.visibleTag);
 		idAnnotation.addAnnotation(createAnnoation(fi.getConstPool(), "javax.persistence.Id", null));
-		idAnnotation.addAnnotation(createAnnoation(fi.getConstPool(), "javax.persistence.GeneratedValue",
-				genValueParams));
-		idAnnotation.addAnnotation(createAnnoation(fi.getConstPool(), "javax.persistence.SequenceGenerator",
-				seqGenParams));
+		idAnnotation.addAnnotation(createAnnoation(fi.getConstPool(), "javax.persistence.GeneratedValue", genValueParams));
+		idAnnotation.addAnnotation(createAnnoation(fi.getConstPool(), "javax.persistence.SequenceGenerator", seqGenParams));
 
 		fi.addAttribute(idAnnotation);
 
@@ -389,8 +395,7 @@ public class ClassMaker implements IClassMaker {
 		method.append("(");
 		method.append(getQualifiedType(att, att.getType()));
 		method.append(" v ){");
-		method.append(getQualifiedType(att, att.getType())).append(" oldValue = this.").append(att.getRef())
-				.append(";");
+		method.append(getQualifiedType(att, att.getType())).append(" oldValue = this.").append(att.getRef()).append(";");
 		method.append("this.").append(att.getRef()).append(" = v;");
 		method.append("changeSupport.firePropertyChange(\"").append(att.getRef()).append("\", oldValue, v);");
 		method.append("}");
