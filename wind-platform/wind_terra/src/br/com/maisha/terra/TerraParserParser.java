@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g 2011-05-09 14:43:15
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g 2011-05-10 13:12:28
  
 package br.com.maisha.terra; 
 import java.util.HashMap;
@@ -144,7 +144,7 @@ public class TerraParserParser extends Parser {
             // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:91:4: ( package_declaration )
             // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:91:5: package_declaration
             {
-            pushFollow(FOLLOW_package_declaration_in_domain_object503);
+            pushFollow(FOLLOW_package_declaration_in_domain_object507);
             package_declaration1=package_declaration();
 
             state._fsp--;
@@ -168,7 +168,7 @@ public class TerraParserParser extends Parser {
             	case 1 :
             	    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:91:27: import_declaration
             	    {
-            	    pushFollow(FOLLOW_import_declaration_in_domain_object507);
+            	    pushFollow(FOLLOW_import_declaration_in_domain_object511);
             	    import_declaration2=import_declaration();
 
             	    state._fsp--;
@@ -183,19 +183,19 @@ public class TerraParserParser extends Parser {
                 }
             } while (true);
 
-            DOMAIN_OBJECT3=(Token)match(input,DOMAIN_OBJECT,FOLLOW_DOMAIN_OBJECT_in_domain_object512); 
+            DOMAIN_OBJECT3=(Token)match(input,DOMAIN_OBJECT,FOLLOW_DOMAIN_OBJECT_in_domain_object516); 
             DOMAIN_OBJECT3_tree = (Object)adaptor.create(DOMAIN_OBJECT3);
             adaptor.addChild(root_0, DOMAIN_OBJECT3_tree);
 
-            NAME4=(Token)match(input,NAME,FOLLOW_NAME_in_domain_object514); 
+            NAME4=(Token)match(input,NAME,FOLLOW_NAME_in_domain_object518); 
             NAME4_tree = (Object)adaptor.create(NAME4);
             adaptor.addChild(root_0, NAME4_tree);
 
-            STRING_LITERAL5=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_domain_object516); 
+            STRING_LITERAL5=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_domain_object520); 
             STRING_LITERAL5_tree = (Object)adaptor.create(STRING_LITERAL5);
             adaptor.addChild(root_0, STRING_LITERAL5_tree);
 
-            LEFT_BRACKET6=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_domain_object518); 
+            LEFT_BRACKET6=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_domain_object522); 
             LEFT_BRACKET6_tree = (Object)adaptor.create(LEFT_BRACKET6);
             adaptor.addChild(root_0, LEFT_BRACKET6_tree);
 
@@ -210,7 +210,7 @@ public class TerraParserParser extends Parser {
                 case 1 :
                     // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:91:96: body
                     {
-                    pushFollow(FOLLOW_body_in_domain_object520);
+                    pushFollow(FOLLOW_body_in_domain_object524);
                     body7=body();
 
                     state._fsp--;
@@ -222,7 +222,7 @@ public class TerraParserParser extends Parser {
 
             }
 
-            RIGHT_BRACKET8=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_domain_object523); 
+            RIGHT_BRACKET8=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_domain_object527); 
             RIGHT_BRACKET8_tree = (Object)adaptor.create(RIGHT_BRACKET8);
             adaptor.addChild(root_0, RIGHT_BRACKET8_tree);
 
@@ -287,11 +287,11 @@ public class TerraParserParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            PACKAGE9=(Token)match(input,PACKAGE,FOLLOW_PACKAGE_in_package_declaration535); 
+            PACKAGE9=(Token)match(input,PACKAGE,FOLLOW_PACKAGE_in_package_declaration539); 
             PACKAGE9_tree = (Object)adaptor.create(PACKAGE9);
             adaptor.addChild(root_0, PACKAGE9_tree);
 
-            NAME10=(Token)match(input,NAME,FOLLOW_NAME_in_package_declaration537); 
+            NAME10=(Token)match(input,NAME,FOLLOW_NAME_in_package_declaration541); 
             NAME10_tree = (Object)adaptor.create(NAME10);
             adaptor.addChild(root_0, NAME10_tree);
 
@@ -311,7 +311,7 @@ public class TerraParserParser extends Parser {
             	case 1 :
             	    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:107:17: NEWLINE
             	    {
-            	    NEWLINE11=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_package_declaration539); 
+            	    NEWLINE11=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_package_declaration543); 
             	    NEWLINE11_tree = (Object)adaptor.create(NEWLINE11);
             	    adaptor.addChild(root_0, NEWLINE11_tree);
 
@@ -380,11 +380,11 @@ public class TerraParserParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            IMPORT12=(Token)match(input,IMPORT,FOLLOW_IMPORT_in_import_declaration554); 
+            IMPORT12=(Token)match(input,IMPORT,FOLLOW_IMPORT_in_import_declaration558); 
             IMPORT12_tree = (Object)adaptor.create(IMPORT12);
             adaptor.addChild(root_0, IMPORT12_tree);
 
-            NAME13=(Token)match(input,NAME,FOLLOW_NAME_in_import_declaration556); 
+            NAME13=(Token)match(input,NAME,FOLLOW_NAME_in_import_declaration560); 
             NAME13_tree = (Object)adaptor.create(NAME13);
             adaptor.addChild(root_0, NAME13_tree);
 
@@ -404,7 +404,7 @@ public class TerraParserParser extends Parser {
             	case 1 :
             	    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:114:16: NEWLINE
             	    {
-            	    NEWLINE14=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_import_declaration558); 
+            	    NEWLINE14=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_import_declaration562); 
             	    NEWLINE14_tree = (Object)adaptor.create(NEWLINE14);
             	    adaptor.addChild(root_0, NEWLINE14_tree);
 
@@ -515,7 +515,7 @@ public class TerraParserParser extends Parser {
             	case 1 :
             	    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:120:12: attr
             	    {
-            	    pushFollow(FOLLOW_attr_in_body576);
+            	    pushFollow(FOLLOW_attr_in_body580);
             	    attr15=attr();
 
             	    state._fsp--;
@@ -527,7 +527,7 @@ public class TerraParserParser extends Parser {
             	case 2 :
             	    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:120:19: operation
             	    {
-            	    pushFollow(FOLLOW_operation_in_body580);
+            	    pushFollow(FOLLOW_operation_in_body584);
             	    operation16=operation();
 
             	    state._fsp--;
@@ -539,7 +539,7 @@ public class TerraParserParser extends Parser {
             	case 3 :
             	    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:120:31: validation_rulz
             	    {
-            	    pushFollow(FOLLOW_validation_rulz_in_body584);
+            	    pushFollow(FOLLOW_validation_rulz_in_body588);
             	    validation_rulz17=validation_rulz();
 
             	    state._fsp--;
@@ -551,7 +551,7 @@ public class TerraParserParser extends Parser {
             	case 4 :
             	    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:120:49: obj_property
             	    {
-            	    pushFollow(FOLLOW_obj_property_in_body588);
+            	    pushFollow(FOLLOW_obj_property_in_body592);
             	    obj_property18=obj_property();
 
             	    state._fsp--;
@@ -563,7 +563,7 @@ public class TerraParserParser extends Parser {
             	case 5 :
             	    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:120:64: NEWLINE
             	    {
-            	    NEWLINE19=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_body592); 
+            	    NEWLINE19=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_body596); 
             	    NEWLINE19_tree = (Object)adaptor.create(NEWLINE19);
             	    adaptor.addChild(root_0, NEWLINE19_tree);
 
@@ -630,11 +630,11 @@ public class TerraParserParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            OBJECT_PROPERTY20=(Token)match(input,OBJECT_PROPERTY,FOLLOW_OBJECT_PROPERTY_in_obj_property601); 
+            OBJECT_PROPERTY20=(Token)match(input,OBJECT_PROPERTY,FOLLOW_OBJECT_PROPERTY_in_obj_property605); 
             OBJECT_PROPERTY20_tree = (Object)adaptor.create(OBJECT_PROPERTY20);
             adaptor.addChild(root_0, OBJECT_PROPERTY20_tree);
 
-            ATTRIBUITION21=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_obj_property603); 
+            ATTRIBUITION21=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_obj_property607); 
             ATTRIBUITION21_tree = (Object)adaptor.create(ATTRIBUITION21);
             adaptor.addChild(root_0, ATTRIBUITION21_tree);
 
@@ -658,7 +658,7 @@ public class TerraParserParser extends Parser {
                 case 1 :
                     // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:122:45: value
                     {
-                    pushFollow(FOLLOW_value_in_obj_property606);
+                    pushFollow(FOLLOW_value_in_obj_property610);
                     value22=value();
 
                     state._fsp--;
@@ -670,7 +670,7 @@ public class TerraParserParser extends Parser {
                 case 2 :
                     // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:122:51: expression
                     {
-                    pushFollow(FOLLOW_expression_in_obj_property608);
+                    pushFollow(FOLLOW_expression_in_obj_property612);
                     expression23=expression();
 
                     state._fsp--;
@@ -748,29 +748,29 @@ public class TerraParserParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            type=(Token)match(input,NAME,FOLLOW_NAME_in_attr624); 
+            type=(Token)match(input,NAME,FOLLOW_NAME_in_attr628); 
             type_tree = (Object)adaptor.create(type);
             adaptor.addChild(root_0, type_tree);
 
-            ref=(Token)match(input,NAME,FOLLOW_NAME_in_attr628); 
+            ref=(Token)match(input,NAME,FOLLOW_NAME_in_attr632); 
             ref_tree = (Object)adaptor.create(ref);
             adaptor.addChild(root_0, ref_tree);
 
-            STRING_LITERAL24=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_attr630); 
+            STRING_LITERAL24=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_attr634); 
             STRING_LITERAL24_tree = (Object)adaptor.create(STRING_LITERAL24);
             adaptor.addChild(root_0, STRING_LITERAL24_tree);
 
-            LEFT_BRACKET25=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_attr632); 
+            LEFT_BRACKET25=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_attr636); 
             LEFT_BRACKET25_tree = (Object)adaptor.create(LEFT_BRACKET25);
             adaptor.addChild(root_0, LEFT_BRACKET25_tree);
 
-            pushFollow(FOLLOW_attr_body_in_attr634);
+            pushFollow(FOLLOW_attr_body_in_attr638);
             attr_body26=attr_body();
 
             state._fsp--;
 
             adaptor.addChild(root_0, attr_body26.getTree());
-            RIGHT_BRACKET27=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_attr636); 
+            RIGHT_BRACKET27=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_attr640); 
             RIGHT_BRACKET27_tree = (Object)adaptor.create(RIGHT_BRACKET27);
             adaptor.addChild(root_0, RIGHT_BRACKET27_tree);
 
@@ -842,7 +842,7 @@ public class TerraParserParser extends Parser {
             	case 1 :
             	    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:148:14: property
             	    {
-            	    pushFollow(FOLLOW_property_in_attr_body651);
+            	    pushFollow(FOLLOW_property_in_attr_body655);
             	    property28=property();
 
             	    state._fsp--;
@@ -932,7 +932,7 @@ public class TerraParserParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    NEWLINE29=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_property659); 
+                    NEWLINE29=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_property663); 
                     NEWLINE29_tree = (Object)adaptor.create(NEWLINE29);
                     adaptor.addChild(root_0, NEWLINE29_tree);
 
@@ -944,13 +944,13 @@ public class TerraParserParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_attr_prop_name_in_property663);
+                    pushFollow(FOLLOW_attr_prop_name_in_property667);
                     attr_prop_name30=attr_prop_name();
 
                     state._fsp--;
 
                     adaptor.addChild(root_0, attr_prop_name30.getTree());
-                    ATTRIBUITION31=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_property665); 
+                    ATTRIBUITION31=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_property669); 
                     ATTRIBUITION31_tree = (Object)adaptor.create(ATTRIBUITION31);
                     adaptor.addChild(root_0, ATTRIBUITION31_tree);
 
@@ -984,7 +984,7 @@ public class TerraParserParser extends Parser {
                         case 1 :
                             // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:150:50: value
                             {
-                            pushFollow(FOLLOW_value_in_property668);
+                            pushFollow(FOLLOW_value_in_property672);
                             value32=value();
 
                             state._fsp--;
@@ -996,7 +996,7 @@ public class TerraParserParser extends Parser {
                         case 2 :
                             // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:150:56: expression
                             {
-                            pushFollow(FOLLOW_expression_in_property670);
+                            pushFollow(FOLLOW_expression_in_property674);
                             expression33=expression();
 
                             state._fsp--;
@@ -1008,7 +1008,7 @@ public class TerraParserParser extends Parser {
                         case 3 :
                             // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:150:67: array
                             {
-                            pushFollow(FOLLOW_array_in_property672);
+                            pushFollow(FOLLOW_array_in_property676);
                             array34=array();
 
                             state._fsp--;
@@ -1190,7 +1190,7 @@ public class TerraParserParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            EXPRESSION37=(Token)match(input,EXPRESSION,FOLLOW_EXPRESSION_in_expression710); 
+            EXPRESSION37=(Token)match(input,EXPRESSION,FOLLOW_EXPRESSION_in_expression714); 
             EXPRESSION37_tree = (Object)adaptor.create(EXPRESSION37);
             adaptor.addChild(root_0, EXPRESSION37_tree);
 
@@ -1246,11 +1246,11 @@ public class TerraParserParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            LEFT_BRACE38=(Token)match(input,LEFT_BRACE,FOLLOW_LEFT_BRACE_in_array719); 
+            LEFT_BRACE38=(Token)match(input,LEFT_BRACE,FOLLOW_LEFT_BRACE_in_array723); 
             LEFT_BRACE38_tree = (Object)adaptor.create(LEFT_BRACE38);
             adaptor.addChild(root_0, LEFT_BRACE38_tree);
 
-            pushFollow(FOLLOW_validValue_in_array721);
+            pushFollow(FOLLOW_validValue_in_array725);
             validValue39=validValue();
 
             state._fsp--;
@@ -1271,11 +1271,11 @@ public class TerraParserParser extends Parser {
             	case 1 :
             	    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:173:32: ',' validValue
             	    {
-            	    char_literal40=(Token)match(input,38,FOLLOW_38_in_array724); 
+            	    char_literal40=(Token)match(input,38,FOLLOW_38_in_array728); 
             	    char_literal40_tree = (Object)adaptor.create(char_literal40);
             	    adaptor.addChild(root_0, char_literal40_tree);
 
-            	    pushFollow(FOLLOW_validValue_in_array726);
+            	    pushFollow(FOLLOW_validValue_in_array730);
             	    validValue41=validValue();
 
             	    state._fsp--;
@@ -1290,7 +1290,7 @@ public class TerraParserParser extends Parser {
                 }
             } while (true);
 
-            RIGHT_BRACE42=(Token)match(input,RIGHT_BRACE,FOLLOW_RIGHT_BRACE_in_array730); 
+            RIGHT_BRACE42=(Token)match(input,RIGHT_BRACE,FOLLOW_RIGHT_BRACE_in_array734); 
             RIGHT_BRACE42_tree = (Object)adaptor.create(RIGHT_BRACE42);
             adaptor.addChild(root_0, RIGHT_BRACE42_tree);
 
@@ -1338,7 +1338,7 @@ public class TerraParserParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            vValue=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_validValue740); 
+            vValue=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_validValue744); 
             vValue_tree = (Object)adaptor.create(vValue);
             adaptor.addChild(root_0, vValue_tree);
 
@@ -1401,33 +1401,33 @@ public class TerraParserParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            OPERATION43=(Token)match(input,OPERATION,FOLLOW_OPERATION_in_operation749); 
+            OPERATION43=(Token)match(input,OPERATION,FOLLOW_OPERATION_in_operation753); 
             OPERATION43_tree = (Object)adaptor.create(OPERATION43);
             adaptor.addChild(root_0, OPERATION43_tree);
 
-            OP_TYPE44=(Token)match(input,OP_TYPE,FOLLOW_OP_TYPE_in_operation751); 
+            OP_TYPE44=(Token)match(input,OP_TYPE,FOLLOW_OP_TYPE_in_operation755); 
             OP_TYPE44_tree = (Object)adaptor.create(OP_TYPE44);
             adaptor.addChild(root_0, OP_TYPE44_tree);
 
-            NAME45=(Token)match(input,NAME,FOLLOW_NAME_in_operation753); 
+            NAME45=(Token)match(input,NAME,FOLLOW_NAME_in_operation757); 
             NAME45_tree = (Object)adaptor.create(NAME45);
             adaptor.addChild(root_0, NAME45_tree);
 
-            STRING_LITERAL46=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_operation755); 
+            STRING_LITERAL46=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_operation759); 
             STRING_LITERAL46_tree = (Object)adaptor.create(STRING_LITERAL46);
             adaptor.addChild(root_0, STRING_LITERAL46_tree);
 
-            LEFT_BRACKET47=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_operation757); 
+            LEFT_BRACKET47=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_operation761); 
             LEFT_BRACKET47_tree = (Object)adaptor.create(LEFT_BRACKET47);
             adaptor.addChild(root_0, LEFT_BRACKET47_tree);
 
-            pushFollow(FOLLOW_op_body_in_operation759);
+            pushFollow(FOLLOW_op_body_in_operation763);
             op_body48=op_body();
 
             state._fsp--;
 
             adaptor.addChild(root_0, op_body48.getTree());
-            RIGHT_BRACKET49=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_operation761); 
+            RIGHT_BRACKET49=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_operation765); 
             RIGHT_BRACKET49_tree = (Object)adaptor.create(RIGHT_BRACKET49);
             adaptor.addChild(root_0, RIGHT_BRACKET49_tree);
 
@@ -1498,7 +1498,7 @@ public class TerraParserParser extends Parser {
             	case 1 :
             	    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:188:11: op_prop
             	    {
-            	    pushFollow(FOLLOW_op_prop_in_op_body773);
+            	    pushFollow(FOLLOW_op_prop_in_op_body777);
             	    op_prop50=op_prop();
 
             	    state._fsp--;
@@ -1584,7 +1584,7 @@ public class TerraParserParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    NEWLINE51=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_op_prop781); 
+                    NEWLINE51=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_op_prop785); 
                     NEWLINE51_tree = (Object)adaptor.create(NEWLINE51);
                     adaptor.addChild(root_0, NEWLINE51_tree);
 
@@ -1596,17 +1596,17 @@ public class TerraParserParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_op_prop_name_in_op_prop785);
+                    pushFollow(FOLLOW_op_prop_name_in_op_prop789);
                     op_prop_name52=op_prop_name();
 
                     state._fsp--;
 
                     adaptor.addChild(root_0, op_prop_name52.getTree());
-                    ATTRIBUITION53=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_op_prop787); 
+                    ATTRIBUITION53=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_op_prop791); 
                     ATTRIBUITION53_tree = (Object)adaptor.create(ATTRIBUITION53);
                     adaptor.addChild(root_0, ATTRIBUITION53_tree);
 
-                    pushFollow(FOLLOW_value_in_op_prop789);
+                    pushFollow(FOLLOW_value_in_op_prop793);
                     value54=value();
 
                     state._fsp--;
@@ -1732,25 +1732,25 @@ public class TerraParserParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            VALIDATION_RULE56=(Token)match(input,VALIDATION_RULE,FOLLOW_VALIDATION_RULE_in_validation_rulz814); 
+            VALIDATION_RULE56=(Token)match(input,VALIDATION_RULE,FOLLOW_VALIDATION_RULE_in_validation_rulz818); 
             VALIDATION_RULE56_tree = (Object)adaptor.create(VALIDATION_RULE56);
             adaptor.addChild(root_0, VALIDATION_RULE56_tree);
 
-            NAME57=(Token)match(input,NAME,FOLLOW_NAME_in_validation_rulz816); 
+            NAME57=(Token)match(input,NAME,FOLLOW_NAME_in_validation_rulz820); 
             NAME57_tree = (Object)adaptor.create(NAME57);
             adaptor.addChild(root_0, NAME57_tree);
 
-            LEFT_BRACKET58=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_validation_rulz818); 
+            LEFT_BRACKET58=(Token)match(input,LEFT_BRACKET,FOLLOW_LEFT_BRACKET_in_validation_rulz822); 
             LEFT_BRACKET58_tree = (Object)adaptor.create(LEFT_BRACKET58);
             adaptor.addChild(root_0, LEFT_BRACKET58_tree);
 
-            pushFollow(FOLLOW_validation_body_in_validation_rulz820);
+            pushFollow(FOLLOW_validation_body_in_validation_rulz824);
             validation_body59=validation_body();
 
             state._fsp--;
 
             adaptor.addChild(root_0, validation_body59.getTree());
-            RIGHT_BRACKET60=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_validation_rulz822); 
+            RIGHT_BRACKET60=(Token)match(input,RIGHT_BRACKET,FOLLOW_RIGHT_BRACKET_in_validation_rulz826); 
             RIGHT_BRACKET60_tree = (Object)adaptor.create(RIGHT_BRACKET60);
             adaptor.addChild(root_0, RIGHT_BRACKET60_tree);
 
@@ -1820,7 +1820,7 @@ public class TerraParserParser extends Parser {
             	case 1 :
             	    // D:\\dev\\labs2\\wind2\\wind_terra\\src\\TerraParser.g:213:19: validation_entry
             	    {
-            	    pushFollow(FOLLOW_validation_entry_in_validation_body831);
+            	    pushFollow(FOLLOW_validation_entry_in_validation_body835);
             	    validation_entry61=validation_entry();
 
             	    state._fsp--;
@@ -1906,7 +1906,7 @@ public class TerraParserParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    NEWLINE62=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_validation_entry839); 
+                    NEWLINE62=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_validation_entry843); 
                     NEWLINE62_tree = (Object)adaptor.create(NEWLINE62);
                     adaptor.addChild(root_0, NEWLINE62_tree);
 
@@ -1918,15 +1918,15 @@ public class TerraParserParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    STRING_LITERAL63=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_validation_entry843); 
+                    STRING_LITERAL63=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_validation_entry847); 
                     STRING_LITERAL63_tree = (Object)adaptor.create(STRING_LITERAL63);
                     adaptor.addChild(root_0, STRING_LITERAL63_tree);
 
-                    ATTRIBUITION64=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_validation_entry845); 
+                    ATTRIBUITION64=(Token)match(input,ATTRIBUITION,FOLLOW_ATTRIBUITION_in_validation_entry849); 
                     ATTRIBUITION64_tree = (Object)adaptor.create(ATTRIBUITION64);
                     adaptor.addChild(root_0, ATTRIBUITION64_tree);
 
-                    EXPRESSION65=(Token)match(input,EXPRESSION,FOLLOW_EXPRESSION_in_validation_entry847); 
+                    EXPRESSION65=(Token)match(input,EXPRESSION,FOLLOW_EXPRESSION_in_validation_entry851); 
                     EXPRESSION65_tree = (Object)adaptor.create(EXPRESSION65);
                     adaptor.addChild(root_0, EXPRESSION65_tree);
 
@@ -1962,73 +1962,73 @@ public class TerraParserParser extends Parser {
 
  
 
-    public static final BitSet FOLLOW_package_declaration_in_domain_object503 = new BitSet(new long[]{0x0000000000005000L});
-    public static final BitSet FOLLOW_import_declaration_in_domain_object507 = new BitSet(new long[]{0x0000000000005000L});
-    public static final BitSet FOLLOW_DOMAIN_OBJECT_in_domain_object512 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_NAME_in_domain_object514 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_STRING_LITERAL_in_domain_object516 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_LEFT_BRACKET_in_domain_object518 = new BitSet(new long[]{0x0000001008188100L});
-    public static final BitSet FOLLOW_body_in_domain_object520 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_RIGHT_BRACKET_in_domain_object523 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PACKAGE_in_package_declaration535 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_NAME_in_package_declaration537 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_NEWLINE_in_package_declaration539 = new BitSet(new long[]{0x0000001000000002L});
-    public static final BitSet FOLLOW_IMPORT_in_import_declaration554 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_NAME_in_import_declaration556 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_NEWLINE_in_import_declaration558 = new BitSet(new long[]{0x0000001000000002L});
-    public static final BitSet FOLLOW_attr_in_body576 = new BitSet(new long[]{0x0000001008188002L});
-    public static final BitSet FOLLOW_operation_in_body580 = new BitSet(new long[]{0x0000001008188002L});
-    public static final BitSet FOLLOW_validation_rulz_in_body584 = new BitSet(new long[]{0x0000001008188002L});
-    public static final BitSet FOLLOW_obj_property_in_body588 = new BitSet(new long[]{0x0000001008188002L});
-    public static final BitSet FOLLOW_NEWLINE_in_body592 = new BitSet(new long[]{0x0000001008188002L});
-    public static final BitSet FOLLOW_OBJECT_PROPERTY_in_obj_property601 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_ATTRIBUITION_in_obj_property603 = new BitSet(new long[]{0x0000000089000000L});
-    public static final BitSet FOLLOW_value_in_obj_property606 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_expression_in_obj_property608 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_attr624 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_NAME_in_attr628 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_STRING_LITERAL_in_attr630 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_LEFT_BRACKET_in_attr632 = new BitSet(new long[]{0x0000001000030000L});
-    public static final BitSet FOLLOW_attr_body_in_attr634 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_RIGHT_BRACKET_in_attr636 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_property_in_attr_body651 = new BitSet(new long[]{0x0000001000030002L});
-    public static final BitSet FOLLOW_NEWLINE_in_property659 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_attr_prop_name_in_property663 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_ATTRIBUITION_in_property665 = new BitSet(new long[]{0x0000000089000200L});
-    public static final BitSet FOLLOW_value_in_property668 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_expression_in_property670 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_array_in_property672 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_package_declaration_in_domain_object507 = new BitSet(new long[]{0x0000000000005000L});
+    public static final BitSet FOLLOW_import_declaration_in_domain_object511 = new BitSet(new long[]{0x0000000000005000L});
+    public static final BitSet FOLLOW_DOMAIN_OBJECT_in_domain_object516 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_NAME_in_domain_object518 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_STRING_LITERAL_in_domain_object520 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_LEFT_BRACKET_in_domain_object522 = new BitSet(new long[]{0x0000001008188100L});
+    public static final BitSet FOLLOW_body_in_domain_object524 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_RIGHT_BRACKET_in_domain_object527 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PACKAGE_in_package_declaration539 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_NAME_in_package_declaration541 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_NEWLINE_in_package_declaration543 = new BitSet(new long[]{0x0000001000000002L});
+    public static final BitSet FOLLOW_IMPORT_in_import_declaration558 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_NAME_in_import_declaration560 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_NEWLINE_in_import_declaration562 = new BitSet(new long[]{0x0000001000000002L});
+    public static final BitSet FOLLOW_attr_in_body580 = new BitSet(new long[]{0x0000001008188002L});
+    public static final BitSet FOLLOW_operation_in_body584 = new BitSet(new long[]{0x0000001008188002L});
+    public static final BitSet FOLLOW_validation_rulz_in_body588 = new BitSet(new long[]{0x0000001008188002L});
+    public static final BitSet FOLLOW_obj_property_in_body592 = new BitSet(new long[]{0x0000001008188002L});
+    public static final BitSet FOLLOW_NEWLINE_in_body596 = new BitSet(new long[]{0x0000001008188002L});
+    public static final BitSet FOLLOW_OBJECT_PROPERTY_in_obj_property605 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_ATTRIBUITION_in_obj_property607 = new BitSet(new long[]{0x0000000089000000L});
+    public static final BitSet FOLLOW_value_in_obj_property610 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_expression_in_obj_property612 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_attr628 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_NAME_in_attr632 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_STRING_LITERAL_in_attr634 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_LEFT_BRACKET_in_attr636 = new BitSet(new long[]{0x0000001000030000L});
+    public static final BitSet FOLLOW_attr_body_in_attr638 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_RIGHT_BRACKET_in_attr640 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_property_in_attr_body655 = new BitSet(new long[]{0x0000001000030002L});
+    public static final BitSet FOLLOW_NEWLINE_in_property663 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_attr_prop_name_in_property667 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_ATTRIBUITION_in_property669 = new BitSet(new long[]{0x0000000089000200L});
+    public static final BitSet FOLLOW_value_in_property672 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_expression_in_property674 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_array_in_property676 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_attr_prop_name0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_value695 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EXPRESSION_in_expression710 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LEFT_BRACE_in_array719 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_validValue_in_array721 = new BitSet(new long[]{0x0000004000000400L});
-    public static final BitSet FOLLOW_38_in_array724 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_validValue_in_array726 = new BitSet(new long[]{0x0000004000000400L});
-    public static final BitSet FOLLOW_RIGHT_BRACE_in_array730 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_LITERAL_in_validValue740 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OPERATION_in_operation749 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_OP_TYPE_in_operation751 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_NAME_in_operation753 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_STRING_LITERAL_in_operation755 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_LEFT_BRACKET_in_operation757 = new BitSet(new long[]{0x0000001000050000L});
-    public static final BitSet FOLLOW_op_body_in_operation759 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_RIGHT_BRACKET_in_operation761 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_op_prop_in_op_body773 = new BitSet(new long[]{0x0000001000050002L});
-    public static final BitSet FOLLOW_NEWLINE_in_op_prop781 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_op_prop_name_in_op_prop785 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_ATTRIBUITION_in_op_prop787 = new BitSet(new long[]{0x0000000009000000L});
-    public static final BitSet FOLLOW_value_in_op_prop789 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_value699 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EXPRESSION_in_expression714 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LEFT_BRACE_in_array723 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_validValue_in_array725 = new BitSet(new long[]{0x0000004000000400L});
+    public static final BitSet FOLLOW_38_in_array728 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_validValue_in_array730 = new BitSet(new long[]{0x0000004000000400L});
+    public static final BitSet FOLLOW_RIGHT_BRACE_in_array734 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_LITERAL_in_validValue744 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OPERATION_in_operation753 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_OP_TYPE_in_operation755 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_NAME_in_operation757 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_STRING_LITERAL_in_operation759 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_LEFT_BRACKET_in_operation761 = new BitSet(new long[]{0x0000001000050000L});
+    public static final BitSet FOLLOW_op_body_in_operation763 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_RIGHT_BRACKET_in_operation765 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_op_prop_in_op_body777 = new BitSet(new long[]{0x0000001000050002L});
+    public static final BitSet FOLLOW_NEWLINE_in_op_prop785 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_op_prop_name_in_op_prop789 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_ATTRIBUITION_in_op_prop791 = new BitSet(new long[]{0x0000000009000000L});
+    public static final BitSet FOLLOW_value_in_op_prop793 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_op_prop_name0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_VALIDATION_RULE_in_validation_rulz814 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_NAME_in_validation_rulz816 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_LEFT_BRACKET_in_validation_rulz818 = new BitSet(new long[]{0x0000001020000000L});
-    public static final BitSet FOLLOW_validation_body_in_validation_rulz820 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_RIGHT_BRACKET_in_validation_rulz822 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_validation_entry_in_validation_body831 = new BitSet(new long[]{0x0000001020000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_validation_entry839 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_LITERAL_in_validation_entry843 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_ATTRIBUITION_in_validation_entry845 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_EXPRESSION_in_validation_entry847 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_VALIDATION_RULE_in_validation_rulz818 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_NAME_in_validation_rulz820 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_LEFT_BRACKET_in_validation_rulz822 = new BitSet(new long[]{0x0000001020000000L});
+    public static final BitSet FOLLOW_validation_body_in_validation_rulz824 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_RIGHT_BRACKET_in_validation_rulz826 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_validation_entry_in_validation_body835 = new BitSet(new long[]{0x0000001020000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_validation_entry843 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_LITERAL_in_validation_entry847 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_ATTRIBUITION_in_validation_entry849 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_EXPRESSION_in_validation_entry851 = new BitSet(new long[]{0x0000000000000002L});
 
 }

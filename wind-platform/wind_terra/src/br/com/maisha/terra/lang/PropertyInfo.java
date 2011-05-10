@@ -119,6 +119,9 @@ public class PropertyInfo<T> {
 	/** Descricao da propriedade validValues */
 	public static final PropertyInfo<List<ValidValue>> VALID_VALUES = new PropertyInfo<List<ValidValue>>("validValues", new ArrayList<ValidValue>(), List.class, false);
 	
+	/** Descricao da propriedade  value */
+	public static final PropertyInfo<String> VALUE = new PropertyInfo<String>("value", null, Object.class, false);	
+	
 	/** Nome da propriedade. */
 	private String propName;
 
