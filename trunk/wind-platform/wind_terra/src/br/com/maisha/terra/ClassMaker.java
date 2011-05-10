@@ -92,6 +92,7 @@ public class ClassMaker implements IClassMaker {
 
 			for (Map.Entry<DomainObject, CtClass> entry : map.entrySet()) {
 				DomainObject obj = entry.getKey();
+				log.debug("@@@@ I'm Here!" + cLoader);
 				obj.setObjectClass(entry.getValue().toClass(cLoader, null));
 				obj.setCtClass(entry.getValue());
 

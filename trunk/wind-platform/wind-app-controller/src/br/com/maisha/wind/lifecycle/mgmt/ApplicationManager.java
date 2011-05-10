@@ -8,6 +8,7 @@ import java.util.PropertyResourceBundle;
 
 import org.apache.log4j.Logger;
 import org.osgi.framework.BundleContext;
+import org.springframework.osgi.util.BundleDelegatingClassLoader;
 
 import br.com.maisha.terra.IClassMaker;
 import br.com.maisha.terra.ITerraCompiler;
@@ -93,7 +94,9 @@ public class ApplicationManager implements IApplicationManager {
 					}
 				}
 
-				classMaker.makeClasses(persistentStorage.getClassLoader(), app);
+				
+				ClassLoader cl = BundleDelegatingClassLoader.createBundleClassLoaderFor(context.getBundle());
+				classMaker.makeClasses(cl, app);
 			}
 
 			// load it's resource bundles

@@ -8,4 +8,7 @@ Require-Bundle: wind_app_controller;bundle-version="1.0.0",
  wind_common;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: org.osgi.framework;version="1.5.0"
+Import-Package: br.com.maisha.terra,
+ br.com.maisha.terra.lang,
+ javax.persistence,
+ org.osgi.framework;version="1.5.0"
