@@ -19,6 +19,12 @@ public interface IApplicationManager extends Component {
 
 	/**
 	 * 
+	 * @param context
+	 */
+	void unregisterApplication(BundleContext context);
+	
+	/**
+	 * 
 	 * @param appId
 	 * @param objectId
 	 */
