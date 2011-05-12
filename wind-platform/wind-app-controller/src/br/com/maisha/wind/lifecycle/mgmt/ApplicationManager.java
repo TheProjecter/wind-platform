@@ -94,9 +94,7 @@ public class ApplicationManager implements IApplicationManager {
 					}
 				}
 
-				
-				ClassLoader cl = BundleDelegatingClassLoader.createBundleClassLoaderFor(context.getBundle());
-				classMaker.makeClasses(cl, app);
+				classMaker.makeClasses(persistentStorage.getClassLoader(), app);
 			}
 
 			// load it's resource bundles
