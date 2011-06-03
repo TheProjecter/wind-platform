@@ -29,12 +29,12 @@ public interface IStorage {
 
 	/**
 	 * 
-	 * @param appId
+	 * @param appIdgetAll
 	 * @param dObj
 	 * @return
 	 */
-	List<?> getAll(DomainObject dObj);
-	
+	List<ModelReference> getAll(DomainObject dObj);
+
 	/**
 	 * 
 	 * @param appId
@@ -43,29 +43,27 @@ public interface IStorage {
 	 * @return
 	 */
 	Object getById(String appId, Class<?> clazz, Serializable id);
-	
+
 	/**
 	 * 
 	 * @param appId
 	 * @param ref
 	 */
 	void update(ModelReference ref);
-	
-	
+
 	/**
 	 * 
 	 * @param appId
 	 * @param ref
 	 */
-	void delete(ModelReference ref);	
+	void delete(ModelReference ref);
 
 	/**
 	 * 
-	 * @param appId
-	 * @param d
+	 * @param model
 	 * @param query
 	 * @param param
 	 * @return
 	 */
-	List<?> filter(DomainObject d, String query, Object ... param);
+	List<ModelReference> filter(ModelReference model, String query, Object... param);
 }
