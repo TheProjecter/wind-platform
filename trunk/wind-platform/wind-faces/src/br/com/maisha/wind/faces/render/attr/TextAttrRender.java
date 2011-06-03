@@ -1,5 +1,6 @@
 package br.com.maisha.wind.faces.render.attr;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.BeansObservables;
@@ -42,8 +43,7 @@ public class TextAttrRender extends BaseAttrRender {
 	 *      org.eclipse.swt.widgets.Composite,
 	 *      br.com.maisha.terra.lang.ModelReference)
 	 */
-	public void render(Attribute attr, Composite parent,
-			ModelReference modelInstance) {
+	public void render(Attribute attr, Composite parent, ModelReference modelInstance) {
 		log.debug("Starting render for attr [" + attr + "] ");
 
 		// checkNumColumns(parent, attr);
@@ -52,7 +52,7 @@ public class TextAttrRender extends BaseAttrRender {
 
 		Text text = new Text(parent, SWT.BORDER | SWT.SINGLE);
 		text.setData(attr.getRef());
-		
+
 		// tooltip
 		String tooltip = attr.getPropertyValue(PropertyInfo.TOOLTIP);
 		UserMessage um = new UserMessage(null, tooltip, attr.getDomainObject());
@@ -63,37 +63,9 @@ public class TextAttrRender extends BaseAttrRender {
 			text.setTextLimit(maxLength);
 		}
 
-		final String mask = attr.getPropertyValue(PropertyInfo.MASK);
-		if (mask.trim().length() > 0) {
-			/*text.addListener(SWT.Verify, new Listener() {
-				
-				@Override
-				public void handleEvent(Event event) {
-					
-					log.debug("\n\n@@@ Verify Event");
-					MessageFormat mf = new MessageFormat("{0, number, "+mask+"}", new Locale("pt", "BR"));
-					
-					Number n = null;
-					try{
-						Object[] doxo = mf.parse(event.text);
-						n = (Number) doxo[0];
-					}catch(Exception e){
-						try {
-							n = NumberFormat.getInstance(new Locale("pt", "BR")).parse(event.text);
-						} catch (ParseException e1) {
-							e1.printStackTrace();
-						}
-					}
-					
-					
-					String result = mf.format(new Object[]{n});
-					
-					log.debug("@@@ Evaluated to: " + result +"\n\n");
-					((Text)event.widget).setText(result);
-					event.doit = false;
-					
-				}
-			});*/
+		String mask = attr.getPropertyValue(PropertyInfo.MASK);
+		if (StringUtils.isNotBlank(mask)) {
+			//text.setMask(mask);
 		}
 
 		GridData gd = getLayoutData();
@@ -109,9 +81,7 @@ public class TextAttrRender extends BaseAttrRender {
 		final DataBindingContext dbctx = configureDataBindings(text, l, attr);
 
 		// configure value binding
-		IObservableValue observable = BeansObservables.observeValue(
-				modelInstance, attr.getRef());
-		dbctx.bindValue(SWTObservables.observeText(text, SWT.Modify),
-				observable);
+		IObservableValue observable = BeansObservables.observeValue(modelInstance, attr.getRef());
+		dbctx.bindValue(SWTObservables.observeText(text, SWT.Modify), observable);
 	}
 }
