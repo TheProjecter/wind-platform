@@ -15,7 +15,7 @@ public interface IApplicationManager extends Component {
 	 * 
 	 * @return
 	 */
-	void registerApplication(BundleContext context);
+	void registerApplication(BundleContext context, ClassLoader classLoader);
 
 	/**
 	 * 

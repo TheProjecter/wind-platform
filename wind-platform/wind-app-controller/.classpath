@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="lib/hib/postgresql-8.3-603.jdbc3.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/hib/hibernate-jpa-2.0-api-1.0.0.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/hib/slf4j-log4j12-1.5.8.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/hib/cglib-2.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/hib/slf4j-api-1.5.8.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/hib/antlr-2.7.6.jar" sourcepath="/home/paulofreitas/.m2/repository/antlr/antlr/2.7.6/antlr-2.7.6-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/hib/commons-collections-3.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/hib/dom4j-1.6.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/hib/hibernate3.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/hib/javassist-3.9.0.GA.jar" sourcepath="/home/paulofreitas/.m2/repository/javassist/javassist/3.9.0.GA/javassist-3.9.0.GA-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/hib/jta-1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/groovy-all-1.7.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/juel-engine.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/juel-2.2.1.jar"/>

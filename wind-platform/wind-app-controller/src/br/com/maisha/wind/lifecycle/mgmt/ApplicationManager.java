@@ -8,7 +8,6 @@ import java.util.PropertyResourceBundle;
 
 import org.apache.log4j.Logger;
 import org.osgi.framework.BundleContext;
-import org.springframework.osgi.util.BundleDelegatingClassLoader;
 
 import br.com.maisha.terra.IClassMaker;
 import br.com.maisha.terra.ITerraCompiler;
@@ -21,8 +20,8 @@ import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.controller.rcp.Activator;
-import br.com.maisha.wind.controller.storage.IStorage;
 import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
+import br.com.maisha.wind.storage.IStorage;
 
 /**
  * 
@@ -57,12 +56,12 @@ public class ApplicationManager implements IApplicationManager {
 	/** Application Controller. */
 	private IApplicationController appCtrl;
 
-	/**
-	 * 
-	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#loadApplication()
+	/*
+	 * (non-Javadoc)
+	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#registerApplication(org.osgi.framework.BundleContext, java.lang.ClassLoader)
 	 */
 	@SuppressWarnings("unchecked")
-	public void registerApplication(BundleContext context) {
+	public void registerApplication(BundleContext context, ClassLoader classLoader) {
 		try {
 
 			log.debug("		Registering Wind Application");
@@ -94,7 +93,8 @@ public class ApplicationManager implements IApplicationManager {
 					}
 				}
 
-				classMaker.makeClasses(persistentStorage.getClassLoader(), app);
+				app.setClassLoader(classLoader);
+				classMaker.makeClasses(classLoader, app);
 			}
 
 			// load it's resource bundles

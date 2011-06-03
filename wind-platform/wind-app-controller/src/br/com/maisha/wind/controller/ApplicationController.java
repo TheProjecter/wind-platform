@@ -44,10 +44,10 @@ import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.controller.model.UserMessage;
 import br.com.maisha.wind.controller.model.UserMessage.MessageKind;
 import br.com.maisha.wind.controller.rcp.Activator;
-import br.com.maisha.wind.controller.storage.IStorage;
 import br.com.maisha.wind.controller.validator.IValidator;
 import br.com.maisha.wind.controller.validator.ValidatorRegistry;
 import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
+import br.com.maisha.wind.storage.IStorage;
 
 /**
  * 
@@ -316,12 +316,12 @@ public class ApplicationController implements IApplicationController {
 	 * @see br.com.maisha.wind.controller.IApplicationController#filter(br.com.maisha.terra.lang.DomainObject)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<ModelReference> filter(DomainObject dobj) {
+	public List<ModelReference> filter(DomainObject dObj) {
 		List<ModelReference> ret = Collections.EMPTY_LIST;
 
 		// procura por operacao "filtro"
 		Operation filterOp = null;
-		List<Operation> ops = dobj.getOperations();
+		List<Operation> ops = dObj.getOperations();
 		for (Operation op : ops) {
 			if (op.getPropertyValue(PropertyInfo.IS_FILTER)) {
 				filterOp = op;
@@ -333,20 +333,14 @@ public class ApplicationController implements IApplicationController {
 			// utiliza operacao filtro
 			ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 			ctx.setOperation(filterOp);
-			ctx.setMeta(dobj);
-			// there is no instance because user just opened the object.
-			ctx.setInstance(null);
+			ctx.setMeta(dObj);
+			ctx.setInstance(createNewInstance(dObj));
 
 			runOperation(ctx);
 			ret = ctx.getGridData();
 		} else {
 			// nenhuma operacao filtro especificada... utiliza getAll
-			ret = (List<ModelReference>) persistentStorage.getAll(dobj);
-			if (ret != null && !ret.isEmpty()) {
-				for (ModelReference ref : ret) {
-					ref.setMeta(dobj);
-				}
-			}
+			ret = persistentStorage.getAll(dObj);
 		}
 
 		return ret;

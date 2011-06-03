@@ -10,9 +10,8 @@
 	<osgi:reference id="prefStoreOsgi" 
 		interface="br.com.maisha.wind.common.preferences.IPreferenceStore" />
 	
-	<osgi:service id="persistentStorageOsgi" ref="persistentStorage"
-		interface="br.com.maisha.wind.controller.storage.IStorage">
-	</osgi:service>
+	<osgi:reference id="hibStoreOsgi" 
+		interface="br.com.maisha.wind.storage.IStorage" />
 
 	<osgi:service id="applicationControllerOsgi" ref="applicationController"
 		interface="br.com.maisha.wind.controller.IApplicationController">

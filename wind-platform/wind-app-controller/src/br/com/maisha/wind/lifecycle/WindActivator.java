@@ -20,16 +20,25 @@ public class WindActivator implements BundleActivator {
 	/** Log ref. */
 	private static final Logger log = Logger.getLogger(WindActivator.class);
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext )
+	 */
+	public void start(BundleContext context) throws Exception {
+
+	}
+
 	/**
 	 * 
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
 	 */
-	public void start(BundleContext context) throws Exception {
+	public void start(BundleContext context, ClassLoader classLoader) throws Exception {
 		log.info(context.getBundle().getSymbolicName() + " [" + context.getBundle().getBundleId() + "] Starting... ");
 
 		IApplicationManager appManager = ServiceProvider.getInstance().getService(IApplicationManager.class,
 				Activator.getDefault().getBundle().getBundleContext());
-		appManager.registerApplication(context);
+		appManager.registerApplication(context, classLoader);
 
 		log.info(context.getBundle().getSymbolicName() + " [" + context.getBundle().getBundleId() + "] Started ");
 	}
