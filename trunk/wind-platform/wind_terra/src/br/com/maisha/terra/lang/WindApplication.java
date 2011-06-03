@@ -47,6 +47,9 @@ public class WindApplication {
 	/** Applications bundle context reference. */
 	private BundleContext bundleContext;
 
+	/** This application classloader. */
+	private ClassLoader classLoader;
+	
 	/** */
 	private List<ResourceBundleEntry> resourceBundles = new ArrayList<ResourceBundleEntry>();
 
@@ -205,6 +208,17 @@ public class WindApplication {
 	/** @see #copyright */
 	public void setCopyright(String copyright) {
 		this.copyright = copyright;
+	}
+
+	
+	/** @see #classLoader */
+	public ClassLoader getClassLoader() {
+		return classLoader;
+	}
+
+	/** @see #classLoader */
+	public void setClassLoader(ClassLoader classLoader) {
+		this.classLoader = classLoader;
 	}
 
 	/**

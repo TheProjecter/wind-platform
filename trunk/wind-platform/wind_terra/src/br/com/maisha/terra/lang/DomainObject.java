@@ -188,6 +188,24 @@ public class DomainObject extends TerraClass {
 	}
 
 	/**
+	 * 
+	 * @param ref
+	 * @return
+	 */
+	public Operation getOperation(String ref) {
+		Operation ret = null;
+
+		for (Operation op : this.operations) {
+			if (op.getRef().equals(ref))
+				;
+			ret = op;
+			break;
+		}
+
+		return ret;
+	}
+
+	/**
 	 * Get Method for property missing to use by Groovy.
 	 * <p/>
 	 * This enables you to call <code>meta.<ATTRIBUTE_NAME></code> where "meta"

@@ -35,7 +35,6 @@ public class Property extends TerraClass {
 	private List<ValidValue> validValues = new ArrayList<ValidValue>();
 
 	public Property(String propName, Object value) {
-		super();
 		this.propName = propName;
 		this.value = value;
 	}
