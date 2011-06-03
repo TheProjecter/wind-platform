@@ -8,7 +8,7 @@ import br.com.maisha.wind.lifecycle.WindActivator;
 /**
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
- *
+ * 
  */
 public class Activator extends WindActivator implements BundleActivator {
 
@@ -17,7 +17,7 @@ public class Activator extends WindActivator implements BundleActivator {
 
 	/** The shared instance */
 	private static Activator plugin;
-	
+
 	/**
 	 * The constructor
 	 */
@@ -26,15 +26,17 @@ public class Activator extends WindActivator implements BundleActivator {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
 	 */
 	public void start(BundleContext context) throws Exception {
-		super.start(context);
+		super.start(context, this.getClass().getClassLoader());
 		plugin = this;
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
@@ -44,7 +46,7 @@ public class Activator extends WindActivator implements BundleActivator {
 
 	/**
 	 * Returns the shared instance
-	 *
+	 * 
 	 * @return the shared instance
 	 */
 	public static Activator getDefault() {
