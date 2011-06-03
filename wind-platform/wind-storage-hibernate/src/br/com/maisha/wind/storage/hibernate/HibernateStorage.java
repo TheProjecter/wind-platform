@@ -167,7 +167,8 @@ public class HibernateStorage implements IStorage {
 	 * @param ref
 	 * @return
 	 */
-	public List<?> getAll(DomainObject dObj) {
+	@SuppressWarnings("unchecked")
+	public List<ModelReference> getAll(DomainObject dObj) {
 		String appId = dObj.getApplication().getAppId();
 
 		SessionFactory sessionFactory = getSessionFactory(appId);
@@ -176,7 +177,13 @@ public class HibernateStorage implements IStorage {
 		try {
 
 			Criteria crt = sess.createCriteria(dObj.getObjectClass());
-			return crt.list();
+			List<ModelReference> result = crt.list();
+			if (result != null) {
+				for (ModelReference m : result) {
+					m.setMeta(dObj);
+				}
+			}
+			return result;
 
 		} catch (Exception e) {
 			transaction.rollback();
@@ -188,14 +195,14 @@ public class HibernateStorage implements IStorage {
 		return null;
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param appId
-	 * @param d
-	 * @return
+	 * @see br.com.maisha.wind.storage.IStorage#filter(br.com.maisha.terra.lang.ModelReference, java.lang.String, java.lang.Object[])
 	 */
-	public List<?> filter(DomainObject d, String query, Object... param) {
-		String appId = d.getApplication().getAppId();
+	@SuppressWarnings("unchecked")
+	public List<ModelReference> filter(ModelReference model, String query, Object... param) {
+		String appId = model.getMeta().getApplication().getAppId();
 
 		SessionFactory sessionFactory = getSessionFactory(appId);
 
@@ -206,7 +213,7 @@ public class HibernateStorage implements IStorage {
 			if (StringUtils.isNotBlank(query)) {
 				Query q = sess.createQuery(query);
 
-				if(param != null){
+				if (param != null) {
 					int x = 0;
 					for (Object p : param) {
 						q.setParameter(x, p);
@@ -214,24 +221,12 @@ public class HibernateStorage implements IStorage {
 					}
 				}
 
-				List<?> result = q.list();
-				if (result != null && result.size() > 0) {
-					if (ModelReference.class.isAssignableFrom(result.get(0)
-							.getClass())) {
-						
-						// sets a reference to it's Domain Object (meta)
-//						List<ModelReference> refLst = (List<ModelReference>) result;
-//						Map<String, Object> context = new HashMap<String, Object>();
-//						context.put("appRegistry", appRegistry);
-//						
-//						for(ModelReference ref : refLst){
-//							context.put("ref", ref);
-//							appCtrl.runScript("${ref.setMeta(appRegistry.getObject(ref.getAppId(), ref.getObjId()))}", context);
-//						}
-//						return refLst;
+				List<ModelReference> result = q.list();
+				if (result != null) {
+					for (ModelReference m : result) {
+						m.setMeta(model.getMeta());
 					}
 				}
-				
 				return result;
 			}
 		} catch (Exception e) {
