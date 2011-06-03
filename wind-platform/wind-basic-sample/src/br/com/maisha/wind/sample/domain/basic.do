@@ -43,6 +43,12 @@ domain_object basic "Basic"{
 		presentation_type: combo
 		validValues: ["Masculino", "Feminino"]
 	}
+	
+	String telefone "Telefone"{
+		x:1
+		y:5
+		mask: dd
+	}
 
 	operation groovy Save "Salvar"{
 		file: br/com/maisha/wind/sample/basic/rule/Save.groovy

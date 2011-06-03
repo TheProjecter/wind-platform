@@ -10,7 +10,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.ModelReference;
@@ -18,6 +17,8 @@ import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.Property.PresentationType;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.controller.model.UserMessage;
+
+import com.maisha.wind.faces.rap.mask.MaskedText;
 
 /**
  * 
@@ -40,8 +41,7 @@ public class TextAttrRender extends BaseAttrRender {
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.attr.IAttributeRender#render(br.com.maisha.terra.lang.Attribute,
-	 *      org.eclipse.swt.widgets.Composite,
-	 *      br.com.maisha.terra.lang.ModelReference)
+	 *      org.eclipse.swt.widgets.Composite, br.com.maisha.terra.lang.ModelReference)
 	 */
 	public void render(Attribute attr, Composite parent, ModelReference modelInstance) {
 		log.debug("Starting render for attr [" + attr + "] ");
@@ -50,7 +50,7 @@ public class TextAttrRender extends BaseAttrRender {
 
 		Label l = createLabel(parent, attr);
 
-		Text text = new Text(parent, SWT.BORDER | SWT.SINGLE);
+		MaskedText text = new MaskedText(parent, SWT.NONE);
 		text.setData(attr.getRef());
 
 		// tooltip
@@ -60,12 +60,12 @@ public class TextAttrRender extends BaseAttrRender {
 
 		Integer maxLength = attr.getPropertyValue(PropertyInfo.MAX_LENGTH);
 		if (maxLength != null) {
-			text.setTextLimit(maxLength);
+			text.getText().setTextLimit(maxLength);
 		}
 
 		String mask = attr.getPropertyValue(PropertyInfo.MASK);
 		if (StringUtils.isNotBlank(mask)) {
-			//text.setMask(mask);
+			text.setMask(mask);
 		}
 
 		GridData gd = getLayoutData();
@@ -82,6 +82,6 @@ public class TextAttrRender extends BaseAttrRender {
 
 		// configure value binding
 		IObservableValue observable = BeansObservables.observeValue(modelInstance, attr.getRef());
-		dbctx.bindValue(SWTObservables.observeText(text, SWT.Modify), observable);
+		dbctx.bindValue(SWTObservables.observeText(text.getText(), SWT.Modify), observable);
 	}
 }
