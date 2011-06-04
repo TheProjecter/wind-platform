@@ -4,6 +4,7 @@
 <ul>
 <li>[Validation Validation]</li>
 <li>[EventsOfDomainObject Domain Object's Events]</li>
+<li>[Maks Masks for Attributes]</li>
 </ul>
 <li>Architeture</li>
 <ul>
