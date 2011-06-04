@@ -22,14 +22,18 @@
 The following wildcards are available for configure your masks:
 
 *#* Number
+
 *`*`* Anything
 
 = Wildcards Examples=
 
 == Generic ==
-mask: '****'*-***'
+mask: `****'*-***`
+
 string: namesdan
+
 result: name's-dan
+
 
 mask: (###) ###-####
 string: 614-777-6094
