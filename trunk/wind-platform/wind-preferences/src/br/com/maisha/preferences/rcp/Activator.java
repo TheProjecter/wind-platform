@@ -23,7 +23,7 @@ public class Activator extends WindActivator implements BundleActivator {
 	 * )
 	 */
 	public void start(BundleContext context) throws Exception {
-		super.start(context);
+		super.start(context, this.getClass().getClassLoader());
 		plugin = this;
 	}
 
