@@ -160,3 +160,6 @@ mask: #,###.##
 string: 4,256.5
 result: 4,256.5
 }}}
+
+=Credits=
+Wind Platform user the [http://www.pengoworks.com/workshop/js/mask/ Mask JavaScript API (v0.4b) ] created by [http://www.pengoworks.com PengoWorks.com]
