@@ -165,7 +165,7 @@ property:	NEWLINE | attr_prop_name ATTRIBUITION (value|expression|array) {
 	
 attr_prop_name: PROPERTY|ATTRIBUTE_PROPERTY;
 
-value	:	(NUMBER | NAME);
+value	:	(NUMBER | NAME | STRING_LITERAL);
 
 expression
 	:	EXPRESSION;

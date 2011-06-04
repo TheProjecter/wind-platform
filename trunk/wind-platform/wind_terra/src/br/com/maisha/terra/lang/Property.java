@@ -3,6 +3,8 @@ package br.com.maisha.terra.lang;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
@@ -37,6 +39,14 @@ public class Property extends TerraClass {
 	public Property(String propName, Object value) {
 		this.propName = propName;
 		this.value = value;
+
+		// verify if the given value is a String with "
+		if (value instanceof String) {
+			String str = (String) value;
+			if (StringUtils.isNotBlank(str) && str.charAt(0) == '"') {
+				this.value = str.substring(1, str.length() - 1);
+			}
+		}
 	}
 
 	public String getPropName() {

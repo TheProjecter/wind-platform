@@ -18,12 +18,15 @@ public final class MaskedTextLCA extends AbstractWidgetLCA {
 	private static final String PARAM_CENTER = "centerLocation";
 	private static final String JS_PROP_MASK = "mask";
 	private static final String PROP_MASK = "mask";
-
+	private static final String JS_PROP_TYPE = "type";
+	private static final String PROP_TYPE = "type";
+	
 	
 	public void preserveValues(final Widget widget) {
 		ControlLCAUtil.preserveValues((Control) widget);
 		IWidgetAdapter adapter = WidgetUtil.getAdapter(widget);
 		adapter.preserve(PROP_MASK, ((MaskedText) widget).getMask());
+		adapter.preserve(PROP_TYPE, ((MaskedText) widget).getType());
 		// only needed for custom variants (theming)
 		WidgetLCAUtil.preserveCustomVariant(widget);
 	}
@@ -56,6 +59,7 @@ public final class MaskedTextLCA extends AbstractWidgetLCA {
 		ControlLCAUtil.writeChanges(gmap);
 		JSWriter writer = JSWriter.getWriterFor(widget);
 		writer.set(PROP_MASK, JS_PROP_MASK, gmap.getMask());
+		writer.set(PROP_TYPE, JS_PROP_TYPE, gmap.getType());
 
 		// only needed for custom variants (theming)
 		WidgetLCAUtil.writeCustomVariant(widget);

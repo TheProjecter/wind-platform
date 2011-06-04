@@ -46,8 +46,6 @@ public class TextAttrRender extends BaseAttrRender {
 	public void render(Attribute attr, Composite parent, ModelReference modelInstance) {
 		log.debug("Starting render for attr [" + attr + "] ");
 
-		// checkNumColumns(parent, attr);
-
 		Label l = createLabel(parent, attr);
 
 		MaskedText text = new MaskedText(parent, SWT.NONE);
@@ -66,6 +64,9 @@ public class TextAttrRender extends BaseAttrRender {
 		String mask = attr.getPropertyValue(PropertyInfo.MASK);
 		if (StringUtils.isNotBlank(mask)) {
 			text.setMask(mask);
+			text.setType((
+					"Integer".equalsIgnoreCase(attr.getType()) ||
+					"Double".equalsIgnoreCase(attr.getType())) ? "number" : "string");
 		}
 
 		GridData gd = getLayoutData();
