@@ -1,0 +1,157 @@
+#summary Describes how to use masks for Attributes
+
+= Example Of Use =
+
+{{{
+	String telefone "Telefone"{
+		x:1
+		y:5
+		mask: "(##) ####-####"
+	}
+	
+	Double salario "Rendimento"{
+		x:1
+		y:6
+		mask: "#,###.#0"
+		width: 160
+	}
+}}}
+
+
+= Wildcards =
+The following wildcards are available for configure your masks:
+
+*#* Number
+*** Anything
+
+= Wildcards Examples=
+
+== Generic ==
+mask: ****'*-***
+string: namesdan
+result: name's-dan
+
+mask: (###) ###-####
+string: 614-777-6094
+result: (614) 777-6094
+
+mask: (###) ###-####
+string: 6147776094
+result: (614) 777-6094
+
+mask: (###) ###-####
+string: 614.777.6094
+result: (614) 777-6094
+
+mask: (###) #x*-####
+string: 6147a76094
+result: (614) 7a7-6094
+
+mask: ###.###.####
+string: 614-777-6094
+result: 614.777.6094
+
+mask: ###/###.####
+string: 614-777-6094
+result: 614/777.6094
+
+mask: phone !#: ###/###.####
+string: 614-777-6094
+result: phone !: 614/777.6094
+
+== Numeric ==
+mask: 0#####.##
+string: 534
+result: 000534
+
+mask: 0#####.00
+string: 534
+result: 000534.00
+
+mask: 0#####.##
+string: 534.23
+result: 000534.23
+
+mask: 000000.##
+string: 534.23
+result: 000534.23
+
+mask: +##,###.##
+string: 534.23
+result: +534.23
+
+mask: #,###.##
+string: 999,034,256.5252
+result: 999,034,256.53
+
+mask: #,###.##
+string: 1,999,034,256.5252
+result: 1,999,034,256.53
+
+mask: #,###.##
+string: 1,034,256.5252
+result: 1,034,256.53
+
+mask: #,###
+string: 1,034,256.5242
+result: 1,034,256
+
+mask: -(#,###.##)
+string: -534.23
+result: (-534.23)
+
+mask: (-#,###.##)
+string: -534.23
+result: (-534.23)
+
+mask: (#,###.##)
+string: -534.23
+result: (534.23)
+
+mask: (#,###.##)
+string: 534.23
+result: 534.23
+
+mask: +#,###.##
+string: 534.23
+result: +534.23
+
+mask: +#,###.##
+string: -534.23
+result: -534.23
+
+mask: $#,###.##
+string: -534.23
+result: -$534.23
+
+mask: #,###.#0
+string: 1,034,256.5242
+result: 1,034,256.52
+
+mask: #,###.##
+string: 4,256.529
+result: 4,256.53
+
+mask: #,###.000000
+string: 4,256.529
+result: 4,256.529000
+
+mask: #,###.0
+string: 4,256.589
+result: 4,256.6
+
+mask: #,###.00
+string: 4,256.5
+result: 4,256.50
+
+mask: #,###.#0
+string: 4,256.5
+result: 4,256.50
+
+mask: $#,###.##
+string: 4,256.5
+result: $4,256.5
+
+mask: #,###.##
+string: 4,256.5
+result: 4,256.5
