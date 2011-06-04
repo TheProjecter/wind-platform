@@ -29,7 +29,6 @@ qx.Class.define( "com.maisha.wind.faces.rap.mask.MaskedText", {
            this._element = document.getElementById(this._id).firstChild.children[1].firstChild;
            this._element.setAttribute("name", this._id + "iptText");
            this._element.setAttribute("id", this._id + "iptText");
-           alert(this.getType());
            new Mask(this.getMask(), this.getType()).attach(this._element);
     	},
     
