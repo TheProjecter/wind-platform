@@ -14,6 +14,10 @@ qx.Class.define( "com.maisha.wind.faces.rap.mask.MaskedText", {
             init : "",
             apply : "load"
         },
+        type : {
+            init : "",
+            apply : "load"
+        },
         text : {
         	init : "",
             apply : "loadText"
@@ -24,9 +28,9 @@ qx.Class.define( "com.maisha.wind.faces.rap.mask.MaskedText", {
     	init : function(){
            this._element = document.getElementById(this._id).firstChild.children[1].firstChild;
            this._element.setAttribute("name", this._id + "iptText");
-           this._element.setAttribute("id", this._id + "iptText");                     
-           oNumberMask = new Mask(this.getMask(), this._id);
-           oNumberMask.attach(this._element);
+           this._element.setAttribute("id", this._id + "iptText");
+           alert(this.getType());
+           new Mask(this.getMask(), this.getType()).attach(this._element);
     	},
     
         load : function() {

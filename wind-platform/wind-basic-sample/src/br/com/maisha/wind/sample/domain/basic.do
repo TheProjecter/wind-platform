@@ -47,7 +47,14 @@ domain_object basic "Basic"{
 	String telefone "Telefone"{
 		x:1
 		y:5
-		mask: dd
+		mask: "(##) ####-####"
+	}
+	
+	Double salario "Rendimento"{
+		x:1
+		y:6
+		mask: "#,###.#0"
+		width: 160
 	}
 
 	operation groovy Save "Salvar"{
