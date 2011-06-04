@@ -29,7 +29,7 @@ The following wildcards are available for configure your masks:
 
 == Generic ==
 {{{
-mask: `****'*-***`
+mask: ****'*-***
 string: namesdan
 result: name's-dan
 
@@ -45,7 +45,7 @@ mask: (###) ###-####
 string: 614.777.6094
 result: (614) 777-6094
 
-mask: (###) #x`*`-####
+mask: (###) #x*-####
 string: 6147a76094
 result: (614) 7a7-6094
 
