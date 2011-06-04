@@ -22,7 +22,7 @@
 The following wildcards are available for configure your masks:
 
 *#* Number
-*'*'* Anything
+*`*`* Anything
 
 = Wildcards Examples=
 
