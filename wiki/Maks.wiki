@@ -28,10 +28,10 @@ The following wildcards are available for configure your masks:
 = Wildcards Examples=
 
 == Generic ==
-  mask: `****'*-***`
-  string: namesdan
-  result: name's-dan
-
+{{{
+mask: `****'*-***`
+string: namesdan
+result: name's-dan
 
 mask: (###) ###-####
 string: 614-777-6094
@@ -60,8 +60,10 @@ result: 614/777.6094
 mask: phone !#: ###/###.####
 string: 614-777-6094
 result: phone !: 614/777.6094
+}}}
 
 == Numeric ==
+{{{
 mask: 0#####.##
 string: 534
 result: 000534
@@ -157,3 +159,4 @@ result: $4,256.5
 mask: #,###.##
 string: 4,256.5
 result: 4,256.5
+}}}
