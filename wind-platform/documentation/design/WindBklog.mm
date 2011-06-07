@@ -4,20 +4,26 @@
 <font BOLD="true" NAME="SansSerif" SIZE="23"/>
 <node CREATED="1306973714712" ID="ID_1258238573" MODIFIED="1306974340713" POSITION="right" TEXT="Faces">
 <font BOLD="true" NAME="SansSerif" SIZE="17"/>
-<node CREATED="1306974134385" ID="ID_1822911466" MODIFIED="1307055772822" TEXT="ComboBox">
-<icon BUILTIN="full-3"/>
-<node CREATED="1306974160433" ID="ID_1067140854" MODIFIED="1306974170512" TEXT="Estrategia de Carregamento"/>
-<node CREATED="1306974171121" ID="ID_1946193836" MODIFIED="1306974184337" TEXT="Bind value ao selecionar obj no grid"/>
+<node CREATED="1306974134385" ID="ID_1822911466" MODIFIED="1307408664396" TEXT="ComboBox">
+<node CREATED="1306974160433" ID="ID_1067140854" MODIFIED="1307408626152" TEXT="Estrategia de Carregamento">
+<icon BUILTIN="button_ok"/>
 </node>
-<node CREATED="1306974186721" ID="ID_1205687686" MODIFIED="1307055765638" TEXT="Mask">
-<icon BUILTIN="full-2"/>
+<node CREATED="1306974171121" ID="ID_1946193836" MODIFIED="1307408629066" TEXT="Bind value ao selecionar obj no grid">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1307408630934" ID="ID_1048951283" MODIFIED="1307408643933" TEXT="Carregamento automatico para relacionamento"/>
+</node>
+<node CREATED="1306974186721" ID="ID_1205687686" MODIFIED="1307209909790" TEXT="Mask">
+<icon BUILTIN="button_ok"/>
 <node CREATED="1306974202157" ID="ID_861165799" MODIFIED="1307194853176" TEXT="Ajustar Lang">
 <icon BUILTIN="button_ok"/>
 </node>
 <node CREATED="1306974212665" ID="ID_773249475" MODIFIED="1307194856199" TEXT="Test">
 <icon BUILTIN="button_ok"/>
 </node>
-<node CREATED="1307063978998" ID="ID_1284318891" MODIFIED="1307064001121" TEXT="Documentar wildcards de mascara"/>
+<node CREATED="1307063978998" ID="ID_1284318891" MODIFIED="1307209273822" TEXT="Documentar wildcards de mascara">
+<icon BUILTIN="button_ok"/>
+</node>
 <node CREATED="1307194766424" ID="ID_727685824" MODIFIED="1307203604651" TEXT="Tipos de mascara built-in (currency, cpf, telefone, etc)">
 <richcontent TYPE="NOTE"><html>
   <head>
@@ -34,8 +40,7 @@
       Al&#233;m disso o usu&#225;rio deve ser capaz de definir mascaras aplicaveis globalmente em seu app. Isso deve ser feito de forma a proporcionar a internacionalizacao, ou seja, deve ser possivel utilizar mascaras configuras em arquivos de mensagens (bundle properties)
     </p>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 </node>
 <node CREATED="1307199189478" ID="ID_1420195898" MODIFIED="1307204790852" TEXT="Obter valor de campo com mascara">
 <icon BUILTIN="button_ok"/>
@@ -52,7 +57,7 @@
 <node CREATED="1307140513773" ID="ID_672705016" MODIFIED="1307140519317" TEXT="Folders and Groups"/>
 <node CREATED="1307140521061" ID="ID_1371316085" MODIFIED="1307140523621" TEXT="Wizard"/>
 <node CREATED="1307204974952" ID="ID_1464170620" MODIFIED="1307204979481" TEXT="Grid">
-<node CREATED="1307204981440" ID="ID_1287652812" MODIFIED="1307205047386" TEXT="Value Hander pra Grid">
+<node CREATED="1307204981440" ID="ID_1287652812" MODIFIED="1307205053809" TEXT="Value Handler pra Grid">
 <richcontent TYPE="NOTE"><html>
   <head>
     
@@ -65,8 +70,7 @@
       Definir propriedades que farao parte da &quot;Chave Funcional&quot; do objeto. Atualmente temos o toString. AJustar esse nome e projetar uma solucao
     </p>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 </node>
 </node>
 </node>
@@ -129,6 +133,7 @@
 </node>
 <node CREATED="1307140479053" ID="ID_1441685963" MODIFIED="1307140487272" TEXT="Unit Tests"/>
 <node CREATED="1307140506109" ID="ID_1314154517" MODIFIED="1307140508704" TEXT="BPM"/>
+<node CREATED="1307210274218" ID="ID_673348641" MODIFIED="1307210277443" TEXT="Desempenho"/>
 </node>
 <node CREATED="1306973870009" ID="ID_796326644" MODIFIED="1306974415134" POSITION="left" TEXT="Lang">
 <font BOLD="true" NAME="SansSerif" SIZE="17"/>
@@ -157,7 +162,7 @@
 </html></richcontent>
 <icon BUILTIN="full-4"/>
 </node>
-<node CREATED="1306974417817" ID="ID_1305493283" MODIFIED="1307055780854" TEXT="Propriedade Value">
+<node CREATED="1306974417817" ID="ID_1305493283" MODIFIED="1307209894414" TEXT="Propriedade Value">
 <richcontent TYPE="NOTE"><html>
   <head>
     
@@ -171,11 +176,8 @@
     </p>
   </body>
 </html></richcontent>
-<icon BUILTIN="full-5"/>
+<icon BUILTIN="button_ok"/>
 </node>
-</node>
-<node CREATED="1306975003266" ID="ID_1465916243" MODIFIED="1307140409765" POSITION="right" TEXT="Controller">
-<font BOLD="true" NAME="SansSerif" SIZE="17"/>
 </node>
 <node CREATED="1307058052396" ID="ID_632189202" MODIFIED="1307058063004" POSITION="left" TEXT="DOC">
 <font BOLD="true" NAME="SansSerif" SIZE="17"/>
