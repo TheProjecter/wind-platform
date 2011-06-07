@@ -1,15 +1,16 @@
 package br.com.maisha.wind.controller.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
 
 /**
- * Encapsulates all information collected during the process of execute an
- * operation.
+ * Encapsulates all information collected during the process of execute an operation.
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
@@ -18,7 +19,7 @@ public class ExecutionContext<T> {
 
 	/** Reference to current meta object. */
 	private DomainObject meta;
-	
+
 	/** Operation to run. */
 	private Operation operation;
 
@@ -27,13 +28,16 @@ public class ExecutionContext<T> {
 
 	/** Message list. */
 	private List<UserMessage> messages = new ArrayList<UserMessage>();
-	
+
 	/** Grid Selection */
 	private List<?> gridSelection = null;
 
 	/** Objects to be displayed in Grid View */
 	private List<ModelReference> gridData = null;
-	
+
+	/** Rules can use this map to store data between executions. */
+	private Map<String, Object> session = new HashMap<String, Object>();
+
 	/** @see #operation */
 	public Operation getOperation() {
 		return operation;
@@ -94,6 +98,14 @@ public class ExecutionContext<T> {
 		this.meta = meta;
 	}
 
-	
-	
+	/** @see #session */
+	public Map<String, Object> getSession() {
+		return session;
+	}
+
+	/** @see #session */
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
+	}
+
 }
