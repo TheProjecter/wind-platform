@@ -3,9 +3,10 @@ package br.com.maisha.wind.faces.render.attr;
 import org.apache.log4j.Logger;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.BeansObservables;
-import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.jface.databinding.viewers.ViewersObservables;
+import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Combo;
@@ -40,13 +41,10 @@ public class ComboboxAttrRender extends BaseAttrRender {
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.attr.IAttributeRender#render(br.com.maisha.terra.lang.Attribute,
-	 *      org.eclipse.swt.widgets.Composite,
-	 *      br.com.maisha.terra.lang.ModelReference)
+	 *      org.eclipse.swt.widgets.Composite, br.com.maisha.terra.lang.ModelReference)
 	 */
 	public void render(Attribute attr, Composite parent, ModelReference modelInstance) {
 		log.debug("Starting render for attr [" + attr + "] ");
-
-		// checkNumColumns(parent, attr);
 
 		Label l = createLabel(parent, attr);
 
@@ -69,6 +67,10 @@ public class ComboboxAttrRender extends BaseAttrRender {
 
 		cb.setEnabled(!attr.getPropertyValue(PropertyInfo.DISABLED));
 
+		ComboViewer cv = new ComboViewer(cb);
+		cv.setContentProvider(new ComboboxContentProvider());
+		cv.setLabelProvider(new ComboboxLabelProvider());
+
 		// configure common bindings
 		DataBindingContext dbctx = configureDataBindings(cb, l, attr);
 
@@ -76,9 +78,15 @@ public class ComboboxAttrRender extends BaseAttrRender {
 		IObservableValue observable = BeansObservables.observeValue(modelInstance, attr.getRef());
 		dbctx.bindValue(WidgetProperties.selection().observe(cb), observable);
 
+		// if there is a valid values property, get the content of it.
 		Property propValidValues = attr.getProperty(PropertyInfo.VALID_VALUES.getPropName());
-		IObservableList modelValue = BeansObservables.observeList(propValidValues, "validValues");
-		dbctx.bindList(WidgetProperties.items().observe(cb), modelValue);
+		if (propValidValues != null) {
+			dbctx.bindValue(ViewersObservables.observeInput(cv), BeansObservables.observeValue(propValidValues, "validValues"));
+		} else {
+			// tries to obtain the content of the indicated rule.
+			ComboboxContentProviderJob job = new ComboboxContentProviderJob("Loading data...", attr, cv);
+			job.schedule();
+		}
 
 	}
 

@@ -56,6 +56,18 @@ domain_object basic "Basic"{
 		mask: "#,###.#0"
 		width: 160
 	}
+	
+	String cidade "Cidade"{
+		x:1
+		y:7
+		presentation_type: combo
+		content: LoadCidades
+	}
+
+	operation groovy LoadCidades "Carregar Cidades"{
+		file: br/com/maisha/wind/sample/basic/rule/LoadCidades.groovy
+		validate: false
+	}
 
 	operation groovy Save "Salvar"{
 		file: br/com/maisha/wind/sample/basic/rule/Save.groovy

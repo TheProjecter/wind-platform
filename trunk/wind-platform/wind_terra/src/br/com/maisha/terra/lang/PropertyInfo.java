@@ -122,6 +122,9 @@ public class PropertyInfo<T> {
 	/** Descricao da propriedade  value */
 	public static final PropertyInfo<String> VALUE = new PropertyInfo<String>("value", null, Object.class, false);	
 	
+	/** Descricao da propriedade  content */
+	public static final PropertyInfo<String> CONTENT = new PropertyInfo<String>("content", null, String.class, false);
+	
 	/** Nome da propriedade. */
 	private String propName;
 
