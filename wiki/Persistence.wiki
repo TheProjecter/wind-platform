@@ -2,7 +2,7 @@
 
 = Supported Operations=
 
-In the examples bellow, *model* is a variable of ModelReference type.
+In the examples bellow, *model* is a reference for ModelReference.
 
 
 Save 
@@ -55,7 +55,5 @@ class GroovyAction{
 }
 
 }}}
-
-
 
 
