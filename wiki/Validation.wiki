@@ -23,7 +23,7 @@ operation python CalculateCapacity "Passengers Capacity"{
 }}}
 
 == Define a validation rule at object level ==
-It is also possible to define validation rules outside of a operation (at object's level). Then this validation rule is available to all operations of that object.
+It is also possible to define validation rules outside of an operation (at object's level). Then this validation rule is available to all operations of that object.
 
 {{{
 
