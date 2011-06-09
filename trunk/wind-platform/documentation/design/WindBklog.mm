@@ -137,7 +137,7 @@
 </node>
 <node CREATED="1306973870009" ID="ID_796326644" MODIFIED="1306974415134" POSITION="left" TEXT="Lang">
 <font BOLD="true" NAME="SansSerif" SIZE="17"/>
-<node CREATED="1306974230014" ID="ID_1481146059" MODIFIED="1307055778542" TEXT="Adicionar niveis de visibilidade">
+<node CREATED="1306974230014" ID="ID_1481146059" MODIFIED="1307584440339" TEXT="Adicionar niveis de visibilidade">
 <richcontent TYPE="NOTE"><html>
   <head>
     
@@ -160,7 +160,7 @@
     </p>
   </body>
 </html></richcontent>
-<icon BUILTIN="full-4"/>
+<icon BUILTIN="button_ok"/>
 </node>
 <node CREATED="1306974417817" ID="ID_1305493283" MODIFIED="1307209894414" TEXT="Propriedade Value">
 <richcontent TYPE="NOTE"><html>
