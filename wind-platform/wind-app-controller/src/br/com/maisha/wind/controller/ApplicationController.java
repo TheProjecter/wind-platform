@@ -30,6 +30,7 @@ import br.com.maisha.terra.lang.Operation;
 import br.com.maisha.terra.lang.Operation.OperationType;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
+import br.com.maisha.terra.lang.PropertyInfo.Visibility;
 import br.com.maisha.terra.lang.Validation;
 import br.com.maisha.terra.lang.ValidationRule;
 import br.com.maisha.terra.lang.WindApplication;
@@ -181,7 +182,7 @@ public class ApplicationController implements IApplicationController {
 			for (Attribute att : meta.getAtts()) {
 				for (Map.Entry<String, Property> prop : att.getProperties().entrySet()) {
 					boolean validate = PropertyInfo.getPropertyInfo(prop.getKey()).isValidate();
-					boolean visible = att.getPropertyValue(PropertyInfo.VISIBLE);
+					boolean visible = att.isAttrVisible(Visibility.EDITION);
 
 					// property validation
 					if (visible && validate) {

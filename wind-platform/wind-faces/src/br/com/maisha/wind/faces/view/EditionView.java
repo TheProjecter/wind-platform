@@ -203,7 +203,7 @@ public class EditionView extends ViewPart implements IRender {
 		final IToolBarManager tbm = getViewSite().getActionBars().getToolBarManager();
 		tbm.removeAll();
 		for (Operation op : model.getOperations()) {
-			if (op.getPropertyValue(PropertyInfo.VISIBLE)) {
+			if (op.getPropertyValue(PropertyInfo.VISIBLE_OP)) {
 				createOperationUI(op, model, tbm);
 			}
 		}

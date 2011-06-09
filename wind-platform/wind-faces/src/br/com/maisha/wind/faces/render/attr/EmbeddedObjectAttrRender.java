@@ -35,6 +35,7 @@ import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Property.PresentationType;
+import br.com.maisha.terra.lang.PropertyInfo.Visibility;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.controller.IApplicationController;
@@ -182,7 +183,7 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 					}
 				}
 
-				if (rAttr.getPropertyValue(PropertyInfo.VISIBLE)) {
+				if (rAttr.isAttrVisible(Visibility.EDITION)) {
 					render.render(rAttr, fields, ref);
 
 					// create grid columns

@@ -63,6 +63,36 @@ domain_object basic "Basic"{
 		presentation_type: combo
 		content: LoadCidades
 	}
+	
+	String edition "Edition"{
+		x:1
+		y:8
+		visible: ["edition"]
+	}
+	
+	String grid "Grid"{
+		x:1
+		y:9
+		visible: ["grid"]
+	}
+	
+	String allT "All"{
+		x:1
+		y:10
+		visible: ["all"]
+	}
+	
+	String none "None"{
+		x:1
+		y:11
+		visible: ["none"]
+	}
+	
+	String gridEdition "gridEdition"{
+		x:1
+		y:12
+		visible: ["grid", "edition"]
+	}
 
 	operation groovy LoadCidades "Carregar Cidades"{
 		file: br/com/maisha/wind/sample/basic/rule/LoadCidades.groovy
