@@ -153,9 +153,6 @@ public abstract class BaseAttrRender implements IAttributeRender {
 	protected DataBindingContext configureDataBindings(Control control, Label label, Attribute attr) {
 
 		final DataBindingContext dbctx = new DataBindingContext();
-
-		
-	
 		
 		// data binding required...
 		if (label != null) {
@@ -169,9 +166,9 @@ public abstract class BaseAttrRender implements IAttributeRender {
 		// data binding visible
 		Property pVis = attr.getProperties().get(PropertyInfo.VISIBLE.getPropName());
 		if (pVis != null) {
-			dbctx.bindValue(SWTObservables.observeVisible(control), BeansObservables.observeValue(pVis, "value"));
+			dbctx.bindValue(SWTObservables.observeVisible(control), BeansObservables.observeValue(attr, "attrVisibleInEdition"));
 			if (label != null) {
-				dbctx.bindValue(SWTObservables.observeVisible(label), BeansObservables.observeValue(pVis, "value"));
+				dbctx.bindValue(SWTObservables.observeVisible(label), BeansObservables.observeValue(attr, "attrVisibleInEdition"));
 			}
 		}
 

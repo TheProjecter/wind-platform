@@ -3,6 +3,8 @@ package br.com.maisha.terra.lang;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.com.maisha.terra.lang.PropertyInfo.Visibility;
+
 /**
  * 
  * @author Paulo
@@ -110,8 +112,8 @@ public class Attribute extends TerraClass {
 		}
 		return null;
 	}
-	
-	public Property getProperty(String propName){
+
+	public Property getProperty(String propName) {
 		if (properties != null && propName != null) {
 			return properties.get(propName);
 		}
@@ -129,15 +131,60 @@ public class Attribute extends TerraClass {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @param type
+	 * @return
+	 */
+	public Boolean isAttrVisible(PropertyInfo.Visibility type) {
 
+		Property vis = getProperty(PropertyInfo.VISIBLE.getPropName());
+
+		if(vis == null){
+			//visibility not declared, use default
+			return true;
+		}
+		
+		if (vis.getValidValues() != null && !vis.getValidValues().isEmpty()) {
+			for (ValidValue vv : vis.getValidValues()) {
+				if (vv.getValue().equalsIgnoreCase(Visibility.NONE.name())) {
+					return false;
+				}
+			}
+
+			for (ValidValue vv : vis.getValidValues()) {
+				if (vv.getValue().equalsIgnoreCase(Visibility.ALL.name())) {
+					return true;
+				}
+			}
+
+			for (ValidValue vv : vis.getValidValues()) {
+				if (vv.getValue().equalsIgnoreCase(type.name())) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Boolean isAttrVisibleInEdition() {
+		return isAttrVisible(Visibility.EDITION);
+	}
 	
-	
+	public Boolean getAttrVisibleInEdition(){
+		return isAttrVisibleInEdition();
+	}
+
 	/**
 	 * Get Method for property missing to use by Groovy.
 	 * <p/>
-	 * This enables you to call <code>def a = attr.required</code>, where "attr"
-	 * is a reference to this class and "required" is a property name. It's
-	 * possible to use any defined in {@link PropertyInfo}.
+	 * This enables you to call <code>def a = attr.required</code>, where "attr" is a reference to this class and "required" is a property
+	 * name. It's possible to use any defined in {@link PropertyInfo}.
 	 * 
 	 * @param name
 	 *            Property name. One of those defined in {@link PropertyInfo}.
@@ -151,9 +198,8 @@ public class Attribute extends TerraClass {
 	/**
 	 * Set Method for property missing to use by Groovy.
 	 * <p/>
-	 * This enables you to call <code>attr.required = true;</code>, where "attr"
-	 * is a reference to this class and "required" is a property name. It's
-	 * possible to use any defined in {@link PropertyInfo}.
+	 * This enables you to call <code>attr.required = true;</code>, where "attr" is a reference to this class and "required" is a property
+	 * name. It's possible to use any defined in {@link PropertyInfo}.
 	 * 
 	 * @param name
 	 *            Property name. One of those defined in {@link PropertyInfo}.

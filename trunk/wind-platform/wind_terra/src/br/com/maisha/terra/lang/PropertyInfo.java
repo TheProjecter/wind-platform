@@ -14,6 +14,10 @@ import java.util.Map;
  */
 public class PropertyInfo<T> {
 
+	public static enum Visibility {
+		EDITION, GRID, NONE, ALL
+	}
+
 	/** Holds all PropertyInfo of the language. */
 	private static Map<String, PropertyInfo<?>> pInfoMap = new HashMap<String, PropertyInfo<?>>();
 
@@ -30,23 +34,19 @@ public class PropertyInfo<T> {
 	public static final PropertyInfo<Integer> ROW_SPAN = new PropertyInfo<Integer>("rowspan", 1, Integer.class, false);
 
 	/** Descricao da propriedade "presentation_type". */
-	public static final PropertyInfo<String> PRESENTATION_TYPE = new PropertyInfo<String>("presentation_type", "",
-			String.class, false);
+	public static final PropertyInfo<String> PRESENTATION_TYPE = new PropertyInfo<String>("presentation_type", "", String.class, false);
 
 	/** Descricao da propriedade validation */
 	public static final PropertyInfo<String> VALIDATION = new PropertyInfo<String>("validation", "", String.class, true);
 
 	/** Descricao da propriedade required */
-	public static final PropertyInfo<Boolean> REQUIRED = new PropertyInfo<Boolean>("required", false, Boolean.class,
-			true);
+	public static final PropertyInfo<Boolean> REQUIRED = new PropertyInfo<Boolean>("required", false, Boolean.class, true);
 
 	/** Descricao da propriedade max_length */
-	public static final PropertyInfo<Integer> MAX_LENGTH = new PropertyInfo<Integer>("max_length", null, Integer.class,
-			true);
+	public static final PropertyInfo<Integer> MAX_LENGTH = new PropertyInfo<Integer>("max_length", null, Integer.class, true);
 
 	/** Descricao da propriedade min_length */
-	public static final PropertyInfo<Integer> MIN_LENGTH = new PropertyInfo<Integer>("min_length", null, Integer.class,
-			true);
+	public static final PropertyInfo<Integer> MIN_LENGTH = new PropertyInfo<Integer>("min_length", null, Integer.class, true);
 
 	/** Descricao da propriedade range */
 	public static final PropertyInfo<String> RANGE = new PropertyInfo<String>("range", "", String.class, true);
@@ -55,11 +55,14 @@ public class PropertyInfo<T> {
 	public static final PropertyInfo<String> MASK = new PropertyInfo<String>("mask", "", String.class, false);
 
 	/** Descricao da propriedade disabled */
-	public static final PropertyInfo<Boolean> DISABLED = new PropertyInfo<Boolean>("disabled", false, Boolean.class,
-			false);
+	public static final PropertyInfo<Boolean> DISABLED = new PropertyInfo<Boolean>("disabled", false, Boolean.class, false);
 
-	/** Descricao da propriedade visible */
-	public static final PropertyInfo<Boolean> VISIBLE = new PropertyInfo<Boolean>("visible", true, Boolean.class, false);
+	/** Descricao da propriedade visible para atributos */
+	public static final PropertyInfo<ValidValue[]> VISIBLE = new PropertyInfo<ValidValue[]>("visible", new ValidValue[] { new ValidValue(
+			"all") }, ValidValue[].class, false);
+
+	/** Descricao da propriedade visible para operations */
+	public static final PropertyInfo<Boolean> VISIBLE_OP = new PropertyInfo<Boolean>("visible", true, Boolean.class, false);
 
 	/** Descricao da propriedade icon */
 	public static final PropertyInfo<String> ICON = new PropertyInfo<String>("icon", null, String.class, false);
@@ -80,8 +83,7 @@ public class PropertyInfo<T> {
 	public static final PropertyInfo<String> FILE = new PropertyInfo<String>("file", null, String.class, false);
 
 	/** Descricao da propriedade validWhen */
-	public static final PropertyInfo<String> VALID_WHEN = new PropertyInfo<String>("validWhen", null, String.class,
-			false);
+	public static final PropertyInfo<String> VALID_WHEN = new PropertyInfo<String>("validWhen", null, String.class, false);
 
 	/** Descricao da propriedade tooltip */
 	public static final PropertyInfo<String> TOOLTIP = new PropertyInfo<String>("tooltip", null, String.class, false);
@@ -90,41 +92,36 @@ public class PropertyInfo<T> {
 	public static final PropertyInfo<String> ONTOMANY = new PropertyInfo<String>("onetomany", null, String.class, false);
 
 	/** Descricao da propriedade manytoone */
-	public static final PropertyInfo<String> MANYTOONE = new PropertyInfo<String>("manytoone", null, String.class,
-			false);
+	public static final PropertyInfo<String> MANYTOONE = new PropertyInfo<String>("manytoone", null, String.class, false);
 
 	/** Descricao da propriedade transient */
-	public static final PropertyInfo<Boolean> TRANSIENT = new PropertyInfo<Boolean>("transient", false, Boolean.class,
-			false);
+	public static final PropertyInfo<Boolean> TRANSIENT = new PropertyInfo<Boolean>("transient", false, Boolean.class, false);
 
 	/** Descricao da propriedade toString */
-	public static final PropertyInfo<Boolean> TOSTRING = new PropertyInfo<Boolean>("toString", false, Boolean.class,
-			false);
+	public static final PropertyInfo<Boolean> TOSTRING = new PropertyInfo<Boolean>("toString", false, Boolean.class, false);
 
 	/** Descricao da propriedade open_filtering */
-	public static final PropertyInfo<Boolean> OPEN_FILTERING = new PropertyInfo<Boolean>("open_filtering", false, Boolean.class,
-			false);
-	
+	public static final PropertyInfo<Boolean> OPEN_FILTERING = new PropertyInfo<Boolean>("open_filtering", false, Boolean.class, false);
+
 	/** Descricao da propriedade is_filter */
-	public static final PropertyInfo<Boolean> IS_FILTER = new PropertyInfo<Boolean>("is_filter", false, Boolean.class,
-			false);
-	
+	public static final PropertyInfo<Boolean> IS_FILTER = new PropertyInfo<Boolean>("is_filter", false, Boolean.class, false);
+
 	/** Descricao da propriedade validate */
-	public static final PropertyInfo<Boolean> VALIDATE = new PropertyInfo<Boolean>("validate", true, Boolean.class,
-			false);	
-	
+	public static final PropertyInfo<Boolean> VALIDATE = new PropertyInfo<Boolean>("validate", true, Boolean.class, false);
+
 	/** Descricao da propriedade event_handler */
 	public static final PropertyInfo<String> EVENT_HANDLER = new PropertyInfo<String>("event_handler", null, String.class, false);
-	
+
 	/** Descricao da propriedade validValues */
-	public static final PropertyInfo<List<ValidValue>> VALID_VALUES = new PropertyInfo<List<ValidValue>>("validValues", new ArrayList<ValidValue>(), List.class, false);
-	
-	/** Descricao da propriedade  value */
-	public static final PropertyInfo<String> VALUE = new PropertyInfo<String>("value", null, Object.class, false);	
-	
-	/** Descricao da propriedade  content */
+	public static final PropertyInfo<List<ValidValue>> VALID_VALUES = new PropertyInfo<List<ValidValue>>("validValues",
+			new ArrayList<ValidValue>(), List.class, false);
+
+	/** Descricao da propriedade value */
+	public static final PropertyInfo<String> VALUE = new PropertyInfo<String>("value", null, Object.class, false);
+
+	/** Descricao da propriedade content */
 	public static final PropertyInfo<String> CONTENT = new PropertyInfo<String>("content", null, String.class, false);
-	
+
 	/** Nome da propriedade. */
 	private String propName;
 
