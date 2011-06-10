@@ -68,7 +68,7 @@ public class EditionView extends ViewPart implements IRender {
 		// object contents panel
 		this.contents = new Composite(parent, SWT.NONE);
 		this.contents.setLayout(new GridLayout(1, false));
-		
+
 		this.presProvider = ServiceProvider.getInstance().getService(IPresentationProvider.class,
 				Activator.getDefault().getBundle().getBundleContext());
 
@@ -91,7 +91,7 @@ public class EditionView extends ViewPart implements IRender {
 	 * @see br.com.maisha.wind.faces.render.IRender#getModelLevel()
 	 */
 	public LevelType[] getModelLevel() {
-		return new LevelType[]{ LevelType.Object };
+		return new LevelType[] { LevelType.Object };
 	}
 
 	/**
@@ -102,10 +102,10 @@ public class EditionView extends ViewPart implements IRender {
 		if (LevelType.Object.equals(level) && ChangeType.InstanceOpened.equals(ct)) {
 			log.debug("Loading instance in the EditionView... ");
 			BeanUtils.copyProperties(model, modelInstance);
-		} else if(LevelType.Object.equals(level) && ChangeType.ObjectOpen.equals(ct)){
+		} else if (LevelType.Object.equals(level) && ChangeType.ObjectOpen.equals(ct)) {
 			try {
 				log.debug("Opening [" + model + "] in the EditionView... ");
-				
+
 				final DomainObject object = (DomainObject) model;
 				setPartName(object.getLabel());
 
@@ -225,8 +225,7 @@ public class EditionView extends ViewPart implements IRender {
 		IAttributeRender attrRender = presProvider.getAttributeRender(presentationType);
 		if (attrRender == null) {
 			// try to use TEXT as default...
-			log.debug("Render for the given representation type [" + presentationType + "] not found... "
-					+ "trying to use default...");
+			log.debug("Render for the given representation type [" + presentationType + "] not found... " + "trying to use default...");
 			attrRender = presProvider.getAttributeRender(Property.PresentationType.TEXT.getValue());
 
 			if (attrRender == null) {
@@ -257,7 +256,7 @@ public class EditionView extends ViewPart implements IRender {
 	private Attribute createInvisibleAttr() {
 		Attribute invisible = new Attribute(null, null, "Invisible");
 		invisible.setProperties(new HashMap<String, Property>());
-		Property visibility = new Property(PropertyInfo.VISIBLE.getPropName(), false);
+		Property visibility = new Property(PropertyInfo.VISIBLE_IN_EDITION.getPropName(), false);
 		invisible.getProperties().put(visibility.getPropName(), visibility);
 		return invisible;
 	}
@@ -273,12 +272,12 @@ public class EditionView extends ViewPart implements IRender {
 		IAction act = new BaseAction(op, modelInstance);
 		tbm.add(act);
 	}
-	
+
 	/**
 	 * 
 	 */
-	private void configureDefaultToolBar(DomainObject object){
-		IToolBarManager  tbm = getViewSite().getActionBars().getToolBarManager();
+	private void configureDefaultToolBar(DomainObject object) {
+		IToolBarManager tbm = getViewSite().getActionBars().getToolBarManager();
 		IAction clearEditionView = new ClearEditionViewAction(object, modelInstance);
 		tbm.add(clearEditionView);
 	}
