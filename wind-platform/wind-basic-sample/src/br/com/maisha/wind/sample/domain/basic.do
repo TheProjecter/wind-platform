@@ -67,32 +67,25 @@ domain_object basic "Basic"{
 	String edition "Edition"{
 		x:1
 		y:8
-		visible: ["edition"]
+		visibleInEdition: true
+		visibleInGrid: false
 	}
 	
 	String grid "Grid"{
 		x:1
 		y:9
-		visible: ["grid"]
+		visibleInEdition: false
+		visibleInGrid: true
 	}
 	
-	String allT "All"{
-		x:1
-		y:10
-		visible: ["all"]
-	}
 	
 	String none "None"{
 		x:1
 		y:11
-		visible: ["none"]
+		visibleInEdition: false
+		visibleInGrid: false
 	}
 	
-	String gridEdition "gridEdition"{
-		x:1
-		y:12
-		visible: ["grid", "edition"]
-	}
 
 	operation groovy LoadCidades "Carregar Cidades"{
 		file: br/com/maisha/wind/sample/basic/rule/LoadCidades.groovy

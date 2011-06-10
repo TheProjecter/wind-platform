@@ -164,11 +164,11 @@ public abstract class BaseAttrRender implements IAttributeRender {
 		}
 
 		// data binding visible
-		Property pVis = attr.getProperties().get(PropertyInfo.VISIBLE.getPropName());
+		Property pVis = attr.getProperties().get(PropertyInfo.VISIBLE_IN_EDITION.getPropName());
 		if (pVis != null) {
-			dbctx.bindValue(SWTObservables.observeVisible(control), BeansObservables.observeValue(attr, "attrVisibleInEdition"));
+			dbctx.bindValue(SWTObservables.observeVisible(control), BeansObservables.observeValue(pVis, "value"));
 			if (label != null) {
-				dbctx.bindValue(SWTObservables.observeVisible(label), BeansObservables.observeValue(attr, "attrVisibleInEdition"));
+				dbctx.bindValue(SWTObservables.observeVisible(label), BeansObservables.observeValue(pVis, "value"));
 			}
 		}
 

@@ -3,8 +3,6 @@ package br.com.maisha.terra.lang;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.com.maisha.terra.lang.PropertyInfo.Visibility;
-
 /**
  * 
  * @author Paulo
@@ -131,54 +129,6 @@ public class Attribute extends TerraClass {
 		return null;
 	}
 
-	/**
-	 * 
-	 * @param type
-	 * @return
-	 */
-	public Boolean isAttrVisible(PropertyInfo.Visibility type) {
-
-		Property vis = getProperty(PropertyInfo.VISIBLE.getPropName());
-
-		if(vis == null){
-			//visibility not declared, use default
-			return true;
-		}
-		
-		if (vis.getValidValues() != null && !vis.getValidValues().isEmpty()) {
-			for (ValidValue vv : vis.getValidValues()) {
-				if (vv.getValue().equalsIgnoreCase(Visibility.NONE.name())) {
-					return false;
-				}
-			}
-
-			for (ValidValue vv : vis.getValidValues()) {
-				if (vv.getValue().equalsIgnoreCase(Visibility.ALL.name())) {
-					return true;
-				}
-			}
-
-			for (ValidValue vv : vis.getValidValues()) {
-				if (vv.getValue().equalsIgnoreCase(type.name())) {
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public Boolean isAttrVisibleInEdition() {
-		return isAttrVisible(Visibility.EDITION);
-	}
-	
-	public Boolean getAttrVisibleInEdition(){
-		return isAttrVisibleInEdition();
-	}
 
 	/**
 	 * Get Method for property missing to use by Groovy.

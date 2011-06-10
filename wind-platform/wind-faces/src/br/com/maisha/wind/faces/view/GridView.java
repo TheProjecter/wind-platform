@@ -30,7 +30,6 @@ import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.PropertyInfo;
-import br.com.maisha.terra.lang.PropertyInfo.Visibility;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
@@ -158,7 +157,7 @@ public class GridView extends ViewPart implements IRender {
 				map = new HashMap<Integer, String>();
 				int i = 0;
 				for (Attribute attr : dObj.getAtts()) {
-					if(!attr.isAttrVisible(Visibility.GRID)){
+					if(!attr.getPropertyValue(PropertyInfo.VISIBLE_IN_GRID)){
 						continue;
 					}
 					

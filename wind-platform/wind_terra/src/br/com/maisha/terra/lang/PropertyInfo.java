@@ -57,9 +57,11 @@ public class PropertyInfo<T> {
 	/** Descricao da propriedade disabled */
 	public static final PropertyInfo<Boolean> DISABLED = new PropertyInfo<Boolean>("disabled", false, Boolean.class, false);
 
-	/** Descricao da propriedade visible para atributos */
-	public static final PropertyInfo<ValidValue[]> VISIBLE = new PropertyInfo<ValidValue[]>("visible", new ValidValue[] { new ValidValue(
-			"all") }, ValidValue[].class, false);
+	/** Descricao da propriedade visible para atributos na area de edicao */
+	public static final PropertyInfo<Boolean> VISIBLE_IN_EDITION = new PropertyInfo<Boolean>("visibleInEdition", true, Boolean.class, false);
+
+	/** Descricao da propriedade visible para atributos no grid */
+	public static final PropertyInfo<Boolean> VISIBLE_IN_GRID = new PropertyInfo<Boolean>("visibleInGrid", true, Boolean.class, false);
 
 	/** Descricao da propriedade visible para operations */
 	public static final PropertyInfo<Boolean> VISIBLE_OP = new PropertyInfo<Boolean>("visible", true, Boolean.class, false);

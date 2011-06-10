@@ -33,9 +33,8 @@ import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Property;
-import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Property.PresentationType;
-import br.com.maisha.terra.lang.PropertyInfo.Visibility;
+import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.controller.IApplicationController;
@@ -65,9 +64,9 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 	/** */
 	private HashSet<Object> set = new HashSet<Object>();
 
-	/** */ 
+	/** */
 	IObservableSet gridSet = null;
-	
+
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.attr.IAttributeRender#getPresentationType()
@@ -79,8 +78,7 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.attr.IAttributeRender#render(br.com.maisha.terra.lang.Attribute,
-	 *      org.eclipse.swt.widgets.Composite,
-	 *      br.com.maisha.terra.lang.ModelReference)
+	 *      org.eclipse.swt.widgets.Composite, br.com.maisha.terra.lang.ModelReference)
 	 */
 	public void render(Attribute attr, Composite parent, ModelReference modelInstance) {
 		try {
@@ -90,8 +88,7 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 			IPresentationProvider presentation = ServiceProvider.getInstance().getService(IPresentationProvider.class,
 					Activator.getDefault().getBundle().getBundleContext());
 
-			final DomainObject related = registry.getObject(attr.getDomainObject().getApplication().getAppId(), attr
-					.getType());
+			final DomainObject related = registry.getObject(attr.getDomainObject().getApplication().getAppId(), attr.getType());
 
 			new Label(parent, SWT.NONE);
 
@@ -183,7 +180,7 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 					}
 				}
 
-				if (rAttr.isAttrVisible(Visibility.EDITION)) {
+				if (rAttr.getPropertyValue(PropertyInfo.VISIBLE_IN_GRID)) {
 					render.render(rAttr, fields, ref);
 
 					// create grid columns
@@ -203,7 +200,7 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 			grid.addSelectionChangedListener(new ISelectionChangedListener() {
 				public void selectionChanged(SelectionChangedEvent event) {
 					IStructuredSelection sel = (IStructuredSelection) event.getSelection();
-					if(sel != null && sel.size() > 0){
+					if (sel != null && sel.size() > 0) {
 						seletedObject = sel.getFirstElement();
 						BeanUtils.copyProperties(seletedObject, ref);
 					}
@@ -250,8 +247,7 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 		}
 
 		/**
-		 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object,
-		 *      int)
+		 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object, int)
 		 */
 		public Image getColumnImage(Object element, int columnIndex) {
 			return null;
@@ -259,8 +255,7 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 
 		/**
 		 * 
-		 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object,
-		 *      int)
+		 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
 		 */
 		public String getColumnText(Object element, int columnIndex) {
 			return appCtrl.getObjectValue(element, attNames.get(columnIndex)) + "";
