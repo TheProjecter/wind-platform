@@ -24,7 +24,7 @@
 <node CREATED="1307063978998" ID="ID_1284318891" MODIFIED="1307209273822" TEXT="Documentar wildcards de mascara">
 <icon BUILTIN="button_ok"/>
 </node>
-<node CREATED="1307194766424" ID="ID_727685824" MODIFIED="1307203604651" TEXT="Tipos de mascara built-in (currency, cpf, telefone, etc)">
+<node CREATED="1307194766424" ID="ID_727685824" MODIFIED="1307667477262" TEXT="Tipos de mascara built-in (currency, cpf, telefone, etc)">
 <richcontent TYPE="NOTE"><html>
   <head>
     
@@ -41,23 +41,26 @@
     </p>
   </body>
 </html></richcontent>
+<icon BUILTIN="full-2"/>
 </node>
 <node CREATED="1307199189478" ID="ID_1420195898" MODIFIED="1307204790852" TEXT="Obter valor de campo com mascara">
 <icon BUILTIN="button_ok"/>
 </node>
 </node>
-<node CREATED="1307061957485" ID="ID_1520458177" MODIFIED="1307062035243" TEXT="Misc">
-<icon BUILTIN="idea"/>
+<node CREATED="1307061957485" ID="ID_1520458177" MODIFIED="1307667399253" TEXT="Misc">
+<icon BUILTIN="full-1"/>
 <node CREATED="1307061966298" ID="ID_1045277104" MODIFIED="1307061984734" TEXT="Limpar area de edicao ap&#xf3;s executar operacao"/>
 <node CREATED="1307061986069" ID="ID_71183347" MODIFIED="1307061993125" TEXT="Bloquear area de edicao ao executar op"/>
 <node CREATED="1307061994293" ID="ID_412488940" MODIFIED="1307062001871" TEXT="Botao limpar edition view"/>
 <node CREATED="1307062035861" ID="ID_994022818" MODIFIED="1307062060417" TEXT="Botoes limpar e exportar no Log View"/>
 <node CREATED="1307062080317" ID="ID_1491367609" MODIFIED="1307062095077" TEXT="Executar operacao &quot;Abrir Filtrando&quot; como job"/>
 </node>
-<node CREATED="1307140513773" ID="ID_672705016" MODIFIED="1307140519317" TEXT="Folders and Groups"/>
+<node CREATED="1307140513773" ID="ID_672705016" MODIFIED="1307667485493" TEXT="Folders and Groups">
+<icon BUILTIN="full-3"/>
+</node>
 <node CREATED="1307140521061" ID="ID_1371316085" MODIFIED="1307140523621" TEXT="Wizard"/>
 <node CREATED="1307204974952" ID="ID_1464170620" MODIFIED="1307204979481" TEXT="Grid">
-<node CREATED="1307204981440" ID="ID_1287652812" MODIFIED="1307205053809" TEXT="Value Handler pra Grid">
+<node CREATED="1307204981440" ID="ID_1287652812" MODIFIED="1307667581261" TEXT="Value Handler pra Grid">
 <richcontent TYPE="NOTE"><html>
   <head>
     
@@ -71,6 +74,7 @@
     </p>
   </body>
 </html></richcontent>
+<icon BUILTIN="full-4"/>
 </node>
 </node>
 </node>
@@ -103,14 +107,14 @@
 </html></richcontent>
 <icon BUILTIN="button_ok"/>
 </node>
-<node CREATED="1306976243042" ID="ID_69842408" MODIFIED="1306976344878" TEXT="Criar select no ExecutionContext">
+<node CREATED="1306976243042" ID="ID_69842408" MODIFIED="1307667569656" TEXT="Criar select no ExecutionContext">
 <richcontent TYPE="NOTE"><html>
   <head>
     
   </head>
   <body>
     <p>
-      Um metodo deve ser criado e associado ao ExecutionContext com proposito de executar selects diversos.
+      Um metodo deve ser criado e associado ao ExecutionContext com proposito de executar selects (SQL) diversos.
     </p>
   </body>
 </html></richcontent>
