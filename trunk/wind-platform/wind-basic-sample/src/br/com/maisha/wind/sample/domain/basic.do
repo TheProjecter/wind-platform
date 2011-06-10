@@ -90,6 +90,7 @@ domain_object basic "Basic"{
 	operation groovy LoadCidades "Carregar Cidades"{
 		file: br/com/maisha/wind/sample/basic/rule/LoadCidades.groovy
 		validate: false
+		visible: false
 	}
 
 	operation groovy Save "Salvar"{
