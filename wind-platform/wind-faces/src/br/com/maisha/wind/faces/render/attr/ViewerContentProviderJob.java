@@ -3,8 +3,8 @@ package br.com.maisha.wind.faces.render.attr;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ui.progress.UIJob;
 
 import br.com.maisha.terra.lang.Attribute;
@@ -25,11 +25,11 @@ import br.com.maisha.wind.faces.rcp.Activator;
  */
 public class ViewerContentProviderJob extends UIJob {
 
+	/** Name of the job property that holds the resulting content. */
+	public static final QualifiedName CONTENT = new QualifiedName(ViewerContentProviderJob.class.getSimpleName(), "result");
+
 	/** Attribute represented by a combo */
 	private Attribute attribute;
-
-	/** Viewer to receive content. */
-	private Viewer viewer;
 
 	/** Application Controller ref. */
 	private IApplicationController appCtrl;
@@ -40,10 +40,9 @@ public class ViewerContentProviderJob extends UIJob {
 	 * @param name
 	 *            Job name.
 	 */
-	public ViewerContentProviderJob(String name, Attribute attribute, Viewer viewer) {
+	public ViewerContentProviderJob(String name, Attribute attribute) {
 		super(name);
 		this.attribute = attribute;
-		this.viewer = viewer;
 
 		appCtrl = ServiceProvider.getInstance().getService(IApplicationController.class,
 				Activator.getDefault().getBundle().getBundleContext());
@@ -52,7 +51,7 @@ public class ViewerContentProviderJob extends UIJob {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.ui.progress.UIJob#runInUIThread(org.eclipse.core.runtime.IProgressMonitor)
+	 * @see org.eclipse.core.runtime.jobs.Job#run(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public IStatus runInUIThread(IProgressMonitor monitor) {
 		DomainObject dObj = attribute.getDomainObject();
@@ -77,10 +76,7 @@ public class ViewerContentProviderJob extends UIJob {
 
 		ctx = appCtrl.runOperation(ctx);
 
-		// TODO solucionar
-		if (!viewer.getControl().isDisposed()) {
-			viewer.setInput(ctx.getSession().get("content"));
-		}
+		setProperty(CONTENT, ctx.getSession().get("content"));
 		return Status.OK_STATUS;
 	}
 

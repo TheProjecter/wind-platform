@@ -90,7 +90,7 @@ public class GridView extends ViewPart implements IRender {
 				IStructuredSelection sel = (IStructuredSelection) event.getSelection();
 				if (!sel.isEmpty()) {
 					Map<String, Object> map = (Map<String, Object>) sel.getFirstElement();
-					appCtrl.openObjectInstance((ModelReference) map.get("ref"));
+					appCtrl.openObjectInstance((ModelReference) map.get("REF"));
 				}
 			}
 		});
