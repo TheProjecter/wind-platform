@@ -1,5 +1,8 @@
 package br.com.maisha.wind.faces.render.attr;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -13,9 +16,10 @@ import org.eclipse.swt.widgets.Text;
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
+import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.Property.PresentationType;
 import br.com.maisha.terra.lang.PropertyInfo;
-import br.com.maisha.wind.common.factory.ServiceProvider;
+import br.com.maisha.terra.lang.ValidValue;
 import br.com.maisha.wind.faces.RelatedObjectChooser;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
@@ -26,6 +30,9 @@ import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
  * 
  */
 public class RelatedObjectAttrRender extends BaseAttrRender {
+
+	/** application registry... */
+	private IApplicationRegistry registry;
 
 	/**
 	 * 
@@ -38,28 +45,41 @@ public class RelatedObjectAttrRender extends BaseAttrRender {
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.attr.IAttributeRender#render(br.com.maisha.terra.lang.Attribute,
-	 *      org.eclipse.swt.widgets.Composite,
-	 *      br.com.maisha.terra.lang.ModelReference)
+	 *      org.eclipse.swt.widgets.Composite, br.com.maisha.terra.lang.ModelReference)
 	 */
 	public void render(final Attribute attr, Composite parent, final ModelReference modelInstance) {
+		// queries app registry for the related object...
+		final DomainObject related = registry.getObject(attr.getDomainObject().getApplication().getAppId(), attr.getType());
+
+		List<Attribute> relatedAttrs = new ArrayList<Attribute>();
+		Property presType = attr.getProperty(PropertyInfo.PRESENTATION_TYPE.getPropName());
+		for (ValidValue vv : presType.getValidValues()) {
+			relatedAttrs.add(related.getAttribute(vv.getValue()));
+		}
+
 		createLabel(parent, attr);
 
 		Composite composite = new Composite(parent, SWT.NONE);
 		GridData gd = getLayoutData();
-		composite.setLayoutData(gd);
-
 		setColspan(gd, attr);
 		setRowspan(gd, attr);
+		composite.setLayoutData(gd);
 
-		GridLayout layout = new GridLayout(2, false);
-		layout.marginHeight = 0;
-		layout.marginWidth = 0;
-		layout.verticalSpacing = 0;
-		layout.horizontalSpacing = 0;
+		GridLayout layout = new GridLayout(relatedAttrs.size() + 1, false);
+
+		layout.horizontalSpacing = 5;
 		composite.setLayout(layout);
 
-		final Text text = new Text(composite, SWT.BORDER | SWT.SINGLE);
-		text.setEditable(false);
+		for (Attribute a : relatedAttrs) {
+			Text text = new Text(composite, SWT.BORDER | SWT.SINGLE);
+			text.setEditable(false);
+
+			// dimensions
+			GridData relGd = getLayoutData();
+			setWidth(relGd, a);
+			relGd.heightHint = 13;
+			text.setLayoutData(relGd);
+		}
 
 		Button bt = new Button(composite, SWT.NONE);
 		bt.setImage(Activator.getImageDescriptor("icons/find.gif").createImage());
@@ -67,23 +87,16 @@ public class RelatedObjectAttrRender extends BaseAttrRender {
 		bt.addSelectionListener(new SelectionListener() {
 
 			public void widgetSelected(SelectionEvent e) {
-				// application registry...
-				IApplicationRegistry registry = ServiceProvider.getInstance().getService(IApplicationRegistry.class,
-						Activator.getDefault().getBundle().getBundleContext());
-
-				// queries app registry for the related object...
-				DomainObject related = registry.getObjectByType(attr.getDomainObject().getApplication().getAppId(),
-						attr.getType());
 
 				// opens the dialog for choosing...
-				RelatedObjectChooser chooser = new RelatedObjectChooser(attr, modelInstance, related, e.widget
-						.getDisplay().getActiveShell());
+				RelatedObjectChooser chooser = new RelatedObjectChooser(attr, modelInstance, related, e.widget.getDisplay()
+						.getActiveShell());
 				chooser.setBlockOnOpen(true);
 				int retCode = chooser.open();
 				if (Window.OK == retCode) {
 					ModelReference relatedRef = chooser.getRelated();
 					if (related != null) {
-						text.setText(related.toString());
+						// text.setText(related.toString());
 					}
 				}
 			}
@@ -96,4 +109,13 @@ public class RelatedObjectAttrRender extends BaseAttrRender {
 
 		bt.setEnabled(!attr.getPropertyValue(PropertyInfo.DISABLED));
 	}
+
+	public IApplicationRegistry getRegistry() {
+		return registry;
+	}
+
+	public void setRegistry(IApplicationRegistry registry) {
+		this.registry = registry;
+	}
+
 }

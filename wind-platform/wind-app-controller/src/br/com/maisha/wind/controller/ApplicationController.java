@@ -161,6 +161,8 @@ public class ApplicationController implements IApplicationController {
 		// process grid data
 		modelListener.fireEvent(null, ctx.getGridData(), LevelType.GridData, ChangeType.ValueChanged);
 
+		// create a new opened instance
+		openObjectInstance(createNewInstance(ctx.getMeta()));
 	}
 
 	/**
@@ -365,7 +367,9 @@ public class ApplicationController implements IApplicationController {
 				juelEngine.put("ref", ref);
 				Map<String, Object> map = new HashMap<String, Object>();
 				for (Attribute attr : obj.getAtts()) {
-					map.put(attr.getRef(), juelEngine.eval("${ref." + attr.getRef() + "}"));
+					if (!attr.isGroupAttribute()) {
+						map.put(attr.getRef(), juelEngine.eval("${ref." + attr.getRef() + "}"));
+					}
 				}
 				map.put("ref", ref);
 				lstMap.add(map);

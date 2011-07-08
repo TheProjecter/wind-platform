@@ -24,7 +24,7 @@
 <node CREATED="1307063978998" ID="ID_1284318891" MODIFIED="1307209273822" TEXT="Documentar wildcards de mascara">
 <icon BUILTIN="button_ok"/>
 </node>
-<node CREATED="1307194766424" ID="ID_727685824" MODIFIED="1307667477262" TEXT="Tipos de mascara built-in (currency, cpf, telefone, etc)">
+<node CREATED="1307194766424" ID="ID_727685824" MODIFIED="1309221397019" TEXT="Tipos de mascara built-in (currency, cpf, telefone, etc)">
 <richcontent TYPE="NOTE"><html>
   <head>
     
@@ -41,7 +41,6 @@
     </p>
   </body>
 </html></richcontent>
-<icon BUILTIN="full-2"/>
 </node>
 <node CREATED="1307199189478" ID="ID_1420195898" MODIFIED="1307204790852" TEXT="Obter valor de campo com mascara">
 <icon BUILTIN="button_ok"/>
@@ -49,14 +48,22 @@
 </node>
 <node CREATED="1307061957485" ID="ID_1520458177" MODIFIED="1307667399253" TEXT="Misc">
 <icon BUILTIN="full-1"/>
-<node CREATED="1307061966298" ID="ID_1045277104" MODIFIED="1307061984734" TEXT="Limpar area de edicao ap&#xf3;s executar operacao"/>
+<node CREATED="1307061966298" ID="ID_1045277104" MODIFIED="1308697653858" TEXT="Limpar area de edicao ap&#xf3;s executar operacao">
+<icon BUILTIN="button_ok"/>
+</node>
 <node CREATED="1307061986069" ID="ID_71183347" MODIFIED="1307061993125" TEXT="Bloquear area de edicao ao executar op"/>
-<node CREATED="1307061994293" ID="ID_412488940" MODIFIED="1307062001871" TEXT="Botao limpar edition view"/>
-<node CREATED="1307062035861" ID="ID_994022818" MODIFIED="1307062060417" TEXT="Botoes limpar e exportar no Log View"/>
+<node CREATED="1307061994293" ID="ID_412488940" MODIFIED="1308699131605" TEXT="Botao limpar edition view">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1307062035861" ID="ID_994022818" MODIFIED="1308706096129" TEXT="Botoes limpar e exportar no Log View">
+<icon BUILTIN="button_ok"/>
+</node>
 <node CREATED="1307062080317" ID="ID_1491367609" MODIFIED="1307062095077" TEXT="Executar operacao &quot;Abrir Filtrando&quot; como job"/>
 </node>
-<node CREATED="1307140513773" ID="ID_672705016" MODIFIED="1307667485493" TEXT="Folders and Groups">
-<icon BUILTIN="full-3"/>
+<node CREATED="1307140513773" ID="ID_672705016" MODIFIED="1308620463514" TEXT="Folders and Groups">
+<icon BUILTIN="button_ok"/>
+<node CREATED="1308695314716" ID="ID_1361853196" MODIFIED="1308695328030" TEXT="Ordem no grid"/>
+<node CREATED="1308695328916" ID="ID_1658362116" MODIFIED="1308695332167" TEXT="Testes gerais"/>
 </node>
 <node CREATED="1307140521061" ID="ID_1371316085" MODIFIED="1307140523621" TEXT="Wizard"/>
 <node CREATED="1307204974952" ID="ID_1464170620" MODIFIED="1307204979481" TEXT="Grid">
@@ -185,7 +192,17 @@
 </node>
 <node CREATED="1307058052396" ID="ID_632189202" MODIFIED="1307058063004" POSITION="left" TEXT="DOC">
 <font BOLD="true" NAME="SansSerif" SIZE="17"/>
-<node CREATED="1307058066556" ID="ID_1620333194" MODIFIED="1307058086620" TEXT="Documentar Storage System (Blog It)"/>
+<node CREATED="1307058066556" ID="ID_1620333194" MODIFIED="1308839309018" TEXT="Documentar Storage System (Blog It)">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1309137095517" ID="ID_294428370" MODIFIED="1309137103407" TEXT="Anatomia de um Domain Obect"/>
+<node CREATED="1309137103825" ID="ID_47401920" MODIFIED="1309137107252" TEXT="Propriedades"/>
+<node CREATED="1309482391896" ID="ID_1849202661" MODIFIED="1309482396875" TEXT="Regras"/>
+</node>
+<node CREATED="1309821762158" ID="ID_14872913" MODIFIED="1309821823721" POSITION="left" TEXT="Help">
+<font BOLD="true" NAME="SansSerif" SIZE="17"/>
+<node CREATED="1309821769034" ID="ID_1029547576" MODIFIED="1309821775192" TEXT="CheatSheets"/>
+<node CREATED="1309821778057" ID="ID_1536146185" MODIFIED="1309821783467" TEXT="Help (F1)"/>
 </node>
 <node CREATED="1307140351985" ID="ID_1077183780" MODIFIED="1307140415693" POSITION="right" TEXT="Controle de Acesso">
 <font BOLD="true" NAME="SansSerif" SIZE="17"/>

@@ -169,7 +169,8 @@ public class ClassMaker implements IClassMaker {
 		try {
 			String field = "";
 			for (Attribute att : obj.getAtts()) {
-				if (!att.getPropertyValue(PropertyInfo.TRANSIENT)) {
+				if (!att.getPropertyValue(PropertyInfo.TRANSIENT) && !"Group".equals(att.getType())
+						&& !PresentationType.GROUP.equals(att.getPropertyValue(PropertyInfo.PRESENTATION_TYPE))) {
 
 					// many to one
 					String manytoone = att.getPropertyValue(PropertyInfo.MANYTOONE);

@@ -1,8 +1,3 @@
-import br.com.maisha.wind.controller.IApplicationController;
-import br.com.maisha.wind.common.factory.ServiceProvider;
-import br.com.maisha.wind.common.preferences.IPreferenceStore;
-
-
 class Save{
 
 	def ctx

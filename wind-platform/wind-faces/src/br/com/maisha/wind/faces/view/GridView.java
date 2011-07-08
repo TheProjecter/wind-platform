@@ -1,7 +1,6 @@
 package br.com.maisha.wind.faces.view;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,18 +14,11 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.part.ViewPart;
 
-import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.PropertyInfo;
@@ -42,9 +34,12 @@ import br.com.maisha.wind.faces.action.PrintAction;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.render.IRender;
 
+/**
+ * 
+ * @author Paulo Freitas (pfreitas1@gmail.com)
+ * 
+ */
 public class GridView extends ViewPart implements IRender {
-
-	public static final String ATTRIBUTE_COLUMN_DATA_KEY = "attr";
 
 	/** View's ID. */
 	public static final String ID = "br.com.maisha.wind.faces.view.gridView";
@@ -60,9 +55,6 @@ public class GridView extends ViewPart implements IRender {
 
 	/** Current Domain Object. */
 	private DomainObject dObj;
-
-	/** Grid View Column Map (Used to configure labels). */
-	private Map<Integer, String> map;
 
 	/** Action for send content to the printer. */
 	private PrintAction printAction;
@@ -140,72 +132,21 @@ public class GridView extends ViewPart implements IRender {
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.IRender#render(br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType,
-	 *      br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType,
-	 *      java.lang.Object)
+	 *      br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType, java.lang.Object)
 	 */
 	public void render(final LevelType level, final ChangeType ct, final Object model) {
 		if (LevelType.Object.equals(level)) {
-			// objeto aberto...
 
 			if (model instanceof DomainObject) {
 				dObj = (DomainObject) model;
-
-				for (TableColumn col : viewer.getTable().getColumns()) {
-					col.dispose();
-				}
-
-				map = new HashMap<Integer, String>();
-				int i = 0;
-				for (Attribute attr : dObj.getAtts()) {
-					if(!attr.getPropertyValue(PropertyInfo.VISIBLE_IN_GRID)){
-						continue;
-					}
-					
-					TableViewerColumn col = new TableViewerColumn(viewer, SWT.NONE);
-					col.getColumn().setText(attr.getI18nLabel());
-					col.getColumn().setResizable(true);
-					col.getColumn().setMoveable(false);
-					col.getColumn().setData(ATTRIBUTE_COLUMN_DATA_KEY, attr);
-
-					GC gc = new GC(col.getColumn().getParent());
-					Point pt = gc.textExtent(attr.getLabel());
-
-					int width = pt.x + 20;
-					int attrWidth = attr.getPropertyValue(PropertyInfo.WIDTH) / 2;
-					if (attrWidth > width) {
-						width = attrWidth;
-					}
-					col.getColumn().setWidth(width);
-
-					col.getColumn().addSelectionListener(new SelectionListener() {
-
-						public void widgetSelected(SelectionEvent e) {
-							viewer.getTable().setSortColumn((TableColumn) e.getSource());
-							int sortDir = viewer.getTable().getSortDirection();
-							viewer.getTable().setSortDirection(sortDir == SWT.UP ? SWT.DOWN : SWT.UP);
-							viewer.refresh();
-						}
-
-						public void widgetDefaultSelected(SelectionEvent e) {
-							widgetSelected(e);
-						}
-					});
-
-					map.put(i, attr.getRef());
-
-					i++;
-				}
-
-				// configures label provider
-				viewer.setLabelProvider(new GridViewLabelProvider(map));
+				new GridViewColumnProvider(dObj, viewer).createColumns();
 			}
 		}
 
-		if (ct.equals(ChangeType.ObjectOpen)
-				|| (LevelType.GridData.equals(level) && ct.equals(ChangeType.ValueChanged))) {
+		if (ct.equals(ChangeType.ObjectOpen) || (LevelType.GridData.equals(level) && ct.equals(ChangeType.ValueChanged))) {
 			log.debug("Updating grid view... ");
-			LoadGridDataJob job = new LoadGridDataJob(PlatformMessageRegistry.getInstance().getMessage(
-					"wind_faces.gridView.loadData"), level, model, Display.getCurrent());
+			LoadGridDataJob job = new LoadGridDataJob(PlatformMessageRegistry.getInstance().getMessage("wind_faces.gridView.loadData"),
+					level, model, Display.getCurrent());
 			job.schedule();
 		}
 	}
@@ -257,8 +198,7 @@ public class GridView extends ViewPart implements IRender {
 					List<Map<String, Object>> dataMap = appCtrl.toMap(dObj, data);
 					viewer.setInput(dataMap);
 
-					// updates print action - TODO dont think here it's the best
-					// place
+					// updates print action - TODO dont think here it's the best place
 					printAction.configure(dataMap, dObj);
 					exportPDFAction.configure(dataMap, dObj);
 					exportExcelAction.configure(dataMap, dObj);
@@ -266,11 +206,10 @@ public class GridView extends ViewPart implements IRender {
 					// total results
 					String contentDescription = "";
 					if (dataMap.size() > 0) {
-						contentDescription = PlatformMessageRegistry.getInstance().getMessage(
-								"wind_faces.gridview.totalResults", new Object[] { dataMap.size() });
+						contentDescription = PlatformMessageRegistry.getInstance().getMessage("wind_faces.gridview.totalResults",
+								new Object[] { dataMap.size() });
 					} else {
-						contentDescription = PlatformMessageRegistry.getInstance().getMessage(
-								"wind_faces.gridview.noResults");
+						contentDescription = PlatformMessageRegistry.getInstance().getMessage("wind_faces.gridview.noResults");
 					}
 					setContentDescription(contentDescription);
 

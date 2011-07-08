@@ -19,8 +19,7 @@ public class GridViewComparator extends ViewerComparator {
 
 	/**
 	 * 
-	 * @see org.eclipse.jface.viewers.ViewerComparator#compare(org.eclipse.jface.viewers.Viewer,
-	 *      java.lang.Object, java.lang.Object)
+	 * @see org.eclipse.jface.viewers.ViewerComparator#compare(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")
 	public int compare(Viewer viewer, Object e1, Object e2) {
@@ -31,9 +30,9 @@ public class GridViewComparator extends ViewerComparator {
 			TableColumn col = tableViewer.getTable().getSortColumn();
 			int direction = tableViewer.getTable().getSortDirection();
 			int dirMultiplier = direction == SWT.UP ? 1 : -1;
-			
-			if (col != null && col.getData(GridView.ATTRIBUTE_COLUMN_DATA_KEY) != null) {
-				Attribute attr = (Attribute) col.getData(GridView.ATTRIBUTE_COLUMN_DATA_KEY);
+
+			if (col != null && col.getData(GridViewColumnProvider.ATTRIBUTE_COLUMN_DATA_KEY) != null) {
+				Attribute attr = (Attribute) col.getData(GridViewColumnProvider.ATTRIBUTE_COLUMN_DATA_KEY);
 
 				Map<String, Object> map1 = (Map<String, Object>) e1;
 				Map<String, Object> map2 = (Map<String, Object>) e2;
@@ -47,7 +46,7 @@ public class GridViewComparator extends ViewerComparator {
 					} else {
 						ret = one.toString().compareTo(another.toString());
 					}
-					ret = dirMultiplier *  ret;
+					ret = dirMultiplier * ret;
 				}
 			}
 		}

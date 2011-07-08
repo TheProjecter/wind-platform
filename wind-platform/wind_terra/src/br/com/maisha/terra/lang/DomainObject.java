@@ -31,8 +31,10 @@ public class DomainObject extends TerraClass {
 
 	private Map<String, Property> properties = new HashMap<String, Property>();
 
+	private Map<String, Container> containers = new HashMap<String, Container>();
+
 	private CtClass ctClass;
-	
+
 	/** Java class that represents this domain object. */
 	private Class<?> objectClass;
 
@@ -45,6 +47,7 @@ public class DomainObject extends TerraClass {
 		if (!label.trim().isEmpty()) {
 			this.label = label.substring(1, label.length() - 1);
 		}
+
 	}
 
 	public String getRef() {
@@ -177,8 +180,17 @@ public class DomainObject extends TerraClass {
 		return getAttribute(name);
 	}
 
-	
-	
+	public Map<String, Container> getContainers() {
+		return containers;
+	}
+
+	public void setContainers(Map<String, Container> containers) {
+		for(Container c : containers.values()){
+			c.setDomainObject(this);
+		}
+		this.containers = containers;
+	}
+
 	public CtClass getCtClass() {
 		return ctClass;
 	}
@@ -208,9 +220,8 @@ public class DomainObject extends TerraClass {
 	/**
 	 * Get Method for property missing to use by Groovy.
 	 * <p/>
-	 * This enables you to call <code>meta.<ATTRIBUTE_NAME></code> where "meta"
-	 * is a reference to this class and <ATTRIBUTE_NAME> is the name of the
-	 * desired attribute.
+	 * This enables you to call <code>meta.<ATTRIBUTE_NAME></code> where "meta" is a reference to this class and <ATTRIBUTE_NAME> is the
+	 * name of the desired attribute.
 	 * 
 	 * @param name
 	 *            Attribute name.
@@ -218,6 +229,27 @@ public class DomainObject extends TerraClass {
 	 */
 	public Attribute propertyMissing(String name) {
 		return getAttribute(name);
+	}
+
+	/**
+	 * 
+	 * @param ref
+	 */
+	public Container getContainer(String ref) {
+		if (this.containers != null && !this.containers.isEmpty()) {
+			return containers.get(ref);
+		}
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param ref
+	 */
+	public void putContainer(String ref, Container container) {
+		if (this.containers != null) {
+			containers.put(ref, container);
+		}
 	}
 
 	/**

@@ -32,19 +32,19 @@ String.metaClass.success={->
 }
 
 
-String.metaClass.warnWithParam={ param  ->
+String.metaClass.warn={ param  ->
 	messageAPI.warn(model.meta, delegate, param as Object[]);
 }
 
-String.metaClass.infoWithParam={ param  ->
+String.metaClass.info={ param  ->
 	messageAPI.info(model.meta, delegate, param as Object[]);
 }
 
-String.metaClass.successWithParam={ param  ->
+String.metaClass.success={ param  ->
 	messageAPI.success(model.meta, delegate, param as Object[]);
 }
 
-String.metaClass.errorWithParam={ param  ->
+String.metaClass.error={ param  ->
 	messageAPI.error(model.meta, delegate, param as Object[]);
 }
 

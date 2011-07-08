@@ -7,7 +7,7 @@ class Filter{
 
 
 	def execute(){
-		def list = ctx.select(meta, "select b from basic b");
+		def list = model.select("from basic b");
 		ctx.setGridData(list);
 	}
 	

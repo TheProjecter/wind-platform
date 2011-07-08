@@ -7,4 +7,6 @@
 	<osgi:service id="presentationProviderOsgi" ref="presentationProvider"
 		interface="br.com.maisha.wind.faces.IPresentationProvider">
 	</osgi:service>
+	
+		<osgi:reference id="appRegistryOsgi" interface="br.com.maisha.wind.lifecycle.registry.IApplicationRegistry" />
 </beans>
