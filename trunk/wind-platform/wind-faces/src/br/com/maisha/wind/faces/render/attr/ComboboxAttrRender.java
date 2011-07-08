@@ -1,9 +1,13 @@
 package br.com.maisha.wind.faces.render.attr;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.BeansObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.core.runtime.jobs.IJobChangeEvent;
+import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.ViewersObservables;
 import org.eclipse.jface.viewers.ComboViewer;
@@ -68,7 +72,7 @@ public class ComboboxAttrRender extends BaseAttrRender {
 
 		cb.setEnabled(!attr.getPropertyValue(PropertyInfo.DISABLED));
 
-		ComboViewer cv = new ComboViewer(cb);
+		final ComboViewer cv = new ComboViewer(cb);
 		cv.setContentProvider(new ComboboxContentProvider());
 		cv.setLabelProvider(new ComboboxLabelProvider());
 
@@ -86,7 +90,16 @@ public class ComboboxAttrRender extends BaseAttrRender {
 		} else {
 			// tries to obtain the content of the indicated rule.
 			String jobName = PlatformMessageRegistry.getInstance().getMessage("wind_faces.gridView.loadData");
-			ViewerContentProviderJob job = new ViewerContentProviderJob(jobName, attr, cv);
+			ViewerContentProviderJob job = new ViewerContentProviderJob(jobName, attr);
+			job.addJobChangeListener(new JobChangeAdapter() {
+
+				public void done(IJobChangeEvent event) {
+					if (!cv.getControl().isDisposed()) {
+						List<ModelReference> contents = (List<ModelReference>) event.getJob().getProperty(ViewerContentProviderJob.CONTENT);
+						cv.setInput(contents);
+					}
+				}
+			});
 			job.schedule();
 		}
 

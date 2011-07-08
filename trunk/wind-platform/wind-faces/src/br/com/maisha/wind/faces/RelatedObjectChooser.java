@@ -1,9 +1,12 @@
 package br.com.maisha.wind.faces;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.jobs.IJobChangeEvent;
+import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -75,7 +78,7 @@ public class RelatedObjectChooser extends TitleAreaDialog {
 	 * 
 	 * @see org.eclipse.jface.dialogs.TitleAreaDialog#createDialogArea(org.eclipse.swt.widgets.Composite)
 	 */
-	protected Control createDialogArea(Composite parent) {
+	protected Control createDialogArea(final Composite parent) {
 		Composite contents = new Composite(parent, SWT.NONE);
 		contents.setLayout(new GridLayout());
 		GridData layoutData = new GridData(GridData.FILL_BOTH);
@@ -93,16 +96,26 @@ public class RelatedObjectChooser extends TitleAreaDialog {
 		viewer.getTable().setLinesVisible(true);
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			public void selectionChanged(SelectionChangedEvent event) {
+				setErrorMessage(null);
 				IStructuredSelection sel = (IStructuredSelection) event.getSelection();
 				Map<String, Object> map = (Map<String, Object>) sel.getFirstElement();
-				related = (ModelReference) map.get("ref");
+				related = (ModelReference) map.get("REF");
 				log.debug("Selected [" + related + "] ");
 			}
 		});
 		new GridViewColumnProvider(dObj, viewer).createColumns();
 
+		// load contents
 		String jobName = PlatformMessageRegistry.getInstance().getMessage("wind_faces.gridView.loadData");
-		ViewerContentProviderJob job = new ViewerContentProviderJob(jobName, attr, viewer);
+		ViewerContentProviderJob job = new ViewerContentProviderJob(jobName, attr);
+		job.addJobChangeListener(new JobChangeAdapter() {
+			public void done(IJobChangeEvent event) {
+				if (!viewer.getControl().isDisposed()) {
+					List<ModelReference> contents = (List<ModelReference>) event.getJob().getProperty(ViewerContentProviderJob.CONTENT);
+					viewer.setInput(appCtrl.toMap(dObj, contents));
+				}
+			}
+		});
 		job.schedule();
 
 		return contents;
@@ -113,6 +126,12 @@ public class RelatedObjectChooser extends TitleAreaDialog {
 	 * @see org.eclipse.jface.dialogs.Dialog#okPressed()
 	 */
 	protected void okPressed() {
+
+		if (this.related == null) {
+			setErrorMessage(PlatformMessageRegistry.getInstance().getMessage("wind_faces.related.none_selected"));
+			return;
+		}
+
 		Map<String, Object> context = new HashMap<String, Object>();
 		context.put("related", this.related);
 		context.put("dObj", this.instance);
@@ -120,10 +139,6 @@ public class RelatedObjectChooser extends TitleAreaDialog {
 		appCtrl.runScript(" ${dObj.set" + StringUtils.capitalize(attr.getRef()) + "(related) }", context);
 
 		super.okPressed();
-	}
-
-	public ModelReference getRelated() {
-		return related;
 	}
 
 }

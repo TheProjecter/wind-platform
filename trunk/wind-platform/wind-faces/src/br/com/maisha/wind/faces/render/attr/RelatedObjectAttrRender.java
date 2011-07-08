@@ -3,7 +3,10 @@ package br.com.maisha.wind.faces.render.attr;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jface.window.Window;
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.beans.BeansObservables;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -70,6 +73,7 @@ public class RelatedObjectAttrRender extends BaseAttrRender {
 		layout.horizontalSpacing = 5;
 		composite.setLayout(layout);
 
+		final DataBindingContext dbctx = new DataBindingContext();
 		for (Attribute a : relatedAttrs) {
 			Text text = new Text(composite, SWT.BORDER | SWT.SINGLE);
 			text.setEditable(false);
@@ -79,6 +83,9 @@ public class RelatedObjectAttrRender extends BaseAttrRender {
 			setWidth(relGd, a);
 			relGd.heightHint = 13;
 			text.setLayoutData(relGd);
+
+			IObservableValue observable = BeansObservables.observeValue(modelInstance, attr.getRef() + "." + a.getRef());
+			dbctx.bindValue(SWTObservables.observeText(text, SWT.Modify), observable);
 		}
 
 		Button bt = new Button(composite, SWT.NONE);
@@ -87,18 +94,11 @@ public class RelatedObjectAttrRender extends BaseAttrRender {
 		bt.addSelectionListener(new SelectionListener() {
 
 			public void widgetSelected(SelectionEvent e) {
-
 				// opens the dialog for choosing...
 				RelatedObjectChooser chooser = new RelatedObjectChooser(attr, modelInstance, related, e.widget.getDisplay()
 						.getActiveShell());
 				chooser.setBlockOnOpen(true);
-				int retCode = chooser.open();
-				if (Window.OK == retCode) {
-					ModelReference relatedRef = chooser.getRelated();
-					if (related != null) {
-						// text.setText(related.toString());
-					}
-				}
+				chooser.open();
 			}
 
 			public void widgetDefaultSelected(SelectionEvent e) {
@@ -110,10 +110,12 @@ public class RelatedObjectAttrRender extends BaseAttrRender {
 		bt.setEnabled(!attr.getPropertyValue(PropertyInfo.DISABLED));
 	}
 
+	/** @see #registry */
 	public IApplicationRegistry getRegistry() {
 		return registry;
 	}
 
+	/** @see #registry */
 	public void setRegistry(IApplicationRegistry registry) {
 		this.registry = registry;
 	}

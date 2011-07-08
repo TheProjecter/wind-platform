@@ -5,8 +5,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
+import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
-import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.graphics.Image;
 
 import br.com.maisha.terra.lang.Attribute;
@@ -24,7 +25,7 @@ import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
-public class GridViewLabelProvider extends LabelProvider implements ITableLabelProvider {
+public class GridViewLabelProvider extends CellLabelProvider implements ITableLabelProvider {
 
 	/** */
 	private Map<Integer, String> properties;
@@ -48,17 +49,16 @@ public class GridViewLabelProvider extends LabelProvider implements ITableLabelP
 
 	/**
 	 * 
-	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object,
-	 *      int)
+	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object, int)
 	 */
 	public Image getColumnImage(Object element, int columnIndex) {
 		return null;
 	}
 
 	/**
+	 * CellLabelProvider
 	 * 
-	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object,
-	 *      int)
+	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
 	 */
 	@SuppressWarnings("unchecked")
 	public String getColumnText(final Object element, final int columnIndex) {
@@ -120,5 +120,12 @@ public class GridViewLabelProvider extends LabelProvider implements ITableLabelP
 			}
 			return sb.toString();
 		}
+	}
+
+	@Override
+	public void update(ViewerCell cell) {
+		cell.toString();
+		// TODO Auto-generated method stub
+
 	}
 }

@@ -371,7 +371,7 @@ public class ApplicationController implements IApplicationController {
 						map.put(attr.getRef(), juelEngine.eval("${ref." + attr.getRef() + "}"));
 					}
 				}
-				map.put("ref", ref);
+				map.put("REF", ref);
 				lstMap.add(map);
 			}
 		} catch (Exception e) {

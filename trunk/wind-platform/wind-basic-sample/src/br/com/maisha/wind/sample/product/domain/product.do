@@ -61,6 +61,7 @@ domain_object Product "Product"{
 		required: true
 		manytoone: fk_category
 		visibleInGrid: false
+		content: LoadCategory
 	}
 	
 	Group prices "Base Prices"{
