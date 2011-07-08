@@ -23,6 +23,7 @@
 				<entry key="date" value-ref="dateAttrRender" />
 				<entry key="related" value-ref="relatedRender" />
 				<entry key="embedded_object" value-ref="embeddedObjectRender" />
+				<entry key="group" value-ref="attributeGroupRender" />
 			</map>
 		</property>
 	</bean>
@@ -47,10 +48,13 @@
 	<bean name="dateAttrRender"
 		class="br.com.maisha.wind.faces.render.attr.DateTimeAttrRender" />
 	<bean name="relatedRender"
-		class="br.com.maisha.wind.faces.render.attr.RelatedObjectAttrRender" />
+		class="br.com.maisha.wind.faces.render.attr.RelatedObjectAttrRender">
+		<property name="registry" ref="appRegistryOsgi"></property>
+	</bean>
 	<bean name="embeddedObjectRender"
 		class="br.com.maisha.wind.faces.render.attr.EmbeddedObjectAttrRender" />
-
+	<bean name="attributeGroupRender"
+		class="br.com.maisha.wind.faces.render.attr.AttributeGroupRender" />
 
 
 

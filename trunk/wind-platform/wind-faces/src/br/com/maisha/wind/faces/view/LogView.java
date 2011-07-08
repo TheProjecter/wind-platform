@@ -1,13 +1,24 @@
 package br.com.maisha.wind.faces.view;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
@@ -28,6 +39,11 @@ import br.com.maisha.wind.faces.IPresentationProvider;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.render.IRender;
 
+/**
+ * 
+ * @author Paulo Freitas (pfreitas1@gmail.com)
+ * 
+ */
 public class LogView extends ViewPart implements IRender {
 
 	/** View Part ID. */
@@ -45,14 +61,17 @@ public class LogView extends ViewPart implements IRender {
 	/** */
 	private TableViewer viewer;
 
+	/** Action for clear message view. */
+	private IAction clearAllAction;
+
 	/**
 	 * 
 	 * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
 	 */
-	public void createPartControl(Composite parent) {
+	public void createPartControl(final Composite parent) {
 
 		setPartName(PlatformMessageRegistry.getInstance().getMessage("wind_faces.logView.title"));
-		
+
 		IPresentationProvider presentation = ServiceProvider.getInstance().getService(IPresentationProvider.class,
 				Activator.getDefault().getBundle().getBundleContext());
 		presentation.registerRender(this);
@@ -66,7 +85,7 @@ public class LogView extends ViewPart implements IRender {
 		msgCol.getColumn().setMoveable(false);
 
 		TableViewerColumn dateCol = new TableViewerColumn(viewer, SWT.NONE);
-		dateCol.getColumn().setText(PlatformMessageRegistry.getInstance().getMessage("wind_faces.logView.date")); 
+		dateCol.getColumn().setText(PlatformMessageRegistry.getInstance().getMessage("wind_faces.logView.date"));
 		dateCol.getColumn().setWidth(120);
 		dateCol.getColumn().setResizable(true);
 		dateCol.getColumn().setMoveable(false);
@@ -81,8 +100,28 @@ public class LogView extends ViewPart implements IRender {
 		viewer.setLabelProvider(new LogViewLabelProvider());
 		viewer.getTable().setHeaderVisible(true);
 		viewer.getTable().setLinesVisible(true);
+		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+
+			public void selectionChanged(SelectionChangedEvent event) {
+				try {
+					IStructuredSelection structSel = (IStructuredSelection) event.getSelection();
+					ErrorLog log = (ErrorLog) structSel.getFirstElement();
+					StringWriter stack = new StringWriter();
+					PrintWriter pw = new PrintWriter(stack);
+					log.getThrowable().printStackTrace(pw);
+					IStatus status = new Status(IStatus.ERROR, log.getBundleId(), 1, log.getThrowable().getMessage(), log.getThrowable());
+					ErrorDialog.openError(parent.getShell(), log.getThrowable().getMessage(), null, status);
+				} catch (Exception e) {
+					//
+				}
+			}
+		});
 
 		viewer.setInput(new ArrayList<ErrorLog>());
+
+		createActions();
+		IToolBarManager tbManager = getViewSite().getActionBars().getToolBarManager();
+		tbManager.add(clearAllAction);
 
 	}
 
@@ -92,8 +131,7 @@ public class LogView extends ViewPart implements IRender {
 	 */
 	public void setFocus() {
 		try {
-			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPages()[0].showView(LogView.ID, null,
-					IWorkbenchPage.VIEW_ACTIVATE);
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPages()[0].showView(LogView.ID, null, IWorkbenchPage.VIEW_ACTIVATE);
 		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
@@ -104,7 +142,7 @@ public class LogView extends ViewPart implements IRender {
 	 * @see br.com.maisha.wind.faces.render.IRender#getModelLevel()
 	 */
 	public LevelType[] getModelLevel() {
-		return new LevelType[]{ LevelType.Exception };
+		return new LevelType[] { LevelType.Exception };
 	}
 
 	/**
@@ -121,6 +159,16 @@ public class LogView extends ViewPart implements IRender {
 			viewer.setInput(curr);
 			this.setFocus();
 		}
+	}
+
+	public void createActions() {
+		clearAllAction = new Action(PlatformMessageRegistry.getInstance().getMessage("wind_faces.messageview.clear")) {
+
+			public void run() {
+				viewer.setInput(new ArrayList<ErrorLog>());
+			}
+		};
+		clearAllAction.setImageDescriptor(Activator.getImageDescriptor("icons/clear.gif"));
 	}
 
 	/**
@@ -151,8 +199,8 @@ public class LogView extends ViewPart implements IRender {
 
 		/**
 		 * 
-		 * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
-		 *      java.lang.Object, java.lang.Object)
+		 * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer, java.lang.Object,
+		 *      java.lang.Object)
 		 */
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 
@@ -164,8 +212,7 @@ public class LogView extends ViewPart implements IRender {
 
 		/**
 		 * 
-		 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object,
-		 *      int)
+		 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object, int)
 		 */
 		public Image getColumnImage(Object element, int columnIndex) {
 			if (columnIndex == 0) {
@@ -176,8 +223,7 @@ public class LogView extends ViewPart implements IRender {
 
 		/**
 		 * 
-		 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object,
-		 *      int)
+		 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
 		 */
 		public String getColumnText(Object element, int columnIndex) {
 

@@ -18,12 +18,12 @@ import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.faces.rcp.Activator;
 
 /**
- * A Job to obtain content for a combo running an indicated rule.
+ * A Job to obtain content for a JFace Viewer running an indicated rule.
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
-public class ComboboxContentProviderJob extends UIJob {
+public class ViewerContentProviderJob extends UIJob {
 
 	/** Attribute represented by a combo */
 	private Attribute attribute;
@@ -40,7 +40,7 @@ public class ComboboxContentProviderJob extends UIJob {
 	 * @param name
 	 *            Job name.
 	 */
-	public ComboboxContentProviderJob(String name, Attribute attribute, Viewer viewer) {
+	public ViewerContentProviderJob(String name, Attribute attribute, Viewer viewer) {
 		super(name);
 		this.attribute = attribute;
 		this.viewer = viewer;
@@ -78,7 +78,9 @@ public class ComboboxContentProviderJob extends UIJob {
 		ctx = appCtrl.runOperation(ctx);
 
 		// TODO solucionar
-		viewer.setInput(ctx.getSession().get("content"));
+		if (!viewer.getControl().isDisposed()) {
+			viewer.setInput(ctx.getSession().get("content"));
+		}
 		return Status.OK_STATUS;
 	}
 

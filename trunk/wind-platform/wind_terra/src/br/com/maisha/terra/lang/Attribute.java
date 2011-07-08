@@ -3,6 +3,10 @@ package br.com.maisha.terra.lang;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
+import br.com.maisha.terra.lang.Property.PresentationType;
+
 /**
  * 
  * @author Paulo
@@ -129,7 +133,6 @@ public class Attribute extends TerraClass {
 		return null;
 	}
 
-
 	/**
 	 * Get Method for property missing to use by Groovy.
 	 * <p/>
@@ -173,5 +176,24 @@ public class Attribute extends TerraClass {
 		sb.append(" ").append(getRef());
 		sb.append(" [").append(getLabel()).append("]");
 		return sb.toString();
+	}
+
+	/**
+	 * Indicates whether this attribute is associated with a folder
+	 * 
+	 * @return true if this attribute is associated with a folder; false otherwise;
+	 */
+	public boolean isFolderAttribute() {
+		return StringUtils.isNotBlank(this.getPropertyValue(PropertyInfo.FOLDER));
+	}
+
+	/**
+	 * Indicates whether this attribute represents Group
+	 * 
+	 * @return true if this attribute represents a group; false otherwise;
+	 */
+	public boolean isGroupAttribute() {
+		return "Group".equals(this.getType())
+				&& PresentationType.GROUP.getValue().equals(this.getPropertyValue(PropertyInfo.PRESENTATION_TYPE));
 	}
 }

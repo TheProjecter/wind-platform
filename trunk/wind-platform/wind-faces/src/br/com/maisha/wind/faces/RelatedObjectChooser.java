@@ -1,37 +1,39 @@
 package br.com.maisha.wind.faces;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.springframework.util.StringUtils;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
-import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.controller.IApplicationController;
+import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.faces.rcp.Activator;
+import br.com.maisha.wind.faces.render.attr.ViewerContentProviderJob;
+import br.com.maisha.wind.faces.view.GridViewColumnProvider;
+import br.com.maisha.wind.faces.view.GridViewComparator;
 import br.com.maisha.wind.faces.view.GridViewContentProvider;
-import br.com.maisha.wind.faces.view.GridViewLabelProvider;
 
+/**
+ * 
+ * @author Paulo Freitas (pfreitas1@gmail.com)
+ * 
+ */
 public class RelatedObjectChooser extends TitleAreaDialog {
 
 	/** Log Reference. */
@@ -76,53 +78,33 @@ public class RelatedObjectChooser extends TitleAreaDialog {
 	protected Control createDialogArea(Composite parent) {
 		Composite contents = new Composite(parent, SWT.NONE);
 		contents.setLayout(new GridLayout());
+		GridData layoutData = new GridData(GridData.FILL_BOTH);
+		contents.setLayoutData(layoutData);
 
-		GridData contentsGd = new GridData(GridData.FILL_BOTH);
-		contents.setLayoutData(contentsGd);
+		setTitle(PlatformMessageRegistry.getInstance().getMessage("wind_faces.related.related_object_dialog",
+				new Object[] { dObj.getLabel() }));
+		setTitleImage(Activator.getImageDescriptor("icons/related_wiz.png").createImage());
 
 		viewer = new TableViewer(contents, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
-		viewer.getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
-
-		final Map<Integer, String> map = new HashMap<Integer, String>();
-		int i = 0;
-		for (Attribute attr : dObj.getAtts()) {
-			TableViewerColumn col = new TableViewerColumn(viewer, SWT.NONE);
-			col.getColumn().setText(attr.getLabel());
-			col.getColumn().setWidth(attr.getPropertyValue(PropertyInfo.WIDTH));
-			col.getColumn().setResizable(false);
-			col.getColumn().setMoveable(false);
-
-			map.put(i, attr.getRef());
-
-			i++;
-		}
-
+		viewer.getTable().setLayoutData(layoutData);
 		viewer.setContentProvider(new GridViewContentProvider());
+		viewer.setComparator(new GridViewComparator());
 		viewer.getTable().setHeaderVisible(true);
 		viewer.getTable().setLinesVisible(true);
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			public void selectionChanged(SelectionChangedEvent event) {
 				IStructuredSelection sel = (IStructuredSelection) event.getSelection();
-				Map<String, Object> map =  (Map<String, Object>) sel.getFirstElement();
+				Map<String, Object> map = (Map<String, Object>) sel.getFirstElement();
 				related = (ModelReference) map.get("ref");
 				log.debug("Selected [" + related + "] ");
 			}
 		});
+		new GridViewColumnProvider(dObj, viewer).createColumns();
 
-		Label titleBarSeparator = new Label(contents, SWT.HORIZONTAL | SWT.SEPARATOR);
-		titleBarSeparator.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		String jobName = PlatformMessageRegistry.getInstance().getMessage("wind_faces.gridView.loadData");
+		ViewerContentProviderJob job = new ViewerContentProviderJob(jobName, attr, viewer);
+		job.schedule();
 
-		Display.getCurrent().asyncExec(new Runnable() {
-			public void run() {
-				List<ModelReference> data = appCtrl.filter(dObj);
-				List<Map<String, Object>> dataMap = appCtrl.toMap(dObj, data);
-				viewer.setLabelProvider(new GridViewLabelProvider(map));
-				viewer.setInput(dataMap);
-			}
-		});
-
-		setTitle("Select related " + dObj.getLabel()); // TODO NLS
-		setTitleImage(Activator.getImageDescriptor("icons/related_wiz.png").createImage());
 		return contents;
 	}
 
@@ -144,5 +126,4 @@ public class RelatedObjectChooser extends TitleAreaDialog {
 		return related;
 	}
 
-	
 }

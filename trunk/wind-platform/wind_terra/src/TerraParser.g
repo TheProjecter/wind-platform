@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import br.com.maisha.terra.lang.Import;
 import br.com.maisha.terra.lang.Attribute;
+import br.com.maisha.terra.lang.Container;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.Operation;
 import br.com.maisha.terra.lang.Property;
@@ -32,6 +33,9 @@ private List<Operation> ops = new ArrayList<Operation>();
 private Map<String, Property> props = new HashMap<String, Property>();
 private Map<String, Property> op_props = new HashMap<String, Property>();
 private Map<String, Property> obj_props = new HashMap<String, Property>();
+private Map<String, Property> folder_props = new HashMap<String, Property>();
+private Map<String, Attribute> folder_atts = new HashMap<String, Attribute>();
+private Map<String, Container> folders = new HashMap<String, Container>();
 private List<Import> imports = new ArrayList<Import>();
 private List<Validation> validationRulz = new ArrayList<Validation>();
 private List<ValidationRule> validationRulzEntry = new ArrayList<ValidationRule>();
@@ -52,11 +56,16 @@ DOMAIN_OBJECT:'domain_object';
 PACKAGE:'package';
 IMPORT:'import'; 
 VALIDATION_RULE:	'validationRule';
-PROPERTY:	'x' | 'y' | 'colspan' | 'rowspan' | 'presentation_type' |  'disabled' |  'icon' | 'width' | 'height' | 'tooltip';
-ATTRIBUTE_PROPERTY: 'visibleInEdition' | 'visibleInGrid' | 'content' | 'value' | 'validValues' | 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'event' | 'toString' | 'onetomany' | 'manytoone' | 'transient' ;
-OPERATION_PROPERTY: 'class' | 'file' | 'validWhen' | 'is_filter' | 'validate'  | 'visible';
-OBJECT_PROPERTY: 'open_filtering' | 'event_handler';
+PRESENTATION_TYPE: 'presentation_type';
+SUPPORTED_PRESENTATION_TYPES: 'text' | 'radio' | 'checkbox' | 'combo' | 'list' | 'textarea' | 'date' | 'related' | 'embedded_object' | 'group';
+PROPERTY:	'x' | 'y' | 'colspan' | 'rowspan' |  'disabled' |  'icon' | 'width' | 'height' | 'tooltip';
+ATTRIBUTE_PROPERTY: 'parent_group' | 'visibleInEdition' | 'visibleInGrid' | 'content' | 'value' | 'validValues' | 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'event' | 'toString' | 'onetomany' | 'manytoone' | 'transient' ;
+OPERATION_PROPERTY: 'class' | 'file' | 'validWhen' | 'is_filter' | 'validate' ;
+OBJECT_PROPERTY: 'open_filtering' | 'event_handler' ;
+FOLDER_PROPERTY: 'sequence' ;
+GENERAL_PROPERTY: 'visible';
 OPERATION: 'operation';
+FOLDER : 'folder';
 
 OP_TYPE: 'java' | 'python' | 'groovy';
 
@@ -83,7 +92,7 @@ fragment SYMBOL: '!' | '#'..'/' | ':'..'@' | '['..'`' | '{'..'~' ;
 
 
 NEWLINE: ('\r'? '\n')+;
-WHITESPACE: SPACE+ { $channel = HIDDEN; };
+WHITESPACE: SPACE+ { $channel = HIDDEN; }; 
 
 
 
@@ -96,6 +105,8 @@ domain_object
 		domainObject.setImports(imports);
 		domainObject.setValidations(validationRulz);
 		domainObject.setProperties(obj_props);
+		domainObject.setContainers(folders);
+		folders = new HashMap<String, Container>();
 		atts = new ArrayList<Attribute>();
 		ops = new ArrayList<Operation>();
 		obj_props = new HashMap<String, Property>();
@@ -117,7 +128,7 @@ import_declaration
 	}
 	;
 	
-body	:    (attr | operation | validation_rulz | obj_property | NEWLINE)+;
+body	:    (attr | operation | validation_rulz | obj_property | folder | NEWLINE)+;
 
 obj_property: OBJECT_PROPERTY ATTRIBUITION (value|expression) {
 		IConverterService convService = ServiceProvider.getInstance()
@@ -133,10 +144,19 @@ obj_property: OBJECT_PROPERTY ATTRIBUITION (value|expression) {
 }
 ;
 
-attr	:   type=NAME ref=NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET {
+attr	:   type=NAME ref=NAME STRING_LITERAL LEFT_BRACKET attr_body+ RIGHT_BRACKET {
 		Attribute att = new Attribute($type.text, $ref.text, $STRING_LITERAL.text);
 		att.setDomainObject(domainObject);		
 		att.setProperties(props);
+		
+		String folder = att.getPropertyValue(PropertyInfo.FOLDER);
+		if(folder != null && folder.length() > 0){
+      Container c = folders.get(folder);
+      if(c != null){
+        c.addAttribute(att.getRef());
+      }
+    }
+		
 		atts.add(att);
 		props = new HashMap<String, Property>();
 
@@ -145,13 +165,22 @@ attr	:   type=NAME ref=NAME STRING_LITERAL LEFT_BRACKET attr_body RIGHT_BRACKET 
 
 
 
-attr_body :  property+;
+attr_body :NEWLINE | property  |  prstn_type  ;
 
-property:	NEWLINE | attr_prop_name ATTRIBUITION (value|expression|array) {
+prstn_type: PRESENTATION_TYPE ':' SUPPORTED_PRESENTATION_TYPES 'using'* array* {
+    Property p = new Property($PRESENTATION_TYPE.text, $SUPPORTED_PRESENTATION_TYPES.text);
+    p.setValidValues(validValues);
+    props.put($PRESENTATION_TYPE.text, p);
+    validValues = new ArrayList<ValidValue>();
+};
+
+
+
+property:	 attr_prop_name ATTRIBUITION (value|expression|array){
 		IConverterService convService = ServiceProvider.getInstance()
 				.getService(IConverterService.class,
 						Activator.getDefault().getBundleContext());
-						
+					
 		Class<?> type = PropertyInfo.getPropertyInfo($attr_prop_name.text).getType();
 		Object propValue = convService.convert(type, $value.text);
 		
@@ -163,7 +192,7 @@ property:	NEWLINE | attr_prop_name ATTRIBUITION (value|expression|array) {
 	}
 	;
 	
-attr_prop_name: PROPERTY|ATTRIBUTE_PROPERTY;
+attr_prop_name: PROPERTY|ATTRIBUTE_PROPERTY| FOLDER;
 
 value	:	(NUMBER | NAME | STRING_LITERAL);
 
@@ -200,7 +229,7 @@ op_prop:	NEWLINE | op_prop_name ATTRIBUITION value {
 	}
 	;
 
-op_prop_name	: PROPERTY | OPERATION_PROPERTY;
+op_prop_name	: PROPERTY | OPERATION_PROPERTY | GENERAL_PROPERTY;
 
 
 validation_rulz:  VALIDATION_RULE NAME LEFT_BRACKET validation_body RIGHT_BRACKET{
@@ -216,3 +245,28 @@ validation_entry: NEWLINE | STRING_LITERAL ATTRIBUITION EXPRESSION {
 		ValidationRule valRule = new ValidationRule($STRING_LITERAL.text, $EXPRESSION.text);
 		validationRulzEntry.add(valRule);
 };
+
+folder: FOLDER NAME STRING_LITERAL LEFT_BRACKET folder_body RIGHT_BRACKET{
+    Container f = new Container($NAME.text, $STRING_LITERAL.text);
+    f.setDomainObject(domainObject);
+    f.setProperties(folder_props);
+    f.setType(Container.PresentationType.FOLDER);
+    folders.put(f.getRef(), f);
+    folder_props = new HashMap<String, Property>();
+}; 
+
+folder_body: folder_props+;
+folder_prop_name: FOLDER_PROPERTY | GENERAL_PROPERTY;
+
+folder_props: NEWLINE | folder_prop_name ATTRIBUITION (value|expression){
+    IConverterService convService = ServiceProvider.getInstance()
+        .getService(IConverterService.class,
+            Activator.getDefault().getBundleContext());
+            
+    Class<?> type = PropertyInfo.getPropertyInfo($folder_prop_name.text).getType();
+    Object propValue = convService.convert(type, $value.text);
+    
+    Property p = new Property($folder_prop_name.text, propValue);
+    p.setExpression($expression.text);
+    folder_props.put($folder_prop_name.text, p);
+}; 

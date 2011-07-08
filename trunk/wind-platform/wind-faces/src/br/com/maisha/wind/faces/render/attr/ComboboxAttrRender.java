@@ -18,6 +18,7 @@ import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.Property.PresentationType;
 import br.com.maisha.terra.lang.PropertyInfo;
+import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.controller.model.UserMessage;
 
 /**
@@ -84,7 +85,8 @@ public class ComboboxAttrRender extends BaseAttrRender {
 			dbctx.bindValue(ViewersObservables.observeInput(cv), BeansObservables.observeValue(propValidValues, "validValues"));
 		} else {
 			// tries to obtain the content of the indicated rule.
-			ComboboxContentProviderJob job = new ComboboxContentProviderJob("Loading data...", attr, cv);
+			String jobName = PlatformMessageRegistry.getInstance().getMessage("wind_faces.gridView.loadData");
+			ViewerContentProviderJob job = new ViewerContentProviderJob(jobName, attr, cv);
 			job.schedule();
 		}
 

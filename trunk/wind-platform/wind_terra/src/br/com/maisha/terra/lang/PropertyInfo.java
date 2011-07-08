@@ -73,7 +73,7 @@ public class PropertyInfo<T> {
 	public static final PropertyInfo<Integer> WIDTH = new PropertyInfo<Integer>("width", 255, Integer.class, false);
 
 	/** Descricao da propriedade height */
-	public static final PropertyInfo<Integer> HEIGHT = new PropertyInfo<Integer>("height", 17, Integer.class, false);
+	public static final PropertyInfo<Integer> HEIGHT = new PropertyInfo<Integer>("height", 20, Integer.class, false);
 
 	/** Descricao da propriedade event */
 	public static final PropertyInfo<String> EVENT = new PropertyInfo<String>("event", null, String.class, false);
@@ -88,7 +88,7 @@ public class PropertyInfo<T> {
 	public static final PropertyInfo<String> VALID_WHEN = new PropertyInfo<String>("validWhen", null, String.class, false);
 
 	/** Descricao da propriedade tooltip */
-	public static final PropertyInfo<String> TOOLTIP = new PropertyInfo<String>("tooltip", null, String.class, false);
+	public static final PropertyInfo<String> TOOLTIP = new PropertyInfo<String>("tooltip", "", String.class, false);
 
 	/** Descricao da propriedade onetomany */
 	public static final PropertyInfo<String> ONTOMANY = new PropertyInfo<String>("onetomany", null, String.class, false);
@@ -123,6 +123,18 @@ public class PropertyInfo<T> {
 
 	/** Descricao da propriedade content */
 	public static final PropertyInfo<String> CONTENT = new PropertyInfo<String>("content", null, String.class, false);
+
+	/** Descricao da propriedade folder visible */
+	public static final PropertyInfo<Boolean> FOLDER_VISIBLE = new PropertyInfo<Boolean>("visible", true, Boolean.class, false);
+
+	/** Descricao da propriedade sequence */
+	public static final PropertyInfo<Integer> SEQUENCE = new PropertyInfo<Integer>("sequence", 1, Integer.class, false);
+
+	/** Descricao da propriedade folder */
+	public static final PropertyInfo<String> FOLDER = new PropertyInfo<String>("folder", null, String.class, false);
+
+	/** Descricao da propriedade parent_group */
+	public static final PropertyInfo<String> GROUP = new PropertyInfo<String>("parent_group", "", String.class, false);
 
 	/** Nome da propriedade. */
 	private String propName;
