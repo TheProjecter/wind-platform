@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.BeansObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
@@ -48,7 +49,7 @@ public class ComboboxAttrRender extends BaseAttrRender {
 	 * @see br.com.maisha.wind.faces.render.attr.IAttributeRender#render(br.com.maisha.terra.lang.Attribute,
 	 *      org.eclipse.swt.widgets.Composite, br.com.maisha.terra.lang.ModelReference)
 	 */
-	public void render(Attribute attr, Composite parent, ModelReference modelInstance) {
+	public void render(Attribute attr, final Composite parent, ModelReference modelInstance) {
 		log.debug("Starting render for attr [" + attr + "] ");
 
 		Label l = createLabel(parent, attr);
@@ -94,9 +95,14 @@ public class ComboboxAttrRender extends BaseAttrRender {
 			job.addJobChangeListener(new JobChangeAdapter() {
 
 				public void done(IJobChangeEvent event) {
-					if (!cv.getControl().isDisposed()) {
-						List<ModelReference> contents = (List<ModelReference>) event.getJob().getProperty(ViewerContentProviderJob.CONTENT);
-						cv.setInput(contents);
+					if (!cv.getControl().isDisposed() && Status.OK_STATUS.equals(event.getResult())) {
+						final List<ModelReference> contents = (List<ModelReference>) event.getJob().getProperty(
+								ViewerContentProviderJob.CONTENT);
+						parent.getDisplay().asyncExec(new Runnable() {
+							public void run() {
+								cv.setInput(contents);
+							}
+						});
 					}
 				}
 			});
