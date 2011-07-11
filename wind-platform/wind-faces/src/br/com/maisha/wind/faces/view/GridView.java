@@ -182,9 +182,11 @@ public class GridView extends ViewPart implements IRender {
 		 * @see org.eclipse.core.runtime.jobs.Job#run(org.eclipse.core.runtime.IProgressMonitor)
 		 */
 		protected IStatus run(final IProgressMonitor monitor) {
+
 			display.asyncExec(new Runnable() {
+
 				public void run() {
-					// input data
+					// input data TODO run outside UI Thread
 					List<ModelReference> data = null;
 					if (LevelType.Object.equals(level)) {
 						if (dObj.getPropertyValue(PropertyInfo.OPEN_FILTERING)) {

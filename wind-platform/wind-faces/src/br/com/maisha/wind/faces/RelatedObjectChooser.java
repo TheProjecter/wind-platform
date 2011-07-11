@@ -111,8 +111,13 @@ public class RelatedObjectChooser extends TitleAreaDialog {
 		job.addJobChangeListener(new JobChangeAdapter() {
 			public void done(IJobChangeEvent event) {
 				if (!viewer.getControl().isDisposed()) {
-					List<ModelReference> contents = (List<ModelReference>) event.getJob().getProperty(ViewerContentProviderJob.CONTENT);
-					viewer.setInput(appCtrl.toMap(dObj, contents));
+					final List<ModelReference> contents = (List<ModelReference>) event.getJob().getProperty(
+							ViewerContentProviderJob.CONTENT);
+					parent.getDisplay().asyncExec(new Runnable() {
+						public void run() {
+							viewer.setInput(appCtrl.toMap(dObj, contents));
+						}
+					});
 				}
 			}
 		});

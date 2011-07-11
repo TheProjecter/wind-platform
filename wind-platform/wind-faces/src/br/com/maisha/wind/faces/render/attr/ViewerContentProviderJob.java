@@ -5,7 +5,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.ui.progress.UIJob;
+import org.eclipse.core.runtime.jobs.Job;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
@@ -23,7 +23,7 @@ import br.com.maisha.wind.faces.rcp.Activator;
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
-public class ViewerContentProviderJob extends UIJob {
+public class ViewerContentProviderJob extends Job {
 
 	/** Name of the job property that holds the resulting content. */
 	public static final QualifiedName CONTENT = new QualifiedName(ViewerContentProviderJob.class.getSimpleName(), "result");
@@ -53,7 +53,7 @@ public class ViewerContentProviderJob extends UIJob {
 	 * 
 	 * @see org.eclipse.core.runtime.jobs.Job#run(org.eclipse.core.runtime.IProgressMonitor)
 	 */
-	public IStatus runInUIThread(IProgressMonitor monitor) {
+	public IStatus run(IProgressMonitor monitor) {
 		DomainObject dObj = attribute.getDomainObject();
 
 		// get operation to provide content

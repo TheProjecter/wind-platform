@@ -7,13 +7,17 @@ import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.BeansObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.jface.databinding.swt.SWTObservables;
+import org.eclipse.rwt.graphics.Graphics;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import br.com.maisha.terra.lang.Attribute;
@@ -74,6 +78,19 @@ public class RelatedObjectAttrRender extends BaseAttrRender {
 		composite.setLayout(layout);
 
 		final DataBindingContext dbctx = new DataBindingContext();
+		for (Attribute a : relatedAttrs) {
+			Label l = new Label(composite, SWT.NONE);
+			l.setText(a.getLabel());
+			FontData fd = l.getFont().getFontData()[0];
+			Font font = Graphics.getFont(fd.getName(), 10, fd.getStyle());
+			l.setFont(font);
+			GridData labelGd = new GridData(GridData.BEGINNING, GridData.END, false, false);
+			labelGd.heightHint = 10;
+			l.setLayoutData(labelGd);
+		}
+
+		Label lEmpty = new Label(composite, SWT.NONE);
+
 		for (Attribute a : relatedAttrs) {
 			Text text = new Text(composite, SWT.BORDER | SWT.SINGLE);
 			text.setEditable(false);

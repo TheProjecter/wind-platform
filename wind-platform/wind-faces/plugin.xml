@@ -75,7 +75,7 @@
 <!-- Logo Customization -->
 
 
-	<extension point="org.eclipse.rap.ui.layouts">
+	<!-- extension point="org.eclipse.rap.ui.layouts">
 		<layout id="org.eclipse.rap.design.example.business.layout">
 			<layoutSet class="br.com.maisha.wind.faces.layout.business.LogoInitializer"
 				id="br.com.maisha.wind.faces.business.logo"
@@ -84,7 +84,7 @@
 				
 			</layoutSet>
 		</layout>
-	</extension>
+	</extension -->
 
    <extension
          point="org.eclipse.rap.ui.themes">
