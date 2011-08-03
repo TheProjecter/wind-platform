@@ -6,16 +6,18 @@ import java.beans.PropertyChangeSupport;
 /**
  * Base class for every domain model class.
  * <p/>
- * It's used by IClassMaker from wind_terra as super class when defining domain
- * model java classes.
+ * It's used by IClassMaker from wind_terra as super class when defining domain model java classes.
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
-public class ModelReference {
+public abstract class ModelReference {
 
+	/** Metadata that defines this instance. */
 	private DomainObject meta;
 
+	/** Unique identifier of this instance. */
+	public abstract long getId();
 
 	/** Property change. */
 	protected PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
@@ -63,7 +65,5 @@ public class ModelReference {
 	public void setMeta(DomainObject meta) {
 		this.meta = meta;
 	}
-
-
 
 }
