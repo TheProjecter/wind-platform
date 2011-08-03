@@ -18,6 +18,7 @@ import javassist.bytecode.ClassFile;
 import javassist.bytecode.ConstPool;
 import javassist.bytecode.FieldInfo;
 import javassist.bytecode.annotation.Annotation;
+import javassist.bytecode.annotation.ArrayMemberValue;
 import javassist.bytecode.annotation.BooleanMemberValue;
 import javassist.bytecode.annotation.ClassMemberValue;
 import javassist.bytecode.annotation.EnumMemberValue;
@@ -187,14 +188,29 @@ public class ClassMaker implements IClassMaker {
 					AnnotationsAttribute fieldAnnotation = new AnnotationsAttribute(cp, AnnotationsAttribute.visibleTag);
 
 					if (manytoone != null) {
-						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.ManyToOne", null));
+						Map<String, MemberValue> manyToOneParams = new HashMap<String, MemberValue>();
+						EnumMemberValue cascadeEnum = new EnumMemberValue(cp);
+						cascadeEnum.setType("javax.persistence.CascadeType");
+						cascadeEnum.setValue("ALL");
+						ArrayMemberValue cascadeArray = new ArrayMemberValue(cp);
+						cascadeArray.setValue(new MemberValue[] { cascadeEnum });
+						manyToOneParams.put("cascade", cascadeArray);
+
+						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.ManyToOne", manyToOneParams));
 
 						Map<String, MemberValue> params = new HashMap<String, MemberValue>();
 						params.put("name", new StringMemberValue(manytoone, cp));
 						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.JoinColumn", params));
 					} else if (onetomany != null) {
-
 						Map<String, MemberValue> params = new HashMap<String, MemberValue>();
+
+						EnumMemberValue cascadeEnum = new EnumMemberValue(cp);
+						cascadeEnum.setType("javax.persistence.CascadeType");
+						cascadeEnum.setValue("ALL");
+						ArrayMemberValue cascadeArray = new ArrayMemberValue(cp);
+						cascadeArray.setValue(new MemberValue[] { cascadeEnum });
+						params.put("cascade", cascadeArray);
+
 						params.put("mappedBy", new StringMemberValue(onetomany, cp));
 						params.put("targetEntity", new ClassMemberValue(getRelatedObjectName(att, att.getType()), cp));
 						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.OneToMany", params));
