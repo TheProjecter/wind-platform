@@ -4,11 +4,11 @@ class SaveFuncionario{
 	def model
 	def meta
 	
-	def execute(){		
+	def execute(){	
 		model.save();
 		"wind_basic.func.saved".success([model.nome]);
 		
-		def list = model.select("from funcionario c");
+		def list = model.select("from Funcionario c");
 		ctx.setGridData(list);
 	}
 }
