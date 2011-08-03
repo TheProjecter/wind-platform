@@ -65,7 +65,7 @@ public class ClearEditionViewAction extends Action implements IWorkbenchAction {
 	 */
 	public void runWithEvent(Event event) {
 		try {
-			appController.openObjectInstance(appController.createNewInstance(object));
+			appController.openObjectInstance(appController.createNewCurrentInstance(object));
 		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}

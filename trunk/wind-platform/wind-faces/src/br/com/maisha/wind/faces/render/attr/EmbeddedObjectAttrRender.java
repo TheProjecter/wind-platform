@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.BeansObservables;
@@ -65,7 +66,16 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 	private HashSet<Object> set = new HashSet<Object>();
 
 	/** */
-	IObservableSet gridSet = null;
+	private IObservableSet gridSet = null;
+
+	/** Metamodel registry. */
+	private IApplicationRegistry registry;
+
+	/** The name says every thing. */
+	private IPresentationProvider presentationProvider;
+
+	/** Controller. */
+	private IApplicationController controller;
 
 	/**
 	 * 
@@ -75,18 +85,20 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 		return PresentationType.EMBEDDEDOBJECT;
 	}
 
+	public EmbeddedObjectAttrRender() {
+		// for some reason, in order to get runScript working, we must get a reference to controller this way. If we wire this using
+		// spring-beans.xml it fails to get a instance of juel script engine
+		this.controller = ServiceProvider.getInstance().getService(IApplicationController.class,
+				Activator.getDefault().getBundle().getBundleContext());
+	}
+
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.attr.IAttributeRender#render(br.com.maisha.terra.lang.Attribute,
 	 *      org.eclipse.swt.widgets.Composite, br.com.maisha.terra.lang.ModelReference)
 	 */
-	public void render(Attribute attr, Composite parent, ModelReference modelInstance) {
+	public void render(final Attribute attr, Composite parent, final ModelReference modelInstance) {
 		try {
-			IApplicationRegistry registry = ServiceProvider.getInstance().getService(IApplicationRegistry.class,
-					Activator.getDefault().getBundle().getBundleContext());
-
-			IPresentationProvider presentation = ServiceProvider.getInstance().getService(IPresentationProvider.class,
-					Activator.getDefault().getBundle().getBundleContext());
 
 			final DomainObject related = registry.getObject(attr.getDomainObject().getApplication().getAppId(), attr.getType());
 
@@ -118,11 +130,24 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 
 				public void widgetSelected(SelectionEvent e) {
 					try {
-						ModelReference input = (ModelReference) related.getObjectClass().newInstance();
+						ModelReference input = controller.createNewInstance(related);
 						BeanUtils.copyProperties(ref, input);
+
+						// do the relationship
+						String relatedPropertyName = attr.getPropertyValue(PropertyInfo.ONTOMANY);
+						Map<String, Object> context = new HashMap<String, Object>();
+						context.put("related", input);
+						context.put("parent", modelInstance);
+						context.put("relatedPropertyName", relatedPropertyName);
+						controller.runScript("${related.set" + StringUtils.capitalize(relatedPropertyName) + "(parent)}", context);
+
 						gridSet.add(input);
 						grid.setInput(gridSet);
-						ref.toString();
+
+						// clear
+						ModelReference clearedInstance = controller.createNewInstance(related);
+						BeanUtils.copyProperties(clearedInstance, ref);
+
 					} catch (Exception ex) {
 						ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), ex, log);
 					}
@@ -162,17 +187,17 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 
 			// render attribute fields
 			Map<Integer, String> attNames = new HashMap<Integer, String>();
-			ref = (ModelReference) related.getObjectClass().newInstance();
+			ref = controller.createNewInstance(related);
 			int i = 0;
 			for (Attribute rAttr : related.getAtts()) {
 				String presentationType = rAttr.getPropertyValue(PropertyInfo.PRESENTATION_TYPE);
 
-				IAttributeRender render = presentation.getAttributeRender(presentationType);
+				IAttributeRender render = presentationProvider.getAttributeRender(presentationType);
 				if (render == null) {
 					// try to use TEXT as default...
 					log.debug("Render for the given representation type [" + presentationType + "] not found... "
 							+ "trying to use default...");
-					render = presentation.getAttributeRender(Property.PresentationType.TEXT.getValue());
+					render = presentationProvider.getAttributeRender(Property.PresentationType.TEXT.getValue());
 
 					if (render == null) {
 						log.error("None render found... the attribute [" + attr + "]  will not be rendered!");
@@ -211,7 +236,6 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 
 			IObservableSet beanSet = BeansObservables.observeSet(modelInstance, attr.getRef());
 			gridSet = new WritableSet(set, Object.class);
-
 			dbctx.bindSet(gridSet, beanSet);
 
 			ObservableSetContentProvider contentProvider = new ObservableSetContentProvider();
@@ -261,6 +285,16 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 			return appCtrl.getObjectValue(element, attNames.get(columnIndex)) + "";
 		}
 
+	}
+
+	/** @see EmbeddedObjectAttrRender#registry */
+	public void setRegistry(IApplicationRegistry registry) {
+		this.registry = registry;
+	}
+
+	/** @see EmbeddedObjectAttrRender#presentationProvider */
+	public void setPresentationProvider(IPresentationProvider presentationProvider) {
+		this.presentationProvider = presentationProvider;
 	}
 
 }

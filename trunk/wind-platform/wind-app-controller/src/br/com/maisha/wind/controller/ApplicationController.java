@@ -162,7 +162,7 @@ public class ApplicationController implements IApplicationController {
 		modelListener.fireEvent(null, ctx.getGridData(), LevelType.GridData, ChangeType.ValueChanged);
 
 		// create a new opened instance
-		openObjectInstance(createNewInstance(ctx.getMeta()));
+		openObjectInstance(createNewCurrentInstance(ctx.getMeta()));
 	}
 
 	/**
@@ -336,7 +336,7 @@ public class ApplicationController implements IApplicationController {
 			ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 			ctx.setOperation(filterOp);
 			ctx.setMeta(dObj);
-			ctx.setInstance(createNewInstance(dObj));
+			ctx.setInstance(createNewCurrentInstance(dObj));
 
 			runOperation(ctx);
 			ret = ctx.getGridData();
@@ -367,7 +367,7 @@ public class ApplicationController implements IApplicationController {
 				juelEngine.put("ref", ref);
 				Map<String, Object> map = new HashMap<String, Object>();
 				for (Attribute attr : obj.getAtts()) {
-					if (!attr.isGroupAttribute()) {
+					if (!attr.isGroupAttribute() && StringUtils.isEmpty(attr.getPropertyValue(PropertyInfo.ONTOMANY))) {
 						map.put(attr.getRef(), juelEngine.eval("${ref." + attr.getRef() + "}"));
 					}
 				}
@@ -379,7 +379,6 @@ public class ApplicationController implements IApplicationController {
 		}
 
 		return lstMap;
-
 	}
 
 	/**
@@ -510,7 +509,11 @@ public class ApplicationController implements IApplicationController {
 	 */
 	public void openObjectInstance(ModelReference ref) {
 		this.currentInstance = ref;
-		modelListener.fireEvent(null, ref, LevelType.Object, ChangeType.InstanceOpened);
+
+		if (ref.getId() > 0) {
+			this.currentInstance = persistentStorage.loadFullEntity(ref.getMeta(), ref.getId());
+		}
+		modelListener.fireEvent(null, currentInstance, LevelType.Object, ChangeType.InstanceOpened);
 	}
 
 	/**
@@ -518,14 +521,15 @@ public class ApplicationController implements IApplicationController {
 	 * @see br.com.maisha.wind.controller.IApplicationController#createNewInstance(br.com.maisha.terra.lang.DomainObject)
 	 */
 	public ModelReference createNewInstance(DomainObject dObj) {
+		ModelReference instance = null;
 		try {
-			currentInstance = (ModelReference) dObj.getObjectClass().newInstance();
-			currentInstance.setMeta(dObj);
+			instance = (ModelReference) dObj.getObjectClass().newInstance();
+			instance.setMeta(dObj);
 
 			// configures Application Id and Object Id in the recently created
 			// instance.
 			Map<String, Object> context = new HashMap<String, Object>();
-			context.put("ref", currentInstance);
+			context.put("ref", instance);
 			context.put("appId", dObj.getApplication().getAppId());
 			context.put("objId", dObj.getRef());
 			runScript("${ref.setAppId(appId)}", context);
@@ -541,14 +545,27 @@ public class ApplicationController implements IApplicationController {
 			}
 
 			// evaluates metaobject attribute expressions
-			evalExpressions(currentInstance);
+			evalExpressions(instance);
 
 			// listen for changes in the values of instance attributes and
 			// reevaluate the metaobject
-			currentInstance.addPropertyChangeListener(new ELListener());
+			instance.addPropertyChangeListener(new ELListener());
+
 		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
+
+		return instance;
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.com.maisha.wind.controller.IApplicationController#createNewCurrentInstance(br.com.maisha.terra.lang.DomainObject)
+	 */
+	public ModelReference createNewCurrentInstance(DomainObject dObj) {
+		currentInstance = createNewInstance(dObj);
 		return currentInstance;
 	}
 

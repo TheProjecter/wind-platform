@@ -66,4 +66,12 @@ public interface IStorage {
 	 * @return
 	 */
 	List<ModelReference> filter(ModelReference model, String query, Object... param);
+
+	/**
+	 * 
+	 * @param meta
+	 * @param id
+	 * @return
+	 */
+	ModelReference loadFullEntity(DomainObject meta, Serializable id);
 }

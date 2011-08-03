@@ -9,11 +9,15 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.EntityMode;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.type.Type;
 
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
@@ -81,7 +85,7 @@ public class HibernateStorage implements IStorage {
 		Session sess = sessionFactory.openSession();
 		Transaction transaction = sess.beginTransaction();
 		try {
-			sess.saveOrUpdate(ref);
+			sess.merge(ref);
 			transaction.commit();
 		} catch (Exception e) {
 			transaction.rollback();
@@ -106,6 +110,46 @@ public class HibernateStorage implements IStorage {
 		Session sess = sessionFactory.openSession();
 		try {
 			ret = sess.get(clazz, id);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+		} finally {
+			sess.flush();
+			sess.close();
+		}
+		return ret;
+	}
+
+	/**
+	 * 
+	 * @param appId
+	 * @param clazz
+	 * @param id
+	 * @return
+	 */
+	public ModelReference loadFullEntity(DomainObject dObj, Serializable id) {
+		ModelReference ret = null;
+
+		String appId = dObj.getApplication().getAppId();
+		Class<?> clazz = dObj.getObjectClass();
+
+		SessionFactory sessionFactory = getSessionFactory(appId);
+		Session sess = sessionFactory.openSession();
+		try {
+			ret = (ModelReference) sess.get(clazz, id);
+
+			// initialize collections
+			if (ret != null) {
+				ClassMetadata meta = sess.getSessionFactory().getClassMetadata(clazz);
+				for (String propertyName : meta.getPropertyNames()) {
+					Type type = meta.getPropertyType(propertyName);
+					if (type.isCollectionType()) {
+						Hibernate.initialize(meta.getPropertyValue(ret, propertyName, EntityMode.POJO));
+					}
+				}
+
+				ret.setMeta(dObj);
+			}
+
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		} finally {

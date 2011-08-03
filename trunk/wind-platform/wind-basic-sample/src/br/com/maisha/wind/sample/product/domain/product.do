@@ -4,6 +4,7 @@ import br.com.maisha.wind.sample.product.domain.Category
 
 domain_object Product "Product"{
 
+	open_filtering: true
 
 	String name "Name"{
 		x: 1
@@ -185,6 +186,12 @@ domain_object Product "Product"{
 		file: br/com/maisha/wind/sample/basic/rule/LoadCategory.groovy
 		validate: false
 		visible: false
+	}
+	
+	operation groovy FilterProduct "Filtrar"{
+		file: br/com/maisha/wind/sample/basic/rule/FilterProduct.groovy
+		validate: false
+		is_filter:true
 	}
 
 	operation groovy SaveProduct "Salvar"{

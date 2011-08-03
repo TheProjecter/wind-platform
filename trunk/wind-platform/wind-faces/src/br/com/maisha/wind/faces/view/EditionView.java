@@ -99,9 +99,12 @@ public class EditionView extends ViewPart implements IRender {
 	 * @see br.com.maisha.wind.faces.render.IRender#render(java.lang.Object)
 	 */
 	public void render(LevelType level, ChangeType ct, Object model) {
+		if (model == null)
+			return;
 
 		if (LevelType.Object.equals(level) && ChangeType.InstanceOpened.equals(ct)) {
 			log.debug("Loading instance in the EditionView... ");
+
 			BeanUtils.copyProperties(model, modelInstance);
 		} else if (LevelType.Object.equals(level) && ChangeType.ObjectOpen.equals(ct)) {
 			try {
@@ -110,7 +113,7 @@ public class EditionView extends ViewPart implements IRender {
 				final DomainObject object = (DomainObject) model;
 				setPartName(object.getLabel());
 
-				modelInstance = appController.createNewInstance(object);
+				modelInstance = appController.createNewCurrentInstance(object);
 
 				createUserInterface(object);
 				configureDefaultToolBar(object);

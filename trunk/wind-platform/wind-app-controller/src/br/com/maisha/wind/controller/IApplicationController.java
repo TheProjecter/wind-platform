@@ -77,23 +77,21 @@ public interface IApplicationController {
 	void openObjectInstance(ModelReference ref);
 
 	/**
-	 * Configures all labels for all domain objects in every application
-	 * installed in the platform.
+	 * Configures all labels for all domain objects in every application installed in the platform.
 	 * 
 	 * @param context
 	 */
 	void configureAllLabels(BundleContext context);
-	
+
 	/**
-	 * Configures all labels for all domain objects in every application
-	 * installed in the platform.
+	 * Configures all labels for all domain objects in every application installed in the platform.
 	 * 
 	 * @param context
 	 * @param app
 	 * 
 	 */
 	void configureAllLabels(BundleContext context, WindApplication app);
-	
+
 	/**
 	 * 
 	 * @param dObj
@@ -101,17 +99,28 @@ public interface IApplicationController {
 	 * @param level
 	 */
 	void handleObjectEvent(DomainObject dObj, ChangeType ct, LevelType level);
-	
+
 	/**
 	 * Creates a new instance of the given DomainObject.
-	 * The created instance is accessible by {@link #getCurrentModelInstance())
+	 * 
 	 * @param dObj
 	 * @return
 	 */
 	ModelReference createNewInstance(DomainObject dObj);
-	
+
 	/**
-	 * Returns the current model instance. 
+	 * Creates a new instance of the given DomainObject and sets it as current opened instance.
+	 * <p/>
+	 * Created instance is accessible via {@link IApplicationController#getCurrentModelInstance()}
+	 * 
+	 * @param dObj
+	 * @return
+	 */
+	ModelReference createNewCurrentInstance(DomainObject dObj);
+
+	/**
+	 * Returns the current model instance.
+	 * 
 	 * @return Current Model Instance
 	 */
 	ModelReference getCurrentModelInstance();
