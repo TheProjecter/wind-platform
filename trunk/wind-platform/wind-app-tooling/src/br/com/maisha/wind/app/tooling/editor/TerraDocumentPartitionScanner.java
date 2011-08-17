@@ -33,7 +33,6 @@ public class TerraDocumentPartitionScanner extends RuleBasedPartitionScanner {
 		// Add rule for strings and character constants.
 		rules.add(new SingleLineRule("/", "/", string, '\\'));
 		rules.add(new SingleLineRule("'", "'", string, '\\'));
-		rules.add(new MultiLineRule(" ", " ", multilinecomment, (char) 0, true));
 		// Add rules for multi-line comments and javadoc.
 		rules.add(new MultiLineRule("/*", "*/", multilinecomment, (char) 0,
 				true));
