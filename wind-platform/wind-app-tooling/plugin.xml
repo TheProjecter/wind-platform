@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.pde.ui.newExtension">
+      <category
+            name="Wind"
+            id="templates">
+      </category>
+      <wizard
+            name="Wind App Template"
+            template="br.com.maisha.wind.app.template"
+            icon="$nl$/icons/etool16/newex_wiz.gif"
+            category="templates"
+            id="br.com.maisha.wind.app">
+         <description>
+            
+         </description>
+      </wizard>
+  </extension>
+
+  <extension
+         point="org.eclipse.pde.ui.templates">
+      <template
+            contributingId="org.eclipse.ui.actionSets"
+            name="Wind App Template"
+            class="br.com.maisha.wind.app.tooling.template.WindAppPDETemplate"
+            id="br.com.maisha.wind.app.template">
+      </template>
+      
+  </extension>
+
+
+<extension
+         point="org.eclipse.pde.ui.pluginContent">
+      <wizard
+            name="Basic Wind App"
+            icon="$nl$/icons/etool16/newexprj_wiz.gif"
+            class="br.com.maisha.wind.app.tooling.template.WindAppNewWizard"
+            id="br.com.maisha.wind.app.pluginContent"
+            pureOSGi="true"
+            requiresActivator="true"            
+            ui-content="false">
+         <description>
+            Creates a Wind Application with a basic config ready to run.
+         </description>
+      </wizard>
+  </extension>
+
+	<extension point="org.eclipse.ui.editors">
+		<editor id="br.com.maisha.wind.app.tooling.editor.DomainObjectEditor"
+			class="br.com.maisha.wind.app.tooling.editor.DomainObjectEditor"
+			extensions="dmo"
+			icon="icons/fileIcon.gif"
+			name="Domain Object Editor"/>
+	</extension>
+
+
+
+</plugin>
