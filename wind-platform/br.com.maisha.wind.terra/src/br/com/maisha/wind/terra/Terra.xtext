@@ -1,0 +1,73 @@
+grammar br.com.maisha.wind.terra.Terra with org.eclipse.xtext.xbase.Xbase
+
+generate terra "http://www.com.br/maisha/wind/terra/Terra"
+
+DomainObject:
+	package = PackageDeclaration
+	imports += Import*
+	'domain_object' name=ValidID label=STRING '{'
+	properties+=ObjectProperty*
+	attributes+=Attribute*
+	operations+=Operation*
+	validations+=Validation*
+	'}';
+	
+Import:
+	'import' importedNamespace=QualifiedName;
+
+PackageDeclaration:
+	'package' name=QualifiedName ';';
+
+
+
+ObjectProperty:
+	name=ObjectPropertyName ':' value=Value;
+
+Attribute:
+	type=ValidID ref=ValidID label=STRING '{'
+	properties+=AttributeProperty*
+	'}';
+
+AttributeProperty:
+	name=AttributePropertyName ':'  (validValues=Array | value=Value |  value=Value 'using' validValues = Array );
+
+Operation:
+	'operation' type=OperationType name=ValidID label=STRING '{'
+	properties+=OperationProperty*
+	'}';
+
+OperationProperty:
+	name=OperationPropertyName ':' (validValues=Array | value=Value );
+
+Value:
+	STRING | ValidID | EXPRESSION;
+
+Validation: 'validation' ref=ID  '{' rules += ValidationRule* '}';
+
+Array:
+	'[' {Array} values+= STRING (',' STRING)* ']'
+;
+
+ValidationRule:
+	messageKey=STRING ':' expression=EXPRESSION;
+
+terminal EXPRESSION:
+	'${' ('a'..'z'|'A'..'Z'|'$'|'_'|'*'|'+'|'-'|'='|'/'|'0'..'9'| ' ' | '?' | ':' | '(' | ')' | '<' | '>' | '.')* '}';
+
+enum OperationType:
+	groovy;
+
+enum PresentationType:
+	text | radio | checkbox | combo | list | textarea | date | related | embedded_object | group | folder;
+
+enum AttributePropertyName:
+	x | y | colspan | rowspan | disabled | icon | width | height | tooltip |
+	group | visibleInEdition | visibleInGrid | content | value | validValues | validation | required | max_length |
+	min_length | range | mask | event | toString | onetomany | manytoone | transient | folder | presentation_type | sequence;
+
+enum OperationPropertyName:
+	disabled | icon | tooltip | visible | file | validWhen | is_filter | validate;
+
+enum ObjectPropertyName:
+	open_filtering | event_handler;
+
