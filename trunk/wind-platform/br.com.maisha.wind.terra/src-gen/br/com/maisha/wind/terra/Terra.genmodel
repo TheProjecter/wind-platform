@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/br.com.maisha.wind.terra/src-gen"
+    editDirectory="/br.com.maisha.wind.terra.edit/src" editorDirectory="/br.com.maisha.wind.terra.editor/src"
+    modelPluginID="br.com.maisha.wind.terra" forceOverwrite="true" modelName="Terra"
+    updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="5.0" copyrightFields="false" editPluginID="br.com.maisha.wind.terra.edit"
+    editorPluginID="br.com.maisha.wind.terra.editor">
+  <genPackages prefix="Terra" basePackage="br.com.maisha.wind.terra" disposableProviderFactory="true"
+      ecorePackage="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//OperationType">
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//OperationType/groovy"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//PresentationType">
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//PresentationType/text"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//PresentationType/radio"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//PresentationType/checkbox"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//PresentationType/combo"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//PresentationType/list"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//PresentationType/textarea"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//PresentationType/date"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//PresentationType/related"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//PresentationType/embedded_object"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//PresentationType/group"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//PresentationType/folder"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName">
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/x"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/y"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/colspan"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/rowspan"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/disabled"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/icon"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/width"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/height"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/tooltip"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/group"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/visibleInEdition"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/visibleInGrid"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/content"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/value"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/validValues"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/validation"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/required"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/max_length"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/min_length"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/range"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/mask"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/event"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/toString"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/onetomany"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/manytoone"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/transient"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/folder"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/presentation_type"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributePropertyName/sequence"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//OperationPropertyName">
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//OperationPropertyName/disabled"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//OperationPropertyName/icon"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//OperationPropertyName/tooltip"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//OperationPropertyName/visible"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//OperationPropertyName/file"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//OperationPropertyName/validWhen"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//OperationPropertyName/is_filter"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//OperationPropertyName/validate"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//ObjectPropertyName">
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//ObjectPropertyName/open_filtering"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//ObjectPropertyName/event_handler"/>
+    </genEnums>
+    <genClasses ecoreClass="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//DomainObject">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//DomainObject/package"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//DomainObject/imports"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//DomainObject/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//DomainObject/label"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//DomainObject/properties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//DomainObject/attributes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//DomainObject/operations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//DomainObject/validations"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//Import">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//Import/importedNamespace"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//PackageDeclaration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//PackageDeclaration/name"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//ObjectProperty">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//ObjectProperty/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//ObjectProperty/value"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//Attribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//Attribute/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//Attribute/ref"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//Attribute/label"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//Attribute/properties"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributeProperty">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributeProperty/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributeProperty/validValues"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//AttributeProperty/value"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//Operation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//Operation/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//Operation/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//Operation/label"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//Operation/properties"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//OperationProperty">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//OperationProperty/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//OperationProperty/validValues"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//OperationProperty/value"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//Validation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//Validation/ref"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//Validation/rules"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//Array">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//Array/values"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//ValidationRule">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//ValidationRule/messageKey"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/br.com.maisha.wind.terra/src-gen/br/com/maisha/wind/terra/Terra.ecore#//ValidationRule/expression"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
