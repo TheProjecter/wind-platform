@@ -39,11 +39,11 @@ public class ClearEditionViewAction extends Action implements IWorkbenchAction {
 
 		String labelClear = PlatformMessageRegistry.getInstance().getMessage("wind_faces.messageview.clear");
 
+		setImageDescriptor(ImageDescriptor.createFromImage(Activator.getImageDescriptor("icons/clear.gif").createImage()));
+
 		setDescription(labelClear);
 		setText(labelClear);
 		setToolTipText(labelClear);
-
-		setImageDescriptor(ImageDescriptor.createFromImage(Activator.getImageDescriptor("icons/clear.gif").createImage()));
 
 		this.appController = ServiceProvider.getInstance().getService(IApplicationController.class,
 				Activator.getDefault().getBundle().getBundleContext());

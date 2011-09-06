@@ -72,6 +72,15 @@ public interface IApplicationController {
 
 	/**
 	 * 
+	 * @param engineType
+	 * @param script
+	 * @param context
+	 * @return
+	 */
+	Object runScript(String engineType, String script, Map<String, Object> context);
+
+	/**
+	 * 
 	 * @param ref
 	 */
 	void openObjectInstance(ModelReference ref);

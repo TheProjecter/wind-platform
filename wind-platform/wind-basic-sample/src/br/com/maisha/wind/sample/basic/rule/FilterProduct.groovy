@@ -5,10 +5,8 @@ class FilterProduct{
 	def meta
 
 
-	def execute(){
+	def execute = {
 		def list = model.select("from Product p");
-		ctx.setGridData(list);
+		ctx.gridData = list;
 	}
-	
-	
 }

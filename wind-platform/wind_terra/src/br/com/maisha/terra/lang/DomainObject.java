@@ -185,7 +185,7 @@ public class DomainObject extends TerraClass {
 	}
 
 	public void setContainers(Map<String, Container> containers) {
-		for(Container c : containers.values()){
+		for (Container c : containers.values()) {
 			c.setDomainObject(this);
 		}
 		this.containers = containers;
@@ -208,10 +208,10 @@ public class DomainObject extends TerraClass {
 		Operation ret = null;
 
 		for (Operation op : this.operations) {
-			if (op.getRef().equals(ref))
-				;
-			ret = op;
-			break;
+			if (op.getRef().equals(ref)) {
+				ret = op;
+				break;
+			}
 		}
 
 		return ret;

@@ -107,7 +107,6 @@ public class ApplicationController implements IApplicationController {
 
 			engine.put("ctx", ctx);
 			engine.put("model", ctx.getInstance());
-			engine.put("ctx", ctx);
 			engine.put("storage", persistentStorage);
 			engine.put("meta", ctx.getMeta());
 
@@ -297,15 +296,26 @@ public class ApplicationController implements IApplicationController {
 	 * @see br.com.maisha.wind.controller.IApplicationController#runScript(java.lang.String, java.util.Map)
 	 */
 	public Object runScript(String script, Map<String, Object> context) {
+		return runScript("juel", script, context);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.com.maisha.wind.controller.IApplicationController#runScript(java.lang.String, java.lang.String, java.util.Map)
+	 */
+	public Object runScript(String engineType, String script, Map<String, Object> context) {
 		Object ret = null;
 		try {
-			ScriptEngine juelEngine = engineManager.getEngineByName("juel");
+			ScriptEngine engine = engineManager.getEngineByName(engineType);
 
-			for (Map.Entry<String, Object> entry : context.entrySet()) {
-				juelEngine.put(entry.getKey(), entry.getValue());
+			if (context != null && !context.isEmpty()) {
+				for (Map.Entry<String, Object> entry : context.entrySet()) {
+					engine.put(entry.getKey(), entry.getValue());
+				}
 			}
 
-			ret = juelEngine.eval(script);
+			ret = engine.eval(script);
 		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}

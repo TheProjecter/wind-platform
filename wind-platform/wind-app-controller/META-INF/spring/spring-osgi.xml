@@ -36,4 +36,11 @@
 		interface="br.com.maisha.wind.lifecycle.mgmt.IApplicationManager">
 	</osgi:service>
 	
+	
+		<osgi:service id="aappGroovyOsgi" ref="appGroovy"
+		interface="br.com.maisha.wind.controller.IGroovy">
+	</osgi:service>
+	
+
+	
 </beans>

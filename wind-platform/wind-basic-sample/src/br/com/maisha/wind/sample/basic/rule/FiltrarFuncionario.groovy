@@ -7,8 +7,7 @@ class FiltrarFuncionario{
 
 	def execute(){
 		def list = model.select("from Funcionario c");
+		ctx.getSession().put("content", list);
 		ctx.setGridData(list);
 	}
-	
-	
 }
