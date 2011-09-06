@@ -84,6 +84,21 @@
 <icon BUILTIN="full-4"/>
 </node>
 </node>
+<node CREATED="1312329672099" ID="ID_1165196494" MODIFIED="1312329726437" TEXT="Criar conceito de listener de action">
+<richcontent TYPE="NOTE"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Deve ser possivel registrar listeners para a action clear edition view com a finalidade de limpar os campos &quot;inline&quot; do Embedded Object
+    </p>
+  </body>
+</html></richcontent>
+</node>
+<node CREATED="1312329931163" ID="ID_391096679" MODIFIED="1312509003908" TEXT="Menu">
+<icon BUILTIN="button_ok"/>
+</node>
 </node>
 <node CREATED="1306973717939" ID="ID_1710355572" MODIFIED="1306974383721" POSITION="right" TEXT="Persistence">
 <font BOLD="true" NAME="SansSerif" SIZE="17"/>
@@ -189,6 +204,18 @@
 </html></richcontent>
 <icon BUILTIN="button_ok"/>
 </node>
+<node CREATED="1312509013504" ID="ID_622100724" MODIFIED="1312509036488" TEXT="Relationship">
+<richcontent TYPE="NOTE"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Pensar se atende do jeito que est&#225;
+    </p>
+  </body>
+</html></richcontent>
+</node>
 </node>
 <node CREATED="1307058052396" ID="ID_632189202" MODIFIED="1307058063004" POSITION="left" TEXT="DOC">
 <font BOLD="true" NAME="SansSerif" SIZE="17"/>
@@ -198,6 +225,10 @@
 <node CREATED="1309137095517" ID="ID_294428370" MODIFIED="1309137103407" TEXT="Anatomia de um Domain Obect"/>
 <node CREATED="1309137103825" ID="ID_47401920" MODIFIED="1309137107252" TEXT="Propriedades"/>
 <node CREATED="1309482391896" ID="ID_1849202661" MODIFIED="1309482396875" TEXT="Regras"/>
+<node CREATED="1312329190067" ID="ID_1351731627" MODIFIED="1312329192372" TEXT="Combobox"/>
+<node CREATED="1312329195723" ID="ID_1633943828" MODIFIED="1312329197557" TEXT="Mask"/>
+<node CREATED="1312329201595" ID="ID_1684158213" MODIFIED="1312329205593" TEXT="Folders and groups"/>
+<node CREATED="1312932828993" ID="ID_632671176" MODIFIED="1312932839156" TEXT="Menu (App Cfg)"/>
 </node>
 <node CREATED="1309821762158" ID="ID_14872913" MODIFIED="1309821823721" POSITION="left" TEXT="Help">
 <font BOLD="true" NAME="SansSerif" SIZE="17"/>

@@ -9,6 +9,11 @@
 		class="br.com.maisha.wind.common.listener.AppModelListenerRegistry" />
 
 	
+		<bean name="appGroovy"
+		class="br.com.maisha.wind.controller.Groovy" />
+		
+
+	
 	<bean name="applicationController" scope="singleton"
 		class="br.com.maisha.wind.controller.ApplicationController">
 		<property name="modelListener" ref="appModelListenerRegistryOsgi" />

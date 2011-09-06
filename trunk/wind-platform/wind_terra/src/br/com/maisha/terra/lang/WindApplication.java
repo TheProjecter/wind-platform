@@ -49,12 +49,15 @@ public class WindApplication {
 
 	/** This application classloader. */
 	private ClassLoader classLoader;
-	
+
 	/** */
 	private List<ResourceBundleEntry> resourceBundles = new ArrayList<ResourceBundleEntry>();
 
 	/** */
 	private Map<Locale, List<ResourceBundle>> resourceBundle = new HashMap<Locale, List<ResourceBundle>>();
+
+	/** */
+	private List<MenuGroup> menuGroup = new ArrayList<MenuGroup>();
 
 	/** Hibernate configuration file. */
 	private URL hibernateConfig;
@@ -210,7 +213,6 @@ public class WindApplication {
 		this.copyright = copyright;
 	}
 
-	
 	/** @see #classLoader */
 	public ClassLoader getClassLoader() {
 		return classLoader;
@@ -221,9 +223,20 @@ public class WindApplication {
 		this.classLoader = classLoader;
 	}
 
+	public void addMenuGroup(MenuGroup mg) {
+		menuGroup.add(mg);
+	}
+
+	public List<MenuGroup> getMenuGroup() {
+		return menuGroup;
+	}
+
+	public void setMenuGroup(List<MenuGroup> menuGroup) {
+		this.menuGroup = menuGroup;
+	}
+
 	/**
-	 * Returns either Current or Default localized resources bundles. The one
-	 * that is not null, current preferred
+	 * Returns either Current or Default localized resources bundles. The one that is not null, current preferred
 	 * 
 	 * @return
 	 */

@@ -105,7 +105,7 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 			new Label(parent, SWT.NONE);
 
 			Group group = new Group(parent, SWT.SHADOW_IN);
-			group.setText(related.getLabel());
+			group.setText(attr.getLabel());
 			group.setLayout(new GridLayout(1, true));
 
 			GridData gd = getLayoutData(GridData.FILL_HORIZONTAL);

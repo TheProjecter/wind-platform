@@ -1,11 +1,14 @@
 package br.com.maisha.wind.lifecycle.mgmt;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.PropertyResourceBundle;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.osgi.framework.BundleContext;
 
@@ -56,19 +59,39 @@ public class ApplicationManager implements IApplicationManager {
 	/** Application Controller. */
 	private IApplicationController appCtrl;
 
+	/**
+	 * 
+	 * @param context
+	 * @return
+	 * @throws Exception
+	 */
+	private String readAppCfg(BundleContext context) throws Exception {
+		URL appCfg = context.getBundle().getEntry("/META-INF/wind-app.cfg");
+		StringWriter writer = new StringWriter();
+		IOUtils.copy(appCfg.openStream(), writer);
+		String script = writer.toString();
+
+		script = "StringWriter writer = new java.io.StringWriter()\ndef wind = new groovy.xml.MarkupBuilder(writer)\n" + script;
+		script = script + "\nreturn writer.toString()";
+
+		Object ret = appCtrl.runScript("groovy", script, null);
+		return ret != null ? ret.toString() : "";
+	}
+
 	/*
 	 * (non-Javadoc)
-	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#registerApplication(org.osgi.framework.BundleContext, java.lang.ClassLoader)
+	 * 
+	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#registerApplication(org.osgi.framework.BundleContext,
+	 * java.lang.ClassLoader)
 	 */
-	@SuppressWarnings("unchecked")
 	public void registerApplication(BundleContext context, ClassLoader classLoader) {
 		try {
 
 			log.debug("		Registering Wind Application");
 
 			// reads it's configuration file
-			URL appCfg = context.getBundle().getEntry("/META-INF/wind-app.cfg.xml");
-			WindApplication app = appCfgReader.read(appCfg.openStream());
+			String appCfg = readAppCfg(context);
+			WindApplication app = appCfgReader.read(new ByteArrayInputStream(appCfg.getBytes()));
 
 			log.debug("		App: [" + app.getAppId() + "] " + app.getName());
 
@@ -148,9 +171,9 @@ public class ApplicationManager implements IApplicationManager {
 			// reads it's configuration file
 			URL appCfg = context.getBundle().getEntry("/META-INF/wind-app.cfg.xml");
 			WindApplication app = appCfgReader.read(appCfg.openStream());
-			
+
 			String appId = app.getAppId();
-			
+
 			log.debug("		App: [" + app.getAppId() + "] " + app.getName() + " is going to be uninstalled");
 
 			// get app from registry
@@ -162,7 +185,7 @@ public class ApplicationManager implements IApplicationManager {
 
 			// detach classes created with javassist
 			classMaker.detachClasses(app);
-			
+
 			if (registry.unregister(app)) {
 				modelListeners.fireEvent(null, app, LevelType.Application, ChangeType.Removed);
 			}

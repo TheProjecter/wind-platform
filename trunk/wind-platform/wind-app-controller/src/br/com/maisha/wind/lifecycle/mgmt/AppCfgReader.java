@@ -9,6 +9,8 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import br.com.maisha.terra.lang.MenuGroup;
+import br.com.maisha.terra.lang.MenuItem;
 import br.com.maisha.terra.lang.ResourceBundleEntry;
 import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.controller.rcp.Activator;
@@ -26,8 +28,7 @@ public class AppCfgReader implements IAppCfgReader {
 	 */
 	public WindApplication read(InputStream is) throws Exception {
 		Digester d = new Digester();
-		d.setEntityResolver(new DTDEntityResolver());
-		d.setValidating(true);
+		d.setValidating(false);
 
 		d.addObjectCreate("app", WindApplication.class);
 		d.addSetProperties("app", "name", "name");
@@ -44,18 +45,38 @@ public class AppCfgReader implements IAppCfgReader {
 
 		d.addSetNext("app/bundle", "addResourceBundle");
 
+		d.addObjectCreate("*/group", MenuGroup.class);
+		d.addSetProperties("*/group", "icon", "icon");
+		d.addSetProperties("*/group", "label", "label");
+		d.addSetProperties("*/group", "visible", "visible");
+		d.addSetProperties("*/group", "sequence", "sequence");
+
+		d.addObjectCreate("*/item", MenuItem.class);
+		d.addSetProperties("*/item", "domain", "domainObject");
+		d.addSetProperties("*/item", "icon", "icon");
+		d.addSetProperties("*/item", "label", "label");
+		d.addSetProperties("*/item", "visible", "visible");
+		d.addSetProperties("*/item", "sequence", "sequence");
+		d.addSetNext("*/item", "addItem");
+
+		d.addObjectCreate("*/separator", MenuItem.class);
+		d.addSetProperties("*/separator", "sequence", "sequence");
+		d.addCallMethod("*/separator", "setSeparator");
+		d.addSetNext("*/separator", "addItem");
+
+		d.addSetNext("*/group", "addMenuGroup");
+
 		WindApplication app = (WindApplication) d.parse(is);
 
 		return app;
 	}
-	
 
 	/**
 	 * 
 	 * @author Paulo Freitas (pfreitas1@gmail.com)
-	 *
+	 * 
 	 */
-	class DTDEntityResolver implements EntityResolver{
+	class DTDEntityResolver implements EntityResolver {
 
 		/**
 		 * 
@@ -65,7 +86,7 @@ public class AppCfgReader implements IAppCfgReader {
 			URL url = Activator.getDefault().getBundle().getResource("wind-app-cfg.dtd");
 			return new InputSource(url.openStream());
 		}
-		
+
 	}
 
 }

@@ -4,7 +4,7 @@ import br.com.maisha.wind.common.preferences.IPreferenceStore;
 import org.osgi.service.prefs.Preferences;
 import br.com.maisha.terra.lang.ModelReference;
 
-class Filter{
+class FilterPreferences{
 
 	def ctx
 	def model

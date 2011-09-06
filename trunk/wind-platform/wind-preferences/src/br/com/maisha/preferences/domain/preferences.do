@@ -35,7 +35,7 @@ domain_object preferences "Preferences" {
 		tooltip: wind.preferences.action.tooltip.save
 	}
 	
-	operation groovy Filter "Filter"{
+	operation groovy FilterPreferences "Filter"{
 		file: br/com/maisha/preferences/rules/FilterPreferences.groovy
 		icon: icon/filter.gif
 		tooltip: wind.preferences.action.tooltip.filter
