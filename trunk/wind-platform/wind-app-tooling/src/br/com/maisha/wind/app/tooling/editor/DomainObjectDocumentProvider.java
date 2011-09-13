@@ -28,10 +28,14 @@ public class DomainObjectDocumentProvider extends FileDocumentProvider {
 			extension3.setDocumentPartitioner(Activator.TERRA_PARTITIONING,
 					partitioner);
 			partitioner.connect(document);
+			document.setDocumentPartitioner(partitioner);
 		}
+		
 		return document;
 
 	}
+	
+	
 
 	@Override
 	protected IDocument createEmptyDocument() {
