@@ -65,7 +65,7 @@ OBJECT_PROPERTY: 'open_filtering' | 'event_handler' ;
 FOLDER_PROPERTY: 'sequence' ;
 GENERAL_PROPERTY: 'visible';
 OPERATION: 'operation';
-FOLDER : 'folder';
+FOLDER : 'Folder';
 
 OP_TYPE: 'java' | 'python' | 'groovy';
 
