@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/br.com.maisha.wind.terra.feature_1.0.0.201109132111.jar" id="br.com.maisha.wind.terra.feature" version="1.0.0.201109132111">
+      <category name="WindTechnologies"/>
+   </feature>
+   <category-def name="WindTechnologies" label="Wind Technologies"/>
+</site>
