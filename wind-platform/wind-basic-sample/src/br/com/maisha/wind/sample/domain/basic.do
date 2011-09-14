@@ -4,17 +4,17 @@ domain_object basic "Basic"{
 
 	open_filtering: true
 	
-	folder personal "Personal Info"{
+	Folder personal "Personal Info"{
 		visible: true
 		sequence: 1
 	}
 	
-	folder contacts "Contacts"{
+	Folder contacts "Contacts"{
 		visible: true
 		sequence: 2
 	}
 	
-	folder financial "Financial"{
+	Folder financial "Financial"{
 		visible: true
 		sequence: 3
 	}
