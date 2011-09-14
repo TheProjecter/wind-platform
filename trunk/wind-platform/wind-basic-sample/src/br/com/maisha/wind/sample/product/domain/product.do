@@ -48,7 +48,7 @@ domain_object Product "Product"{
 	
 
 	
-	folder info "Information"{
+	Folder info "Information"{
 		sequence: 1
 		visible: true
 	}
@@ -146,7 +146,7 @@ domain_object Product "Product"{
 		width: 110
 	}
 	
-	folder descr "Descriptions"{
+	Folder descr "Descriptions"{
 		sequence: 2
 		visible: true
 	}
