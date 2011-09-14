@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/br.com.maisha.wind.terra.feature_1.0.0.201109132133.jar" id="br.com.maisha.wind.terra.feature" version="1.0.0.201109132133">
-      <category name="WindTechnologies"/>
+   <feature url="features/br.com.maisha.wind.terra.feature_1.0.0.201109132142.jar" id="br.com.maisha.wind.terra.feature" version="1.0.0.201109132142">
+      <category name="Wind Technologies"/>
    </feature>
-   <category-def name="WindTechnologies" label="Wind Technologies"/>
+   <category-def name="Wind Technologies" label="Wind Technologies">
+      <description>
+         Tools for working with Wind Platform.
+      </description>
+   </category-def>
 </site>
