@@ -43,7 +43,7 @@ private List<ValidValue> validValues = new ArrayList<ValidValue>();
 }
 
 
-ASSIGN: '=';
+ASSIGN: '='; 
 LEFT_PAREN: '(';
 RIGHT_PAREN: ')';
 LEFT_BRACKET: '{';
