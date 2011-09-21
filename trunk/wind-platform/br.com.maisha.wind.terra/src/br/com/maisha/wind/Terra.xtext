@@ -1,16 +1,16 @@
-grammar br.com.maisha.wind.Terra with org.eclipse.xtext.xbase.Xbase
+grammar br.com.maisha.wind.Terra with org.eclipse.xtext.common.Terminals
 
 generate terra "http://www.wind-platform.com.br/maisha/wind/Terra"
-
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 DomainObject:
-	package = PackageDeclaration &
-	imports += Import* &
+	package = PackageDeclaration 
+	imports += Import* 
 	'domain_object' name=ValidID label=STRING '{'
-	properties+=ObjectProperty* &
-	attributes+=Attribute* &
-	operations+=Operation* &
-	validations+=Validation* &
+	 & properties+=ObjectProperty* 
+	 & attributes+=Attribute* 
+	 & operations+=Operation* 
+	 & validations+=Validation* 
 	'}';
 	
 Import:
@@ -38,8 +38,9 @@ Operation:
 OperationProperty:
 	name=OperationPropertyName ':' (validValues=Array | value=Value );
 
+
 Value:
-	STRING | ValidID | EXPRESSION;
+	'true' | 'false' | STRING | ValidID | EXPRESSION | NUMBER | PATH;
 
 Validation: 'validation' ref=ID  '{' rules += ValidationRule* '}';
 
@@ -53,6 +54,26 @@ ValidationRule:
 terminal EXPRESSION:
 	'${' ('a'..'z'|'A'..'Z'|'$'|'_'|'*'|'+'|'-'|'='|'/'|'0'..'9'| ' ' | '?' | ':' | '(' | ')' | '<' | '>' | '.')* '}';
 
+terminal PATH:
+	ID ('/' ID)+ '.' ID
+;
+
+terminal NUMBER returns ecore::EBigDecimal:
+  ('0'..'9')* ('.' ('0'..'9')+)?;
+
+
+terminal INT returns ecore::EInt:
+  "$$$don't use this anymore$$$";
+
+QualifiedName:
+  ValidID ('.' ValidID)*;
+  
+ValidID:
+	ID
+;
+
+terminal ID:
+	'^'? ('a'..'z'|'A'..'Z'|'$'|'_') ('a'..'z'|'A'..'Z'|'$'|'_'|'0'..'9')*;
 
 enum OperationType:
 	groovy;

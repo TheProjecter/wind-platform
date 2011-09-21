@@ -4,6 +4,9 @@
 package br.com.maisha.wind.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
+
+import br.com.maisha.wind.ui.hovering.TerraTextHover;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -12,4 +15,9 @@ public class TerraUiModule extends br.com.maisha.wind.ui.AbstractTerraUiModule {
 	public TerraUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
 	}
+
+	public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
+		return TerraTextHover.class;
+	}
+
 }
