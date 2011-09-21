@@ -39,12 +39,7 @@ Workflow {
             fragment = grammarAccess.GrammarAccessFragment {}
 
             // generates Java API for the generated EPackages
-            fragment = ecore.EcoreGeneratorFragment {
-            // referencedGenModels = "
-            //  platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel,
-            //  platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel
-            // "
-            }
+            fragment = ecore.EcoreGeneratorFragment { }
 
             // Serializer 2.0
             fragment = serializer.SerializerFragment {}
@@ -58,19 +53,12 @@ Workflow {
             }
 
             // The antlr parser generator fragment.
-            fragment = parser.antlr.XtextAntlrGeneratorFragment {
-            //  options = {
-            //      backtrack = true
-            //  }
-            }
+            fragment = parser.antlr.XtextAntlrGeneratorFragment {}
 
             // java-based API for validation
             fragment = validation.JavaValidatorFragment {
-                composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
                 composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
             }
-            
-            fragment = org.eclipse.xtext.generator.validation.JavaValidatorFragment {}
             
 
             // scoping and exporting API
