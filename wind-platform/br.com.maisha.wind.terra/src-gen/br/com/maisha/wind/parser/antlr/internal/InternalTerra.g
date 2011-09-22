@@ -1069,11 +1069,25 @@ ruleArray returns [EObject current=null]
     {
     	newLeafNode(otherlv_3, grammarAccess.getArrayAccess().getCommaKeyword_3_0());
     }
-this_STRING_4=RULE_STRING
-    { 
-    newLeafNode(this_STRING_4, grammarAccess.getArrayAccess().getSTRINGTerminalRuleCall_3_1()); 
-    }
-)*	otherlv_5=']' 
+(
+(
+		lv_values_4_0=RULE_STRING
+		{
+			newLeafNode(lv_values_4_0, grammarAccess.getArrayAccess().getValuesSTRINGTerminalRuleCall_3_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getArrayRule());
+	        }
+       		addWithLastConsumed(
+       			$current, 
+       			"values",
+        		lv_values_4_0, 
+        		"STRING");
+	    }
+
+)
+))*	otherlv_5=']' 
     {
     	newLeafNode(otherlv_5, grammarAccess.getArrayAccess().getRightSquareBracketKeyword_4());
     }

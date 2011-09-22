@@ -508,14 +508,15 @@ public class TerraGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValuesSTRINGTerminalRuleCall_2_0 = (RuleCall)cValuesAssignment_2.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cCommaKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final RuleCall cSTRINGTerminalRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
+		private final Assignment cValuesAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cValuesSTRINGTerminalRuleCall_3_1_0 = (RuleCall)cValuesAssignment_3_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//Array:
-		//	"[" {Array} values+=STRING ("," STRING)* "]";
+		//	"[" {Array} values+=STRING ("," values+=STRING)* "]";
 		public ParserRule getRule() { return rule; }
 
-		//"[" {Array} values+=STRING ("," STRING)* "]"
+		//"[" {Array} values+=STRING ("," values+=STRING)* "]"
 		public Group getGroup() { return cGroup; }
 
 		//"["
@@ -530,14 +531,17 @@ public class TerraGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getValuesSTRINGTerminalRuleCall_2_0() { return cValuesSTRINGTerminalRuleCall_2_0; }
 
-		//("," STRING)*
+		//("," values+=STRING)*
 		public Group getGroup_3() { return cGroup_3; }
 
 		//","
 		public Keyword getCommaKeyword_3_0() { return cCommaKeyword_3_0; }
 
+		//values+=STRING
+		public Assignment getValuesAssignment_3_1() { return cValuesAssignment_3_1; }
+
 		//STRING
-		public RuleCall getSTRINGTerminalRuleCall_3_1() { return cSTRINGTerminalRuleCall_3_1; }
+		public RuleCall getValuesSTRINGTerminalRuleCall_3_1_0() { return cValuesSTRINGTerminalRuleCall_3_1_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_4() { return cRightSquareBracketKeyword_4; }
@@ -1232,7 +1236,7 @@ public class TerraGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Array:
-	//	"[" {Array} values+=STRING ("," STRING)* "]";
+	//	"[" {Array} values+=STRING ("," values+=STRING)* "]";
 	public ArrayElements getArrayAccess() {
 		return (pArray != null) ? pArray : (pArray = new ArrayElements());
 	}

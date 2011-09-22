@@ -45,7 +45,7 @@ Value:
 Validation: 'validation' ref=ID  '{' rules += ValidationRule* '}';
 
 Array:
-	'[' {Array} values+= STRING (',' STRING)* ']'
+	'[' {Array} values+= STRING (',' values+=STRING)* ']'
 ;
 
 ValidationRule:
