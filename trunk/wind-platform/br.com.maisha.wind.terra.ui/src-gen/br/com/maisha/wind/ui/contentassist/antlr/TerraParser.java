@@ -91,6 +91,7 @@ public class TerraParser extends AbstractContentAssistParser {
 					put(grammarAccess.getValidationAccess().getRefAssignment_1(), "rule__Validation__RefAssignment_1");
 					put(grammarAccess.getValidationAccess().getRulesAssignment_3(), "rule__Validation__RulesAssignment_3");
 					put(grammarAccess.getArrayAccess().getValuesAssignment_2(), "rule__Array__ValuesAssignment_2");
+					put(grammarAccess.getArrayAccess().getValuesAssignment_3_1(), "rule__Array__ValuesAssignment_3_1");
 					put(grammarAccess.getValidationRuleAccess().getMessageKeyAssignment_0(), "rule__ValidationRule__MessageKeyAssignment_0");
 					put(grammarAccess.getValidationRuleAccess().getExpressionAssignment_2(), "rule__ValidationRule__ExpressionAssignment_2");
 					put(grammarAccess.getDomainObjectAccess().getUnorderedGroup(), "rule__DomainObject__UnorderedGroup");
