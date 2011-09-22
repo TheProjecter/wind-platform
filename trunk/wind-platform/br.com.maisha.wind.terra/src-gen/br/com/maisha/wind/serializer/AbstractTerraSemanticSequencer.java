@@ -127,10 +127,10 @@ public class AbstractTerraSemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     values+=STRING
+	 *     (values+=STRING values+=STRING*)
 	 *
 	 * Features:
-	 *    values[1, 1]
+	 *    values[1, *]
 	 */
 	protected void sequence_Array(EObject context, Array semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
