@@ -4,13 +4,10 @@
 package br.com.maisha.wind.ui.contentassist;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jface.text.contentassist.ICompletionProposal;
-import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.xtext.*;
 import org.eclipse.xtext.common.ui.contentassist.TerminalsProposalProvider;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
-import org.eclipse.xtext.ui.label.StylerFactory;
 
 /**
  * Represents a generated, default implementation of interface {@link IProposalProvider}.
@@ -130,7 +127,7 @@ public class AbstractTerraProposalProvider extends TerminalsProposalProvider {
 		// subclasses may override
 	}
 	public void complete_AttributeProperty(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		model.toString();
+		// subclasses may override
 	}
 	public void complete_Operation(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		// subclasses may override

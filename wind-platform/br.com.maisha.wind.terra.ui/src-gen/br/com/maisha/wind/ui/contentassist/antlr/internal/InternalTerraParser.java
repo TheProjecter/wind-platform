@@ -7426,24 +7426,34 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Array__Group_3__1__Impl"
-    // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2503:1: rule__Array__Group_3__1__Impl : ( RULE_STRING ) ;
+    // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2503:1: rule__Array__Group_3__1__Impl : ( ( rule__Array__ValuesAssignment_3_1 ) ) ;
     public final void rule__Array__Group_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2507:1: ( ( RULE_STRING ) )
-            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2508:1: ( RULE_STRING )
+            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2507:1: ( ( ( rule__Array__ValuesAssignment_3_1 ) ) )
+            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2508:1: ( ( rule__Array__ValuesAssignment_3_1 ) )
             {
-            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2508:1: ( RULE_STRING )
-            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2509:1: RULE_STRING
+            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2508:1: ( ( rule__Array__ValuesAssignment_3_1 ) )
+            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2509:1: ( rule__Array__ValuesAssignment_3_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getArrayAccess().getSTRINGTerminalRuleCall_3_1()); 
+               before(grammarAccess.getArrayAccess().getValuesAssignment_3_1()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__Array__Group_3__1__Impl5257); if (state.failed) return ;
+            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2510:1: ( rule__Array__ValuesAssignment_3_1 )
+            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2510:2: rule__Array__ValuesAssignment_3_1
+            {
+            pushFollow(FOLLOW_rule__Array__ValuesAssignment_3_1_in_rule__Array__Group_3__1__Impl5257);
+            rule__Array__ValuesAssignment_3_1();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getArrayAccess().getSTRINGTerminalRuleCall_3_1()); 
+               after(grammarAccess.getArrayAccess().getValuesAssignment_3_1()); 
             }
 
             }
@@ -7476,12 +7486,12 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2528:1: ( rule__ValidationRule__Group__0__Impl rule__ValidationRule__Group__1 )
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2529:2: rule__ValidationRule__Group__0__Impl rule__ValidationRule__Group__1
             {
-            pushFollow(FOLLOW_rule__ValidationRule__Group__0__Impl_in_rule__ValidationRule__Group__05290);
+            pushFollow(FOLLOW_rule__ValidationRule__Group__0__Impl_in_rule__ValidationRule__Group__05291);
             rule__ValidationRule__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__ValidationRule__Group__1_in_rule__ValidationRule__Group__05293);
+            pushFollow(FOLLOW_rule__ValidationRule__Group__1_in_rule__ValidationRule__Group__05294);
             rule__ValidationRule__Group__1();
 
             state._fsp--;
@@ -7523,7 +7533,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2543:1: ( rule__ValidationRule__MessageKeyAssignment_0 )
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2543:2: rule__ValidationRule__MessageKeyAssignment_0
             {
-            pushFollow(FOLLOW_rule__ValidationRule__MessageKeyAssignment_0_in_rule__ValidationRule__Group__0__Impl5320);
+            pushFollow(FOLLOW_rule__ValidationRule__MessageKeyAssignment_0_in_rule__ValidationRule__Group__0__Impl5321);
             rule__ValidationRule__MessageKeyAssignment_0();
 
             state._fsp--;
@@ -7565,12 +7575,12 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2557:1: ( rule__ValidationRule__Group__1__Impl rule__ValidationRule__Group__2 )
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2558:2: rule__ValidationRule__Group__1__Impl rule__ValidationRule__Group__2
             {
-            pushFollow(FOLLOW_rule__ValidationRule__Group__1__Impl_in_rule__ValidationRule__Group__15350);
+            pushFollow(FOLLOW_rule__ValidationRule__Group__1__Impl_in_rule__ValidationRule__Group__15351);
             rule__ValidationRule__Group__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__ValidationRule__Group__2_in_rule__ValidationRule__Group__15353);
+            pushFollow(FOLLOW_rule__ValidationRule__Group__2_in_rule__ValidationRule__Group__15354);
             rule__ValidationRule__Group__2();
 
             state._fsp--;
@@ -7609,7 +7619,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationRuleAccess().getColonKeyword_1()); 
             }
-            match(input,59,FOLLOW_59_in_rule__ValidationRule__Group__1__Impl5381); if (state.failed) return ;
+            match(input,59,FOLLOW_59_in_rule__ValidationRule__Group__1__Impl5382); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationRuleAccess().getColonKeyword_1()); 
             }
@@ -7644,7 +7654,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2588:1: ( rule__ValidationRule__Group__2__Impl )
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2589:2: rule__ValidationRule__Group__2__Impl
             {
-            pushFollow(FOLLOW_rule__ValidationRule__Group__2__Impl_in_rule__ValidationRule__Group__25412);
+            pushFollow(FOLLOW_rule__ValidationRule__Group__2__Impl_in_rule__ValidationRule__Group__25413);
             rule__ValidationRule__Group__2__Impl();
 
             state._fsp--;
@@ -7686,7 +7696,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2602:1: ( rule__ValidationRule__ExpressionAssignment_2 )
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2602:2: rule__ValidationRule__ExpressionAssignment_2
             {
-            pushFollow(FOLLOW_rule__ValidationRule__ExpressionAssignment_2_in_rule__ValidationRule__Group__2__Impl5439);
+            pushFollow(FOLLOW_rule__ValidationRule__ExpressionAssignment_2_in_rule__ValidationRule__Group__2__Impl5440);
             rule__ValidationRule__ExpressionAssignment_2();
 
             state._fsp--;
@@ -7728,12 +7738,12 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2622:1: ( rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 )
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2623:2: rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1
             {
-            pushFollow(FOLLOW_rule__QualifiedName__Group__0__Impl_in_rule__QualifiedName__Group__05475);
+            pushFollow(FOLLOW_rule__QualifiedName__Group__0__Impl_in_rule__QualifiedName__Group__05476);
             rule__QualifiedName__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__QualifiedName__Group__1_in_rule__QualifiedName__Group__05478);
+            pushFollow(FOLLOW_rule__QualifiedName__Group__1_in_rule__QualifiedName__Group__05479);
             rule__QualifiedName__Group__1();
 
             state._fsp--;
@@ -7772,7 +7782,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedNameAccess().getValidIDParserRuleCall_0()); 
             }
-            pushFollow(FOLLOW_ruleValidID_in_rule__QualifiedName__Group__0__Impl5505);
+            pushFollow(FOLLOW_ruleValidID_in_rule__QualifiedName__Group__0__Impl5506);
             ruleValidID();
 
             state._fsp--;
@@ -7811,7 +7821,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2651:1: ( rule__QualifiedName__Group__1__Impl )
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2652:2: rule__QualifiedName__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__QualifiedName__Group__1__Impl_in_rule__QualifiedName__Group__15534);
+            pushFollow(FOLLOW_rule__QualifiedName__Group__1__Impl_in_rule__QualifiedName__Group__15535);
             rule__QualifiedName__Group__1__Impl();
 
             state._fsp--;
@@ -7865,7 +7875,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             	case 1 :
             	    // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2665:2: rule__QualifiedName__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_rule__QualifiedName__Group_1__0_in_rule__QualifiedName__Group__1__Impl5561);
+            	    pushFollow(FOLLOW_rule__QualifiedName__Group_1__0_in_rule__QualifiedName__Group__1__Impl5562);
             	    rule__QualifiedName__Group_1__0();
 
             	    state._fsp--;
@@ -7913,12 +7923,12 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2683:1: ( rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 )
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2684:2: rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1
             {
-            pushFollow(FOLLOW_rule__QualifiedName__Group_1__0__Impl_in_rule__QualifiedName__Group_1__05596);
+            pushFollow(FOLLOW_rule__QualifiedName__Group_1__0__Impl_in_rule__QualifiedName__Group_1__05597);
             rule__QualifiedName__Group_1__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__QualifiedName__Group_1__1_in_rule__QualifiedName__Group_1__05599);
+            pushFollow(FOLLOW_rule__QualifiedName__Group_1__1_in_rule__QualifiedName__Group_1__05600);
             rule__QualifiedName__Group_1__1();
 
             state._fsp--;
@@ -7957,7 +7967,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
             }
-            match(input,65,FOLLOW_65_in_rule__QualifiedName__Group_1__0__Impl5627); if (state.failed) return ;
+            match(input,65,FOLLOW_65_in_rule__QualifiedName__Group_1__0__Impl5628); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
             }
@@ -7992,7 +8002,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2714:1: ( rule__QualifiedName__Group_1__1__Impl )
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2715:2: rule__QualifiedName__Group_1__1__Impl
             {
-            pushFollow(FOLLOW_rule__QualifiedName__Group_1__1__Impl_in_rule__QualifiedName__Group_1__15658);
+            pushFollow(FOLLOW_rule__QualifiedName__Group_1__1__Impl_in_rule__QualifiedName__Group_1__15659);
             rule__QualifiedName__Group_1__1__Impl();
 
             state._fsp--;
@@ -8031,7 +8041,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedNameAccess().getValidIDParserRuleCall_1_1()); 
             }
-            pushFollow(FOLLOW_ruleValidID_in_rule__QualifiedName__Group_1__1__Impl5685);
+            pushFollow(FOLLOW_ruleValidID_in_rule__QualifiedName__Group_1__1__Impl5686);
             ruleValidID();
 
             state._fsp--;
@@ -8071,7 +8081,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2748:1: ( rule__DomainObject__UnorderedGroup__0 {...}?)
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2749:2: rule__DomainObject__UnorderedGroup__0 {...}?
             {
-            pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__0_in_rule__DomainObject__UnorderedGroup5719);
+            pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__0_in_rule__DomainObject__UnorderedGroup5720);
             rule__DomainObject__UnorderedGroup__0();
 
             state._fsp--;
@@ -8161,7 +8171,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
                     // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2779:7: ( rule__DomainObject__Group_0__0 )
                     // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2779:8: rule__DomainObject__Group_0__0
                     {
-                    pushFollow(FOLLOW_rule__DomainObject__Group_0__0_in_rule__DomainObject__UnorderedGroup__Impl5808);
+                    pushFollow(FOLLOW_rule__DomainObject__Group_0__0_in_rule__DomainObject__UnorderedGroup__Impl5809);
                     rule__DomainObject__Group_0__0();
 
                     state._fsp--;
@@ -8211,7 +8221,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
                     // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2796:7: ( rule__DomainObject__PropertiesAssignment_1 )
                     // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2796:8: rule__DomainObject__PropertiesAssignment_1
                     {
-                    pushFollow(FOLLOW_rule__DomainObject__PropertiesAssignment_1_in_rule__DomainObject__UnorderedGroup__Impl5900);
+                    pushFollow(FOLLOW_rule__DomainObject__PropertiesAssignment_1_in_rule__DomainObject__UnorderedGroup__Impl5901);
                     rule__DomainObject__PropertiesAssignment_1();
 
                     state._fsp--;
@@ -8240,7 +8250,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
                     	case 1 :
                     	    // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2801:8: ( rule__DomainObject__PropertiesAssignment_1 )=> rule__DomainObject__PropertiesAssignment_1
                     	    {
-                    	    pushFollow(FOLLOW_rule__DomainObject__PropertiesAssignment_1_in_rule__DomainObject__UnorderedGroup__Impl5944);
+                    	    pushFollow(FOLLOW_rule__DomainObject__PropertiesAssignment_1_in_rule__DomainObject__UnorderedGroup__Impl5945);
                     	    rule__DomainObject__PropertiesAssignment_1();
 
                     	    state._fsp--;
@@ -8299,7 +8309,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
                     // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2818:7: ( rule__DomainObject__AttributesAssignment_2 )
                     // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2818:8: rule__DomainObject__AttributesAssignment_2
                     {
-                    pushFollow(FOLLOW_rule__DomainObject__AttributesAssignment_2_in_rule__DomainObject__UnorderedGroup__Impl6043);
+                    pushFollow(FOLLOW_rule__DomainObject__AttributesAssignment_2_in_rule__DomainObject__UnorderedGroup__Impl6044);
                     rule__DomainObject__AttributesAssignment_2();
 
                     state._fsp--;
@@ -8328,7 +8338,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
                     	case 1 :
                     	    // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2823:8: ( rule__DomainObject__AttributesAssignment_2 )=> rule__DomainObject__AttributesAssignment_2
                     	    {
-                    	    pushFollow(FOLLOW_rule__DomainObject__AttributesAssignment_2_in_rule__DomainObject__UnorderedGroup__Impl6087);
+                    	    pushFollow(FOLLOW_rule__DomainObject__AttributesAssignment_2_in_rule__DomainObject__UnorderedGroup__Impl6088);
                     	    rule__DomainObject__AttributesAssignment_2();
 
                     	    state._fsp--;
@@ -8387,7 +8397,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
                     // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2840:7: ( rule__DomainObject__OperationsAssignment_3 )
                     // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2840:8: rule__DomainObject__OperationsAssignment_3
                     {
-                    pushFollow(FOLLOW_rule__DomainObject__OperationsAssignment_3_in_rule__DomainObject__UnorderedGroup__Impl6186);
+                    pushFollow(FOLLOW_rule__DomainObject__OperationsAssignment_3_in_rule__DomainObject__UnorderedGroup__Impl6187);
                     rule__DomainObject__OperationsAssignment_3();
 
                     state._fsp--;
@@ -8416,7 +8426,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
                     	case 1 :
                     	    // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2845:8: ( rule__DomainObject__OperationsAssignment_3 )=> rule__DomainObject__OperationsAssignment_3
                     	    {
-                    	    pushFollow(FOLLOW_rule__DomainObject__OperationsAssignment_3_in_rule__DomainObject__UnorderedGroup__Impl6230);
+                    	    pushFollow(FOLLOW_rule__DomainObject__OperationsAssignment_3_in_rule__DomainObject__UnorderedGroup__Impl6231);
                     	    rule__DomainObject__OperationsAssignment_3();
 
                     	    state._fsp--;
@@ -8472,7 +8482,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
                     // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2862:7: ( rule__DomainObject__Group_4__0 )
                     // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2862:8: rule__DomainObject__Group_4__0
                     {
-                    pushFollow(FOLLOW_rule__DomainObject__Group_4__0_in_rule__DomainObject__UnorderedGroup__Impl6328);
+                    pushFollow(FOLLOW_rule__DomainObject__Group_4__0_in_rule__DomainObject__UnorderedGroup__Impl6329);
                     rule__DomainObject__Group_4__0();
 
                     state._fsp--;
@@ -8528,7 +8538,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2881:1: ( rule__DomainObject__UnorderedGroup__Impl ( rule__DomainObject__UnorderedGroup__1 )? )
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2882:2: rule__DomainObject__UnorderedGroup__Impl ( rule__DomainObject__UnorderedGroup__1 )?
             {
-            pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__06387);
+            pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__06388);
             rule__DomainObject__UnorderedGroup__Impl();
 
             state._fsp--;
@@ -8556,7 +8566,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
                 case 1 :
                     // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2883:2: rule__DomainObject__UnorderedGroup__1
                     {
-                    pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__1_in_rule__DomainObject__UnorderedGroup__06390);
+                    pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__1_in_rule__DomainObject__UnorderedGroup__06391);
                     rule__DomainObject__UnorderedGroup__1();
 
                     state._fsp--;
@@ -8595,7 +8605,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2894:1: ( rule__DomainObject__UnorderedGroup__Impl ( rule__DomainObject__UnorderedGroup__2 )? )
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2895:2: rule__DomainObject__UnorderedGroup__Impl ( rule__DomainObject__UnorderedGroup__2 )?
             {
-            pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__16415);
+            pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__16416);
             rule__DomainObject__UnorderedGroup__Impl();
 
             state._fsp--;
@@ -8623,7 +8633,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
                 case 1 :
                     // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2896:2: rule__DomainObject__UnorderedGroup__2
                     {
-                    pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__2_in_rule__DomainObject__UnorderedGroup__16418);
+                    pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__2_in_rule__DomainObject__UnorderedGroup__16419);
                     rule__DomainObject__UnorderedGroup__2();
 
                     state._fsp--;
@@ -8662,7 +8672,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2907:1: ( rule__DomainObject__UnorderedGroup__Impl ( rule__DomainObject__UnorderedGroup__3 )? )
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2908:2: rule__DomainObject__UnorderedGroup__Impl ( rule__DomainObject__UnorderedGroup__3 )?
             {
-            pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__26443);
+            pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__26444);
             rule__DomainObject__UnorderedGroup__Impl();
 
             state._fsp--;
@@ -8690,7 +8700,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
                 case 1 :
                     // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2909:2: rule__DomainObject__UnorderedGroup__3
                     {
-                    pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__3_in_rule__DomainObject__UnorderedGroup__26446);
+                    pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__3_in_rule__DomainObject__UnorderedGroup__26447);
                     rule__DomainObject__UnorderedGroup__3();
 
                     state._fsp--;
@@ -8729,7 +8739,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2920:1: ( rule__DomainObject__UnorderedGroup__Impl ( rule__DomainObject__UnorderedGroup__4 )? )
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2921:2: rule__DomainObject__UnorderedGroup__Impl ( rule__DomainObject__UnorderedGroup__4 )?
             {
-            pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__36471);
+            pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__36472);
             rule__DomainObject__UnorderedGroup__Impl();
 
             state._fsp--;
@@ -8757,7 +8767,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
                 case 1 :
                     // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2922:2: rule__DomainObject__UnorderedGroup__4
                     {
-                    pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__4_in_rule__DomainObject__UnorderedGroup__36474);
+                    pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__4_in_rule__DomainObject__UnorderedGroup__36475);
                     rule__DomainObject__UnorderedGroup__4();
 
                     state._fsp--;
@@ -8796,7 +8806,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2933:1: ( rule__DomainObject__UnorderedGroup__Impl )
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2934:2: rule__DomainObject__UnorderedGroup__Impl
             {
-            pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__46499);
+            pushFollow(FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__46500);
             rule__DomainObject__UnorderedGroup__Impl();
 
             state._fsp--;
@@ -8835,7 +8845,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDomainObjectAccess().getPackagePackageDeclarationParserRuleCall_0_0_0()); 
             }
-            pushFollow(FOLLOW_rulePackageDeclaration_in_rule__DomainObject__PackageAssignment_0_06537);
+            pushFollow(FOLLOW_rulePackageDeclaration_in_rule__DomainObject__PackageAssignment_0_06538);
             rulePackageDeclaration();
 
             state._fsp--;
@@ -8880,7 +8890,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDomainObjectAccess().getImportsImportParserRuleCall_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleImport_in_rule__DomainObject__ImportsAssignment_0_16568);
+            pushFollow(FOLLOW_ruleImport_in_rule__DomainObject__ImportsAssignment_0_16569);
             ruleImport();
 
             state._fsp--;
@@ -8925,7 +8935,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDomainObjectAccess().getNameValidIDParserRuleCall_0_3_0()); 
             }
-            pushFollow(FOLLOW_ruleValidID_in_rule__DomainObject__NameAssignment_0_36599);
+            pushFollow(FOLLOW_ruleValidID_in_rule__DomainObject__NameAssignment_0_36600);
             ruleValidID();
 
             state._fsp--;
@@ -8970,7 +8980,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDomainObjectAccess().getLabelSTRINGTerminalRuleCall_0_4_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__DomainObject__LabelAssignment_0_46630); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__DomainObject__LabelAssignment_0_46631); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getDomainObjectAccess().getLabelSTRINGTerminalRuleCall_0_4_0()); 
             }
@@ -9011,7 +9021,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDomainObjectAccess().getPropertiesObjectPropertyParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleObjectProperty_in_rule__DomainObject__PropertiesAssignment_16661);
+            pushFollow(FOLLOW_ruleObjectProperty_in_rule__DomainObject__PropertiesAssignment_16662);
             ruleObjectProperty();
 
             state._fsp--;
@@ -9056,7 +9066,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDomainObjectAccess().getAttributesAttributeParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleAttribute_in_rule__DomainObject__AttributesAssignment_26692);
+            pushFollow(FOLLOW_ruleAttribute_in_rule__DomainObject__AttributesAssignment_26693);
             ruleAttribute();
 
             state._fsp--;
@@ -9101,7 +9111,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDomainObjectAccess().getOperationsOperationParserRuleCall_3_0()); 
             }
-            pushFollow(FOLLOW_ruleOperation_in_rule__DomainObject__OperationsAssignment_36723);
+            pushFollow(FOLLOW_ruleOperation_in_rule__DomainObject__OperationsAssignment_36724);
             ruleOperation();
 
             state._fsp--;
@@ -9146,7 +9156,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDomainObjectAccess().getValidationsValidationParserRuleCall_4_0_0()); 
             }
-            pushFollow(FOLLOW_ruleValidation_in_rule__DomainObject__ValidationsAssignment_4_06754);
+            pushFollow(FOLLOW_ruleValidation_in_rule__DomainObject__ValidationsAssignment_4_06755);
             ruleValidation();
 
             state._fsp--;
@@ -9191,7 +9201,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getImportAccess().getImportedNamespaceQualifiedNameParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Import__ImportedNamespaceAssignment_16785);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Import__ImportedNamespaceAssignment_16786);
             ruleQualifiedName();
 
             state._fsp--;
@@ -9236,7 +9246,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPackageDeclarationAccess().getNameQualifiedNameParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__PackageDeclaration__NameAssignment_16816);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__PackageDeclaration__NameAssignment_16817);
             ruleQualifiedName();
 
             state._fsp--;
@@ -9281,7 +9291,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getObjectPropertyAccess().getNameObjectPropertyNameEnumRuleCall_0_0()); 
             }
-            pushFollow(FOLLOW_ruleObjectPropertyName_in_rule__ObjectProperty__NameAssignment_06847);
+            pushFollow(FOLLOW_ruleObjectPropertyName_in_rule__ObjectProperty__NameAssignment_06848);
             ruleObjectPropertyName();
 
             state._fsp--;
@@ -9326,7 +9336,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getObjectPropertyAccess().getValueValueParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleValue_in_rule__ObjectProperty__ValueAssignment_26878);
+            pushFollow(FOLLOW_ruleValue_in_rule__ObjectProperty__ValueAssignment_26879);
             ruleValue();
 
             state._fsp--;
@@ -9371,7 +9381,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAttributeAccess().getTypeValidIDParserRuleCall_0_0()); 
             }
-            pushFollow(FOLLOW_ruleValidID_in_rule__Attribute__TypeAssignment_06909);
+            pushFollow(FOLLOW_ruleValidID_in_rule__Attribute__TypeAssignment_06910);
             ruleValidID();
 
             state._fsp--;
@@ -9416,7 +9426,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAttributeAccess().getRefValidIDParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleValidID_in_rule__Attribute__RefAssignment_16940);
+            pushFollow(FOLLOW_ruleValidID_in_rule__Attribute__RefAssignment_16941);
             ruleValidID();
 
             state._fsp--;
@@ -9461,7 +9471,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAttributeAccess().getLabelSTRINGTerminalRuleCall_2_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__Attribute__LabelAssignment_26971); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__Attribute__LabelAssignment_26972); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAttributeAccess().getLabelSTRINGTerminalRuleCall_2_0()); 
             }
@@ -9502,7 +9512,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAttributeAccess().getPropertiesAttributePropertyParserRuleCall_4_0()); 
             }
-            pushFollow(FOLLOW_ruleAttributeProperty_in_rule__Attribute__PropertiesAssignment_47002);
+            pushFollow(FOLLOW_ruleAttributeProperty_in_rule__Attribute__PropertiesAssignment_47003);
             ruleAttributeProperty();
 
             state._fsp--;
@@ -9547,7 +9557,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAttributePropertyAccess().getNameAttributePropertyNameEnumRuleCall_0_0()); 
             }
-            pushFollow(FOLLOW_ruleAttributePropertyName_in_rule__AttributeProperty__NameAssignment_07033);
+            pushFollow(FOLLOW_ruleAttributePropertyName_in_rule__AttributeProperty__NameAssignment_07034);
             ruleAttributePropertyName();
 
             state._fsp--;
@@ -9592,7 +9602,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAttributePropertyAccess().getValidValuesArrayParserRuleCall_2_0_0()); 
             }
-            pushFollow(FOLLOW_ruleArray_in_rule__AttributeProperty__ValidValuesAssignment_2_07064);
+            pushFollow(FOLLOW_ruleArray_in_rule__AttributeProperty__ValidValuesAssignment_2_07065);
             ruleArray();
 
             state._fsp--;
@@ -9637,7 +9647,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAttributePropertyAccess().getValueValueParserRuleCall_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleValue_in_rule__AttributeProperty__ValueAssignment_2_17095);
+            pushFollow(FOLLOW_ruleValue_in_rule__AttributeProperty__ValueAssignment_2_17096);
             ruleValue();
 
             state._fsp--;
@@ -9682,7 +9692,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAttributePropertyAccess().getValueValueParserRuleCall_2_2_0_0()); 
             }
-            pushFollow(FOLLOW_ruleValue_in_rule__AttributeProperty__ValueAssignment_2_2_07126);
+            pushFollow(FOLLOW_ruleValue_in_rule__AttributeProperty__ValueAssignment_2_2_07127);
             ruleValue();
 
             state._fsp--;
@@ -9727,7 +9737,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAttributePropertyAccess().getValidValuesArrayParserRuleCall_2_2_2_0()); 
             }
-            pushFollow(FOLLOW_ruleArray_in_rule__AttributeProperty__ValidValuesAssignment_2_2_27157);
+            pushFollow(FOLLOW_ruleArray_in_rule__AttributeProperty__ValidValuesAssignment_2_2_27158);
             ruleArray();
 
             state._fsp--;
@@ -9772,7 +9782,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOperationAccess().getTypeOperationTypeEnumRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleOperationType_in_rule__Operation__TypeAssignment_17188);
+            pushFollow(FOLLOW_ruleOperationType_in_rule__Operation__TypeAssignment_17189);
             ruleOperationType();
 
             state._fsp--;
@@ -9817,7 +9827,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOperationAccess().getNameValidIDParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleValidID_in_rule__Operation__NameAssignment_27219);
+            pushFollow(FOLLOW_ruleValidID_in_rule__Operation__NameAssignment_27220);
             ruleValidID();
 
             state._fsp--;
@@ -9862,7 +9872,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOperationAccess().getLabelSTRINGTerminalRuleCall_3_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__Operation__LabelAssignment_37250); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__Operation__LabelAssignment_37251); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getOperationAccess().getLabelSTRINGTerminalRuleCall_3_0()); 
             }
@@ -9903,7 +9913,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOperationAccess().getPropertiesOperationPropertyParserRuleCall_5_0()); 
             }
-            pushFollow(FOLLOW_ruleOperationProperty_in_rule__Operation__PropertiesAssignment_57281);
+            pushFollow(FOLLOW_ruleOperationProperty_in_rule__Operation__PropertiesAssignment_57282);
             ruleOperationProperty();
 
             state._fsp--;
@@ -9948,7 +9958,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOperationPropertyAccess().getNameOperationPropertyNameEnumRuleCall_0_0()); 
             }
-            pushFollow(FOLLOW_ruleOperationPropertyName_in_rule__OperationProperty__NameAssignment_07312);
+            pushFollow(FOLLOW_ruleOperationPropertyName_in_rule__OperationProperty__NameAssignment_07313);
             ruleOperationPropertyName();
 
             state._fsp--;
@@ -9993,7 +10003,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOperationPropertyAccess().getValidValuesArrayParserRuleCall_2_0_0()); 
             }
-            pushFollow(FOLLOW_ruleArray_in_rule__OperationProperty__ValidValuesAssignment_2_07343);
+            pushFollow(FOLLOW_ruleArray_in_rule__OperationProperty__ValidValuesAssignment_2_07344);
             ruleArray();
 
             state._fsp--;
@@ -10038,7 +10048,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOperationPropertyAccess().getValueValueParserRuleCall_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleValue_in_rule__OperationProperty__ValueAssignment_2_17374);
+            pushFollow(FOLLOW_ruleValue_in_rule__OperationProperty__ValueAssignment_2_17375);
             ruleValue();
 
             state._fsp--;
@@ -10083,7 +10093,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationAccess().getRefIDTerminalRuleCall_1_0()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Validation__RefAssignment_17405); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Validation__RefAssignment_17406); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationAccess().getRefIDTerminalRuleCall_1_0()); 
             }
@@ -10124,7 +10134,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationAccess().getRulesValidationRuleParserRuleCall_3_0()); 
             }
-            pushFollow(FOLLOW_ruleValidationRule_in_rule__Validation__RulesAssignment_37436);
+            pushFollow(FOLLOW_ruleValidationRule_in_rule__Validation__RulesAssignment_37437);
             ruleValidationRule();
 
             state._fsp--;
@@ -10169,7 +10179,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getArrayAccess().getValuesSTRINGTerminalRuleCall_2_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__Array__ValuesAssignment_27467); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__Array__ValuesAssignment_27468); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getArrayAccess().getValuesSTRINGTerminalRuleCall_2_0()); 
             }
@@ -10194,9 +10204,9 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Array__ValuesAssignment_2"
 
 
-    // $ANTLR start "rule__ValidationRule__MessageKeyAssignment_0"
-    // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:3416:1: rule__ValidationRule__MessageKeyAssignment_0 : ( RULE_STRING ) ;
-    public final void rule__ValidationRule__MessageKeyAssignment_0() throws RecognitionException {
+    // $ANTLR start "rule__Array__ValuesAssignment_3_1"
+    // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:3416:1: rule__Array__ValuesAssignment_3_1 : ( RULE_STRING ) ;
+    public final void rule__Array__ValuesAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -10208,9 +10218,50 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
             // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:3422:1: RULE_STRING
             {
             if ( state.backtracking==0 ) {
+               before(grammarAccess.getArrayAccess().getValuesSTRINGTerminalRuleCall_3_1_0()); 
+            }
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__Array__ValuesAssignment_3_17499); if (state.failed) return ;
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getArrayAccess().getValuesSTRINGTerminalRuleCall_3_1_0()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Array__ValuesAssignment_3_1"
+
+
+    // $ANTLR start "rule__ValidationRule__MessageKeyAssignment_0"
+    // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:3431:1: rule__ValidationRule__MessageKeyAssignment_0 : ( RULE_STRING ) ;
+    public final void rule__ValidationRule__MessageKeyAssignment_0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:3435:1: ( ( RULE_STRING ) )
+            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:3436:1: ( RULE_STRING )
+            {
+            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:3436:1: ( RULE_STRING )
+            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:3437:1: RULE_STRING
+            {
+            if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationRuleAccess().getMessageKeySTRINGTerminalRuleCall_0_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ValidationRule__MessageKeyAssignment_07498); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ValidationRule__MessageKeyAssignment_07530); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationRuleAccess().getMessageKeySTRINGTerminalRuleCall_0_0()); 
             }
@@ -10236,22 +10287,22 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValidationRule__ExpressionAssignment_2"
-    // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:3431:1: rule__ValidationRule__ExpressionAssignment_2 : ( RULE_EXPRESSION ) ;
+    // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:3446:1: rule__ValidationRule__ExpressionAssignment_2 : ( RULE_EXPRESSION ) ;
     public final void rule__ValidationRule__ExpressionAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:3435:1: ( ( RULE_EXPRESSION ) )
-            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:3436:1: ( RULE_EXPRESSION )
+            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:3450:1: ( ( RULE_EXPRESSION ) )
+            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:3451:1: ( RULE_EXPRESSION )
             {
-            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:3436:1: ( RULE_EXPRESSION )
-            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:3437:1: RULE_EXPRESSION
+            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:3451:1: ( RULE_EXPRESSION )
+            // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:3452:1: RULE_EXPRESSION
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationRuleAccess().getExpressionEXPRESSIONTerminalRuleCall_2_0()); 
             }
-            match(input,RULE_EXPRESSION,FOLLOW_RULE_EXPRESSION_in_rule__ValidationRule__ExpressionAssignment_27529); if (state.failed) return ;
+            match(input,RULE_EXPRESSION,FOLLOW_RULE_EXPRESSION_in_rule__ValidationRule__ExpressionAssignment_27561); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationRuleAccess().getExpressionEXPRESSIONTerminalRuleCall_2_0()); 
             }
@@ -10280,7 +10331,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
         // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2801:8: ( rule__DomainObject__PropertiesAssignment_1 )
         // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2801:9: rule__DomainObject__PropertiesAssignment_1
         {
-        pushFollow(FOLLOW_rule__DomainObject__PropertiesAssignment_1_in_synpred1_InternalTerra5941);
+        pushFollow(FOLLOW_rule__DomainObject__PropertiesAssignment_1_in_synpred1_InternalTerra5942);
         rule__DomainObject__PropertiesAssignment_1();
 
         state._fsp--;
@@ -10295,7 +10346,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
         // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2823:8: ( rule__DomainObject__AttributesAssignment_2 )
         // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2823:9: rule__DomainObject__AttributesAssignment_2
         {
-        pushFollow(FOLLOW_rule__DomainObject__AttributesAssignment_2_in_synpred2_InternalTerra6084);
+        pushFollow(FOLLOW_rule__DomainObject__AttributesAssignment_2_in_synpred2_InternalTerra6085);
         rule__DomainObject__AttributesAssignment_2();
 
         state._fsp--;
@@ -10310,7 +10361,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
         // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2845:8: ( rule__DomainObject__OperationsAssignment_3 )
         // ../br.com.maisha.wind.terra.ui/src-gen/br/com/maisha/wind/ui/contentassist/antlr/internal/InternalTerra.g:2845:9: rule__DomainObject__OperationsAssignment_3
         {
-        pushFollow(FOLLOW_rule__DomainObject__OperationsAssignment_3_in_synpred3_InternalTerra6227);
+        pushFollow(FOLLOW_rule__DomainObject__OperationsAssignment_3_in_synpred3_InternalTerra6228);
         rule__DomainObject__OperationsAssignment_3();
 
         state._fsp--;
@@ -10373,25 +10424,25 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
     static final String DFA1_eotS =
         "\13\uffff";
     static final String DFA1_eofS =
-        "\2\uffff\7\11\2\uffff";
+        "\2\uffff\7\12\2\uffff";
     static final String DFA1_minS =
         "\1\4\1\uffff\7\21\2\uffff";
     static final String DFA1_maxS =
         "\1\76\1\uffff\7\74\2\uffff";
     static final String DFA1_acceptS =
-        "\1\uffff\1\1\7\uffff\1\2\1\3";
+        "\1\uffff\1\1\7\uffff\1\3\1\2";
     static final String DFA1_specialS =
         "\13\uffff}>";
     static final String[] DFA1_transitionS = {
             "\1\5\1\4\1\6\1\7\1\10\6\uffff\1\2\1\3\55\uffff\1\1",
             "",
-            "\35\11\11\uffff\1\11\4\uffff\1\12",
-            "\35\11\11\uffff\1\11\4\uffff\1\12",
-            "\35\11\11\uffff\1\11\4\uffff\1\12",
-            "\35\11\11\uffff\1\11\4\uffff\1\12",
-            "\35\11\11\uffff\1\11\4\uffff\1\12",
-            "\35\11\11\uffff\1\11\4\uffff\1\12",
-            "\35\11\11\uffff\1\11\4\uffff\1\12",
+            "\35\12\11\uffff\1\12\4\uffff\1\11",
+            "\35\12\11\uffff\1\12\4\uffff\1\11",
+            "\35\12\11\uffff\1\12\4\uffff\1\11",
+            "\35\12\11\uffff\1\12\4\uffff\1\11",
+            "\35\12\11\uffff\1\12\4\uffff\1\11",
+            "\35\12\11\uffff\1\12\4\uffff\1\11",
+            "\35\12\11\uffff\1\12\4\uffff\1\11",
             "",
             ""
     };
@@ -10440,7 +10491,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
     static final String DFA14_acceptS =
         "\1\uffff\1\2\12\uffff\1\1";
     static final String DFA14_specialS =
-        "\5\uffff\1\1\1\0\1\6\1\5\1\3\1\2\1\4\1\uffff}>";
+        "\5\uffff\1\4\1\5\1\2\1\3\1\6\1\0\1\1\1\uffff}>";
     static final String[] DFA14_transitionS = {
             "\1\1\33\uffff\1\1\22\uffff\1\2\1\3\2\uffff\1\1\1\uffff\1\1\3"+
             "\uffff\1\1",
@@ -10495,36 +10546,6 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA14_6 = input.LA(1);
-
-                         
-                        int index14_6 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred1_InternalTerra()) ) {s = 12;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index14_6);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA14_5 = input.LA(1);
-
-                         
-                        int index14_5 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred1_InternalTerra()) ) {s = 12;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index14_5);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
                         int LA14_10 = input.LA(1);
 
                          
@@ -10539,22 +10560,7 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
                         input.seek(index14_10);
                         if ( s>=0 ) return s;
                         break;
-                    case 3 : 
-                        int LA14_9 = input.LA(1);
-
-                         
-                        int index14_9 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred1_InternalTerra()) ) {s = 12;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index14_9);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
+                    case 1 : 
                         int LA14_11 = input.LA(1);
 
                          
@@ -10569,7 +10575,22 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
                         input.seek(index14_11);
                         if ( s>=0 ) return s;
                         break;
-                    case 5 : 
+                    case 2 : 
+                        int LA14_7 = input.LA(1);
+
+                         
+                        int index14_7 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred1_InternalTerra()) ) {s = 12;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index14_7);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
                         int LA14_8 = input.LA(1);
 
                          
@@ -10584,11 +10605,11 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
                         input.seek(index14_8);
                         if ( s>=0 ) return s;
                         break;
-                    case 6 : 
-                        int LA14_7 = input.LA(1);
+                    case 4 : 
+                        int LA14_5 = input.LA(1);
 
                          
-                        int index14_7 = input.index();
+                        int index14_5 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred1_InternalTerra()) ) {s = 12;}
@@ -10596,7 +10617,37 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index14_7);
+                        input.seek(index14_5);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA14_6 = input.LA(1);
+
+                         
+                        int index14_6 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred1_InternalTerra()) ) {s = 12;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index14_6);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA14_9 = input.LA(1);
+
+                         
+                        int index14_9 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred1_InternalTerra()) ) {s = 12;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index14_9);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -11110,78 +11161,79 @@ public class InternalTerraParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__Array__Group_3__1_in_rule__Array__Group_3__05171 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_64_in_rule__Array__Group_3__0__Impl5199 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Array__Group_3__1__Impl_in_rule__Array__Group_3__15230 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__Array__Group_3__1__Impl5257 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationRule__Group__0__Impl_in_rule__ValidationRule__Group__05290 = new BitSet(new long[]{0x0800000000000000L});
-    public static final BitSet FOLLOW_rule__ValidationRule__Group__1_in_rule__ValidationRule__Group__05293 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationRule__MessageKeyAssignment_0_in_rule__ValidationRule__Group__0__Impl5320 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationRule__Group__1__Impl_in_rule__ValidationRule__Group__15350 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__ValidationRule__Group__2_in_rule__ValidationRule__Group__15353 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_59_in_rule__ValidationRule__Group__1__Impl5381 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationRule__Group__2__Impl_in_rule__ValidationRule__Group__25412 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationRule__ExpressionAssignment_2_in_rule__ValidationRule__Group__2__Impl5439 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group__0__Impl_in_rule__QualifiedName__Group__05475 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group__1_in_rule__QualifiedName__Group__05478 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValidID_in_rule__QualifiedName__Group__0__Impl5505 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group__1__Impl_in_rule__QualifiedName__Group__15534 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0_in_rule__QualifiedName__Group__1__Impl5561 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0__Impl_in_rule__QualifiedName__Group_1__05596 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__1_in_rule__QualifiedName__Group_1__05599 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_65_in_rule__QualifiedName__Group_1__0__Impl5627 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__1__Impl_in_rule__QualifiedName__Group_1__15658 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValidID_in_rule__QualifiedName__Group_1__1__Impl5685 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__0_in_rule__DomainObject__UnorderedGroup5719 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__DomainObject__Group_0__0_in_rule__DomainObject__UnorderedGroup__Impl5808 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__DomainObject__PropertiesAssignment_1_in_rule__DomainObject__UnorderedGroup__Impl5900 = new BitSet(new long[]{0x0018000000000002L});
-    public static final BitSet FOLLOW_rule__DomainObject__PropertiesAssignment_1_in_rule__DomainObject__UnorderedGroup__Impl5944 = new BitSet(new long[]{0x0018000000000002L});
-    public static final BitSet FOLLOW_rule__DomainObject__AttributesAssignment_2_in_rule__DomainObject__UnorderedGroup__Impl6043 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__DomainObject__AttributesAssignment_2_in_rule__DomainObject__UnorderedGroup__Impl6087 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__DomainObject__OperationsAssignment_3_in_rule__DomainObject__UnorderedGroup__Impl6186 = new BitSet(new long[]{0x2000000000000002L});
-    public static final BitSet FOLLOW_rule__DomainObject__OperationsAssignment_3_in_rule__DomainObject__UnorderedGroup__Impl6230 = new BitSet(new long[]{0x2000000000000002L});
-    public static final BitSet FOLLOW_rule__DomainObject__Group_4__0_in_rule__DomainObject__UnorderedGroup__Impl6328 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__06387 = new BitSet(new long[]{0x2218000100000012L});
-    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__1_in_rule__DomainObject__UnorderedGroup__06390 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__16415 = new BitSet(new long[]{0x2218000100000012L});
-    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__2_in_rule__DomainObject__UnorderedGroup__16418 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__26443 = new BitSet(new long[]{0x2218000100000012L});
-    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__3_in_rule__DomainObject__UnorderedGroup__26446 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__36471 = new BitSet(new long[]{0x2218000100000012L});
-    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__4_in_rule__DomainObject__UnorderedGroup__36474 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__46499 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePackageDeclaration_in_rule__DomainObject__PackageAssignment_0_06537 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleImport_in_rule__DomainObject__ImportsAssignment_0_16568 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValidID_in_rule__DomainObject__NameAssignment_0_36599 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__DomainObject__LabelAssignment_0_46630 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleObjectProperty_in_rule__DomainObject__PropertiesAssignment_16661 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAttribute_in_rule__DomainObject__AttributesAssignment_26692 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOperation_in_rule__DomainObject__OperationsAssignment_36723 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValidation_in_rule__DomainObject__ValidationsAssignment_4_06754 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Import__ImportedNamespaceAssignment_16785 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__PackageDeclaration__NameAssignment_16816 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleObjectPropertyName_in_rule__ObjectProperty__NameAssignment_06847 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValue_in_rule__ObjectProperty__ValueAssignment_26878 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValidID_in_rule__Attribute__TypeAssignment_06909 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValidID_in_rule__Attribute__RefAssignment_16940 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__Attribute__LabelAssignment_26971 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAttributeProperty_in_rule__Attribute__PropertiesAssignment_47002 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAttributePropertyName_in_rule__AttributeProperty__NameAssignment_07033 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleArray_in_rule__AttributeProperty__ValidValuesAssignment_2_07064 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValue_in_rule__AttributeProperty__ValueAssignment_2_17095 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValue_in_rule__AttributeProperty__ValueAssignment_2_2_07126 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleArray_in_rule__AttributeProperty__ValidValuesAssignment_2_2_27157 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOperationType_in_rule__Operation__TypeAssignment_17188 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValidID_in_rule__Operation__NameAssignment_27219 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__Operation__LabelAssignment_37250 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOperationProperty_in_rule__Operation__PropertiesAssignment_57281 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOperationPropertyName_in_rule__OperationProperty__NameAssignment_07312 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleArray_in_rule__OperationProperty__ValidValuesAssignment_2_07343 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValue_in_rule__OperationProperty__ValueAssignment_2_17374 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__Validation__RefAssignment_17405 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValidationRule_in_rule__Validation__RulesAssignment_37436 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__Array__ValuesAssignment_27467 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ValidationRule__MessageKeyAssignment_07498 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_EXPRESSION_in_rule__ValidationRule__ExpressionAssignment_27529 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__DomainObject__PropertiesAssignment_1_in_synpred1_InternalTerra5941 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__DomainObject__AttributesAssignment_2_in_synpred2_InternalTerra6084 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__DomainObject__OperationsAssignment_3_in_synpred3_InternalTerra6227 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Array__ValuesAssignment_3_1_in_rule__Array__Group_3__1__Impl5257 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValidationRule__Group__0__Impl_in_rule__ValidationRule__Group__05291 = new BitSet(new long[]{0x0800000000000000L});
+    public static final BitSet FOLLOW_rule__ValidationRule__Group__1_in_rule__ValidationRule__Group__05294 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValidationRule__MessageKeyAssignment_0_in_rule__ValidationRule__Group__0__Impl5321 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValidationRule__Group__1__Impl_in_rule__ValidationRule__Group__15351 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__ValidationRule__Group__2_in_rule__ValidationRule__Group__15354 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_59_in_rule__ValidationRule__Group__1__Impl5382 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValidationRule__Group__2__Impl_in_rule__ValidationRule__Group__25413 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValidationRule__ExpressionAssignment_2_in_rule__ValidationRule__Group__2__Impl5440 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group__0__Impl_in_rule__QualifiedName__Group__05476 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group__1_in_rule__QualifiedName__Group__05479 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValidID_in_rule__QualifiedName__Group__0__Impl5506 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group__1__Impl_in_rule__QualifiedName__Group__15535 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0_in_rule__QualifiedName__Group__1__Impl5562 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0__Impl_in_rule__QualifiedName__Group_1__05597 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__1_in_rule__QualifiedName__Group_1__05600 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_65_in_rule__QualifiedName__Group_1__0__Impl5628 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__1__Impl_in_rule__QualifiedName__Group_1__15659 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValidID_in_rule__QualifiedName__Group_1__1__Impl5686 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__0_in_rule__DomainObject__UnorderedGroup5720 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__DomainObject__Group_0__0_in_rule__DomainObject__UnorderedGroup__Impl5809 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__DomainObject__PropertiesAssignment_1_in_rule__DomainObject__UnorderedGroup__Impl5901 = new BitSet(new long[]{0x0018000000000002L});
+    public static final BitSet FOLLOW_rule__DomainObject__PropertiesAssignment_1_in_rule__DomainObject__UnorderedGroup__Impl5945 = new BitSet(new long[]{0x0018000000000002L});
+    public static final BitSet FOLLOW_rule__DomainObject__AttributesAssignment_2_in_rule__DomainObject__UnorderedGroup__Impl6044 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_rule__DomainObject__AttributesAssignment_2_in_rule__DomainObject__UnorderedGroup__Impl6088 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_rule__DomainObject__OperationsAssignment_3_in_rule__DomainObject__UnorderedGroup__Impl6187 = new BitSet(new long[]{0x2000000000000002L});
+    public static final BitSet FOLLOW_rule__DomainObject__OperationsAssignment_3_in_rule__DomainObject__UnorderedGroup__Impl6231 = new BitSet(new long[]{0x2000000000000002L});
+    public static final BitSet FOLLOW_rule__DomainObject__Group_4__0_in_rule__DomainObject__UnorderedGroup__Impl6329 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__06388 = new BitSet(new long[]{0x2218000100000012L});
+    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__1_in_rule__DomainObject__UnorderedGroup__06391 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__16416 = new BitSet(new long[]{0x2218000100000012L});
+    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__2_in_rule__DomainObject__UnorderedGroup__16419 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__26444 = new BitSet(new long[]{0x2218000100000012L});
+    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__3_in_rule__DomainObject__UnorderedGroup__26447 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__36472 = new BitSet(new long[]{0x2218000100000012L});
+    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__4_in_rule__DomainObject__UnorderedGroup__36475 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__DomainObject__UnorderedGroup__Impl_in_rule__DomainObject__UnorderedGroup__46500 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePackageDeclaration_in_rule__DomainObject__PackageAssignment_0_06538 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleImport_in_rule__DomainObject__ImportsAssignment_0_16569 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValidID_in_rule__DomainObject__NameAssignment_0_36600 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__DomainObject__LabelAssignment_0_46631 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleObjectProperty_in_rule__DomainObject__PropertiesAssignment_16662 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAttribute_in_rule__DomainObject__AttributesAssignment_26693 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOperation_in_rule__DomainObject__OperationsAssignment_36724 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValidation_in_rule__DomainObject__ValidationsAssignment_4_06755 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Import__ImportedNamespaceAssignment_16786 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__PackageDeclaration__NameAssignment_16817 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleObjectPropertyName_in_rule__ObjectProperty__NameAssignment_06848 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValue_in_rule__ObjectProperty__ValueAssignment_26879 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValidID_in_rule__Attribute__TypeAssignment_06910 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValidID_in_rule__Attribute__RefAssignment_16941 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__Attribute__LabelAssignment_26972 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAttributeProperty_in_rule__Attribute__PropertiesAssignment_47003 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAttributePropertyName_in_rule__AttributeProperty__NameAssignment_07034 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleArray_in_rule__AttributeProperty__ValidValuesAssignment_2_07065 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValue_in_rule__AttributeProperty__ValueAssignment_2_17096 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValue_in_rule__AttributeProperty__ValueAssignment_2_2_07127 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleArray_in_rule__AttributeProperty__ValidValuesAssignment_2_2_27158 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOperationType_in_rule__Operation__TypeAssignment_17189 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValidID_in_rule__Operation__NameAssignment_27220 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__Operation__LabelAssignment_37251 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOperationProperty_in_rule__Operation__PropertiesAssignment_57282 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOperationPropertyName_in_rule__OperationProperty__NameAssignment_07313 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleArray_in_rule__OperationProperty__ValidValuesAssignment_2_07344 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValue_in_rule__OperationProperty__ValueAssignment_2_17375 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__Validation__RefAssignment_17406 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValidationRule_in_rule__Validation__RulesAssignment_37437 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__Array__ValuesAssignment_27468 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__Array__ValuesAssignment_3_17499 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__ValidationRule__MessageKeyAssignment_07530 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_EXPRESSION_in_rule__ValidationRule__ExpressionAssignment_27561 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__DomainObject__PropertiesAssignment_1_in_synpred1_InternalTerra5942 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__DomainObject__AttributesAssignment_2_in_synpred2_InternalTerra6085 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__DomainObject__OperationsAssignment_3_in_synpred3_InternalTerra6228 = new BitSet(new long[]{0x0000000000000002L});
 
 }

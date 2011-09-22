@@ -5,8 +5,6 @@ package br.com.maisha.wind.ui.labeling;
 
 import org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider;
 
-import br.com.maisha.wind.terra.AttributeProperty;
-
 /**
  * Provides labels for a IEObjectDescriptions and IResourceDescriptions.
  * 
@@ -15,11 +13,5 @@ import br.com.maisha.wind.terra.AttributeProperty;
  */
 public class TerraDescriptionLabelProvider extends
 		DefaultDescriptionLabelProvider {
-
-	// Labels and icons can be computed like this:
-
-	public Object text(AttributeProperty ap) {
-		return ap.getName() + " DOOOX";
-	}
 
 }

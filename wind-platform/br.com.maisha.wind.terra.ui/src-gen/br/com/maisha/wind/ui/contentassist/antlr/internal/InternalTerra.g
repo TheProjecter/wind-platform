@@ -2506,9 +2506,9 @@ rule__Array__Group_3__1__Impl
     }
 :
 (
-{ before(grammarAccess.getArrayAccess().getSTRINGTerminalRuleCall_3_1()); }
-	RULE_STRING
-{ after(grammarAccess.getArrayAccess().getSTRINGTerminalRuleCall_3_1()); }
+{ before(grammarAccess.getArrayAccess().getValuesAssignment_3_1()); }
+(rule__Array__ValuesAssignment_3_1)
+{ after(grammarAccess.getArrayAccess().getValuesAssignment_3_1()); }
 )
 
 ;
@@ -3406,6 +3406,21 @@ rule__Array__ValuesAssignment_2
 (
 { before(grammarAccess.getArrayAccess().getValuesSTRINGTerminalRuleCall_2_0()); }
 	RULE_STRING{ after(grammarAccess.getArrayAccess().getValuesSTRINGTerminalRuleCall_2_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Array__ValuesAssignment_3_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getArrayAccess().getValuesSTRINGTerminalRuleCall_3_1_0()); }
+	RULE_STRING{ after(grammarAccess.getArrayAccess().getValuesSTRINGTerminalRuleCall_3_1_0()); }
 )
 
 ;
