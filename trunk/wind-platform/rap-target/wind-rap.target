@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.6"?>
+
+<target name="rap">
+<locations>
+<location includeAllPlatforms="true" includeMode="slicer" type="InstallableUnit">
+<unit id="org.eclipse.rap.runtime.sdk.feature.group" version="1.4.0.20110201-1534"/>
+<unit id="br.com.maisha.wind.springdm.feature.group" version="1.0.0"/>
+<repository location="file:/media/drive/dev/java/workspaces/wind-rap/rap-target-update-site/"/>
+</location>
+</locations>
+<environment>
+<os>linux</os>
+<ws>gtk</ws>
+<arch>x86</arch>
+</environment>
+</target>

@@ -135,10 +135,15 @@ public class GridView extends ViewPart implements IRender {
 	 *      br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType, java.lang.Object)
 	 */
 	public void render(final LevelType level, final ChangeType ct, final Object model) {
+		log.debug("Model: " + model);
+		log.debug("level: " + level);
+		log.debug("ct: " + ct);
 		if (LevelType.Object.equals(level)) {
 
 			if (model instanceof DomainObject) {
+
 				dObj = (DomainObject) model;
+				log.debug("dObj: " + dObj);
 				new GridViewColumnProvider(dObj, viewer).createColumns();
 			}
 		}
@@ -189,6 +194,8 @@ public class GridView extends ViewPart implements IRender {
 					// input data TODO run outside UI Thread
 					List<ModelReference> data = null;
 					if (LevelType.Object.equals(level)) {
+						log.debug("dObj@192: " + dObj);
+						log.debug("model@192: " + model);
 						if (dObj.getPropertyValue(PropertyInfo.OPEN_FILTERING)) {
 							data = appCtrl.filter(dObj);
 						}

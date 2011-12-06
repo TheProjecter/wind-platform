@@ -96,7 +96,7 @@ public class ApplicationManager implements IApplicationManager {
 			log.debug("		App: [" + app.getAppId() + "] " + app.getName());
 
 			// compile it's domain objects
-			Enumeration<URL> e = context.getBundle().findEntries("/bin", "*.do", true);
+			Enumeration<URL> e = context.getBundle().findEntries("/", "*.do", true);
 			if (e != null) {
 				while (e.hasMoreElements()) {
 					URL dObjURL = e.nextElement();
@@ -108,6 +108,8 @@ public class ApplicationManager implements IApplicationManager {
 						app.addDomainObject(dObj);
 
 						dObj.setApplication(app);
+
+						log.debug("################ dObj@AppMgr:" + dObj);
 
 						// fire model event
 						modelListeners.fireEvent(null, dObj, LevelType.Object, ChangeType.Added);

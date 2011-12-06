@@ -2,10 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Wind Faces Mask
 Bundle-SymbolicName: wind-faces.rap.mask;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.0
 Bundle-Activator: com.maisha.wind.faces.rap.mask.Activator
-Require-Bundle: org.eclipse.rap.ui;bundle-version="1.4.0"
+Require-Bundle: org.eclipse.rap.ui;bundle-version="1.4.0",org.eclipse.rap.rwt;bundle-version="[1.4.0,2.0.0)";visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.maisha.wind.faces.rap.internal.mask.maskedtextkit,
  com.maisha.wind.faces.rap.mask
+Import-Package: org.eclipse.rwt.lifecycle
+
