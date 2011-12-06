@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>br.com.maisha.wind</groupId>
+	<artifactId>wind-rap-target</artifactId>
+	<packaging>pom</packaging>
+	<name>Wind Rap Target</name>
+
+	<parent>
+		<artifactId>wind-parent</artifactId>
+		<groupId>br.com.maisha.wind</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../wind-parent</relativePath>
+	</parent>
+
+	<version>0.1.0-SNAPSHOT</version>
+	<description>Target platform containing RAP used by Wind Platform</description>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.3</version>
+				<executions>
+					<execution>
+						<id>attach-artifacts</id>
+						<phase>package</phase>
+						<goals>
+							<goal>attach-artifact</goal>
+						</goals>
+						<configuration>
+							<artifacts>
+								<artifact>
+									<file>wind-rap.target</file>
+									<type>target</type>
+									<classifier>wind-rap</classifier>
+								</artifact>
+							</artifacts>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

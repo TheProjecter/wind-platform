@@ -25,7 +25,6 @@ import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.controller.IApplicationController;
-import br.com.maisha.wind.controller.IGroovy;
 import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.faces.rcp.Activator;
@@ -168,11 +167,6 @@ public class BaseAction extends Action implements IWorkbenchAction {
 			try {
 				final IApplicationController appCtrl = ServiceProvider.getInstance().getService(IApplicationController.class,
 						Activator.getDefault().getBundle().getBundleContext());
-
-				final IGroovy grv = ServiceProvider.getInstance().getService(IGroovy.class,
-						Activator.getDefault().getBundle().getBundleContext());
-
-				grv.sayHello();
 
 				// configure execution context....
 				monitor.beginTask("Configuring context...", 100);

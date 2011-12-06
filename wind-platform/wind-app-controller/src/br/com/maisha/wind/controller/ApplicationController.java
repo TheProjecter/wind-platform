@@ -100,7 +100,7 @@ public class ApplicationController implements IApplicationController {
 			Invocable invocable = (Invocable) engine;
 
 			BundleContext bundle = ctx.getOperation().getDomainObject().getApplication().getBundleContext();
-			URL ruleUrl = bundle.getBundle().getEntry("/src/" + op.getPropertyValue(PropertyInfo.FILE));
+			URL ruleUrl = bundle.getBundle().getEntry("/" + op.getPropertyValue(PropertyInfo.FILE));
 
 			InputStream is = ruleUrl.openStream();
 			Reader r = new InputStreamReader(is);
@@ -137,7 +137,7 @@ public class ApplicationController implements IApplicationController {
 		BundleContext bCtx = Activator.getDefault();
 
 		if ("groovy".equalsIgnoreCase(type)) {
-			URL url = bCtx.getBundle().getEntry("/src/br/com/maisha/wind/controller/execution/api/groovy/GroovyRuleAPI.groovy");
+			URL url = bCtx.getBundle().getEntry("/br/com/maisha/wind/controller/execution/api/groovy/GroovyRuleAPI.groovy");
 
 			InputStream is = url.openStream();
 			Reader r = new InputStreamReader(is);
@@ -482,7 +482,7 @@ public class ApplicationController implements IApplicationController {
 			Invocable invocable = (Invocable) engine;
 
 			BundleContext bundle = dObj.getApplication().getBundleContext();
-			URL ruleUrl = bundle.getBundle().getEntry("/src/" + file);
+			URL ruleUrl = bundle.getBundle().getEntry("/" + file);
 
 			InputStream is = ruleUrl.openStream();
 			Reader r = new InputStreamReader(is);
@@ -518,6 +518,7 @@ public class ApplicationController implements IApplicationController {
 	 * @see br.com.maisha.wind.controller.IApplicationController#openObjectInstance(br.com.maisha.terra.lang.ModelReference)
 	 */
 	public void openObjectInstance(ModelReference ref) {
+		log.debug("currentInstance@openObjectInstance: " + ref);
 		this.currentInstance = ref;
 
 		if (ref.getId() > 0) {

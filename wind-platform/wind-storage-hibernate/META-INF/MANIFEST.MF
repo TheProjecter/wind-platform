@@ -3,12 +3,11 @@ Spring-Context: *;create-asynchronously:=false;wait-for-dependencies:=true
 Bundle-ManifestVersion: 2
 Bundle-Name: Wind-storage-hibernate
 Bundle-SymbolicName: wind-storage-hibernate
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.0
 Bundle-Activator: br.com.maisha.wind.storage.hibernate.osgi.Activator
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: br.com.maisha.wind.controller,
- org.apache.commons.lang;version="2.4.0",
+Import-Package: org.apache.commons.lang;version="2.4.0",
  org.osgi.framework;version="1.3.0"
 Require-Bundle: hibernate;bundle-version="1.0.0",
  wind-storage;bundle-version="1.0.0",

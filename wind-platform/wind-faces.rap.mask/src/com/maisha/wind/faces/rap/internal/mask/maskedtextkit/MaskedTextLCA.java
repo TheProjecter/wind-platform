@@ -20,8 +20,7 @@ public final class MaskedTextLCA extends AbstractWidgetLCA {
 	private static final String PROP_MASK = "mask";
 	private static final String JS_PROP_TYPE = "type";
 	private static final String PROP_TYPE = "type";
-	
-	
+
 	public void preserveValues(final Widget widget) {
 		ControlLCAUtil.preserveValues((Control) widget);
 		IWidgetAdapter adapter = WidgetUtil.getAdapter(widget);
@@ -47,8 +46,7 @@ public final class MaskedTextLCA extends AbstractWidgetLCA {
 	public void renderInitialization(final Widget widget) throws IOException {
 		JSWriter writer = JSWriter.getWriterFor(widget);
 		String id = WidgetUtil.getId(widget);
-		writer.newWidget("com.maisha.wind.faces.rap.mask.MaskedText",
-				new Object[] { id });
+		writer.newWidget("com.maisha.wind.faces.rap.mask.MaskedText", new Object[] { id });
 		writer.set("appearance", "composite");
 		writer.set("overflow", "hidden");
 		ControlLCAUtil.writeStyleFlags((MaskedText) widget);

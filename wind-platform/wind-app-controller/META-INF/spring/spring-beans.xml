@@ -9,8 +9,7 @@
 		class="br.com.maisha.wind.common.listener.AppModelListenerRegistry" />
 
 	
-		<bean name="appGroovy"
-		class="br.com.maisha.wind.controller.Groovy" />
+
 		
 
 	
