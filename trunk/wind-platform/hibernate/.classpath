@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="lib/javassist-3.9.0.GA.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/slf4j-api-1.5.8.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/slf4j-log4j12-1.5.8.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/antlr-2.7.6.jar"/>

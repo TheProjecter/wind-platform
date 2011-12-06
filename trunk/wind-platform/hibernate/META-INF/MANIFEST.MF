@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Hibernate
 Bundle-SymbolicName: hibernate
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.0
 Bundle-Activator: org.hibernate.Activator
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
@@ -17,9 +17,9 @@ Bundle-ClassPath: lib/antlr-2.7.6.jar,
  lib/postgresql-8.3-603.jdbc3.jar,
  lib/slf4j-api-1.5.8.jar,
  lib/slf4j-log4j12-1.5.8.jar,
- .,
- lib/javassist-3.9.0.GA.jar
-Require-Bundle: org.apache.log4j;bundle-version="1.2.13"
+ .
+Require-Bundle: org.apache.log4j;bundle-version="1.2.13",
+ wind_lib;bundle-version="1.0.0"
 Export-Package: antlr,
  antlr.ASdebug,
  antlr.actions.cpp,
@@ -32,23 +32,6 @@ Export-Package: antlr,
  antlr.debug,
  antlr.debug.misc,
  antlr.preprocessor,
- javassist,
- javassist.bytecode,
- javassist.bytecode.analysis,
- javassist.bytecode.annotation,
- javassist.bytecode.stackmap,
- javassist.compiler,
- javassist.compiler.ast,
- javassist.convert,
- javassist.expr,
- javassist.runtime,
- javassist.scopedpool,
- javassist.tools,
- javassist.tools.reflect,
- javassist.tools.rmi,
- javassist.tools.web,
- javassist.util,
- javassist.util.proxy,
  javax.persistence,
  javax.persistence.criteria,
  javax.persistence.metamodel,
