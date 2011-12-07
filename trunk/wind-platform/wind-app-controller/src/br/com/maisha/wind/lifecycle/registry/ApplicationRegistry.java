@@ -36,7 +36,7 @@ public class ApplicationRegistry implements IApplicationRegistry {
 	public List<DomainObject> getAllObjects(String appId) {
 		WindApplication app = registry.get(appId);
 		if (app != null) {
-			return app.getDomainObjects();
+			return new ArrayList<DomainObject>(app.getDomainObjects());
 		}
 		return Collections.emptyList();
 	}

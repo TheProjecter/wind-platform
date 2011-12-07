@@ -99,6 +99,8 @@ public class ApplicationManager implements IApplicationManager {
 			Enumeration<URL> e = context.getBundle().findEntries("/", "*.do", true);
 			if (e != null) {
 				while (e.hasMoreElements()) {
+					// TODO ignore duplicated entries on this iteration
+
 					URL dObjURL = e.nextElement();
 					InputStream dObjIptStream = dObjURL.openStream();
 					if (dObjIptStream != null) {

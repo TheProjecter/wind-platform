@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Wind-basic-sample
 Bundle-SymbolicName: wind-basic-sample
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.0
 Bundle-Activator: br.com.maisha.wind.sample.basic.Activator
 Require-Bundle: wind_app_controller;bundle-version="1.0.0",
  wind_common;bundle-version="1.0.0"

@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javassist.CtClass;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * TODO javadoc.
  * 
@@ -263,6 +265,34 @@ public class DomainObject extends TerraClass {
 		sb.append(getLabel());
 		sb.append("]");
 		return sb.toString();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object obj) {
+
+		if (!(obj instanceof DomainObject)) {
+			return false;
+		}
+
+		DomainObject other = (DomainObject) obj;
+		if (StringUtils.isBlank(this.getRef()) || StringUtils.isBlank(other.getRef())) {
+			return false;
+		}
+
+		return this.getRef().equals(other.getRef());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	public int hashCode() {
+		return getRef().hashCode();
 	}
 
 }
