@@ -4,13 +4,11 @@
 <product name="Wind Platform" uid="br.com.wind.maisha.product" id="wind_common.wind_common_product" application="org.eclipse.ui.ide.workbench" version="0.1" useFeatures="true" includeLaunchers="true">
 
    <configIni use="default">
-      <linux></linux>
    </configIni>
 
    <launcherArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
-
 
    <launcher>
       <solaris/>
@@ -126,6 +124,8 @@
       <plugin id="org.springframework.osgi.core" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.osgi.extender" autoStart="true" startLevel="1" />
       <plugin id="org.springframework.osgi.io" autoStart="true" startLevel="0" />
+      <plugin id="wind-basic-sample" autoStart="true" startLevel="0" />
+      <plugin id="wind-digester" autoStart="true" startLevel="0" />
       <plugin id="wind-faces.rap.mask" autoStart="true" startLevel="0" />
       <plugin id="wind-storage" autoStart="true" startLevel="1" />
       <plugin id="wind-storage-hibernate" autoStart="true" startLevel="1" />

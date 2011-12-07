@@ -3,10 +3,12 @@ package br.com.maisha.terra.lang;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import org.osgi.framework.BundleContext;
 
@@ -42,7 +44,7 @@ public class WindApplication {
 	private String copyright = "";
 
 	/** Domain Objects living at this application. */
-	private List<DomainObject> domainObjects = new ArrayList<DomainObject>();
+	private Set<DomainObject> domainObjects = new HashSet<DomainObject>();
 
 	/** Applications bundle context reference. */
 	private BundleContext bundleContext;
@@ -73,12 +75,12 @@ public class WindApplication {
 	}
 
 	/** @see #domainObjects */
-	public List<DomainObject> getDomainObjects() {
+	public Set<DomainObject> getDomainObjects() {
 		return domainObjects;
 	}
 
 	/** @see #domainObjects */
-	public void setDomainObjects(List<DomainObject> domainObjects) {
+	public void setDomainObjects(Set<DomainObject> domainObjects) {
 		this.domainObjects = domainObjects;
 	}
 

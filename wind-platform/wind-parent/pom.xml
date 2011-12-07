@@ -41,6 +41,7 @@
 		<module>../wind-faces</module>
 		<module>../wind-configuration</module>
 		<module>../wind-digester</module>
+		<module>../wind-basic-sample</module>
 	</modules>
 
 	<build>
