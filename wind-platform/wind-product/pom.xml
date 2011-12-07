@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>wind-parent</artifactId>
+		<groupId>br.com.maisha.wind</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../wind-parent</relativePath>
+	</parent>
+  <groupId>br.com.maisha.wind</groupId>
+  <artifactId>wind-product</artifactId>
+  <version>1.0.0</version>
+  <packaging>eclipse-application</packaging>
+</project>
