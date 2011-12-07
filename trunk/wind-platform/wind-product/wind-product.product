@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="Wind Platform" uid="br.com.wind.maisha.product" id="wind_common.wind_common_product" application="org.eclipse.ui.ide.workbench" version="0.1" useFeatures="true" includeLaunchers="true">
+
+   <configIni use="default">
+      <linux></linux>
+   </configIni>
+
+   <launcherArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+   </launcherArgs>
+
+
+   <launcher>
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+   </plugins>
+
+   <features>
+      <feature id="wind_feature" version="1.0.0"/>
+   </features>
+
+   <configurations>
+      <plugin id="com.ibm.icu.base" autoStart="true" startLevel="0" />
+      <plugin id="com.ibm.icu.base.source" autoStart="true" startLevel="0" />
+      <plugin id="com.springsource.org.aopalliance" autoStart="true" startLevel="0" />
+      <plugin id="com.springsource.org.apache.commons.beanutils" autoStart="true" startLevel="0" />
+      <plugin id="com.springsource.org.apache.commons.collections" autoStart="true" startLevel="0" />
+      <plugin id="com.springsource.org.apache.commons.digester" autoStart="true" startLevel="0" />
+      <plugin id="com.springsource.org.apache.commons.lang" autoStart="true" startLevel="0" />
+      <plugin id="com.springsource.org.apache.commons.logging" autoStart="true" startLevel="0" />
+      <plugin id="hibernate" autoStart="true" startLevel="0" />
+      <plugin id="javax.servlet" autoStart="true" startLevel="0" />
+      <plugin id="javax.servlet.source" autoStart="true" startLevel="0" />
+      <plugin id="org.apache.log4j" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.commands" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.commands.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.contenttype" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.contenttype.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.databinding" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.databinding.beans" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.databinding.beans.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.databinding.observable" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.databinding.observable.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.databinding.property" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.databinding.property.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.databinding.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.expressions" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.expressions.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.jobs" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.jobs.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.runtime.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.app" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.app.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.common.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.http.jetty" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.http.jetty.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.http.registry" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.http.registry.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.http.servlet" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.http.servlet.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.http.servletbridge" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.preferences" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.preferences.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.registry" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.registry.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.servletbridge" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.help" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.help.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.jdt.junit.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.jdt.junit.runtime.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.osgi" autoStart="true" startLevel="1" />
+      <plugin id="org.eclipse.osgi.services" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.osgi.services.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.osgi.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.demo" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.demo.databinding" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.demo.databinding.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.demo.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.design.example" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.design.example.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.jface" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.jface.databinding" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.jface.databinding.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.jface.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.junit" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.junit.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.junit.runtime.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.junit.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.rwt" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.rwt.q07.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.rwt.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.rwt.theme.classic" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.rwt.theme.classic.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.ui" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.ui.cheatsheets" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.ui.cheatsheets.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.ui.forms" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.ui.forms.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.ui.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.ui.views" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.ui.views.source" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.ui.workbench" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.rap.ui.workbench.source" autoStart="true" startLevel="0" />
+      <plugin id="org.junit" autoStart="true" startLevel="0" />
+      <plugin id="org.junit.source" autoStart="true" startLevel="0" />
+      <plugin id="org.mortbay.jetty.server" autoStart="true" startLevel="0" />
+      <plugin id="org.mortbay.jetty.server.source" autoStart="true" startLevel="0" />
+      <plugin id="org.mortbay.jetty.util" autoStart="true" startLevel="0" />
+      <plugin id="org.mortbay.jetty.util.source" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.aop" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.beans" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.context" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.core" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.osgi.core" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.osgi.extender" autoStart="true" startLevel="1" />
+      <plugin id="org.springframework.osgi.io" autoStart="true" startLevel="0" />
+      <plugin id="wind-faces.rap.mask" autoStart="true" startLevel="0" />
+      <plugin id="wind-storage" autoStart="true" startLevel="1" />
+      <plugin id="wind-storage-hibernate" autoStart="true" startLevel="1" />
+      <plugin id="wind_about" autoStart="true" startLevel="0" />
+      <plugin id="wind_app_controller" autoStart="true" startLevel="0" />
+      <plugin id="wind_common" autoStart="true" startLevel="0" />
+      <plugin id="wind_data_exporter" autoStart="true" startLevel="0" />
+      <plugin id="wind_faces" autoStart="true" startLevel="0" />
+      <plugin id="wind_lib" autoStart="true" startLevel="1" />
+      <plugin id="wind_preferences" autoStart="true" startLevel="0" />
+      <plugin id="wind_terra" autoStart="true" startLevel="1" />
+   </configurations>
+
+</product>
