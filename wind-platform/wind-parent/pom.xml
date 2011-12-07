@@ -1,0 +1,91 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>br.com.maisha.wind</groupId>
+	<artifactId>wind-parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<tycho-version>0.13.0</tycho-version>
+		<tycho-groupid>org.eclipse.tycho</tycho-groupid>
+	</properties>
+	<repositories>
+		<repository>
+			<id>helios</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/releases/helios</url>
+		</repository>
+		<repository>
+			<id>galileoTest</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/eclipse/updates/3.6-JUnit-Tests/</url>
+		</repository>
+	</repositories>
+
+	<modules>
+		<module>../rap-target</module>
+		<module>../wind-common</module>
+		<module>../wind_terra</module>
+		<module>../wind-lib</module>
+		<module>../wind_feature</module>
+		<module>../wind-product</module>
+		<module>../wind-storage</module>
+		<module>../wind-storage-hibernate</module>
+		<module>../hibernate</module>
+		<module>../wind-app-controller</module>
+		<module>../wind-preferences</module>
+		<module>../wind-faces.rap.mask</module>
+		<module>../wind-data-exporter</module>
+		<module>../wind-about</module>
+		<module>../wind-faces</module>
+		<module>../wind-configuration</module>
+		<module>../wind-digester</module>
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-compiler-plugin</artifactId>
+				<version>${tycho-version}</version>
+				
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho-version}</version>
+
+				<configuration>
+					<resolver>p2</resolver>
+					<ignoreTychoRepositories>true</ignoreTychoRepositories>
+
+					<target>
+						<artifact>
+							<groupId>br.com.maisha.wind</groupId>
+							<artifactId>wind-rap-target</artifactId>
+							<version>0.1.0-SNAPSHOT</version>
+							<classifier>wind-rap</classifier>
+						</artifact>
+					</target>
+					<environments>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86</arch>
+						</environment>
+					</environments>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
