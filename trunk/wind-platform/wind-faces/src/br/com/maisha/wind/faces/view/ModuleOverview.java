@@ -37,13 +37,24 @@ public class ModuleOverview extends ViewPart implements IRender {
 	/** Presentation Provider Reference. */
 	private IPresentationProvider presProvider;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.part.WorkbenchPart#dispose()
+	 */
+	public void dispose() {
+		super.dispose();
+		IPresentationProvider presentation = ServiceProvider.getInstance().getService(IPresentationProvider.class,
+				Activator.getDefault().getBundle().getBundleContext());
+		presentation.unRegisterRender(this);
+	}
+
 	/**
 	 * 
 	 * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
 	 */
 	public void createPartControl(Composite parent) {
-		this.presProvider = ServiceProvider.getInstance().getService(
-				IPresentationProvider.class,
+		this.presProvider = ServiceProvider.getInstance().getService(IPresentationProvider.class,
 				Activator.getDefault().getBundle().getBundleContext());
 
 		presProvider.registerRender(this);
@@ -76,8 +87,7 @@ public class ModuleOverview extends ViewPart implements IRender {
 	public void render(LevelType level, ChangeType ct, Object model) {
 		if (model != null) {
 			if (!(model instanceof WindApplication)) {
-				log.error("This render is intended to recieve a "
-						+ "WindApplication as model, but [" + model.getClass()
+				log.error("This render is intended to recieve a " + "WindApplication as model, but [" + model.getClass()
 						+ "] was given... ");
 				return;
 			}
@@ -87,13 +97,11 @@ public class ModuleOverview extends ViewPart implements IRender {
 			appRoot.setText(app.getName() + " [" + app.getAppId() + "]");
 			for (DomainObject dObj : app.getDomainObjects()) {
 				TreeItem dObjNode = new TreeItem(appRoot, SWT.NONE);
-				dObjNode.setText(dObj.getLabel() + " [" + dObj.getPckg() + "."
-						+ dObj.getRef() + "]");
+				dObjNode.setText(dObj.getLabel() + " [" + dObj.getPckg() + "." + dObj.getRef() + "]");
 
 				for (Attribute att : dObj.getAtts()) {
 					TreeItem attNode = new TreeItem(dObjNode, SWT.NONE);
-					attNode.setText(att.getType() + " " + att.getRef() + " ["
-							+ att.getLabel() + "]");
+					attNode.setText(att.getType() + " " + att.getRef() + " [" + att.getLabel() + "]");
 				}
 			}
 

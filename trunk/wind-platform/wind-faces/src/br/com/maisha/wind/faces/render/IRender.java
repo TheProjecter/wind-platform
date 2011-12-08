@@ -4,7 +4,8 @@ import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 
 /**
- * A Render is responsible for the visual representation of the recieved model.
+ * A Render is responsible for the visual representation of the received model.
+ * 
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 

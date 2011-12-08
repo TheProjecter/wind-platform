@@ -1,9 +1,9 @@
 package br.com.maisha.wind.faces;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
@@ -30,7 +30,7 @@ public class PresentationProvider implements IPresentationProvider {
 	private static final Logger log = Logger.getLogger(PresentationProvider.class);
 
 	/** Lista de renderizadores resgistrados neste Presentation Provider. */
-	private List<IRender> render = new ArrayList<IRender>();
+	private Set<IRender> render = new HashSet<IRender>();
 
 	/** */
 	private Map<String, IAttributeRender> attrRender = new HashMap<String, IAttributeRender>();
@@ -64,15 +64,14 @@ public class PresentationProvider implements IPresentationProvider {
 	 * 
 	 * @see br.com.maisha.wind.faces.IPresentationProvider#removeRender(br.com.maisha.wind.faces.render.IRender)
 	 */
-	public void removeRender(IRender render) {
+	public void unRegisterRender(IRender render) {
 		log.debug("		Render removed: " + render);
 		this.render.remove(render);
 	}
 
 	/**
 	 * 
-	 * @see br.com.maisha.wind.faces.IPresentationProvider#processMenu(java.lang.String,
-	 *      java.lang.String)
+	 * @see br.com.maisha.wind.faces.IPresentationProvider#processMenu(java.lang.String, java.lang.String)
 	 */
 	public void processMenu(String appId, String objectId) {
 		log.debug("Processing menu click at [" + objectId + "]");
@@ -91,7 +90,7 @@ public class PresentationProvider implements IPresentationProvider {
 	}
 
 	/** @see PresentationProvider#render */
-	public void setRender(List<IRender> render) {
+	public void setRender(Set<IRender> render) {
 		this.render = render;
 	}
 
