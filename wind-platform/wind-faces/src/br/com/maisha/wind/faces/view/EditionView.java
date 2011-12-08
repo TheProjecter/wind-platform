@@ -58,6 +58,18 @@ public class EditionView extends ViewPart implements IRender {
 	/** This one renders as Folder. */
 	private ILayoutRender folderLayoutRender;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.part.WorkbenchPart#dispose()
+	 */
+	public void dispose() {
+		super.dispose();
+		IPresentationProvider presentation = ServiceProvider.getInstance().getService(IPresentationProvider.class,
+				Activator.getDefault().getBundle().getBundleContext());
+		presentation.unRegisterRender(this);
+	}
+
 	/**
 	 * 
 	 * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)

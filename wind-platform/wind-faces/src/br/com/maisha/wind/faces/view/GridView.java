@@ -70,6 +70,7 @@ public class GridView extends ViewPart implements IRender {
 	 * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
 	 */
 	public void createPartControl(Composite parent) {
+		setPartProperty("ID", GridView.ID);
 
 		setPartName(PlatformMessageRegistry.getInstance().getMessage("wind_faces.gridView.title"));
 
@@ -129,15 +130,21 @@ public class GridView extends ViewPart implements IRender {
 		return new LevelType[] { LevelType.GridData, LevelType.Object };
 	}
 
+	@Override
+	public void dispose() {
+		super.dispose();
+		IPresentationProvider presProvider = ServiceProvider.getInstance().getService(IPresentationProvider.class,
+				Activator.getDefault().getBundle().getBundleContext());
+		presProvider.unRegisterRender(this);
+
+	}
+
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.IRender#render(br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType,
 	 *      br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType, java.lang.Object)
 	 */
 	public void render(final LevelType level, final ChangeType ct, final Object model) {
-		log.debug("Model: " + model);
-		log.debug("level: " + level);
-		log.debug("ct: " + ct);
 		if (LevelType.Object.equals(level)) {
 
 			if (model instanceof DomainObject) {

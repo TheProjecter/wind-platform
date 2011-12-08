@@ -7,12 +7,11 @@ import br.com.maisha.wind.faces.render.IRender;
 import br.com.maisha.wind.faces.render.attr.IAttributeRender;
 
 /**
- * The Presentation Provider is responsible for the conversation between the
- * model and the user interface. Every change in model causes the rerender of
- * the user interface.
+ * The Presentation Provider is responsible for the conversation between the model and the user interface. Every change in model causes the
+ * rerender of the user interface.
  * 
- * The render process consists in calling all of the registered {@link IRender}.
- * Each render recieves the model and renders it in a proper way.
+ * The render process consists in calling all of the registered {@link IRender}. Each render recieves the model and renders it in a proper
+ * way.
  * 
  * @see FacesAppModelListener
  * @author Paulo Freitas (pfreitas1@gmail.com)
@@ -21,8 +20,7 @@ import br.com.maisha.wind.faces.render.attr.IAttributeRender;
 public interface IPresentationProvider extends Component {
 
 	/**
-	 * Renders the given model, based on the level and type of the change. See
-	 * {@link LevelType} and {@link ChangeType} for possible values.
+	 * Renders the given model, based on the level and type of the change. See {@link LevelType} and {@link ChangeType} for possible values.
 	 * 
 	 * @see LevelType
 	 * @see ChangeType
@@ -47,7 +45,7 @@ public interface IPresentationProvider extends Component {
 	 * 
 	 * @param render
 	 */
-	void removeRender(IRender render);
+	void unRegisterRender(IRender render);
 
 	/**
 	 * Process the click of the menu identified by the given Id.

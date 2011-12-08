@@ -47,6 +47,18 @@ public class MessageView extends ViewPart implements IRender {
 	/** Action for clear message view. */
 	private IAction clearAllAction;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.part.WorkbenchPart#dispose()
+	 */
+	public void dispose() {
+		super.dispose();
+		IPresentationProvider presentation = ServiceProvider.getInstance().getService(IPresentationProvider.class,
+				Activator.getDefault().getBundle().getBundleContext());
+		presentation.unRegisterRender(this);
+	}
+
 	/**
 	 * 
 	 * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
@@ -54,7 +66,7 @@ public class MessageView extends ViewPart implements IRender {
 	public void createPartControl(Composite parent) {
 
 		setPartName(PlatformMessageRegistry.getInstance().getMessage("wind_faces.messageView.title"));
-		
+
 		IPresentationProvider presProvider = ServiceProvider.getInstance().getService(IPresentationProvider.class,
 				Activator.getDefault().getBundle().getBundleContext());
 		presProvider.registerRender(this);
@@ -68,8 +80,7 @@ public class MessageView extends ViewPart implements IRender {
 		iconCol.getColumn().setMoveable(false);
 
 		TableViewerColumn sourceCol = new TableViewerColumn(tableViewer, SWT.NONE);
-		sourceCol.getColumn()
-				.setText(PlatformMessageRegistry.getInstance().getMessage("wind_faces.messageview.source"));
+		sourceCol.getColumn().setText(PlatformMessageRegistry.getInstance().getMessage("wind_faces.messageview.source"));
 		sourceCol.getColumn().setWidth(100);
 		sourceCol.getColumn().setResizable(true);
 		sourceCol.getColumn().setMoveable(false);
@@ -108,9 +119,8 @@ public class MessageView extends ViewPart implements IRender {
 	 */
 	public void setFocus() {
 		try {
-			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPages()[0].showView(MessageView.ID, null,
-					IWorkbenchPage.VIEW_ACTIVATE);
-			 
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPages()[0].showView(MessageView.ID, null, IWorkbenchPage.VIEW_ACTIVATE);
+
 		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}

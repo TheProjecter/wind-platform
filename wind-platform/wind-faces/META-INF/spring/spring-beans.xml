@@ -10,9 +10,9 @@
 	<bean name="presentationProvider" scope="singleton"
 		class="br.com.maisha.wind.faces.PresentationProvider">
 		<property name="render">
-			<list>
+			<set>
 				<ref bean="menuRenderer" />
-			</list>
+			</set>
 		</property>
 		<property name="attrRender">
 			<map>

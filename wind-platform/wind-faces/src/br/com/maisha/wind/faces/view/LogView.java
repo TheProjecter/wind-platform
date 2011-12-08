@@ -64,6 +64,18 @@ public class LogView extends ViewPart implements IRender {
 	/** Action for clear message view. */
 	private IAction clearAllAction;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.ui.part.WorkbenchPart#dispose()
+	 */
+	public void dispose() {
+		super.dispose();
+		IPresentationProvider presentation = ServiceProvider.getInstance().getService(IPresentationProvider.class,
+				Activator.getDefault().getBundle().getBundleContext());
+		presentation.unRegisterRender(this);
+	}
+
 	/**
 	 * 
 	 * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
