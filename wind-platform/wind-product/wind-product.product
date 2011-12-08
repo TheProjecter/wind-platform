@@ -4,6 +4,7 @@
 <product name="Wind Platform" uid="br.com.wind.maisha.product" id="wind_common.wind_common_product" application="org.eclipse.ui.ide.workbench" version="0.1" useFeatures="true" includeLaunchers="true">
 
    <configIni use="default">
+      <linux>/wind-product/config.ini</linux>
    </configIni>
 
    <launcherArgs>
