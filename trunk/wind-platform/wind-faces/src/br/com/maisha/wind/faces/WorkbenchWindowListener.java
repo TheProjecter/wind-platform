@@ -3,7 +3,6 @@ package br.com.maisha.wind.faces;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWindowListener;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.osgi.framework.BundleContext;
@@ -25,8 +24,7 @@ import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
 public class WorkbenchWindowListener implements IWindowListener {
 
 	/** Log ref. */
-	private static final Logger log = Logger
-			.getLogger(WorkbenchWindowListener.class);
+	private static final Logger log = Logger.getLogger(WorkbenchWindowListener.class);
 
 	/**
 	 * 
@@ -34,26 +32,22 @@ public class WorkbenchWindowListener implements IWindowListener {
 	 */
 	public void windowActivated(IWorkbenchWindow window) {
 		log.debug("		Window Activated... starting first render.");
-		BundleContext ctx = Activator.getDefault().getBundle()
-				.getBundleContext();
+		BundleContext ctx = Activator.getDefault().getBundle().getBundleContext();
 
 		// retrive application metadata model...
-		IApplicationRegistry appRegistry = ServiceProvider.getInstance()
-				.getService(IApplicationRegistry.class, ctx);
+		IApplicationRegistry appRegistry = ServiceProvider.getInstance().getService(IApplicationRegistry.class, ctx);
 		List<WindApplication> applications = appRegistry.retrieve();
 
 		// presentation provider to render...
-		IPresentationProvider presProvider = ServiceProvider.getInstance()
-				.getService(IPresentationProvider.class,
-						Activator.getDefault().getBundle().getBundleContext());
+		IPresentationProvider presProvider = ServiceProvider.getInstance().getService(IPresentationProvider.class,
+				Activator.getDefault().getBundle().getBundleContext());
 		for (WindApplication app : applications) {
 			presProvider.render(app, LevelType.Application, ChangeType.Added);
 		}
 
 		// register app model listener to react to it's changes...
-		IAppModelListenerRegistry modelListenerReg = ServiceProvider
-				.getInstance().getService(IAppModelListenerRegistry.class, ctx);
-		modelListenerReg.registerAppModelListener(new FacesAppModelListener(Display.getCurrent()));
+		IAppModelListenerRegistry modelListenerReg = ServiceProvider.getInstance().getService(IAppModelListenerRegistry.class, ctx);
+		modelListenerReg.registerAppModelListener(new FacesAppModelListener());
 
 		log.debug("		Window is ready...");
 	}
