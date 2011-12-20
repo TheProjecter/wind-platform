@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
+import org.eclipse.rwt.RWT;
 import org.eclipse.ui.PlatformUI;
 
 import br.com.maisha.wind.common.factory.ServiceProvider;
@@ -42,7 +43,7 @@ public class PresentationProvider implements IPresentationProvider {
 	public void render(final Object model, final LevelType level, final ChangeType change) {
 		if (Application.getApp() != null && PlatformUI.isWorkbenchRunning()) {
 			log.debug("Processing change [" + change + " at level [" + level + "]");
-			for (IRender r : render) {
+			for (IRender r : RenderSessionBase.instance().getRender()) {
 				if (ArrayUtils.contains(r.getModelLevel(), level)) {
 					log.debug("		Call render [" + r + "]");
 					r.render(level, change, model);
@@ -51,13 +52,29 @@ public class PresentationProvider implements IPresentationProvider {
 		}
 	}
 
+	/*
+	 * Magic, don't touch it!
+	 * 
+	 * (non-Javadoc)
+	 * 
+	 * @see br.com.maisha.wind.faces.IPresentationProvider#initialize()
+	 */
+	public void initialize() {
+		RenderSessionBase renderSessionBase = RenderSessionBase.instance();
+		renderSessionBase.setRender(new HashSet<IRender>(render));
+		RWT.getServiceStore().setAttribute("presentationProvider", Boolean.TRUE);
+	}
+
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.IPresentationProvider#registerRender(br.com.maisha.wind.faces.render.IRender)
 	 */
 	public void registerRender(IRender render) {
+		if (RWT.getServiceStore().getAttribute("presentationProvider") == null) {
+			initialize();
+		}
 		log.debug("		Render registered: " + render);
-		this.render.add(render);
+		RenderSessionBase.instance().registerRender(render);
 	}
 
 	/**
@@ -65,8 +82,11 @@ public class PresentationProvider implements IPresentationProvider {
 	 * @see br.com.maisha.wind.faces.IPresentationProvider#removeRender(br.com.maisha.wind.faces.render.IRender)
 	 */
 	public void unRegisterRender(IRender render) {
+		if (RWT.getServiceStore().getAttribute("presentationProvider") == null) {
+			throw new IllegalStateException("Presentation Provider has not been initilized.");
+		}
 		log.debug("		Render removed: " + render);
-		this.render.remove(render);
+		RenderSessionBase.instance().unRegisterRender(render);
 	}
 
 	/**

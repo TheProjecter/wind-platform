@@ -18,17 +18,6 @@ public class FacesAppModelListener implements IAppRegistryListener {
 	/** Log ref. */
 	private static final Logger log = Logger.getLogger(FacesAppModelListener.class);
 
-	/** */
-	private Display display;
-
-	/**
-	 * 
-	 * @param display
-	 */
-	public FacesAppModelListener(Display display) {
-		this.display = display;
-	}
-
 	/**
 	 * 
 	 * @see br.com.maisha.wind.common.listener.IAppRegistryListener#modelChanged(java.lang.Object, java.lang.Object,
@@ -42,7 +31,7 @@ public class FacesAppModelListener implements IAppRegistryListener {
 				Activator.getDefault().getBundle().getBundleContext());
 
 		// render always occurs on the UI-Thread
-		display.syncExec(new Runnable() {
+		Display.getCurrent().syncExec(new Runnable() {
 			public void run() {
 				presProvider.render(newValue, level, change);
 			}

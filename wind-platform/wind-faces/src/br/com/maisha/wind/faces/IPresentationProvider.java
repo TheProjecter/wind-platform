@@ -63,4 +63,9 @@ public interface IPresentationProvider extends Component {
 	 */
 	IAttributeRender getAttributeRender(String key);
 
+	/**
+	 * 
+	 */
+	void initialize();
+
 }

@@ -7,7 +7,7 @@
 
 
 
-	<bean name="presentationProvider" scope="singleton"
+	<bean name="presentationProvider" 
 		class="br.com.maisha.wind.faces.PresentationProvider">
 		<property name="render">
 			<set>
