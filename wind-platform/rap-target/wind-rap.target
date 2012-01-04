@@ -6,7 +6,7 @@
 <location includeAllPlatforms="true" includeMode="slicer" type="InstallableUnit">
 <unit id="org.eclipse.rap.runtime.sdk.feature.group" version="1.4.0.20110201-1534"/>
 <unit id="br.com.maisha.wind.springdm.feature.group" version="1.0.0"/>
-<repository location="file:/media/drive/dev/java/workspaces/wind-rap/rap-target-update-site/"/>
+<repository location="http://windplatform.com.br/rap-target-update-site/"/>
 </location>
 </locations>
 <environment>
