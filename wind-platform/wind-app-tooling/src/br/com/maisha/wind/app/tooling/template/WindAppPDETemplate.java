@@ -24,6 +24,7 @@ public class WindAppPDETemplate extends OptionTemplateSection {
 	 */
 	public WindAppPDETemplate() {
 		setPageCount(0);
+		setOptionEnabled("Next", false);
 	}
 
 
