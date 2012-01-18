@@ -6,6 +6,8 @@ package br.com.maisha.wind.formatting;
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter;
 import org.eclipse.xtext.formatting.impl.FormattingConfig;
 
+import br.com.maisha.wind.services.TerraGrammarAccess;
+
 /**
  * This class contains custom formatting description.
  * 
@@ -18,10 +20,46 @@ public class TerraFormatter extends AbstractDeclarativeFormatter {
 	
 	@Override
 	protected void configureFormatting(FormattingConfig c) {
-// It's usually a good idea to activate the following three statements.
-// They will add and preserve newlines around comments
-//		c.setLinewrap(0, 1, 2).before(getGrammarAccess().getSL_COMMENTRule());
-//		c.setLinewrap(0, 1, 2).before(getGrammarAccess().getML_COMMENTRule());
-//		c.setLinewrap(0, 1, 1).after(getGrammarAccess().getML_COMMENTRule());
+		TerraGrammarAccess grammarAccess = (TerraGrammarAccess) getGrammarAccess();
+		c.setAutoLinewrap(120);
+		
+		c.setLinewrap(2).after(grammarAccess.getPackageDeclarationRule());
+		c.setLinewrap(2).around(grammarAccess.getImportRule());
+		
+		c.setLinewrap(2).around(grammarAccess.getDomainObjectRule());
+		c.setLinewrap().around(grammarAccess.getObjectPropertyRule());
+		c.setLinewrap(2).around(grammarAccess.getAttributeRule());
+		c.setLinewrap().around(grammarAccess.getAttributePropertyRule());
+		c.setLinewrap(2).around(grammarAccess.getOperationRule());
+		c.setLinewrap().around(grammarAccess.getOperationPropertyRule());
+		c.setLinewrap(2).around(grammarAccess.getValidationRule());
+		c.setLinewrap().around(grammarAccess.getValidationRuleRule());
+
+		c.setIndentationIncrement().before(grammarAccess.getObjectPropertyRule());
+		c.setIndentationDecrement().after(grammarAccess.getObjectPropertyRule());
+		
+		
+		c.setIndentationIncrement().before(grammarAccess.getAttributeRule());
+		c.setIndentationDecrement().after(grammarAccess.getAttributeRule());
+		
+		c.setIndentationIncrement().before(grammarAccess.getAttributePropertyRule());
+		c.setIndentationDecrement().after(grammarAccess.getAttributePropertyRule());
+		
+		c.setIndentationIncrement().before(grammarAccess.getOperationRule());
+		c.setIndentationDecrement().after(grammarAccess.getOperationRule());
+		
+		c.setIndentationIncrement().before(grammarAccess.getOperationPropertyRule());
+		c.setIndentationDecrement().after(grammarAccess.getOperationPropertyRule());
+		
+		c.setIndentationIncrement().before(grammarAccess.getValidationRuleRule());
+		c.setIndentationDecrement().after(grammarAccess.getValidationRuleRule());
+		c.setIndentationDecrement().after(grammarAccess.getValidationRule());
+		
+		c.setIndentationDecrement().after(grammarAccess.getDomainObjectRule());
+		
+		
+		c.setLinewrap(0, 1, 2).before(grammarAccess.getSL_COMMENTRule());
+		c.setLinewrap(0, 1, 2).before(grammarAccess.getML_COMMENTRule());
+		c.setLinewrap(0, 1, 1).after(grammarAccess.getML_COMMENTRule());
 	}
 }
