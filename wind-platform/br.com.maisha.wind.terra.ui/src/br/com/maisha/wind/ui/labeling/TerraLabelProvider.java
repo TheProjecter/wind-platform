@@ -66,10 +66,7 @@ public class TerraLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	public Object image(Attribute element) {
-		if (element.getType().equals("Folder")) {
-			return "folder.png";
-		}
-		return "attr.png";
+		return "generic.png";
 	}
 
 	public Object image(DomainObject element) {
@@ -77,38 +74,38 @@ public class TerraLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	public Object image(AttributeProperty element) {
-		return "property.png";
+		return "generic.png";
 	}
 
 	public Object image(OperationProperty element) {
-		return "property.png";
+		return "generic.png";
 	}
 
 	public Object image(ObjectProperty element) {
-		return "property.png";
+		return "generic.png";
 	}
 
 	public Object image(Operation element) {
-		return "operation.png";
+		return "generic.png";
 	}
 
 	public Object image(PackageDeclaration element) {
-		return "thing.png";
+		return "generic.png";
 	}
 
 	public Object image(Import element) {
-		return "thing.png";
+		return "generic.png";
 	}
 
 	public Object image(Array element) {
-		return "thing.png";
+		return "generic.png";
 	}
 
 	public Object image(Validation element) {
-		return "thing.png";
+		return "generic.png";
 	}
 
 	public Object image(ValidationRule element) {
-		return "thing.png";
+		return "generic.png";
 	}
 }
