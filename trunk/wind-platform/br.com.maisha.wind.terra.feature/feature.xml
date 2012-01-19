@@ -2,11 +2,11 @@
 <feature
       id="br.com.maisha.wind.terra.feature"
       label="Wind Tooling"
-      version="0.1"
+      version="0.0.1"
       provider-name="Wind Technologies">
 
    <description>
-      Some handy tools for creating Wind Projects and Domain Objects
+      LICENSE
    </description>
 
    <copyright>
@@ -25,7 +25,7 @@
          id="br.com.maisha.wind.app.tooling"
          download-size="100"
          install-size="100"
-         version="0.0.0"
+         version="0.0.1"
          unpack="false"/>
 
 </feature>
