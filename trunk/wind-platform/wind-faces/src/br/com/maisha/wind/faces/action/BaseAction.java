@@ -13,6 +13,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.rwt.RWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.ISelectionService;
@@ -29,6 +30,7 @@ import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.rcp.RCPUtil;
+import br.com.maisha.wind.faces.util.Constants;
 import br.com.maisha.wind.faces.view.GridView;
 
 /**
@@ -105,7 +107,7 @@ public class BaseAction extends Action implements IWorkbenchAction {
 		// });
 
 		final ExecutionContext<ModelReference> exeCtx = new ExecutionContext<ModelReference>();
-
+		exeCtx.setSessid(RWT.getSessionStore().getId());
 		try {
 			List<?> selection = null;
 			ISelectionService selServ = RCPUtil.getWorkbenchWindow().getSelectionService();
@@ -181,10 +183,11 @@ public class BaseAction extends Action implements IWorkbenchAction {
 
 				monitor.done();
 
-				// process the changes ocurred at the execution context...
+				// process the changes occurred at the execution context...
 				display.syncExec(new Runnable() {
 					public void run() {
-						appCtrl.processExecutionContext(ctx);
+						ModelReference ref = appCtrl.processExecutionContext(ctx);
+						RWT.getSessionStore().setAttribute(Constants.OPENED_INSTANCE, ref);
 					}
 				});
 

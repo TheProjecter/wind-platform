@@ -18,6 +18,13 @@ public class FacesAppModelListener implements IAppRegistryListener {
 	/** Log ref. */
 	private static final Logger log = Logger.getLogger(FacesAppModelListener.class);
 
+	private Display display;
+
+	public FacesAppModelListener(Display diplay) {
+		super();
+		this.display = diplay;
+	}
+
 	/**
 	 * 
 	 * @see br.com.maisha.wind.common.listener.IAppRegistryListener#modelChanged(java.lang.Object, java.lang.Object,
@@ -31,11 +38,22 @@ public class FacesAppModelListener implements IAppRegistryListener {
 				Activator.getDefault().getBundle().getBundleContext());
 
 		// render always occurs on the UI-Thread
-		Display.getCurrent().syncExec(new Runnable() {
-			public void run() {
-				presProvider.render(newValue, level, change);
-			}
-		});
+		if (display != null && !display.isDisposed()) {
+			display.asyncExec(new Runnable() {
+				public void run() {
+					presProvider.render(newValue, level, change);
+				}
+			});
+		}
+
+	}
+
+	public void setDisplay(Display display) {
+		this.display = display;
+	}
+
+	public Display getDisplay() {
+		return display;
 	}
 
 	/*
@@ -44,7 +62,11 @@ public class FacesAppModelListener implements IAppRegistryListener {
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	public boolean equals(Object obj) {
-		return obj instanceof FacesAppModelListener;
+		if (obj == null || !(obj instanceof FacesAppModelListener)) {
+			return false;
+		}
+		FacesAppModelListener other = (FacesAppModelListener) obj;
+		return other.getDisplay() != null && this.getDisplay() != null && this.getDisplay().equals(other.getDisplay());
 	}
 
 	/*

@@ -10,14 +10,16 @@ import org.apache.log4j.Logger;
 import org.eclipse.rwt.RWT;
 import org.eclipse.ui.PlatformUI;
 
+import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
+import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.rcp.Application;
 import br.com.maisha.wind.faces.render.IRender;
 import br.com.maisha.wind.faces.render.attr.IAttributeRender;
-import br.com.maisha.wind.lifecycle.mgmt.IApplicationManager;
+import br.com.maisha.wind.faces.util.Constants;
 
 /**
  * Implementacao default de {@link IPresentationProvider}
@@ -43,6 +45,7 @@ public class PresentationProvider implements IPresentationProvider {
 	public void render(final Object model, final LevelType level, final ChangeType change) {
 		if (Application.getApp() != null && PlatformUI.isWorkbenchRunning()) {
 			log.debug("Processing change [" + change + " at level [" + level + "]");
+			log.debug("Rendering: " + RenderSessionBase.instance().hashCode());
 			for (IRender r : RenderSessionBase.instance().getRender()) {
 				if (ArrayUtils.contains(r.getModelLevel(), level)) {
 					log.debug("		Call render [" + r + "]");
@@ -95,10 +98,15 @@ public class PresentationProvider implements IPresentationProvider {
 	 */
 	public void processMenu(String appId, String objectId) {
 		log.debug("Processing menu click at [" + objectId + "]");
-		IApplicationManager appMgr = ServiceProvider.getInstance().getService(IApplicationManager.class,
+		IApplicationController appCtrl = ServiceProvider.getInstance().getService(IApplicationController.class,
 				Activator.getDefault().getBundle().getBundleContext());
 
-		appMgr.openObject(appId, objectId);
+		DomainObject openedObject = (DomainObject) RWT.getSessionStore().getAttribute(Constants.OPENED_DOMAIN_OBJECT);
+		if (openedObject != null) {
+			appCtrl.closeObject(appId, objectId, RWT.getSessionStore().getId());
+		}
+		openedObject = appCtrl.openObject(appId, objectId, RWT.getSessionStore().getId());
+		RWT.getSessionStore().setAttribute(Constants.OPENED_DOMAIN_OBJECT, openedObject);
 	}
 
 	/**

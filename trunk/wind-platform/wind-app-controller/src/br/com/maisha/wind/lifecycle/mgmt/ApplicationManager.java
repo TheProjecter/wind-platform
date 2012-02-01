@@ -50,9 +50,6 @@ public class ApplicationManager implements IApplicationManager {
 	/** Listeners for model changes. */
 	private IAppModelListenerRegistry modelListeners;
 
-	/** Current DomainObject opened for edition. */
-	private DomainObject openedObject;
-
 	/** Persistent Storage. */
 	private IStorage persistentStorage;
 
@@ -110,8 +107,6 @@ public class ApplicationManager implements IApplicationManager {
 						app.addDomainObject(dObj);
 
 						dObj.setApplication(app);
-
-						log.debug("################ dObj@AppMgr:" + dObj);
 
 						// fire model event
 						modelListeners.fireEvent(null, dObj, LevelType.Object, ChangeType.Added);
@@ -197,52 +192,6 @@ public class ApplicationManager implements IApplicationManager {
 		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
-	}
-
-	/**
-	 * 
-	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#openObject(java.lang.String, java.lang.String)
-	 */
-	public void openObject(String appId, String objectId) {
-		// verify if there is an opened object
-		if (openedObject != null) {
-			// if there is any, closes it
-			closeObject(openedObject);
-		}
-
-		DomainObject obj = registry.getObject(appId, objectId);
-		openedObject = obj;
-		openObject(openedObject);
-	}
-
-	/**
-	 * 
-	 * @param obj
-	 */
-	private void openObject(DomainObject obj) {
-		modelListeners.fireEvent(null, obj, LevelType.Object, ChangeType.BeforeObjectOpen);
-		modelListeners.fireEvent(null, obj, LevelType.Object, ChangeType.ObjectOpen);
-		modelListeners.fireEvent(null, obj, LevelType.Object, ChangeType.AfterObjectOpen);
-	}
-
-	/**
-	 * 
-	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#closeObject(java.lang.String, java.lang.String)
-	 */
-	public void closeObject(String appId, String objectId) {
-		DomainObject obj = registry.getObject(appId, objectId);
-		closeObject(obj);
-		openedObject = null;
-	}
-
-	/**
-	 * 
-	 * @param dObj
-	 */
-	private void closeObject(DomainObject dObj) {
-		modelListeners.fireEvent(null, dObj, LevelType.Object, ChangeType.BeforeObjectClose);
-		modelListeners.fireEvent(null, dObj, LevelType.Object, ChangeType.ObjectClose);
-		modelListeners.fireEvent(null, dObj, LevelType.Object, ChangeType.AfterObjectClose);
 	}
 
 	/** @see ApplicationManager#appCfgReader */

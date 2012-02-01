@@ -1,5 +1,6 @@
 package br.com.maisha.wind.controller;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -37,14 +38,14 @@ public interface IApplicationController {
 	 * 
 	 * @param ctx
 	 */
-	void processExecutionContext(ExecutionContext<ModelReference> ctx);
+	ModelReference processExecutionContext(ExecutionContext<ModelReference> ctx);
 
 	/**
 	 * 
 	 * @param dobj
 	 * @return
 	 */
-	List<ModelReference> filter(DomainObject dobj);
+	List<ModelReference> filter(Serializable sessid, DomainObject dobj);
 
 	/**
 	 * 
@@ -83,7 +84,7 @@ public interface IApplicationController {
 	 * 
 	 * @param ref
 	 */
-	void openObjectInstance(ModelReference ref);
+	ModelReference openObjectInstance(Serializable sessid, ModelReference ref);
 
 	/**
 	 * Configures all labels for all domain objects in every application installed in the platform.
@@ -118,19 +119,16 @@ public interface IApplicationController {
 	ModelReference createNewInstance(DomainObject dObj);
 
 	/**
-	 * Creates a new instance of the given DomainObject and sets it as current opened instance.
-	 * <p/>
-	 * Created instance is accessible via {@link IApplicationController#getCurrentModelInstance()}
 	 * 
-	 * @param dObj
-	 * @return
+	 * @param appId
+	 * @param objectId
 	 */
-	ModelReference createNewCurrentInstance(DomainObject dObj);
+	DomainObject openObject(String appId, String objectId, Serializable sessid);
 
 	/**
-	 * Returns the current model instance.
 	 * 
-	 * @return Current Model Instance
+	 * @param appId
+	 * @param objectId
 	 */
-	ModelReference getCurrentModelInstance();
+	void closeObject(String appId, String objectId, Serializable sessid);
 }
