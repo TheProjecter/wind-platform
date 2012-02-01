@@ -125,7 +125,7 @@ public class EditionView extends ViewPart implements IRender {
 				final DomainObject object = (DomainObject) model;
 				setPartName(object.getLabel());
 
-				modelInstance = appController.createNewCurrentInstance(object);
+				modelInstance = appController.createNewInstance(object);
 
 				createUserInterface(object);
 				configureDefaultToolBar(object);

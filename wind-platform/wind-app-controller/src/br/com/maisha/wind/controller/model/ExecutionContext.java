@@ -1,5 +1,6 @@
 package br.com.maisha.wind.controller.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +38,9 @@ public class ExecutionContext<T> {
 
 	/** Rules can use this map to store data between executions. */
 	private Map<String, Object> session = new HashMap<String, Object>();
+
+	/** Id of the user's session. */
+	private Serializable sessid;
 
 	/** @see #operation */
 	public Operation getOperation() {
@@ -106,6 +110,16 @@ public class ExecutionContext<T> {
 	/** @see #session */
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
+	}
+
+	/** @see #sessid */
+	public Serializable getSessid() {
+		return sessid;
+	}
+
+	/** @see #sessid */
+	public void setSessid(Serializable sessid) {
+		this.sessid = sessid;
 	}
 
 }

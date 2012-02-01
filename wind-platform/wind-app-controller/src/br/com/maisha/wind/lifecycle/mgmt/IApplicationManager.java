@@ -22,20 +22,5 @@ public interface IApplicationManager extends Component {
 	 * @param context
 	 */
 	void unregisterApplication(BundleContext context);
-	
-	/**
-	 * 
-	 * @param appId
-	 * @param objectId
-	 */
-	void openObject(String appId, String objectId);
-
-	/**
-	 * 
-	 * @param appId
-	 * @param objectId
-	 */
-	void closeObject(String appId, String objectId);
-
 
 }

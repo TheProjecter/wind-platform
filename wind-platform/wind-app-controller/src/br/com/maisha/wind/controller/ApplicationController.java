@@ -3,6 +3,7 @@ package br.com.maisha.wind.controller;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -64,7 +65,7 @@ public class ApplicationController implements IApplicationController {
 	private ScriptEngineManager engineManager = new ScriptEngineManager();
 
 	/** Model listeners for message model. */
-	private IAppModelListenerRegistry modelListener;
+	private IAppModelListenerRegistry modelListenerRegistry;
 
 	/** Validator Registry. */
 	private ValidatorRegistry validatorRegisty;
@@ -74,9 +75,6 @@ public class ApplicationController implements IApplicationController {
 
 	/** The application registry. */
 	private IApplicationRegistry registry;
-
-	/** Current model being edited; */
-	private ModelReference currentInstance;
 
 	/**
 	 * 
@@ -100,7 +98,10 @@ public class ApplicationController implements IApplicationController {
 			Invocable invocable = (Invocable) engine;
 
 			BundleContext bundle = ctx.getOperation().getDomainObject().getApplication().getBundleContext();
-			URL ruleUrl = bundle.getBundle().getEntry("/" + op.getPropertyValue(PropertyInfo.FILE));
+			URL ruleUrl = bundle.getBundle().getEntry("/src/" + op.getPropertyValue(PropertyInfo.FILE));
+			if (ruleUrl == null) {
+				ruleUrl = bundle.getBundle().getEntry("/" + op.getPropertyValue(PropertyInfo.FILE));
+			}
 
 			InputStream is = ruleUrl.openStream();
 			Reader r = new InputStreamReader(is);
@@ -121,7 +122,8 @@ public class ApplicationController implements IApplicationController {
 
 			invocable.invokeMethod(o, "execute");
 
-			modelListener.fireEvent(null, ctx.getOperation().getDomainObject(), LevelType.Object, ChangeType.ValueChanged);
+			modelListenerRegistry.fireEvent(ctx.getSessid(), null, ctx.getOperation().getDomainObject(), LevelType.Object,
+					ChangeType.ValueChanged);
 		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
@@ -137,7 +139,10 @@ public class ApplicationController implements IApplicationController {
 		BundleContext bCtx = Activator.getDefault();
 
 		if ("groovy".equalsIgnoreCase(type)) {
-			URL url = bCtx.getBundle().getEntry("/br/com/maisha/wind/controller/execution/api/groovy/GroovyRuleAPI.groovy");
+			URL url = bCtx.getBundle().getEntry("/src/br/com/maisha/wind/controller/execution/api/groovy/GroovyRuleAPI.groovy");
+			if (url == null) {
+				url = bCtx.getBundle().getEntry("/br/com/maisha/wind/controller/execution/api/groovy/GroovyRuleAPI.groovy");
+			}
 
 			InputStream is = url.openStream();
 			Reader r = new InputStreamReader(is);
@@ -150,18 +155,18 @@ public class ApplicationController implements IApplicationController {
 	 * 
 	 * @see br.com.maisha.wind.controller.IApplicationController#processExecutionContext(br.com.maisha.wind.controller.model.ExecutionContext)
 	 */
-	public void processExecutionContext(ExecutionContext<ModelReference> ctx) {
+	public ModelReference processExecutionContext(ExecutionContext<ModelReference> ctx) {
 
 		// process messages
 		if (ctx.getMessages() != null && !ctx.getMessages().isEmpty()) {
-			modelListener.fireEvent(null, ctx.getMessages(), LevelType.Message, ChangeType.Added);
+			modelListenerRegistry.fireEvent(ctx.getSessid(), null, ctx.getMessages(), LevelType.Message, ChangeType.Added);
 		}
 
 		// process grid data
-		modelListener.fireEvent(null, ctx.getGridData(), LevelType.GridData, ChangeType.ValueChanged);
+		modelListenerRegistry.fireEvent(ctx.getSessid(), null, ctx.getGridData(), LevelType.GridData, ChangeType.ValueChanged);
 
 		// create a new opened instance
-		openObjectInstance(createNewCurrentInstance(ctx.getMeta()));
+		return openObjectInstance(ctx.getSessid(), createNewInstance(ctx.getMeta()));
 	}
 
 	/**
@@ -328,7 +333,7 @@ public class ApplicationController implements IApplicationController {
 	 * @see br.com.maisha.wind.controller.IApplicationController#filter(br.com.maisha.terra.lang.DomainObject)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<ModelReference> filter(DomainObject dObj) {
+	public List<ModelReference> filter(Serializable sessid, DomainObject dObj) {
 		List<ModelReference> ret = Collections.EMPTY_LIST;
 
 		// procura por operacao "filtro"
@@ -346,7 +351,8 @@ public class ApplicationController implements IApplicationController {
 			ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 			ctx.setOperation(filterOp);
 			ctx.setMeta(dObj);
-			ctx.setInstance(createNewCurrentInstance(dObj));
+			ctx.setInstance(createNewInstance(dObj));
+			ctx.setSessid(sessid);
 
 			runOperation(ctx);
 			ret = ctx.getGridData();
@@ -464,67 +470,50 @@ public class ApplicationController implements IApplicationController {
 	 * @param level
 	 */
 	public void handleObjectEvent(DomainObject dObj, ChangeType ct, LevelType level) {
-		try {
-			log.debug("	Handling Domain Object Event Level[ " + level + " ] ChangeType[ " + ct + " ]");
-			String type = "";
-
-			String file = dObj.getPropertyValue(PropertyInfo.EVENT_HANDLER);
-			if (StringUtils.isBlank(file)) {
-				return;
-			}
-
-			type = file.substring(file.indexOf(".") + 1);
-			OperationType opType = OperationType.valueOf(type);
-
-			String className = file.substring(file.lastIndexOf("/") + 1, file.indexOf("."));
-
-			ScriptEngine engine = engineManager.getEngineByName(type);
-			Invocable invocable = (Invocable) engine;
-
-			BundleContext bundle = dObj.getApplication().getBundleContext();
-			URL ruleUrl = bundle.getBundle().getEntry("/" + file);
-
-			InputStream is = ruleUrl.openStream();
-			Reader r = new InputStreamReader(is);
-
-			// preparing to execute
-			ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
-			ctx.setInstance(currentInstance);
-			ctx.setOperation(new Operation(type, className, ct.name()));
-			ctx.setMeta(dObj);
-
-			engine.put("model", ctx.getInstance());
-			engine.put("ctx", ctx);
-			engine.put("storage", persistentStorage);
-
-			loadAPI(type, engine);
-			engine.eval(r);
-
-			engine.eval("rule = " + (opType.getUseNewOperator() ? "new " : "") + className + "()");
-			engine.eval("rule.ctx = ctx");
-			engine.eval("rule.model = model");
-			Object result = engine.get("rule");
-
-			// execute
-			invocable.invokeMethod(result, StringUtils.uncapitalize(ct.name()), ctx);
-		} catch (Exception e) {
-			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
-		}
-
+		// TODO REDESIGN THIS FUNCTIONALITY
+		/*
+		 * try { log.debug("	Handling Domain Object Event Level[ " + level + " ] ChangeType[ " + ct + " ]"); String type = "";
+		 * 
+		 * String file = dObj.getPropertyValue(PropertyInfo.EVENT_HANDLER); if (StringUtils.isBlank(file)) { return; }
+		 * 
+		 * type = file.substring(file.indexOf(".") + 1); OperationType opType = OperationType.valueOf(type);
+		 * 
+		 * String className = file.substring(file.lastIndexOf("/") + 1, file.indexOf("."));
+		 * 
+		 * ScriptEngine engine = engineManager.getEngineByName(type); Invocable invocable = (Invocable) engine;
+		 * 
+		 * BundleContext bundle = dObj.getApplication().getBundleContext(); URL ruleUrl = bundle.getBundle().getEntry("/" + file);
+		 * 
+		 * InputStream is = ruleUrl.openStream(); Reader r = new InputStreamReader(is);
+		 * 
+		 * // preparing to execute ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
+		 * ctx.setInstance(currentInstance); ctx.setOperation(new Operation(type, className, ct.name())); ctx.setMeta(dObj);
+		 * 
+		 * engine.put("model", ctx.getInstance()); engine.put("ctx", ctx); engine.put("storage", persistentStorage);
+		 * 
+		 * loadAPI(type, engine); engine.eval(r);
+		 * 
+		 * engine.eval("rule = " + (opType.getUseNewOperator() ? "new " : "") + className + "()"); engine.eval("rule.ctx = ctx");
+		 * engine.eval("rule.model = model"); Object result = engine.get("rule");
+		 * 
+		 * // execute invocable.invokeMethod(result, StringUtils.uncapitalize(ct.name()), ctx); } catch (Exception e) {
+		 * ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log); }
+		 */
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @see br.com.maisha.wind.controller.IApplicationController#openObjectInstance(br.com.maisha.terra.lang.ModelReference)
+	 * @see br.com.maisha.wind.controller.IApplicationController#openObjectInstance(java.io.Serializable,
+	 * br.com.maisha.terra.lang.ModelReference)
 	 */
-	public void openObjectInstance(ModelReference ref) {
-		log.debug("currentInstance@openObjectInstance: " + ref);
-		this.currentInstance = ref;
-
+	public ModelReference openObjectInstance(Serializable sessid, ModelReference ref) {
+		ModelReference currentInstance = null;
 		if (ref.getId() > 0) {
-			this.currentInstance = persistentStorage.loadFullEntity(ref.getMeta(), ref.getId());
+			currentInstance = persistentStorage.loadFullEntity(ref.getMeta(), ref.getId());
 		}
-		modelListener.fireEvent(null, currentInstance, LevelType.Object, ChangeType.InstanceOpened);
+		modelListenerRegistry.fireEvent(sessid, null, currentInstance, LevelType.Object, ChangeType.InstanceOpened);
+		return currentInstance;
 	}
 
 	/**
@@ -573,29 +562,52 @@ public class ApplicationController implements IApplicationController {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see br.com.maisha.wind.controller.IApplicationController#createNewCurrentInstance(br.com.maisha.terra.lang.DomainObject)
+	 * @see br.com.maisha.wind.controller.IApplicationController#openObject(java.lang.String, java.lang.String, java.io.Serializable)
 	 */
-	public ModelReference createNewCurrentInstance(DomainObject dObj) {
-		currentInstance = createNewInstance(dObj);
-		return currentInstance;
+	public DomainObject openObject(String appId, String objectId, Serializable sessid) {
+		DomainObject obj = registry.getObject(appId, objectId);
+		openObject(obj, sessid);
+		return obj;
 	}
 
 	/**
 	 * 
-	 * @see br.com.maisha.wind.controller.IApplicationController#getCurrentModelInstance()
+	 * @param obj
 	 */
-	public ModelReference getCurrentModelInstance() {
-		return currentInstance;
+	private void openObject(DomainObject obj, Serializable sessid) {
+		modelListenerRegistry.fireEvent(sessid, null, obj, LevelType.Object, ChangeType.BeforeObjectOpen);
+		modelListenerRegistry.fireEvent(sessid, null, obj, LevelType.Object, ChangeType.ObjectOpen);
+		modelListenerRegistry.fireEvent(sessid, null, obj, LevelType.Object, ChangeType.AfterObjectOpen);
 	}
 
-	/** @see #modelListener */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#closeObject(java.lang.String, java.lang.String, java.io.Serializable)
+	 */
+	public void closeObject(String appId, String objectId, Serializable sessid) {
+		DomainObject obj = registry.getObject(appId, objectId);
+		closeObject(obj, sessid);
+	}
+
+	/**
+	 * 
+	 * @param dObj
+	 */
+	private void closeObject(DomainObject dObj, Serializable sessid) {
+		modelListenerRegistry.fireEvent(sessid, null, dObj, LevelType.Object, ChangeType.BeforeObjectClose);
+		modelListenerRegistry.fireEvent(sessid, null, dObj, LevelType.Object, ChangeType.ObjectClose);
+		modelListenerRegistry.fireEvent(sessid, null, dObj, LevelType.Object, ChangeType.AfterObjectClose);
+	}
+
+	/** @see #modelListenerRegistry */
 	public IAppModelListenerRegistry getModelListener() {
-		return modelListener;
+		return modelListenerRegistry;
 	}
 
-	/** @see #modelListener */
+	/** @see #modelListenerRegistry */
 	public void setModelListener(IAppModelListenerRegistry modelListener) {
-		this.modelListener = modelListener;
+		this.modelListenerRegistry = modelListener;
 	}
 
 	/** @see #validatorRegisty */

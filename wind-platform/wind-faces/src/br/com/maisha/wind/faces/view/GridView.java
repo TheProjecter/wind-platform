@@ -14,6 +14,7 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -33,6 +34,7 @@ import br.com.maisha.wind.faces.action.PDFPrintAction;
 import br.com.maisha.wind.faces.action.PrintAction;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.render.IRender;
+import br.com.maisha.wind.faces.util.Constants;
 
 /**
  * 
@@ -91,7 +93,8 @@ public class GridView extends ViewPart implements IRender {
 				IStructuredSelection sel = (IStructuredSelection) event.getSelection();
 				if (!sel.isEmpty()) {
 					Map<String, Object> map = (Map<String, Object>) sel.getFirstElement();
-					appCtrl.openObjectInstance((ModelReference) map.get("REF"));
+					ModelReference ref = appCtrl.openObjectInstance(RWT.getSessionStore().getId(), (ModelReference) map.get("REF"));
+					RWT.getSessionStore().setAttribute(Constants.OPENED_INSTANCE, ref);
 				}
 			}
 		});
@@ -201,10 +204,8 @@ public class GridView extends ViewPart implements IRender {
 					// input data TODO run outside UI Thread
 					List<ModelReference> data = null;
 					if (LevelType.Object.equals(level)) {
-						log.debug("dObj@192: " + dObj);
-						log.debug("model@192: " + model);
 						if (dObj.getPropertyValue(PropertyInfo.OPEN_FILTERING)) {
-							data = appCtrl.filter(dObj);
+							data = appCtrl.filter(RWT.getSessionStore().getId(), dObj);
 						}
 					} else if (LevelType.GridData.equals(level)) {
 						data = (ArrayList<ModelReference>) model;

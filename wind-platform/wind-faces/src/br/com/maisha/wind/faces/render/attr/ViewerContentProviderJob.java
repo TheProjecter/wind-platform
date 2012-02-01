@@ -1,11 +1,14 @@
 package br.com.maisha.wind.faces.render.attr;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.rwt.RWT;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
@@ -34,6 +37,8 @@ public class ViewerContentProviderJob extends Job {
 	/** Application Controller ref. */
 	private IApplicationController appCtrl;
 
+	private Serializable sessid;
+
 	/**
 	 * Constructor configures job name.
 	 * 
@@ -43,7 +48,7 @@ public class ViewerContentProviderJob extends Job {
 	public ViewerContentProviderJob(String name, Attribute attribute) {
 		super(name);
 		this.attribute = attribute;
-
+		sessid = RWT.getSessionStore().getId();
 		appCtrl = ServiceProvider.getInstance().getService(IApplicationController.class,
 				Activator.getDefault().getBundle().getBundleContext());
 	}
@@ -72,12 +77,10 @@ public class ViewerContentProviderJob extends Job {
 		ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 		ctx.setMeta(attribute.getDomainObject());
 		ctx.setOperation(op);
-		ctx.setInstance(appCtrl.getCurrentModelInstance());
-
+		ctx.setSessid(sessid);
 		ctx = appCtrl.runOperation(ctx);
 
 		setProperty(CONTENT, ctx.getSession().get("content"));
 		return Status.OK_STATUS;
 	}
-
 }

@@ -3,6 +3,8 @@ package br.com.maisha.wind.faces;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.eclipse.rwt.RWT;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWindowListener;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.osgi.framework.BundleContext;
@@ -26,6 +28,9 @@ public class WorkbenchWindowListener implements IWindowListener {
 	/** Log ref. */
 	private static final Logger log = Logger.getLogger(WorkbenchWindowListener.class);
 
+	/** */
+	private FacesAppModelListener listener;
+
 	/**
 	 * 
 	 * @see org.eclipse.ui.IWindowListener#windowActivated(org.eclipse.ui.IWorkbenchWindow)
@@ -45,10 +50,6 @@ public class WorkbenchWindowListener implements IWindowListener {
 			presProvider.render(app, LevelType.Application, ChangeType.Added);
 		}
 
-		// register app model listener to react to it's changes...
-		IAppModelListenerRegistry modelListenerReg = ServiceProvider.getInstance().getService(IAppModelListenerRegistry.class, ctx);
-		modelListenerReg.registerAppModelListener(new FacesAppModelListener());
-
 		log.debug("		Window is ready...");
 	}
 
@@ -57,7 +58,10 @@ public class WorkbenchWindowListener implements IWindowListener {
 	 * @see org.eclipse.ui.IWindowListener#windowClosed(org.eclipse.ui.IWorkbenchWindow)
 	 */
 	public void windowClosed(IWorkbenchWindow window) {
-
+		log.debug("Wind Closed");
+		IAppModelListenerRegistry modelListenerReg = ServiceProvider.getInstance().getService(IAppModelListenerRegistry.class,
+				Activator.getDefault().getBundle().getBundleContext());
+		modelListenerReg.removeSessionAppModelListener(RWT.getSessionStore().getId(), listener);
 	}
 
 	/**
@@ -73,7 +77,14 @@ public class WorkbenchWindowListener implements IWindowListener {
 	 * @see org.eclipse.ui.IWindowListener#windowOpened(org.eclipse.ui.IWorkbenchWindow)
 	 */
 	public void windowOpened(IWorkbenchWindow window) {
+		log.debug("Wind Opened");
 
+		String sessid = RWT.getSessionStore().getId();
+
+		// register app model listener to react to it's changes...
+		IAppModelListenerRegistry modelListenerReg = ServiceProvider.getInstance().getService(IAppModelListenerRegistry.class,
+				Activator.getDefault().getBundle().getBundleContext());
+		listener = new FacesAppModelListener(Display.getCurrent());
+		modelListenerReg.registerSessionAppModelListener(RWT.getSessionStore().getId(), listener);
 	}
-
 }
