@@ -53,8 +53,7 @@ Require-Bundle: wind_terra;bundle-version="1.0.0",
  wind-storage;bundle-version="1.0.0",
  org.apache.log4j;bundle-version="1.2.13",
  com.springsource.org.apache.commons.lang;bundle-version="2.4.0",
- org.springframework.context;bundle-version="2.5.6",
- wind-digester;bundle-version="1.0.0"
+ org.springframework.context;bundle-version="2.5.6"
 Bundle-ClassPath: lib/jython-engine.jar,
  lib/jython.jar,
  .,
