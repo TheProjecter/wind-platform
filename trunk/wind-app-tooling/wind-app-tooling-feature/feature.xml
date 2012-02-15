@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="wind-app-tooling-feature"
+      label="Wind Tooling"
+      version="0.0.1"
+      provider-name="Wind Technologies">
+
+   <description>
+      LICENSE
+   </description>
+
+   <copyright>
+      Wind Technologies
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.xtext"/>
+   </requires>
+
+   <plugin
+         id="br.com.maisha.wind.app.tooling"
+         download-size="100"
+         install-size="100"
+         version="0.0.1"
+         unpack="false"/>
+
+</feature>
