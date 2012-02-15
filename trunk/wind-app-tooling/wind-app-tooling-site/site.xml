@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/wind-app-tooling-feature_0.0.1.jar" id="wind-app-tooling-feature" version="0.0.1">
+      <category name="Wind Technologies"/>
+   </feature>
+   <category-def name="Wind Technologies" label="Wind Technologies">
+      <description>
+         Tools for working with Wind Platform.
+      </description>
+   </category-def>
+</site>
