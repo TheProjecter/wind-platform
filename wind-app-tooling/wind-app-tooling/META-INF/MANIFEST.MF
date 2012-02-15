@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Wind App Tooling
+Bundle-SymbolicName: br.com.maisha.wind.app.tooling;singleton:=true
+Bundle-Version: 0.0.1
+Bundle-Activator: br.com.maisha.wind.app.tooling.Activator
+Bundle-Vendor: Wind Platform
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ui.ide;bundle-version="3.6.1",
+ org.eclipse.platform;bundle-version="3.6.1",
+ org.eclipse.core.resources;bundle-version="3.6.0",
+ org.eclipse.pde;bundle-version="3.6.1",
+ org.eclipse.pde.core;bundle-version="3.6.2",
+ org.eclipse.pde.ui;bundle-version="3.6.1",
+ org.eclipse.pde.ui.templates;bundle-version="3.4.200",
+ org.eclipse.jface.text;bundle-version="3.6.1",
+ org.eclipse.ui.editors;bundle-version="3.6.1",
+ org.eclipse.jdt;bundle-version="3.6.1",
+ org.eclipse.jdt.ui;bundle-version="3.6.1"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .

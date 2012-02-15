@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<parent>
+		<groupId>br.com.maisha.wind</groupId>
+		<artifactId>wind-app-tooling-parent</artifactId>
+		<relativePath>../wind-app-tooling-parent/</relativePath>
+		<version>1.0</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>br.com.maisha.wind</groupId>
+	<artifactId>wind-app-tooling</artifactId>
+	<version>0.0.1</version>
+	<packaging>eclipse-plugin</packaging>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.tycho</groupId>
+				<artifactId>maven-osgi-packaging-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<archive>
+						<addMavenDescriptor>false</addMavenDescriptor>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
