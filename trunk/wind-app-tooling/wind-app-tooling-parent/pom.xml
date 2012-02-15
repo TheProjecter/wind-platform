@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>br.com.maisha.wind</groupId>
+	<artifactId>wind-app-tooling-parent</artifactId>
+	<name>Wind Application Tooling</name>
+	<version>1.0</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<tycho-version>0.13.0</tycho-version>
+		<tycho-groupid>org.eclipse.tycho</tycho-groupid>
+	</properties>
+
+
+	<modules>
+		<module>../wind-app-tooling</module>
+		<module>../wind-app-tooling-feature</module>
+		<module>../wind-app-tooling-site</module>
+
+	</modules>
+
+
+	<repositories>
+		<repository>
+			<id>eclipse-helios</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/releases/helios</url>
+		</repository>
+		<repository>
+			<id>zeroturnaround</id>
+			<layout>p2</layout>
+			<url>http://www.zeroturnaround.com/update-site</url>
+		</repository>
+	</repositories>
+	<profiles>
+		<profile>
+			<id>sign</id>
+			<!-- To sign plug-ins and features, run: mvn -Psign -Dkeystore=<path> 
+				-Dstorepass=*** -Dalias=<keyalias> clean install -->
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-jar-plugin</artifactId>
+							<version>2.3.1</version>
+							<executions>
+								<execution>
+									<goals>
+										<goal>sign</goal>
+									</goals>
+								</execution>
+							</executions>
+							<configuration>
+								<verify>true</verify>
+								<jarPath>${project.build.directory}/${project.build.finalName}.jar</jarPath>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+	</profiles>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-compiler-plugin</artifactId>
+				<version>${tycho-version}</version>
+
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<resolver>p2</resolver>
+				</configuration>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>2.3.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>maven-osgi-packaging-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<executions>
+						<execution>
+							<id>timestamp</id>
+							<phase>validate</phase>
+							<goals>
+								<goal>timestamp</goal>
+							</goals>
+						</execution>
+					</executions>
+					<!-- for some reason configuration won't work here, have to define in 
+						each module -->
+					<configuration>
+						<archive>
+							<addMavenDescriptor>false</addMavenDescriptor>
+						</archive>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>
