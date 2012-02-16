@@ -17,12 +17,9 @@
       [Enter License Description here.]
    </license>
 
-   <requires>
-      <import plugin="org.eclipse.xtext"/>
-   </requires>
 
    <plugin
-         id="br.com.maisha.wind.app.tooling"
+         id="wind-app-tooling"
          download-size="100"
          install-size="100"
          version="0.0.1"
