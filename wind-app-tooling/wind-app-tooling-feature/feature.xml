@@ -9,14 +9,13 @@
       A set of tools to ease the development of Wind Applications.
    </description>
 
-   <copyright>
+   <copyright url="www.windplatform.com.br">
       Wind Technologies
    </copyright>
 
    <license url="http://www.eclipse.org/org/documents/epl-v10.html">
-      EPL
+      Wind App Tooling is licensed under the terms of EPL v1.0, for details see: http://www.eclipse.org/org/documents/epl-v10.html
    </license>
-
 
    <plugin
          id="wind-app-tooling"
