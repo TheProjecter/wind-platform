@@ -18,7 +18,7 @@
          point="org.eclipse.pde.ui.pluginContent">
       <wizard
             name="Basic Wind App"
-            icon="$nl$/icons/etool16/wind.gif"
+            icon="icons/etool16/wind.gif"
             class="br.com.maisha.wind.app.tooling.template.WindAppNewWizard"
             id="br.com.maisha.wind.app.pluginContent"
             pureOSGi="true"
