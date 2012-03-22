@@ -10,12 +10,17 @@ domain_object basic "Basic"{
 	}
 
 
-	String sexo "Sexo"{
-		x:1
-		y:2
-		presentation_type: combo
-		validValues: ["Masculino", "Feminino"]
-		width: 100
+    Date birthDate "Data de Nascimento"{
+        x:1
+        y:2
+        required:true
+        presentation_type: date
+        width: 120
 	}
 
 }
+
+
+
+
+
