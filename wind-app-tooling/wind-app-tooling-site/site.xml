@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <description name="Wind Platform" url="http://www.windplatform.com.br">
+   <description name="Wind Platform" url="http://www.windplatform.com.br/update-site">
       Description
    </description>
    <feature url="features/wind-app-tooling-feature_0.0.1.jar" id="wind-app-tooling-feature" version="0.0.1">
