@@ -12,7 +12,7 @@ public class MaxLengthValidatorTest {
 	public void testValidate() {
 		MaxLengthValidator o = new MaxLengthValidator();
 		o.configure(new Property("max_length", "10"));
-		Assert.assertTrue("O valor [12345678901] nao deve passar na validacao de max length(10)", o.validate("12345678901"));
+		Assert.assertFalse("O valor [12345678901] nao deve passar na validacao de max length(10)", o.validate("12345678901"));
 	}
 
 	@Test
