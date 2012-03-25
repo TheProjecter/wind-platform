@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>wind-parent</artifactId>
+		<groupId>br.com.maisha.wind</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../wind-parent</relativePath>
+	</parent>
+	<groupId>br.com.maisha.wind</groupId>
+	<artifactId>wind-app-controller.tests</artifactId>
+	<version>1.0.0</version>
+	<packaging>eclipse-test-plugin</packaging>
+
+
+	<properties>
+		<maven-surefire-plugin.version>2.11</maven-surefire-plugin.version>
+		<maven-surefire-report-plugin.version>2.11</maven-surefire-report-plugin.version>
+		<jxr-maven-plugin.version>2.3</jxr-maven-plugin.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho-version}</version>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>${maven-surefire-report-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>generate-test-report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+
+
+
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>${maven-surefire-report-plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jxr-maven-plugin</artifactId>
+				<version>${jxr-maven-plugin.version}</version>
+			</plugin>
+		</plugins>
+	</reporting>
+
+</project>
