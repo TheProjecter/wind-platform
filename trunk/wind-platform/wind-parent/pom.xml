@@ -31,6 +31,9 @@
 	</repositories>
 
 	<modules>
+		<module>../wind-app-controller.tests</module>
+		
+			
 		<module>../rap-target</module>
 		<module>../wind-common</module>
 		<module>../wind_terra</module>
