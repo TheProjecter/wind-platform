@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import org.osgi.framework.BundleContext;
+import org.springframework.context.ApplicationContext;
 
 /**
  * Represents a application running on the platform.
@@ -52,6 +53,9 @@ public class WindApplication {
 	/** This application classloader. */
 	private ClassLoader classLoader;
 
+	/** Spring Application Context for this app. */
+	private ApplicationContext appCtx;
+	
 	/** */
 	private List<ResourceBundleEntry> resourceBundles = new ArrayList<ResourceBundleEntry>();
 
@@ -250,4 +254,14 @@ public class WindApplication {
 		return result;
 	}
 
+	public ApplicationContext getAppCtx() {
+		return appCtx;
+	}
+
+	public void setAppCtx(ApplicationContext appCtx) {
+		this.appCtx = appCtx;
+	}
+
+	
+	
 }
