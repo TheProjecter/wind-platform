@@ -1,5 +1,8 @@
 package br.com.maisha.wind.controller.execution;
 
+import br.com.maisha.terra.lang.Operation;
+import br.com.maisha.wind.controller.model.ExecutionContext;
+
 /**
  * Establishes the basic interface for every rule intended to be executed by the
  * Application Controller.
@@ -9,6 +12,10 @@ package br.com.maisha.wind.controller.execution;
  */
 public interface IRule {
 
-	
-	
+	Object getRule();
+
+	Operation getMeta();
+
+	ExecutionContext<?> run(ExecutionContext<?> ctx);
+
 }
