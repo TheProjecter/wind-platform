@@ -82,6 +82,8 @@
 		<property name="appModelListenerRegisty" ref="appModelListenerRegistryOsgi"/>
 	</bean>
 
+
+	
 </beans>
 
 
