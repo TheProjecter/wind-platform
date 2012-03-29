@@ -14,56 +14,39 @@
 	<packaging>eclipse-test-plugin</packaging>
 
 
-	<properties>
-		<maven-surefire-plugin.version>2.11</maven-surefire-plugin.version>
-		<maven-surefire-report-plugin.version>2.11</maven-surefire-report-plugin.version>
-		<jxr-maven-plugin.version>2.3</jxr-maven-plugin.version>
-	</properties>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-surefire-plugin</artifactId>
-				<version>${tycho-version}</version>
-			</plugin>
-
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>${maven-surefire-report-plugin.version}</version>
-				<executions>
-					<execution>
-						<id>generate-test-report</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-		</plugins>
-	</build>
 
 
 
 
 
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>${maven-surefire-report-plugin.version}</version>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jxr-maven-plugin</artifactId>
-				<version>${jxr-maven-plugin.version}</version>
-			</plugin>
-		</plugins>
-	</reporting>
+   <build>
+     <plugins>
+       <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-compiler-plugin</artifactId>
+         <version>2.3.2</version>
+         <executions>
+           <execution>
+             <id>groovy</id>
+             <goals>
+               <goal>compile</goal>
+             </goals>
+             <phase>compile</phase>
+             <configuration>
+               <compilerId>groovy-eclipse-compiler</compilerId>
+               <verbose>true</verbose>
+             </configuration>
+           </execution>
+         </executions>
+         <dependencies>
+           <dependency>
+             <groupId>org.codehaus.groovy</groupId>
+             <artifactId>groovy-eclipse-compiler</artifactId>
+             <version>2.6.0-01</version>
+           </dependency>
+         </dependencies>
+       </plugin>
+     </plugins>
+   </build>
 
 </project>
