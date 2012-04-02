@@ -16,8 +16,6 @@ import org.osgi.framework.BundleContext;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.osgi.context.event.OsgiBundleApplicationContextEvent;
-import org.springframework.osgi.context.support.OsgiBundleXmlApplicationContext;
 
 import br.com.maisha.terra.IClassMaker;
 import br.com.maisha.terra.ITerraCompiler;
@@ -43,8 +41,7 @@ import br.com.maisha.wind.storage.IStorage;
  */
 public class ApplicationManager implements IApplicationManager {
 
-	private static final Logger log = Logger
-			.getLogger(ApplicationManager.class);
+	private static final Logger log = Logger.getLogger(ApplicationManager.class);
 
 	/** Reference to the terra language compiler. */
 	private ITerraCompiler langCompiler;
@@ -79,8 +76,7 @@ public class ApplicationManager implements IApplicationManager {
 		IOUtils.copy(appCfg.openStream(), writer);
 		String script = writer.toString();
 
-		script = "StringWriter writer = new java.io.StringWriter()\ndef wind = new groovy.xml.MarkupBuilder(writer)\n"
-				+ script;
+		script = "StringWriter writer = new java.io.StringWriter()\ndef wind = new groovy.xml.MarkupBuilder(writer)\n" + script;
 		script = script + "\nreturn writer.toString()";
 
 		Object ret = appCtrl.runScript("groovy", script, null);
@@ -90,26 +86,22 @@ public class ApplicationManager implements IApplicationManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#registerApplication
-	 * (org.osgi.framework.BundleContext, java.lang.ClassLoader)
+	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#registerApplication (org.osgi.framework.BundleContext,
+	 * java.lang.ClassLoader)
 	 */
-	public void registerApplication(BundleContext context,
-			ClassLoader classLoader) {
+	public void registerApplication(BundleContext context, ClassLoader classLoader) {
 		try {
 
 			log.debug("		Registering Wind Application");
 
 			// reads it's configuration file
 			String appCfg = readAppCfg(context);
-			WindApplication app = appCfgReader.read(new ByteArrayInputStream(
-					appCfg.getBytes()));
+			WindApplication app = appCfgReader.read(new ByteArrayInputStream(appCfg.getBytes()));
 
 			log.debug("		App: [" + app.getAppId() + "] " + app.getName());
 
 			// compile it's domain objects
-			Enumeration<URL> e = context.getBundle().findEntries("/", "*.do",
-					true);
+			Enumeration<URL> e = context.getBundle().findEntries("/", "*.do", true);
 			if (e != null) {
 				while (e.hasMoreElements()) {
 					// TODO ignore duplicated entries on this iteration
@@ -125,8 +117,7 @@ public class ApplicationManager implements IApplicationManager {
 						dObj.setApplication(app);
 
 						// fire model event
-						modelListeners.fireEvent(null, dObj, LevelType.Object,
-								ChangeType.Added);
+						modelListeners.fireEvent(null, dObj, LevelType.Object, ChangeType.Added);
 					} else {
 						// TODO throws exception
 					}
@@ -138,18 +129,15 @@ public class ApplicationManager implements IApplicationManager {
 
 			// load it's resource bundles
 			for (ResourceBundleEntry rbEntry : app.getResourceBundles()) {
-				URL rbPath = context.getBundle().getResource(
-						rbEntry.getPath() + ".properties");
+				URL rbPath = context.getBundle().getResource(rbEntry.getPath() + ".properties");
 				if (rbPath == null) {
-					log.error("Could not find resource under the given path ["
-							+ rbEntry.getPath() + "] for app ["
-							+ app.getAppId() + "]...");
+					log.error("Could not find resource under the given path [" + rbEntry.getPath() + "] for app [" + app.getAppId()
+							+ "]...");
 					continue;
 				}
 				String[] langCountry = rbEntry.getLocale().split("_");
 				Locale locale = new Locale(langCountry[0], langCountry[1]);
-				PropertyResourceBundle rb = new PropertyResourceBundle(
-						rbPath.openStream());
+				PropertyResourceBundle rb = new PropertyResourceBundle(rbPath.openStream());
 
 				app.addResourceBundle(locale, rb);
 			}
@@ -172,13 +160,11 @@ public class ApplicationManager implements IApplicationManager {
 
 			// register the application, fire model event
 			if (registry.register(app)) {
-				modelListeners.fireEvent(null, app, LevelType.Application,
-						ChangeType.Added);
+				modelListeners.fireEvent(null, app, LevelType.Application, ChangeType.Added);
 			}
 
 		} catch (Exception e) {
-			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(),
-					e, log);
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 
 	}
@@ -186,9 +172,8 @@ public class ApplicationManager implements IApplicationManager {
 	/**
 	 * Constructs an Spring Application Context for the given Wind Application
 	 * <p/>
-	 * For each operation two beans will be registered. One for the class that
-	 * implements the operation an another called "wrapper". The wrapper
-	 * encapsulates the complexity involved in calling the rule.
+	 * For each operation two beans will be registered. One for the class that implements the operation an another called "wrapper". The
+	 * wrapper encapsulates the complexity involved in calling the rule.
 	 * 
 	 * @param windApp
 	 *            Wind Application for which the App Ctx is being constructed
@@ -204,20 +189,40 @@ public class ApplicationManager implements IApplicationManager {
 				String file = operation.getPropertyValue(PropertyInfo.FILE);
 
 				// le business rule itself
-				BeanDefinitionBuilder ruleBeanDefinition = BeanDefinitionBuilder
-						.genericBeanDefinition(file);
-				springAppCtx.registerBeanDefinition(operation.getRef(),
-						ruleBeanDefinition.getBeanDefinition());
+				BeanDefinitionBuilder ruleBeanDefinition = BeanDefinitionBuilder.genericBeanDefinition(file);
+				springAppCtx.registerBeanDefinition(operation.getRef(), ruleBeanDefinition.getBeanDefinition());
 
 				// le "wrapper" for it
-				BeanDefinitionBuilder wrapperBeanDefinition = BeanDefinitionBuilder
-						.genericBeanDefinition(BasicRule.class);
+				BeanDefinitionBuilder wrapperBeanDefinition = BeanDefinitionBuilder.genericBeanDefinition(BasicRule.class);
 				wrapperBeanDefinition.addConstructorArgValue(operation);
-				springAppCtx.registerBeanDefinition(
-						operation.getRef() + "Rule",
-						wrapperBeanDefinition.getBeanDefinition());
+				springAppCtx.registerBeanDefinition(operation.getRef() + "Rule", wrapperBeanDefinition.getBeanDefinition());
 			}
 		}
+
+		// BeanDefinitionBuilder datasource = BeanDefinitionBuilder.genericBeanDefinition("org.apache.commons.dbcp.BasicDataSource");
+		// datasource.setDestroyMethodName("close");
+		// datasource.addPropertyValue("driverClassName", "org.postgresql.Driver");
+		// datasource.addPropertyValue("url", "jdbc:postgresql://localhost:5432/basic");
+		// datasource.addPropertyValue("username", "basic");
+		// datasource.addPropertyValue("password", "basic");
+		// springAppCtx.registerBeanDefinition("datasource", datasource.getBeanDefinition());
+		//
+		// BeanDefinitionBuilder sessionFactory = BeanDefinitionBuilder
+		// .genericBeanDefinition("org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean");
+		//
+		// sessionFactory.addPropertyReference("dataSource", "dataSource");
+		//
+		// Properties hibProps = new Properties();
+		// hibProps.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+		// hibProps.put("hibernate.show_sql", true);
+		// hibProps.put("hibernate.hbm2ddl.auto", "create-drop");
+		// sessionFactory.addPropertyValue("hibernateProperties", hibProps);
+		//
+		// List<String> classesList = new ArrayList<String>();
+		// for (DomainObject dObj : windApp.getDomainObjects()) {
+		// classesList.add(dObj.getObjectClass().getName());
+		// }
+		// sessionFactory.addPropertyValue("annotatedClasses", classesList);
 
 		springAppCtx.setClassLoader(windApp.getClassLoader());
 		springAppCtx.refresh();
@@ -228,29 +233,24 @@ public class ApplicationManager implements IApplicationManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#unregisterApplication
-	 * (org.osgi.framework.BundleContext)
+	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#unregisterApplication (org.osgi.framework.BundleContext)
 	 */
 	public void unregisterApplication(BundleContext context) {
 		try {
 			log.debug("		Unregistering Wind Application");
 
 			// reads it's configuration file
-			URL appCfg = context.getBundle().getEntry(
-					"/META-INF/wind-app.cfg.xml");
+			URL appCfg = context.getBundle().getEntry("/META-INF/wind-app.cfg.xml");
 			WindApplication app = appCfgReader.read(appCfg.openStream());
 
 			String appId = app.getAppId();
 
-			log.debug("		App: [" + app.getAppId() + "] " + app.getName()
-					+ " is going to be uninstalled");
+			log.debug("		App: [" + app.getAppId() + "] " + app.getName() + " is going to be uninstalled");
 
 			// get app from registry
 			app = registry.retrieve(appId);
 			if (app == null) {
-				log.error("Registry does not know the application registered under the given id ["
-						+ appId + "] ...");
+				log.error("Registry does not know the application registered under the given id [" + appId + "] ...");
 				return;
 			}
 
@@ -258,13 +258,11 @@ public class ApplicationManager implements IApplicationManager {
 			classMaker.detachClasses(app);
 
 			if (registry.unregister(app)) {
-				modelListeners.fireEvent(null, app, LevelType.Application,
-						ChangeType.Removed);
+				modelListeners.fireEvent(null, app, LevelType.Application, ChangeType.Removed);
 			}
 
 		} catch (Exception e) {
-			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(),
-					e, log);
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 	}
 
