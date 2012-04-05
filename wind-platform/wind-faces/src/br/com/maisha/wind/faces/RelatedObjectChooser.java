@@ -78,6 +78,7 @@ public class RelatedObjectChooser extends TitleAreaDialog {
 	 * 
 	 * @see org.eclipse.jface.dialogs.TitleAreaDialog#createDialogArea(org.eclipse.swt.widgets.Composite)
 	 */
+	@SuppressWarnings("unchecked")
 	protected Control createDialogArea(final Composite parent) {
 		Composite contents = new Composite(parent, SWT.NONE);
 		contents.setLayout(new GridLayout());
