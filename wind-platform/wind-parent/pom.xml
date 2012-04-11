@@ -28,6 +28,11 @@
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/eclipse/updates/3.6-JUnit-Tests/</url>
 		</repository>
+		<repository>
+			<id>wind-rt</id>
+			<layout>p2</layout>
+			<url>http://windplatform.com.br/wind-rt/</url>
+		</repository>
 	</repositories>
 
 	<modules>
