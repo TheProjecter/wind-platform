@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.6"?>
 
-<target name="rap" sequenceNumber="3">
+<target name="rap" sequenceNumber="4">
 <locations>
 <location includeAllPlatforms="true" includeMode="slicer" includeSource="false" type="InstallableUnit">
 <unit id="org.eclipse.rap.runtime.sdk.feature.group" version="1.4.0.20110201-1534"/>
 <unit id="br.com.maisha.wind.springdm.feature.group" version="1.0.0"/>
-<repository location="http://windplatform.com.br/rap-target-update-site/"/>
+<repository location="http://windplatform.com.br/wind-rt/"/>
 </location>
 </locations>
 <environment>
