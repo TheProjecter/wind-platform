@@ -78,8 +78,7 @@ public class ClassMaker implements IClassMaker {
 	 */
 	public void makeClasses(ClassLoader cLoader, WindApplication app) throws MakeClassException {
 		try {
-			log.debug("@@@ Creating java classes for " + app.getAppId());
-			ClassPool pool = ClassPool.getDefault();
+			ClassPool pool = new  ClassPool(true);
 
 			pool.insertClassPath(new ClassClassPath(ModelReference.class));
 			Map<DomainObject, CtClass> map = new HashMap<DomainObject, CtClass>();
@@ -93,7 +92,6 @@ public class ClassMaker implements IClassMaker {
 
 			for (Map.Entry<DomainObject, CtClass> entry : map.entrySet()) {
 				DomainObject obj = entry.getKey();
-				log.debug("@@@@ I'm Here!" + cLoader);
 				obj.setObjectClass(entry.getValue().toClass(cLoader, null));
 				obj.setCtClass(entry.getValue());
 

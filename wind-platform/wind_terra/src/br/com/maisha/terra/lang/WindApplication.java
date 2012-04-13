@@ -1,6 +1,5 @@
 package br.com.maisha.terra.lang;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,7 +15,6 @@ import org.springframework.context.ApplicationContext;
 /**
  * Represents a application running on the platform.
  * 
- * TODO i really didn't like this name...
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
@@ -47,6 +45,9 @@ public class WindApplication {
 	/** Domain Objects living at this application. */
 	private Set<DomainObject> domainObjects = new HashSet<DomainObject>();
 
+	/** Information needed to connect to the database. */
+	private Datasource datasource;
+	
 	/** Applications bundle context reference. */
 	private BundleContext bundleContext;
 
@@ -65,8 +66,6 @@ public class WindApplication {
 	/** */
 	private List<MenuGroup> menuGroup = new ArrayList<MenuGroup>();
 
-	/** Hibernate configuration file. */
-	private URL hibernateConfig;
 
 	/** @see #appId */
 	public String getAppId() {
@@ -169,15 +168,6 @@ public class WindApplication {
 		this.currentLocale = currentLocale;
 	}
 
-	/** @see #hibernateConfig */
-	public URL getHibernateConfig() {
-		return hibernateConfig;
-	}
-
-	/** @see #hibernateConfig */
-	public void setHibernateConfig(URL hibernateConfig) {
-		this.hibernateConfig = hibernateConfig;
-	}
 
 	/** @see #bundleId */
 	public Long getBundleId() {
@@ -262,6 +252,17 @@ public class WindApplication {
 		this.appCtx = appCtx;
 	}
 
+	/** @see WindApplication#datasource */
+	public Datasource getDatasource() {
+		return datasource;
+	}
+
+	/** @see WindApplication#datasource */
+	public void setDatasource(Datasource datasource) {
+		this.datasource = datasource;
+	}
+
 	
+
 	
 }
