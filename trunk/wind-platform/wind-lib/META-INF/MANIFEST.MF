@@ -395,3 +395,4 @@ Export-Package: antlr;
  org.xhtmlrenderer.tool,
  org.xhtmlrenderer.util;uses:="org.w3c.dom,javax.imageio,javax.swing",
  wind_lib;uses:="org.osgi.framework"
+Require-Bundle: org.hsqldb.hsqldb;bundle-version="2.2.8"
