@@ -4,9 +4,12 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.PropertyResourceBundle;
 import java.util.Set;
 
@@ -19,6 +22,8 @@ import org.springframework.context.support.GenericApplicationContext;
 
 import br.com.maisha.terra.IClassMaker;
 import br.com.maisha.terra.ITerraCompiler;
+import br.com.maisha.terra.lang.Datasource;
+import br.com.maisha.terra.lang.Datasource.RDMBSVendor;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.Operation;
 import br.com.maisha.terra.lang.PropertyInfo;
@@ -76,7 +81,8 @@ public class ApplicationManager implements IApplicationManager {
 		IOUtils.copy(appCfg.openStream(), writer);
 		String script = writer.toString();
 
-		script = "StringWriter writer = new java.io.StringWriter()\ndef wind = new groovy.xml.MarkupBuilder(writer)\n" + script;
+		script = "StringWriter writer = new java.io.StringWriter()\ndef wind = new groovy.xml.MarkupBuilder(writer)\n"
+				+ script;
 		script = script + "\nreturn writer.toString()";
 
 		Object ret = appCtrl.runScript("groovy", script, null);
@@ -86,12 +92,12 @@ public class ApplicationManager implements IApplicationManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#registerApplication (org.osgi.framework.BundleContext,
-	 * java.lang.ClassLoader)
+	 * @see
+	 * br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#registerApplication
+	 * (org.osgi.framework.BundleContext, java.lang.ClassLoader)
 	 */
 	public void registerApplication(BundleContext context, ClassLoader classLoader) {
 		try {
-
 			log.debug("		Registering Wind Application");
 
 			// reads it's configuration file
@@ -131,8 +137,8 @@ public class ApplicationManager implements IApplicationManager {
 			for (ResourceBundleEntry rbEntry : app.getResourceBundles()) {
 				URL rbPath = context.getBundle().getResource(rbEntry.getPath() + ".properties");
 				if (rbPath == null) {
-					log.error("Could not find resource under the given path [" + rbEntry.getPath() + "] for app [" + app.getAppId()
-							+ "]...");
+					log.error("Could not find resource under the given path [" + rbEntry.getPath() + "] for app ["
+							+ app.getAppId() + "]...");
 					continue;
 				}
 				String[] langCountry = rbEntry.getLocale().split("_");
@@ -152,7 +158,7 @@ public class ApplicationManager implements IApplicationManager {
 			if (hibCfg != null) {
 				// creates session factory
 				app.setHibernateConfig(hibCfg);
-				persistentStorage.configure(app);
+				// persistentStorage.configure(app);
 			}
 
 			// build a spring application context to this wind application
@@ -172,8 +178,9 @@ public class ApplicationManager implements IApplicationManager {
 	/**
 	 * Constructs an Spring Application Context for the given Wind Application
 	 * <p/>
-	 * For each operation two beans will be registered. One for the class that implements the operation an another called "wrapper". The
-	 * wrapper encapsulates the complexity involved in calling the rule.
+	 * For each operation two beans will be registered. One for the class that
+	 * implements the operation an another called "wrapper". The wrapper
+	 * encapsulates the complexity involved in calling the rule.
 	 * 
 	 * @param windApp
 	 *            Wind Application for which the App Ctx is being constructed
@@ -193,37 +200,55 @@ public class ApplicationManager implements IApplicationManager {
 				springAppCtx.registerBeanDefinition(operation.getRef(), ruleBeanDefinition.getBeanDefinition());
 
 				// le "wrapper" for it
-				BeanDefinitionBuilder wrapperBeanDefinition = BeanDefinitionBuilder.genericBeanDefinition(BasicRule.class);
+				BeanDefinitionBuilder wrapperBeanDefinition = BeanDefinitionBuilder
+						.genericBeanDefinition(BasicRule.class);
 				wrapperBeanDefinition.addConstructorArgValue(operation);
-				springAppCtx.registerBeanDefinition(operation.getRef() + "Rule", wrapperBeanDefinition.getBeanDefinition());
+				springAppCtx.registerBeanDefinition(operation.getRef() + "Rule",
+						wrapperBeanDefinition.getBeanDefinition());
 			}
 		}
 
-		// BeanDefinitionBuilder datasource = BeanDefinitionBuilder.genericBeanDefinition("org.apache.commons.dbcp.BasicDataSource");
-		// datasource.setDestroyMethodName("close");
-		// datasource.addPropertyValue("driverClassName", "org.postgresql.Driver");
-		// datasource.addPropertyValue("url", "jdbc:postgresql://localhost:5432/basic");
-		// datasource.addPropertyValue("username", "basic");
-		// datasource.addPropertyValue("password", "basic");
-		// springAppCtx.registerBeanDefinition("datasource", datasource.getBeanDefinition());
-		//
-		// BeanDefinitionBuilder sessionFactory = BeanDefinitionBuilder
-		// .genericBeanDefinition("org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean");
-		//
-		// sessionFactory.addPropertyReference("dataSource", "dataSource");
-		//
-		// Properties hibProps = new Properties();
-		// hibProps.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-		// hibProps.put("hibernate.show_sql", true);
-		// hibProps.put("hibernate.hbm2ddl.auto", "create-drop");
-		// sessionFactory.addPropertyValue("hibernateProperties", hibProps);
-		//
-		// List<String> classesList = new ArrayList<String>();
-		// for (DomainObject dObj : windApp.getDomainObjects()) {
-		// classesList.add(dObj.getObjectClass().getName());
-		// }
-		// sessionFactory.addPropertyValue("annotatedClasses", classesList);
+		Datasource ds = windApp.getDatasource();
+		if (ds != null) {
+			RDMBSVendor vendor = null;
+			try {
+				vendor = Datasource.RDMBSVendor.valueOf(ds.getRdbmsVendor());
+			} catch (Exception e) {
+				throw new IllegalArgumentException(ds.getRdbmsVendor() + " is an invalid RDBMS. Please use one of "
+						+ Arrays.toString(Datasource.RDMBSVendor.values()));
+			}
+			String jdbcDriver = vendor.getDriverClassName();
+			String dialect = vendor.getHibDialect();
 
+			BeanDefinitionBuilder datasource = BeanDefinitionBuilder
+					.genericBeanDefinition("org.apache.commons.dbcp.BasicDataSource");
+			datasource.setDestroyMethodName("close");
+			datasource.addPropertyValue("driverClassName", jdbcDriver);
+			datasource.addPropertyValue("url", ds.getUrl());
+			datasource.addPropertyValue("username", ds.getUsername());
+			datasource.addPropertyValue("password", ds.getPassword());
+			springAppCtx.registerBeanDefinition("datasource", datasource.getBeanDefinition());
+			BeanDefinitionBuilder sessionFactory = BeanDefinitionBuilder
+					.genericBeanDefinition("org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean");
+
+			sessionFactory.addPropertyReference("dataSource", "datasource");
+
+			Properties hibProps = new Properties();
+			hibProps.put("hibernate.dialect", dialect);
+			hibProps.put("hibernate.show_sql", true);
+			hibProps.put("hibernate.hbm2ddl.auto", "create-drop");
+			sessionFactory.addPropertyValue("hibernateProperties", hibProps);
+
+			List<String> classesList = new ArrayList<String>();
+			for (DomainObject dObj : windApp.getDomainObjects()) {
+				if (dObj.getObjectClass() != null) {
+					classesList.add(dObj.getObjectClass().getName());
+				}
+			}
+			sessionFactory.addPropertyValue("annotatedClasses", classesList);
+
+			springAppCtx.registerBeanDefinition("sessionFactory", sessionFactory.getBeanDefinition());
+		}
 		springAppCtx.setClassLoader(windApp.getClassLoader());
 		springAppCtx.refresh();
 
@@ -233,7 +258,9 @@ public class ApplicationManager implements IApplicationManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#unregisterApplication (org.osgi.framework.BundleContext)
+	 * @see
+	 * br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#unregisterApplication
+	 * (org.osgi.framework.BundleContext)
 	 */
 	public void unregisterApplication(BundleContext context) {
 		try {
