@@ -1,5 +1,6 @@
 package br.com.maisha.wind.controller.execution;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,6 +8,7 @@ import org.junit.Test;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
+import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.test.WindTestBasic;
 
@@ -19,14 +21,19 @@ import br.com.maisha.wind.test.WindTestBasic;
 public class BasicRuleTest extends WindTestBasic {
 
 	private BasicRule bean;
+	private WindApplication windApp;
 
 	@Before
-	public void setUp() {
-		super.setUp();
+	public void before() throws Exception {
+		super.before();
+		windApp = mockBuilder.buildWindApplication();
 	}
-	
-	
-	
+
+	@After
+	public void after() throws Exception {
+		super.after();
+		windApp = null;
+	}
 
 	/**
 	 * <p>
@@ -43,11 +50,11 @@ public class BasicRuleTest extends WindTestBasic {
 	 * @throws ClassNotFoundException
 	 */
 	@Test
-	public void testGetRule() {
-		buildApplicationContext();
-
+	public void testGetRule() throws Exception {
+		mockBuilder.buildApplicationContext(windApp);
+		
 		DomainObject obj = windApp.getDomainObjects().iterator().next();
-		Operation op = obj.getOperation("save");
+		Operation op = obj.getOperation("SaveConta");
 
 		bean = new BasicRule(op);
 		Assert.assertNotNull("Expected to get a reference to rule.",
@@ -91,9 +98,9 @@ public class BasicRuleTest extends WindTestBasic {
 	 */
 	@Test
 	public void testRun() {
-		buildApplicationContext();
+		mockBuilder.buildApplicationContext(windApp);
 		DomainObject obj = windApp.getDomainObjects().iterator().next();
-		Operation op = obj.getOperation("save");
+		Operation op = obj.getOperation("SaveConta");
 
 		bean = new BasicRule(op);
 		Assert.assertNotNull("Expected to get a reference to rule.",

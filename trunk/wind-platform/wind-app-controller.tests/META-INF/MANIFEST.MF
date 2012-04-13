@@ -6,6 +6,16 @@ Bundle-Version: 1.0.0
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Fragment-Host: wind_app_controller
 Bundle-ClassPath: .
-Require-Bundle: org.junit
+Require-Bundle: org.junit,
+ org.springframework.aop;bundle-version="2.5.6",
+ org.springframework.beans;bundle-version="2.5.6",
+ org.springframework.context;bundle-version="2.5.6",
+ org.springframework.core;bundle-version="2.5.6",
+ org.springframework.jdbc;bundle-version="2.5.6",
+ org.springframework.orm;bundle-version="2.5.6",
+ org.springframework.transaction;bundle-version="2.5.6",
+ org.springframework.osgi.extender;bundle-version="1.2.0",
+ wind-storage-hibernate;bundle-version="1.0.0",
+ org.hsqldb.hsqldb;bundle-version="2.2.8"
 Export-Package: br.com.maisha.wind.controller.execution,
  br.com.maisha.wind.controller.validator

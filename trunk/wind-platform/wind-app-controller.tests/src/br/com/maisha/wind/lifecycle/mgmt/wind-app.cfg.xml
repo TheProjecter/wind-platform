@@ -1,0 +1,24 @@
+<app name="Test Wind App" appId="testApp" locale="pt_BR">
+	<about>
+		<description>DESC</description>
+		<licence>EPL</licence>
+		<copyright>WIND</copyright>
+	</about>
+
+	<bundle id="bId" path="bPath" locale="bLcl" />
+	<bundle id="b2Id" path="b2Path" locale="b2Lcl" />
+
+	<datasource url="hsqldburl" username="sa" password="12345" vendor="hsqldb" />
+		
+
+	<menu>
+		<group label="Cadastros" sequence="1" icon="ic.gif">
+			<item domain="Funcionario" label="Funcionário" />
+			<separator />
+			<item domain="basic" label="Basic" icon="icon/filter.gif"/>
+		</group>
+		<group label="Saida" sequence="2">
+			<item domain="Venda" label="Venda"  />
+		</group>
+	</menu>
+</app>
