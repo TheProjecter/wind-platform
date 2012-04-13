@@ -14,8 +14,10 @@ import java.util.PropertyResourceBundle;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.osgi.framework.BundleContext;
+import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
@@ -77,6 +79,9 @@ public class ApplicationManager implements IApplicationManager {
 	 */
 	private String readAppCfg(BundleContext context) throws Exception {
 		URL appCfg = context.getBundle().getEntry("/META-INF/wind-app.cfg");
+		if(appCfg == null){
+			throw new IllegalArgumentException("Wind Application Cfg File not found");
+		}
 		StringWriter writer = new StringWriter();
 		IOUtils.copy(appCfg.openStream(), writer);
 		String script = writer.toString();
@@ -89,6 +94,20 @@ public class ApplicationManager implements IApplicationManager {
 		return ret != null ? ret.toString() : "";
 	}
 
+	/**
+	 * 
+	 * @param bCtx
+	 * @return
+	 * @throws Exception
+	 */
+	private WindApplication buildWindApplication( BundleContext bCtx) throws Exception{
+		String appCfg = readAppCfg(bCtx);
+		if(StringUtils.isBlank(appCfg)){
+			throw new IllegalArgumentException("Invalid Wind Application Cfg: "+appCfg);
+		}
+		return appCfgReader.read(new ByteArrayInputStream(appCfg.getBytes()));
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -101,9 +120,7 @@ public class ApplicationManager implements IApplicationManager {
 			log.debug("		Registering Wind Application");
 
 			// reads it's configuration file
-			String appCfg = readAppCfg(context);
-			WindApplication app = appCfgReader.read(new ByteArrayInputStream(appCfg.getBytes()));
-
+			WindApplication app = buildWindApplication(context);
 			log.debug("		App: [" + app.getAppId() + "] " + app.getName());
 
 			// compile it's domain objects
@@ -153,15 +170,7 @@ public class ApplicationManager implements IApplicationManager {
 			// configure objects labels
 			appCtrl.configureAllLabels(context, app);
 
-			// configure application's persistence
-			URL hibCfg = context.getBundle().getResource("hibernate.cfg.xml");
-			if (hibCfg != null) {
-				// creates session factory
-				app.setHibernateConfig(hibCfg);
-				// persistentStorage.configure(app);
-			}
-
-			// build a spring application context to this wind application
+			// build a spring application context for this wind application
 			buildApplicationContext(app);
 
 			// register the application, fire model event
@@ -248,6 +257,11 @@ public class ApplicationManager implements IApplicationManager {
 			sessionFactory.addPropertyValue("annotatedClasses", classesList);
 
 			springAppCtx.registerBeanDefinition("sessionFactory", sessionFactory.getBeanDefinition());
+			
+			BeanDefinitionBuilder hibernateStorage = BeanDefinitionBuilder.genericBeanDefinition("br.com.maisha.wind.storage.hibernate.HibernateStorage");
+			hibernateStorage.setAutowireMode(Autowire.NO.value());
+			hibernateStorage.addPropertyReference("sessionFactory", "sessionFactory");
+			springAppCtx.registerBeanDefinition("storage", hibernateStorage.getBeanDefinition());
 		}
 		springAppCtx.setClassLoader(windApp.getClassLoader());
 		springAppCtx.refresh();
@@ -267,6 +281,7 @@ public class ApplicationManager implements IApplicationManager {
 			log.debug("		Unregistering Wind Application");
 
 			// reads it's configuration file
+			readAppCfg(context);
 			URL appCfg = context.getBundle().getEntry("/META-INF/wind-app.cfg.xml");
 			WindApplication app = appCfgReader.read(appCfg.openStream());
 
