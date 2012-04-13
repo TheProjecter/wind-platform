@@ -8,10 +8,16 @@ Bundle-Activator: br.com.maisha.wind.storage.hibernate.osgi.Activator
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.apache.commons.lang;version="2.4.0",
- org.osgi.framework;version="1.3.0"
-Require-Bundle: hibernate;bundle-version="1.0.0",
- wind-storage;bundle-version="1.0.0",
+ org.osgi.framework;version="1.3.0",
+ org.springframework.beans;version="2.5.6",
+ org.springframework.core;version="2.5.6",
+ org.springframework.dao;version="2.5.6",
+ org.springframework.orm.hibernate3;version="2.5.6",
+ org.springframework.orm.hibernate3.support;version="2.5.6"
+Require-Bundle: wind-storage;bundle-version="1.0.0",
  wind_terra;bundle-version="1.0.0",
- org.apache.log4j;bundle-version="1.2.13"
+ org.apache.log4j;bundle-version="1.2.13",
+ hibernate;bundle-version="1.0.0"
+Export-Package: br.com.maisha.wind.storage.hibernate
 
 

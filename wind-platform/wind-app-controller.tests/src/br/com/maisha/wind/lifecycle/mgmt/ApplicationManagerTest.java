@@ -73,6 +73,8 @@ public class ApplicationManagerTest extends WindTestBasic {
 		Assert.assertNotNull(datasource);
 		Object sessionFactory = appCtx.getBean("sessionFactory");
 		Assert.assertNotNull(sessionFactory);
+		Object storage = appCtx.getBean("storage");
+		assertNotNull(storage);
 
 		// tenta realizar uma conexao
 		((DataSource) datasource).getConnection();

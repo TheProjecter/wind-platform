@@ -5,7 +5,6 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
 
-	<bean name="hibStorage" class="br.com.maisha.wind.storage.hibernate.HibernateStorage" />
 
 </beans>
 
