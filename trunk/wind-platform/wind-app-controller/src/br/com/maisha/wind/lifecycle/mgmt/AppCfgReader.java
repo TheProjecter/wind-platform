@@ -9,6 +9,7 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import br.com.maisha.terra.lang.Datasource;
 import br.com.maisha.terra.lang.MenuGroup;
 import br.com.maisha.terra.lang.MenuItem;
 import br.com.maisha.terra.lang.ResourceBundleEntry;
@@ -42,9 +43,15 @@ public class AppCfgReader implements IAppCfgReader {
 		d.addSetProperties("app/bundle", "id", "id");
 		d.addSetProperties("app/bundle", "path", "path");
 		d.addSetProperties("app/bundle", "locale", "locale");
-
 		d.addSetNext("app/bundle", "addResourceBundle");
 
+		d.addObjectCreate("app/datasource", Datasource.class);
+		d.addSetProperties("app/datasource", "url", "url");
+		d.addSetProperties("app/datasource", "username", "username");
+		d.addSetProperties("app/datasource", "password", "password");
+		d.addSetProperties("app/datasource", "vendor", "rdbmsVendor");
+		d.addSetNext("app/datasource", "setDatasource");		
+		
 		d.addObjectCreate("*/group", MenuGroup.class);
 		d.addSetProperties("*/group", "icon", "icon");
 		d.addSetProperties("*/group", "label", "label");
