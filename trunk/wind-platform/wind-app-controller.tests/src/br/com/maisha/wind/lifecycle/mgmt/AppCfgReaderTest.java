@@ -3,6 +3,12 @@ package br.com.maisha.wind.lifecycle.mgmt;
 import java.io.InputStream;
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+import br.com.maisha.terra.lang.Datasource;
 import br.com.maisha.terra.lang.MenuGroup;
 import br.com.maisha.terra.lang.MenuItem;
 import br.com.maisha.terra.lang.MenuItem.MenuType;
