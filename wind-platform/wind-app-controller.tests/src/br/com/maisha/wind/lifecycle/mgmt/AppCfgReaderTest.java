@@ -3,17 +3,11 @@ package br.com.maisha.wind.lifecycle.mgmt;
 import java.io.InputStream;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
-import br.com.maisha.terra.lang.Datasource;
 import br.com.maisha.terra.lang.MenuGroup;
 import br.com.maisha.terra.lang.MenuItem;
+import br.com.maisha.terra.lang.MenuItem.MenuType;
 import br.com.maisha.terra.lang.ResourceBundleEntry;
 import br.com.maisha.terra.lang.WindApplication;
-import br.com.maisha.terra.lang.MenuItem.MenuType;
 
 /**
  * Test cases for {@link AppCfgReader}
@@ -41,8 +35,7 @@ public class AppCfgReaderTest {
 	 */
 	@Test
 	public void testRead() throws Exception {
-		InputStream is = getClass().getResourceAsStream(
-				"/br/com/maisha/wind/lifecycle/mgmt/wind-app.cfg.xml");
+		InputStream is = getClass().getResourceAsStream("/br/com/maisha/wind/lifecycle/mgmt/wind-app.cfg.xml");
 
 		WindApplication app = bean.read(is);
 
@@ -80,7 +73,7 @@ public class AppCfgReaderTest {
 		List<MenuItem> g1Items = g1.getItems();
 		assertEquals(3, g1Items.size());
 		assertEquals("Funcionario", g1Items.get(0).getDomainObject());
-		assertEquals("Funcionário", g1Items.get(0).getLabel());
+		assertEquals("Funcion√°rio", g1Items.get(0).getLabel());
 		assertEquals(true, g1Items.get(0).getVisible());
 		assertEquals(MenuType.SEPARATOR, g1Items.get(1).getType());
 		assertEquals("basic", g1Items.get(2).getDomainObject());
@@ -90,8 +83,8 @@ public class AppCfgReaderTest {
 
 		List<MenuItem> g2Items = g2.getItems();
 		assertEquals(1, g2Items.size());
-		
-		//datasource
+
+		// datasource
 		Datasource ds = app.getDatasource();
 		assertNotNull(ds);
 		assertEquals("hsqldburl", ds.getUrl());
