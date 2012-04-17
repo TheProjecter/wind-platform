@@ -206,6 +206,7 @@ public class ApplicationManager implements IApplicationManager {
 
 				// le business rule itself
 				BeanDefinitionBuilder ruleBeanDefinition = BeanDefinitionBuilder.genericBeanDefinition(file);
+				ruleBeanDefinition.setAutowireMode(Autowire.BY_NAME.value());
 				springAppCtx.registerBeanDefinition(operation.getRef(), ruleBeanDefinition.getBeanDefinition());
 
 				// le "wrapper" for it
@@ -229,6 +230,7 @@ public class ApplicationManager implements IApplicationManager {
 			String jdbcDriver = vendor.getDriverClassName();
 			String dialect = vendor.getHibDialect();
 
+			// datasource
 			BeanDefinitionBuilder datasource = BeanDefinitionBuilder
 					.genericBeanDefinition("org.apache.commons.dbcp.BasicDataSource");
 			datasource.setDestroyMethodName("close");
@@ -237,17 +239,16 @@ public class ApplicationManager implements IApplicationManager {
 			datasource.addPropertyValue("username", ds.getUsername());
 			datasource.addPropertyValue("password", ds.getPassword());
 			springAppCtx.registerBeanDefinition("datasource", datasource.getBeanDefinition());
+			
+			//session factory
 			BeanDefinitionBuilder sessionFactory = BeanDefinitionBuilder
 					.genericBeanDefinition("org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean");
-
 			sessionFactory.addPropertyReference("dataSource", "datasource");
-
 			Properties hibProps = new Properties();
 			hibProps.put("hibernate.dialect", dialect);
 			hibProps.put("hibernate.show_sql", true);
 			hibProps.put("hibernate.hbm2ddl.auto", "create-drop");
 			sessionFactory.addPropertyValue("hibernateProperties", hibProps);
-
 			List<String> classesList = new ArrayList<String>();
 			for (DomainObject dObj : windApp.getDomainObjects()) {
 				if (dObj.getObjectClass() != null) {
@@ -255,11 +256,10 @@ public class ApplicationManager implements IApplicationManager {
 				}
 			}
 			sessionFactory.addPropertyValue("annotatedClasses", classesList);
-
 			springAppCtx.registerBeanDefinition("sessionFactory", sessionFactory.getBeanDefinition());
 			
+			// hibernate storage
 			BeanDefinitionBuilder hibernateStorage = BeanDefinitionBuilder.genericBeanDefinition("br.com.maisha.wind.storage.hibernate.HibernateStorage");
-			hibernateStorage.setAutowireMode(Autowire.NO.value());
 			hibernateStorage.addPropertyReference("sessionFactory", "sessionFactory");
 			springAppCtx.registerBeanDefinition("storage", hibernateStorage.getBeanDefinition());
 		}
