@@ -13,7 +13,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.metadata.ClassMetadata;
 import org.hibernate.type.Type;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
@@ -25,7 +25,7 @@ import br.com.maisha.wind.storage.IStorage;
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
-public class HibernateStorage extends HibernateDaoSupport implements IStorage {
+public class HibernateStorage implements IStorage {
 
 	/** LOG ref. */
 	private static final Logger log = Logger.getLogger(HibernateStorage.class);
@@ -33,6 +33,7 @@ public class HibernateStorage extends HibernateDaoSupport implements IStorage {
 	/** Hibernate's Session Factory */
 	private SessionFactory sessionFactory;
 
+	private HibernateTemplate hibernateTemplate;
 
 	/*
 	 * (non-Javadoc)
@@ -183,6 +184,14 @@ public class HibernateStorage extends HibernateDaoSupport implements IStorage {
 		return null;
 	}
 
+	/** @see HibernateStorage#hibernateTemplate */
+	public HibernateTemplate getHibernateTemplate() {
+		return hibernateTemplate;
+	}
 
+	/** Hibernate session factory */
+	public void setSessionFactory(SessionFactory sessionFactory){
+		this.hibernateTemplate = new HibernateTemplate(sessionFactory);
+	}
 
 }
