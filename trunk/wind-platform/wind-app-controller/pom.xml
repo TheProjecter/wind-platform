@@ -13,4 +13,36 @@
 	<artifactId>wind_app_controller</artifactId>
 	<version>1.0.0</version>
 	<packaging>eclipse-plugin</packaging>
+	
+	
+		<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<executions>
+					<execution>
+						<id>groovy</id>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<phase>compile</phase>
+						<configuration>
+							<compilerId>groovy-eclipse-compiler</compilerId>
+							<verbose>true</verbose>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.groovy</groupId>
+						<artifactId>groovy-eclipse-compiler</artifactId>
+						<version>2.6.0-01</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+	
 </project>

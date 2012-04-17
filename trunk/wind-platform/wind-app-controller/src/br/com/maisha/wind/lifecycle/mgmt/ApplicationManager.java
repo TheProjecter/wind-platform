@@ -217,6 +217,12 @@ public class ApplicationManager implements IApplicationManager {
 						wrapperBeanDefinition.getBeanDefinition());
 			}
 		}
+		
+		BeanDefinitionBuilder groovyApiBootstrap = BeanDefinitionBuilder.genericBeanDefinition("br.com.maisha.wind.controller.execution.api.groovy.GroovyEngineBootstrap");
+		groovyApiBootstrap.setAutowireMode(Autowire.BY_NAME.value());
+		groovyApiBootstrap.setInitMethodName("bootstrap");
+		springAppCtx.registerBeanDefinition("groovyApi", groovyApiBootstrap.getBeanDefinition());
+		
 
 		Datasource ds = windApp.getDatasource();
 		if (ds != null) {

@@ -15,10 +15,14 @@ import br.com.maisha.wind.controller.execution.api.Query;
 
 class GroovyEngineBootstrap implements IEngineBootstrap{
 
-	def messageAPI = new MessageAPI(ctx);
-	def persistenceAPI = new PersistenceAPI(storage);
-
+	def messageAPI
+	def persistenceAPI
+	def storage
+	
 	public void bootstrap() {
+		persistenceAPI = new PersistenceAPI(storage);
+//		messageAPI = new MessageAPI();
+		
 		// MESSAGE AND LOG API //
 		String.metaClass.warn={
 			->
@@ -228,4 +232,6 @@ class GroovyEngineBootstrap implements IEngineBootstrap{
 		}
 		return localeObj;
 	}
+	
+	
 }
