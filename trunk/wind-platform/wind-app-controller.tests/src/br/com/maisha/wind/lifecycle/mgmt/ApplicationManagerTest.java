@@ -80,7 +80,7 @@ public class ApplicationManagerTest extends WindTestBasic {
 		((DataSource) datasource).getConnection();
 	}
 
-	/**
+	/** 
 	 * <p>
 	 * Given that I want to build an ApplicationContext for a determinated Wind
 	 * Application without using a datasource
@@ -144,4 +144,38 @@ public class ApplicationManagerTest extends WindTestBasic {
 		windApp.setDatasource(new Datasource("jdbc:hsqldb:mem:testdb", "sa", "", null));
 		bean.buildApplicationContext(windApp);
 	}
+	
+	
+	/**
+	 * <p>
+	 * Given that I want to build an ApplicationContext for a determinated Wind
+	 * Application
+	 * </p>
+	 * <p>
+	 * When I call buildApplicationContext on IApplicationManager
+	 * </p>
+	 * <p>
+	 * Then I must check the created ApplicationContext with storage bean wired to the rule property
+	 * </p>
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testBuildApplicationContext5() throws Exception {
+		windApp.setDatasource(new Datasource("jdbc:hsqldb:mem:testdb", "sa", "", "hsqldb"));
+		ApplicationContext appCtx = bean.buildApplicationContext(windApp);
+
+		// verifica se as regras de negocio foram carregadas
+		SaveConta saveObject = (SaveConta) appCtx.getBean("SaveConta");
+		Object ruleObject = appCtx.getBean("SaveContaRule");
+
+		Assert.assertNotNull(saveObject);
+		Assert.assertNotNull(ruleObject);
+		Assert.assertTrue(saveObject instanceof SaveConta);
+		Assert.assertTrue(ruleObject instanceof BasicRule);
+
+		// verifica se o bean storage foi autowired na regra
+		Assert.assertNotNull(saveObject.getStorage());
+	}
+	
 }
