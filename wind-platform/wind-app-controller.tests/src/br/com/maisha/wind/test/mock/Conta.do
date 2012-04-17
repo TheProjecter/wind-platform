@@ -32,5 +32,8 @@ domain_object Conta "Conta"{
 	operation groovy SaveConta "Salvar"{
 		file: br.com.maisha.wind.test.mock.SaveConta
 	}
-
+	
+	operation groovy DeleteConta "Remover"{
+		file: br.com.maisha.wind.test.mock.DeleteConta
+	}
 }
