@@ -79,7 +79,7 @@ public class AppCfgReaderTest {
 		List<MenuItem> g1Items = g1.getItems();
 		assertEquals(3, g1Items.size());
 		assertEquals("Funcionario", g1Items.get(0).getDomainObject());
-		assertEquals("Funcionário", g1Items.get(0).getLabel());
+		assertEquals("Funcionario", g1Items.get(0).getLabel());
 		assertEquals(true, g1Items.get(0).getVisible());
 		assertEquals(MenuType.SEPARATOR, g1Items.get(1).getType());
 		assertEquals("basic", g1Items.get(2).getDomainObject());

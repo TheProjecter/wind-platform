@@ -13,7 +13,7 @@
 
 	<menu>
 		<group label="Cadastros" sequence="1" icon="ic.gif">
-			<item domain="Funcionario" label="Funcionário" />
+			<item domain="Funcionario" label="Funcionario" />
 			<separator />
 			<item domain="basic" label="Basic" icon="icon/filter.gif"/>
 		</group>
