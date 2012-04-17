@@ -200,7 +200,7 @@ public class ApplicationManagerTest extends WindTestBasic {
 	 * When I call buildApplicationContext on IApplicationManager
 	 * </p>
 	 * <p>
-	 * Then I must check the created ApplicationContext with a bean named groovyApi
+	 * Then I must check the created ApplicationContext with rules autowired
 	 * </p>
 	 * 
 	 * @throws Exception
@@ -215,14 +215,15 @@ public class ApplicationManagerTest extends WindTestBasic {
 		assertNotNull(groovyApi);
 		assertNotNull(groovyApi.getStorage());
 		
+		//verifica se a regra SaveConta esta com uma referencia para groovyApi
 		SaveConta saveObject = (SaveConta) appCtx.getBean("SaveConta");
-		Assert.assertNotNull(saveObject);
+		assertNotNull(saveObject);
 		assertNotNull(saveObject.getGroovyApi());
 		
+		// verifica se a regra Delete conta esta com uma referencia para groovyApi e a executa verificando seu comportamento.
 		Object deleteObject = appCtx.getBean("DeleteConta");
-		Assert.assertNotNull(deleteObject);
-		Object delObjGroovyApi = deleteObject.getClass().getMethod("getGroovyApi").invoke(deleteObject);
-		assertNotNull(delObjGroovyApi);
+		assertNotNull(deleteObject);
+		assertNotNull(deleteObject.getClass().getMethod("getGroovyApi").invoke(deleteObject));
 		
 		ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 		Method mExecute = deleteObject.getClass().getMethod("execute", ExecutionContext.class);
