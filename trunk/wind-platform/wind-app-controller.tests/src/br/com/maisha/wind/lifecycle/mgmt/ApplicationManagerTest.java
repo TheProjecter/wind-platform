@@ -1,7 +1,15 @@
 package br.com.maisha.wind.lifecycle.mgmt;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.sql.DataSource;
-import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -11,8 +19,11 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 
 import br.com.maisha.terra.lang.Datasource;
+import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.controller.execution.BasicRule;
+import br.com.maisha.wind.controller.execution.api.groovy.GroovyEngineBootstrap;
+import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.test.WindTestBasic;
 import br.com.maisha.wind.test.mock.SaveConta;
 
@@ -176,6 +187,49 @@ public class ApplicationManagerTest extends WindTestBasic {
 
 		// verifica se o bean storage foi autowired na regra
 		Assert.assertNotNull(saveObject.getStorage());
+	}
+
+	
+	
+	/**
+	 * <p>
+	 * Given that I want to build an ApplicationContext for a determinated Wind
+	 * Application
+	 * </p>
+	 * <p>
+	 * When I call buildApplicationContext on IApplicationManager
+	 * </p>
+	 * <p>
+	 * Then I must check the created ApplicationContext with a bean named groovyApi
+	 * </p>
+	 * 
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testBuildApplicationContext6() throws Exception {
+		windApp.setDatasource(new Datasource("jdbc:hsqldb:mem:testdb", "sa", "", "hsqldb"));
+		ApplicationContext appCtx = bean.buildApplicationContext(windApp);
+
+		GroovyEngineBootstrap groovyApi = (GroovyEngineBootstrap) appCtx.getBean("groovyApi");
+		assertNotNull(groovyApi);
+		assertNotNull(groovyApi.getStorage());
+		
+		SaveConta saveObject = (SaveConta) appCtx.getBean("SaveConta");
+		Assert.assertNotNull(saveObject);
+		assertNotNull(saveObject.getGroovyApi());
+		
+		Object deleteObject = appCtx.getBean("DeleteConta");
+		Assert.assertNotNull(deleteObject);
+		Object delObjGroovyApi = deleteObject.getClass().getMethod("getGroovyApi").invoke(deleteObject);
+		assertNotNull(delObjGroovyApi);
+		
+		ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
+		Method mExecute = deleteObject.getClass().getMethod("execute", ExecutionContext.class);
+		ctx = (ExecutionContext<ModelReference>) mExecute.invoke(deleteObject, ctx);
+		assertTrue ((Boolean)ctx.getSession().get("executed"));
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		assertEquals(sdf.format(new Date()),  ctx.getSession().get("date"));
 	}
 	
 }
