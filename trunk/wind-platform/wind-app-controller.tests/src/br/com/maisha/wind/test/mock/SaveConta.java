@@ -11,6 +11,7 @@ public class SaveConta {
 	
 	public ExecutionContext<?> execute(ExecutionContext<?> ctx){
 		ctx.getSession().put("msg", "Hello!");
+		ctx.getSession().put("executed", true);
 		return ctx;
 	}
 	

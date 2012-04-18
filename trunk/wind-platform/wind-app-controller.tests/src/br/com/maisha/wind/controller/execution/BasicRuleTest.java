@@ -93,7 +93,7 @@ public class BasicRuleTest extends WindTestBasic {
 	 * When I create an BasicRule an call run.
 	 * </p>
 	 * <p>
-	 * Then I must get an ExecutionContext back. Rule
+	 * Then I must get an ExecutionContext back.
 	 * </p>
 	 */
 	@Test
@@ -106,10 +106,12 @@ public class BasicRuleTest extends WindTestBasic {
 		Assert.assertNotNull("Expected to get a reference to rule.",
 				bean.getRule());
 
-		ExecutionContext<?> ctx = bean
-				.run(new ExecutionContext<ModelReference>());
-		Assert.assertNotNull("Execution context nao pode ser null", ctx);
-		Assert.assertEquals("Hello!", ctx.getSession().get("msg"));
+		ExecutionContext<ModelReference> ctxIn = new ExecutionContext<ModelReference>();
+		ExecutionContext<?> ctxOut = bean
+				.run(ctxIn);
+		Assert.assertEquals(ctxIn, ctxOut);
+		Assert.assertNotNull("Execution context nao pode ser null", ctxOut);
+		Assert.assertEquals("Hello!", ctxOut.getSession().get("msg"));
 	}
 
 }

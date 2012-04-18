@@ -36,4 +36,8 @@ domain_object Conta "Conta"{
 	operation groovy DeleteConta "Remover"{
 		file: br.com.maisha.wind.test.mock.DeleteConta
 	}
+	
+	operation groovy UsesOfMessageAPI "Messages Demo"{
+		file: br.com.maisha.wind.test.mock.UsesOfMessageAPI
+	}
 }
