@@ -29,21 +29,34 @@ class GroovyEngineBootstrap implements IEngineBootstrap{
 
 		doFormattingApi()
 		doPersistenceApi()
-				
-		// MESSAGE AND LOG API //
-		String.metaClass.warn={ ctx -> 
+		doMessageApi()
+		doLogApi()
+
+
+		ExecutionContext.metaClass.getService = { clazz ->
+			def bCtx = ctx?.operation?.domainObject?.application?.bundleContext;
+			if(bCtx){
+				return ServiceProvider.instance.getService(clazz, bCtx);
+			}
+		}
+	}
+
+	
+
+	def doMessageApi(){
+		String.metaClass.warn={ ctx ->
 			messageAPI.warn(ctx, delegate, null);
 		}
 
-		String.metaClass.info={ ctx -> 
+		String.metaClass.info={ ctx ->
 			messageAPI.info(ctx, delegate, null);
 		}
 
-		String.metaClass.error={ ctx -> 
+		String.metaClass.error={ ctx ->
 			messageAPI.error(ctx, delegate, null);
 		}
 
-		String.metaClass.success={ ctx -> 
+		String.metaClass.success={ ctx ->
 			messageAPI.success(ctx, delegate, null);
 		}
 
@@ -63,65 +76,46 @@ class GroovyEngineBootstrap implements IEngineBootstrap{
 		String.metaClass.error={ ctx, param  ->
 			messageAPI.error(ctx, delegate, param as Object[]);
 		}
-
-		String.metaClass.logError={
-			->
+	}
+	
+	
+	def doLogApi(){
+		String.metaClass.logError={ ctx ->
 			messageAPI.logError(ctx.operation, delegate);
 		}
 
-		String.metaClass.logDebug={
-			->
+		String.metaClass.logDebug={ ctx ->
 			messageAPI.logDebug(ctx.operation, delegate);
 		}
 
-		String.metaClass.logWarn={
-			->
+		String.metaClass.logWarn={ ctx ->
 			messageAPI.logWarn(ctx.operation, delegate);
 		}
 
-		String.metaClass.logInfo={
-			->
+		String.metaClass.logInfo={ ctx ->
 			messageAPI.logInfo(ctx.operation, delegate);
 		}
 
 
 		ExecutionContext.metaClass.logInfo = { msg ->
-			messageAPI.logInfo(ctx.operation, msg);
+			messageAPI.logInfo(delegate.operation, msg);
 		}
 
 		ExecutionContext.metaClass.logWarn = { msg ->
-			messageAPI.logWarn(ctx.operation, msg);
+			messageAPI.logWarn(delegate.operation, msg);
 		}
 
 		ExecutionContext.metaClass.logDebug = { msg ->
-			messageAPI.logDebug(ctx.operation, msg);
+			messageAPI.logDebug(delegate.operation, msg);
 		}
 
 		ExecutionContext.metaClass.logError = { msg ->
-			messageAPI.logError(ctx.operation, msg);
-		}
-		// END OF MESSAGE AND LOG API //
-
-		
-		ExecutionContext.metaClass.getService = { clazz ->
-			def bCtx = ctx?.operation?.domainObject?.application?.bundleContext;
-			if(bCtx){
-				return ServiceProvider.instance.getService(clazz, bCtx);
-			}
+			messageAPI.logError(delegate.operation, msg);
 		}
 	}
 
-	def getLocale(String locale){
-		def localeObj = Locale.default;
-		if(locale){
-			def locSplited = locale.split("_");
-			localeObj = new Locale(locSplited[0], locSplited[1])
-		}
-		return localeObj;
-	}
 
-	
-	def doPersistenceApi(){	
+	def doPersistenceApi(){
 		ModelReference.metaClass.save = {
 			->
 			persistenceAPI.save(delegate);
@@ -145,7 +139,7 @@ class GroovyEngineBootstrap implements IEngineBootstrap{
 			persistenceAPI.filter(delegate, query, null);
 		}
 	}
-	
+
 	def doFormattingApi(){
 		Date.metaClass.getProperty = {name ->
 			def originalName = name;
@@ -220,6 +214,15 @@ class GroovyEngineBootstrap implements IEngineBootstrap{
 
 		}
 
+	}
+
+	def getLocale(String locale){
+		def localeObj = Locale.default;
+		if(locale){
+			def locSplited = locale.split("_");
+			localeObj = new Locale(locSplited[0], locSplited[1])
+		}
+		return localeObj;
 	}
 	
 }
