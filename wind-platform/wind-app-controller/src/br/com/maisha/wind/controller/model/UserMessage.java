@@ -178,23 +178,25 @@ public class UserMessage implements Serializable {
 		// verifica msgs da platforma
 		if (StringUtils.isBlank(formattedMessage)) {
 			List<ResourceBundleMessageSource> rbs = PlatformMessageRegistry.getInstance().getMessageBundles();
-			for (ResourceBundleMessageSource rb : rbs) {
-				try {
-					String msg = rb.getMessage(i18nMessage, param.toArray(new Object[] {}), source.getApplication()
-							.getCurrentLocale());
+			if (rbs != null) {
+				for (ResourceBundleMessageSource rb : rbs) {
+					try {
+						String msg = rb.getMessage(i18nMessage, param.toArray(new Object[] {}), source.getApplication()
+								.getCurrentLocale());
 
-					formattedMessage = msg;
-					break;
+						formattedMessage = msg;
+						break;
 
-				} catch (NoSuchMessageException nsme) {
-					// silently igonre
-					continue;
+					} catch (NoSuchMessageException nsme) {
+						// silently igonre
+						continue;
+					}
 				}
 			}
 		}
 
 		if (StringUtils.isBlank(formattedMessage)) {
-			formattedMessage = i18nMessage;
+			formattedMessage = MessageFormat.format(i18nMessage, param.toArray(new Object[] {}));
 		}
 
 		return formattedMessage;

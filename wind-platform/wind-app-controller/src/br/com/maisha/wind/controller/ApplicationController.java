@@ -1,10 +1,6 @@
 package br.com.maisha.wind.controller;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -16,7 +12,6 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
@@ -28,7 +23,6 @@ import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
-import br.com.maisha.terra.lang.Operation.OperationType;
 import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.Validation;
@@ -40,6 +34,7 @@ import br.com.maisha.wind.common.listener.IAppModelListenerRegistry;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.common.preferences.IPreferenceStore;
+import br.com.maisha.wind.controller.execution.BasicRule;
 import br.com.maisha.wind.controller.execution.el.ELListener;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.controller.model.UserMessage;
@@ -59,8 +54,7 @@ import br.com.maisha.wind.storage.IStorage;
 public class ApplicationController implements IApplicationController {
 
 	/** Log ref. */
-	private static final Logger log = Logger
-			.getLogger(ApplicationController.class);
+	private static final Logger log = Logger.getLogger(ApplicationController.class);
 
 	/** Reference to the script engine manager. */
 	private ScriptEngineManager engineManager = new ScriptEngineManager();
@@ -77,117 +71,55 @@ public class ApplicationController implements IApplicationController {
 	/** The application registry. */
 	private IApplicationRegistry registry;
 
-
-
 	/**
 	 * 
 	 * @see br.com.maisha.wind.controller.IApplicationController#runOperation(br.com.maisha.wind.controller.model.ExecutionContext)
 	 */
-	public ExecutionContext<ModelReference> runOperation(
-			ExecutionContext<ModelReference> ctx) {
-
+	public ExecutionContext<ModelReference> runOperation(ExecutionContext<ModelReference> ctx) {
 		try {
+			// gets the operation to be executed
 			Operation op = ctx.getOperation();
-			OperationType type = OperationType.valueOf(op.getType());
 
 			// validation phase
-			if (op.getPropertyValue(PropertyInfo.VALIDATE)
-					&& ctx.getInstance() != null && ctx.getMeta() != null) {
+			if (op.getPropertyValue(PropertyInfo.VALIDATE) && ctx.getInstance() != null && ctx.getMeta() != null) {
 				ctx = processValidations(ctx);
 				if (!ctx.getMessages().isEmpty()) {
 					return ctx;
 				}
 			}
+			
+			// run!
+			BasicRule rule = new BasicRule(op);
+			ctx = rule.run(ctx);
 
-			ScriptEngine engine = engineManager.getEngineByName(op.getType());
-			Invocable invocable = (Invocable) engine;
-
-			BundleContext bundle = ctx.getOperation().getDomainObject()
-					.getApplication().getBundleContext();
-			URL ruleUrl = bundle.getBundle().getEntry(
-					"/src/" + op.getPropertyValue(PropertyInfo.FILE));
-			if (ruleUrl == null) {
-				ruleUrl = bundle.getBundle().getEntry(
-						"/" + op.getPropertyValue(PropertyInfo.FILE));
-			}
-
-			InputStream is = ruleUrl.openStream();
-			Reader r = new InputStreamReader(is);
-
-			engine.put("ctx", ctx);
-			engine.put("model", ctx.getInstance());
-			engine.put("storage", persistentStorage);
-			engine.put("meta", ctx.getMeta());
-
-			loadAPI(op.getType(), engine);
-			engine.eval(r);
-
-			engine.eval("rule = " + (type.getUseNewOperator() ? "new " : "")
-					+ op.getRef() + "()");
-			engine.eval("rule.ctx = ctx");
-			engine.eval("rule.model = model");
-			engine.eval("rule.meta = meta");
-			Object o = engine.get("rule");
-
-			invocable.invokeMethod(o, "execute");
-
-			modelListenerRegistry.fireEvent(ctx.getSessid(), null, ctx
-					.getOperation().getDomainObject(), LevelType.Object,
-					ChangeType.ValueChanged);
+			// fires an event for the interested parts react
+			modelListenerRegistry.fireEvent(ctx.getSessid(), null, ctx.getOperation().getDomainObject(),
+					LevelType.Object, ChangeType.ValueChanged);
 		} catch (Exception e) {
-			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(),
-					e, log);
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 		return ctx;
 	}
 
-	/**
-	 * 
-	 * @param engine
-	 * @throws Exception
-	 */
-	private void loadAPI(String type, ScriptEngine engine) throws Exception {
-		BundleContext bCtx = Activator.getDefault();
-
-		if ("groovy".equalsIgnoreCase(type)) {
-			URL url = bCtx
-					.getBundle()
-					.getEntry(
-							"/src/br/com/maisha/wind/controller/execution/api/groovy/GroovyRuleAPI.groovy");
-			if (url == null) {
-				url = bCtx
-						.getBundle()
-						.getEntry(
-								"/br/com/maisha/wind/controller/execution/api/groovy/GroovyRuleAPI.groovy");
-			}
-
-			InputStream is = url.openStream();
-			Reader r = new InputStreamReader(is);
-
-			engine.eval(r);
-		}
-	}
 
 	/**
 	 * 
 	 * @see br.com.maisha.wind.controller.IApplicationController#processExecutionContext(br.com.maisha.wind.controller.model.ExecutionContext)
 	 */
-	public ModelReference processExecutionContext(
-			ExecutionContext<ModelReference> ctx) {
+	public ModelReference processExecutionContext(ExecutionContext<ModelReference> ctx) {
 
 		// process messages
 		if (ctx.getMessages() != null && !ctx.getMessages().isEmpty()) {
-			modelListenerRegistry.fireEvent(ctx.getSessid(), null,
-					ctx.getMessages(), LevelType.Message, ChangeType.Added);
+			modelListenerRegistry.fireEvent(ctx.getSessid(), null, ctx.getMessages(), LevelType.Message,
+					ChangeType.Added);
 		}
 
 		// process grid data
-		modelListenerRegistry.fireEvent(ctx.getSessid(), null,
-				ctx.getGridData(), LevelType.GridData, ChangeType.ValueChanged);
+		modelListenerRegistry.fireEvent(ctx.getSessid(), null, ctx.getGridData(), LevelType.GridData,
+				ChangeType.ValueChanged);
 
 		// create a new opened instance
-		return openObjectInstance(ctx.getSessid(),
-				createNewInstance(ctx.getMeta()));
+		return openObjectInstance(ctx.getSessid(), createNewInstance(ctx.getMeta()));
 	}
 
 	/**
@@ -195,8 +127,7 @@ public class ApplicationController implements IApplicationController {
 	 * @param ctx
 	 * @return
 	 */
-	private ExecutionContext<ModelReference> processValidations(
-			ExecutionContext<ModelReference> ctx) {
+	public ExecutionContext<ModelReference> processValidations(ExecutionContext<ModelReference> ctx) {
 		try {
 			ModelReference modelInstance = ctx.getInstance();
 			DomainObject meta = ctx.getMeta();
@@ -207,30 +138,23 @@ public class ApplicationController implements IApplicationController {
 
 			// validate bean constraints
 			for (Attribute att : meta.getAtts()) {
-				for (Map.Entry<String, Property> prop : att.getProperties()
-						.entrySet()) {
-					boolean validate = PropertyInfo.getPropertyInfo(
-							prop.getKey()).isValidate();
-					boolean visible = att
-							.getPropertyValue(PropertyInfo.VISIBLE_IN_EDITION);
+				for (Map.Entry<String, Property> prop : att.getProperties().entrySet()) {
+					boolean validate = PropertyInfo.getPropertyInfo(prop.getKey()).isValidate();
+					boolean visible = att.getPropertyValue(PropertyInfo.VISIBLE_IN_EDITION);
 
 					// property validation
 					if (visible && validate) {
-						Object value = juelEngine.eval("${this." + att.getRef()
-								+ "}");
+						Object value = juelEngine.eval("${this." + att.getRef() + "}");
 
-						IValidator validator = validatorRegisty
-								.getValidator(prop.getKey());
+						IValidator validator = validatorRegisty.getValidator(prop.getKey());
 
 						if (validator != null) {
 							validator.configure(prop.getValue());
 
 							if (!validator.validate(value)) {
 								ctx.getMessages().add(
-										new UserMessage(MessageKind.ERROR,
-												validator.getMessageKey(),
-												meta, att.getLabel(), value,
-												prop.getValue().getValue()));
+										new UserMessage(MessageKind.ERROR, validator.getMessageKey(), meta, att
+												.getLabel(), value, prop.getValue().getValue()));
 							}
 						}
 					}
@@ -241,25 +165,19 @@ public class ApplicationController implements IApplicationController {
 			Operation op = ctx.getOperation();
 			String validationRef = op.getPropertyValue(PropertyInfo.VALID_WHEN);
 			if (StringUtils.isNotBlank(validationRef)) {
-				Validation validation = op.getDomainObject().getValidation(
-						validationRef);
+				Validation validation = op.getDomainObject().getValidation(validationRef);
 				if (validation != null) {
-					log.debug("Validating [" + validation.getRef()
-							+ "] for object [" + meta.getLabel() + "]");
+					log.debug("Validating [" + validation.getRef() + "] for object [" + meta.getLabel() + "]");
 					for (ValidationRule rule : validation.getRules()) {
 						Object ret = juelEngine.eval(rule.getExpression());
-						if (!(ret instanceof Boolean && ((Boolean) ret)
-								.booleanValue())) {
-							ctx.getMessages().add(
-									new UserMessage(MessageKind.ERROR, rule
-											.getMessageKey(), meta));
+						if (!(ret instanceof Boolean && ((Boolean) ret).booleanValue())) {
+							ctx.getMessages().add(new UserMessage(MessageKind.ERROR, rule.getMessageKey(), meta));
 						}
 					}
 				}
 			}
 		} catch (Exception e) {
-			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(),
-					e, log);
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 		return ctx;
 	}
@@ -288,35 +206,29 @@ public class ApplicationController implements IApplicationController {
 			juelEngine.put("currDate", new Date());
 
 			for (Attribute attr : meta.getAtts()) {
-				for (Map.Entry<String, Property> entry : attr.getProperties()
-						.entrySet()) {
+				for (Map.Entry<String, Property> entry : attr.getProperties().entrySet()) {
 					Property prop = entry.getValue();
 
 					if (prop.getExpression() != null) {
 						Object ret = juelEngine.eval(prop.getExpression());
 
 						if (ret != null) {
-							log.debug("Attribute [" + attr.getLabel()
-									+ "] property value [" + prop.getPropName()
+							log.debug("Attribute [" + attr.getLabel() + "] property value [" + prop.getPropName()
 									+ "] evaluated to: " + ret);
 							prop.setValue(ret);
 
 							// se for a propriedade value, setta o valor no
 							// model tambem
-							if (PropertyInfo.VALUE.getPropName().equals(
-									prop.getPropName())) {
+							if (PropertyInfo.VALUE.getPropName().equals(prop.getPropName())) {
 								juelEngine.put("val", ret);
-								juelEngine.eval("${this.set"
-										+ StringUtils.capitalize(attr.getRef())
-										+ "(val)}");
+								juelEngine.eval("${this.set" + StringUtils.capitalize(attr.getRef()) + "(val)}");
 							}
 						}
 					}
 				}
 			}
 		} catch (Exception e) {
-			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(),
-					e, log);
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 	}
 
@@ -333,8 +245,7 @@ public class ApplicationController implements IApplicationController {
 			juelEngine.put("this", instance);
 			ret = juelEngine.eval("${this." + attributeName + "}");
 		} catch (Exception e) {
-			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(),
-					e, log);
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 
 		return ret;
@@ -356,8 +267,7 @@ public class ApplicationController implements IApplicationController {
 	 * br.com.maisha.wind.controller.IApplicationController#runScript(java.lang
 	 * .String, java.lang.String, java.util.Map)
 	 */
-	public Object runScript(String engineType, String script,
-			Map<String, Object> context) {
+	public Object runScript(String engineType, String script, Map<String, Object> context) {
 		Object ret = null;
 		try {
 			ScriptEngine engine = engineManager.getEngineByName(engineType);
@@ -370,8 +280,7 @@ public class ApplicationController implements IApplicationController {
 
 			ret = engine.eval(script);
 		} catch (Exception e) {
-			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(),
-					e, log);
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 		return ret;
 	}
@@ -420,8 +329,7 @@ public class ApplicationController implements IApplicationController {
 	 * @see br.com.maisha.wind.controller.IApplicationController#toMap(br.com.maisha.terra.lang.DomainObject,
 	 *      java.util.List)
 	 */
-	public List<Map<String, Object>> toMap(DomainObject obj,
-			List<ModelReference> lst) {
+	public List<Map<String, Object>> toMap(DomainObject obj, List<ModelReference> lst) {
 
 		List<Map<String, Object>> lstMap = new ArrayList<Map<String, Object>>();
 
@@ -436,19 +344,15 @@ public class ApplicationController implements IApplicationController {
 				juelEngine.put("ref", ref);
 				Map<String, Object> map = new HashMap<String, Object>();
 				for (Attribute attr : obj.getAtts()) {
-					if (!attr.isGroupAttribute()
-							&& StringUtils.isEmpty(attr
-									.getPropertyValue(PropertyInfo.ONTOMANY))) {
-						map.put(attr.getRef(),
-								juelEngine.eval("${ref." + attr.getRef() + "}"));
+					if (!attr.isGroupAttribute() && StringUtils.isEmpty(attr.getPropertyValue(PropertyInfo.ONTOMANY))) {
+						map.put(attr.getRef(), juelEngine.eval("${ref." + attr.getRef() + "}"));
 					}
 				}
 				map.put("REF", ref);
 				lstMap.add(map);
 			}
 		} catch (Exception e) {
-			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(),
-					e, log);
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 
 		return lstMap;
@@ -474,8 +378,7 @@ public class ApplicationController implements IApplicationController {
 	 */
 	public void configureAllLabels(BundleContext context, WindApplication app) {
 
-		IPreferenceStore prefs = ServiceProvider.getInstance().getService(
-				IPreferenceStore.class, context);
+		IPreferenceStore prefs = ServiceProvider.getInstance().getService(IPreferenceStore.class, context);
 
 		String strLoc = prefs.get("general", "currentLocale", "pt_BR"); // TODO
 		// constantes
@@ -527,8 +430,7 @@ public class ApplicationController implements IApplicationController {
 	 * @param ct
 	 * @param level
 	 */
-	public void handleObjectEvent(DomainObject dObj, ChangeType ct,
-			LevelType level) {
+	public void handleObjectEvent(DomainObject dObj, ChangeType ct, LevelType level) {
 		// TODO REDESIGN THIS FUNCTIONALITY
 		/*
 		 * try { log.debug("	Handling Domain Object Event Level[ " + level +
@@ -581,15 +483,12 @@ public class ApplicationController implements IApplicationController {
 	 * br.com.maisha.wind.controller.IApplicationController#openObjectInstance
 	 * (java.io.Serializable, br.com.maisha.terra.lang.ModelReference)
 	 */
-	public ModelReference openObjectInstance(Serializable sessid,
-			ModelReference ref) {
+	public ModelReference openObjectInstance(Serializable sessid, ModelReference ref) {
 		ModelReference currentInstance = null;
 		if (ref.getId() > 0) {
-			currentInstance = persistentStorage.loadFullEntity(ref.getMeta(),
-					ref.getId());
+			currentInstance = persistentStorage.loadFullEntity(ref.getMeta(), ref.getId());
 		}
-		modelListenerRegistry.fireEvent(sessid, null, currentInstance,
-				LevelType.Object, ChangeType.InstanceOpened);
+		modelListenerRegistry.fireEvent(sessid, null, currentInstance, LevelType.Object, ChangeType.InstanceOpened);
 		return currentInstance;
 	}
 
@@ -614,13 +513,10 @@ public class ApplicationController implements IApplicationController {
 
 			// configures relationships many-to-one with a new HashSet;
 			for (Attribute att : dObj.getAtts()) {
-				if (StringUtils.isNotBlank(att
-						.getPropertyValue(PropertyInfo.ONTOMANY))) {
+				if (StringUtils.isNotBlank(att.getPropertyValue(PropertyInfo.ONTOMANY))) {
 					// relationship identified
 					context.put("hSet", new HashSet<Object>());
-					runScript(
-							"${ref.set" + StringUtils.capitalize(att.getRef())
-									+ "(hSet)}", context);
+					runScript("${ref.set" + StringUtils.capitalize(att.getRef()) + "(hSet)}", context);
 				}
 			}
 
@@ -632,8 +528,7 @@ public class ApplicationController implements IApplicationController {
 			instance.addPropertyChangeListener(new ELListener());
 
 		} catch (Exception e) {
-			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(),
-					e, log);
+			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 
 		return instance;
@@ -647,8 +542,7 @@ public class ApplicationController implements IApplicationController {
 	 * br.com.maisha.wind.controller.IApplicationController#openObject(java.
 	 * lang.String, java.lang.String, java.io.Serializable)
 	 */
-	public DomainObject openObject(String appId, String objectId,
-			Serializable sessid) {
+	public DomainObject openObject(String appId, String objectId, Serializable sessid) {
 		DomainObject obj = registry.getObject(appId, objectId);
 		openObject(obj, sessid);
 		return obj;
@@ -659,12 +553,9 @@ public class ApplicationController implements IApplicationController {
 	 * @param obj
 	 */
 	private void openObject(DomainObject obj, Serializable sessid) {
-		modelListenerRegistry.fireEvent(sessid, null, obj, LevelType.Object,
-				ChangeType.BeforeObjectOpen);
-		modelListenerRegistry.fireEvent(sessid, null, obj, LevelType.Object,
-				ChangeType.ObjectOpen);
-		modelListenerRegistry.fireEvent(sessid, null, obj, LevelType.Object,
-				ChangeType.AfterObjectOpen);
+		modelListenerRegistry.fireEvent(sessid, null, obj, LevelType.Object, ChangeType.BeforeObjectOpen);
+		modelListenerRegistry.fireEvent(sessid, null, obj, LevelType.Object, ChangeType.ObjectOpen);
+		modelListenerRegistry.fireEvent(sessid, null, obj, LevelType.Object, ChangeType.AfterObjectOpen);
 	}
 
 	/*
@@ -684,12 +575,9 @@ public class ApplicationController implements IApplicationController {
 	 * @param dObj
 	 */
 	private void closeObject(DomainObject dObj, Serializable sessid) {
-		modelListenerRegistry.fireEvent(sessid, null, dObj, LevelType.Object,
-				ChangeType.BeforeObjectClose);
-		modelListenerRegistry.fireEvent(sessid, null, dObj, LevelType.Object,
-				ChangeType.ObjectClose);
-		modelListenerRegistry.fireEvent(sessid, null, dObj, LevelType.Object,
-				ChangeType.AfterObjectClose);
+		modelListenerRegistry.fireEvent(sessid, null, dObj, LevelType.Object, ChangeType.BeforeObjectClose);
+		modelListenerRegistry.fireEvent(sessid, null, dObj, LevelType.Object, ChangeType.ObjectClose);
+		modelListenerRegistry.fireEvent(sessid, null, dObj, LevelType.Object, ChangeType.AfterObjectClose);
 	}
 
 	/** @see #modelListenerRegistry */
@@ -726,7 +614,5 @@ public class ApplicationController implements IApplicationController {
 	public void setRegistry(IApplicationRegistry registry) {
 		this.registry = registry;
 	}
-
-
 
 }

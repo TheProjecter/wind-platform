@@ -13,52 +13,59 @@ import br.com.maisha.wind.controller.execution.api.MessageAPI;
 import br.com.maisha.wind.controller.execution.api.PersistenceAPI;
 import br.com.maisha.wind.controller.execution.api.Query;
 
+/**
+ * Bootstraps an API for ease the development of business rules written in groovy
+ * 
+ * @author Paulo Freitas (pfreitas1@gmail.com)
+ */
 class GroovyEngineBootstrap implements IEngineBootstrap{
 
 	def messageAPI
 	def persistenceAPI
 	def storage
-	
+
 	public void bootstrap() {
 		persistenceAPI = new PersistenceAPI(storage);
-//		messageAPI = new MessageAPI();
-		
+
+		doFormattingApi()
+		doPersistenceApi()
+				
 		// MESSAGE AND LOG API //
 		String.metaClass.warn={
 			->
-			messageAPI.warn(model.meta, delegate, null);
+			messageAPI.warn(ctx, delegate, null);
 		}
 
 		String.metaClass.info={
 			->
-			messageAPI.info(model.meta, delegate, null);
+			messageAPI.info(ctx, delegate, null);
 		}
 
 		String.metaClass.error={
 			->
-			messageAPI.error(model.meta, delegate, null);
+			messageAPI.error(ctx, delegate, null);
 		}
 
 		String.metaClass.success={
 			->
-			messageAPI.success(model.meta, delegate, null);
+			messageAPI.success(ctx, delegate, null);
 		}
 
 
 		String.metaClass.warn={ param  ->
-			messageAPI.warn(model.meta, delegate, param as Object[]);
+			messageAPI.warn(ctx, delegate, param as Object[]);
 		}
 
 		String.metaClass.info={ param  ->
-			messageAPI.info(model.meta, delegate, param as Object[]);
+			messageAPI.info(ctx, delegate, param as Object[]);
 		}
 
 		String.metaClass.success={ param  ->
-			messageAPI.success(model.meta, delegate, param as Object[]);
+			messageAPI.success(ctx, delegate, param as Object[]);
 		}
 
 		String.metaClass.error={ param  ->
-			messageAPI.error(model.meta, delegate, param as Object[]);
+			messageAPI.error(ctx, delegate, param as Object[]);
 		}
 
 		String.metaClass.logError={
@@ -99,9 +106,26 @@ class GroovyEngineBootstrap implements IEngineBootstrap{
 		}
 		// END OF MESSAGE AND LOG API //
 
-		// -------------------------------------------------------------//
+		
+		ExecutionContext.metaClass.getService = { clazz ->
+			def bCtx = ctx?.operation?.domainObject?.application?.bundleContext;
+			if(bCtx){
+				return ServiceProvider.instance.getService(clazz, bCtx);
+			}
+		}
+	}
 
-		// PERSISTENCE API //
+	def getLocale(String locale){
+		def localeObj = Locale.default;
+		if(locale){
+			def locSplited = locale.split("_");
+			localeObj = new Locale(locSplited[0], locSplited[1])
+		}
+		return localeObj;
+	}
+
+	
+	def doPersistenceApi(){	
 		ModelReference.metaClass.save = {
 			->
 			persistenceAPI.save(delegate);
@@ -117,16 +141,6 @@ class GroovyEngineBootstrap implements IEngineBootstrap{
 			persistenceAPI.delete(delegate);
 		}
 
-		//TODO REMOVE THIS
-		ModelReference.metaClass.select = { query, param ->
-			persistenceAPI.filter(delegate, query, param as Object[]);
-		}
-
-		//TODO REMOVE THIS
-		ModelReference.metaClass.select = { query ->
-			persistenceAPI.filter(delegate, query, null);
-		}
-
 		Query.metaClass.list = { query, param ->
 			persistenceAPI.filter(delegate, query, param as Object[]);
 		}
@@ -134,11 +148,9 @@ class GroovyEngineBootstrap implements IEngineBootstrap{
 		Query.metaClass.list = { query ->
 			persistenceAPI.filter(delegate, query, null);
 		}
-		// END OF PERSISTENCE API //
-
-		//-------------------------------------------------------------//
-
-		// FORMATTING API //
+	}
+	
+	def doFormattingApi(){
 		Date.metaClass.getProperty = {name ->
 			def originalName = name;
 			name = StringUtils.capitalize(name);
@@ -211,27 +223,7 @@ class GroovyEngineBootstrap implements IEngineBootstrap{
 		Number.metaClass.percentOf = { total ->
 
 		}
-		//END OF FORMATTING API //
 
-		//-------------------------------------------------------------//
-
-		//END OF SERVICES API //
-		ExecutionContext.metaClass.getService = { clazz ->
-			def bCtx = ctx?.operation?.domainObject?.application?.bundleContext;
-			if(bCtx){
-				return ServiceProvider.instance.getService(clazz, bCtx);
-			}
-		}
 	}
-
-	def getLocale(String locale){
-		def localeObj = Locale.default;
-		if(locale){
-			def locSplited = locale.split("_");
-			localeObj = new Locale(locSplited[0], locSplited[1])
-		}
-		return localeObj;
-	}
-	
 	
 }

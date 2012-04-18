@@ -218,6 +218,7 @@ public class ApplicationManager implements IApplicationManager {
 			}
 		}
 		
+		// maybe this should be more flexible in the future when we add support for other languages
 		BeanDefinitionBuilder groovyApiBootstrap = BeanDefinitionBuilder.genericBeanDefinition("br.com.maisha.wind.controller.execution.api.groovy.GroovyEngineBootstrap");
 		groovyApiBootstrap.setAutowireMode(Autowire.BY_NAME.value());
 		groovyApiBootstrap.setInitMethodName("bootstrap");
