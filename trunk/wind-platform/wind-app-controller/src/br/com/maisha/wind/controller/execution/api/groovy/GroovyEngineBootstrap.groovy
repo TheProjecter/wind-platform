@@ -20,7 +20,7 @@ import br.com.maisha.wind.controller.execution.api.Query;
  */
 class GroovyEngineBootstrap implements IEngineBootstrap{
 
-	def messageAPI
+	def messageAPI = new MessageAPI()
 	def persistenceAPI
 	def storage
 
@@ -31,40 +31,36 @@ class GroovyEngineBootstrap implements IEngineBootstrap{
 		doPersistenceApi()
 				
 		// MESSAGE AND LOG API //
-		String.metaClass.warn={
-			->
+		String.metaClass.warn={ ctx -> 
 			messageAPI.warn(ctx, delegate, null);
 		}
 
-		String.metaClass.info={
-			->
+		String.metaClass.info={ ctx -> 
 			messageAPI.info(ctx, delegate, null);
 		}
 
-		String.metaClass.error={
-			->
+		String.metaClass.error={ ctx -> 
 			messageAPI.error(ctx, delegate, null);
 		}
 
-		String.metaClass.success={
-			->
+		String.metaClass.success={ ctx -> 
 			messageAPI.success(ctx, delegate, null);
 		}
 
 
-		String.metaClass.warn={ param  ->
+		String.metaClass.warn={ ctx, param  ->
 			messageAPI.warn(ctx, delegate, param as Object[]);
 		}
 
-		String.metaClass.info={ param  ->
+		String.metaClass.info={ ctx, param  ->
 			messageAPI.info(ctx, delegate, param as Object[]);
 		}
 
-		String.metaClass.success={ param  ->
+		String.metaClass.success={ ctx, param  ->
 			messageAPI.success(ctx, delegate, param as Object[]);
 		}
 
-		String.metaClass.error={ param  ->
+		String.metaClass.error={ ctx, param  ->
 			messageAPI.error(ctx, delegate, param as Object[]);
 		}
 
