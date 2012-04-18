@@ -112,7 +112,8 @@ public class AppModelListenerRegistry implements IAppModelListenerRegistry {
 		List<IAppRegistryListener> listeners = sessionReg.get(sessid);
 
 		if (listeners == null) {
-			throw new IllegalStateException("There is no listeners registered within session [" + sessid + "]");
+			log.warn("There is no listeners registered within session [" + sessid + "]");
+			return;
 		}
 
 		for (IAppRegistryListener listener : listeners) {
