@@ -1,5 +1,6 @@
 package br.com.maisha.wind.controller.execution;
 
+import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 
@@ -16,6 +17,6 @@ public interface IRule {
 
 	Operation getMeta();
 
-	ExecutionContext<?> run(ExecutionContext<?> ctx);
+	ExecutionContext<ModelReference> run(ExecutionContext<ModelReference> ctx);
 
 }

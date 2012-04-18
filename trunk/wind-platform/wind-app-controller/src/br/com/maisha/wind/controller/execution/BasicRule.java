@@ -52,8 +52,8 @@ public class BasicRule implements IRule {
 	 * 
 	 * @see br.com.maisha.wind.controller.execution.IRule#run(br.com.maisha.wind.controller.model.ExecutionContext)
 	 */
-	public ExecutionContext<?> run(ExecutionContext<?> ctx) {
+	public ExecutionContext<ModelReference> run(ExecutionContext<ModelReference> ctx) {
 		return Reflect.on(getRule())
-				.call("execute", new ExecutionContext<ModelReference>()).get();
+				.call("execute", ctx).get();
 	}
 }
