@@ -57,7 +57,7 @@ public class ApplicationController implements IApplicationController {
 	private static final Logger log = Logger.getLogger(ApplicationController.class);
 
 	/** Reference to the script engine manager. */
-	private ScriptEngineManager engineManager = new ScriptEngineManager();
+	private ScriptEngineManager engineManager;
 
 	/** Model listeners for message model. */
 	private IAppModelListenerRegistry modelListenerRegistry;
@@ -615,4 +615,8 @@ public class ApplicationController implements IApplicationController {
 		this.registry = registry;
 	}
 
+	/** @see ApplicationController#engineManager */
+	public void setEngineManager(ScriptEngineManager engineManager) {
+		this.engineManager = engineManager;
+	}
 }

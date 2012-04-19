@@ -1,10 +1,5 @@
 package br.com.maisha.wind.controller.rcp;
 
-import java.util.List;
-
-import javax.script.ScriptEngineFactory;
-import javax.script.ScriptEngineManager;
-
 import org.apache.log4j.Logger;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -29,40 +24,8 @@ public class Activator implements BundleActivator {
 	 * )
 	 */
 	public void start(BundleContext ctx) throws Exception {
-
 		log.info("		Wind Application Controller Starting... ");
-
 		context = ctx;
-
-		ScriptEngineManager manager = new ScriptEngineManager();
-		List<ScriptEngineFactory> engines = manager.getEngineFactories();
-
-		if (!engines.isEmpty()) {
-			log.debug("The following " + engines.size()
-					+ " scripting engines were found");
-
-			for (ScriptEngineFactory engine : engines) {
-				log.debug("Engine name: " + engine.getEngineName());
-				log.debug("\tVersion: " + engine.getEngineVersion());
-				log.debug("\tLanguage: " + engine.getLanguageName());
-				List<String> extensions = engine.getExtensions();
-				if (extensions.size() > 0) {
-					log.debug("\tEngine supports the following extensions:");
-					for (String e : extensions) {
-						log.debug("\t\t" + e);
-					}
-				}
-				List<String> shortNames = engine.getNames();
-				if (shortNames.size() > 0) {
-					log.debug("\tEngine has the following short names:");
-					for (String n : engine.getNames()) {
-						log.debug("\t\t" + n);
-					}
-				}
-				log.debug("=========================");
-			}
-		}
-
 		log.info("		Wind Application Controller Started... ");
 	}
 

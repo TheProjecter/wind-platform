@@ -131,11 +131,11 @@ class GroovyEngineBootstrap implements IEngineBootstrap{
 			persistenceAPI.delete(delegate);
 		}
 
-		Query.metaClass.list = { query, param ->
+		ModelReference.metaClass.list = { String query, param ->
 			persistenceAPI.filter(delegate, query, param as Object[]);
 		}
 
-		Query.metaClass.list = { query ->
+		ModelReference.metaClass.list = { String query ->
 			persistenceAPI.filter(delegate, query, null);
 		}
 	}
@@ -175,8 +175,7 @@ class GroovyEngineBootstrap implements IEngineBootstrap{
 			}
 		}
 
-		Date.metaClass.clearHour = {
-			->
+		Date.metaClass.clearHour = { ->
 			Calendar c = Calendar.instance;
 			c.setTime(delegate)
 			c.set(Calendar.HOUR, 0)
@@ -211,7 +210,7 @@ class GroovyEngineBootstrap implements IEngineBootstrap{
 		}
 
 		Number.metaClass.percentOf = { total ->
-
+			(total * delegate) / 100
 		}
 
 	}

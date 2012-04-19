@@ -9,8 +9,14 @@
 		class="br.com.maisha.wind.common.listener.AppModelListenerRegistry" />
 
 	
-
-		
+	<bean name="groovyEngineFactory" class="org.codehaus.groovy.jsr223.GroovyScriptEngineFactory"/>
+	<bean name="windScriptManager" class="br.com.maisha.wind.controller.execution.WindScriptEngineManager">
+		<property name="factories">
+			<list>
+				<ref bean="groovyEngineFactory" />
+			</list>
+		</property>
+	</bean>	
 
 	
 	<bean name="applicationController" scope="singleton"
@@ -18,6 +24,7 @@
 		<property name="modelListener" ref="appModelListenerRegistryOsgi" />
 		<property name="validatorRegisty" ref="validatorRegisty" />
 		<property name="registry" ref="appRegistry"/>
+		<property name="engineManager" ref="windScriptManager"/>
 		<!--  property name="persistentStorage" ref="hibStoreOsgi" / -->
 	</bean>
 

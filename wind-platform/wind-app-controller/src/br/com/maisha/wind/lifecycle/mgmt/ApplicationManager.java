@@ -171,7 +171,7 @@ public class ApplicationManager implements IApplicationManager {
 			appCtrl.configureAllLabels(context, app);
 
 			// build a spring application context for this wind application
-			buildApplicationContext(app);
+			app.setAppCtx(buildApplicationContext(app));
 
 			// register the application, fire model event
 			if (registry.register(app)) {
