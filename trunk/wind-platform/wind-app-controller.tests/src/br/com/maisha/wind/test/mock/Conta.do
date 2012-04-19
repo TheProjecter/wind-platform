@@ -40,4 +40,8 @@ domain_object Conta "Conta"{
 	operation groovy UsesOfMessageAPI "Messages Demo"{
 		file: br.com.maisha.wind.test.mock.UsesOfMessageAPI
 	}
+	
+	operation groovy UsesOfFormattingAPI "Formatting Demo"{
+		file: br.com.maisha.wind.test.mock.UsesOfFormattingAPI
+	}
 }

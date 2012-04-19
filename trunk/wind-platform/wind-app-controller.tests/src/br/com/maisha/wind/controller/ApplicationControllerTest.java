@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.PropertyResourceBundle;
 
@@ -144,6 +144,49 @@ public class ApplicationControllerTest extends WindTestBasic {
 		assertEquals(MessageKind.SUCCESS, ctx.getMessages().get(9).getKind());
 	}	
 	
+	
+	/**
+	 * <p>
+	 * Given that I want to execute a groovy business rule that uses the formatting api
+	 * </p>
+	 * <p>
+	 * When I call {@link ApplicationController#runOperation(ExecutionContext)}
+	 * </p>
+	 * <p>
+	 * Then I must check the resulting ExecutionContext with all the uses checked
+	 * </p>
+	 * @throws Exception 
+	 */
+	@Test
+	public void testFormattingAPIGroovyOperation() throws Exception {
+		PlatformMessageRegistry pmr = new PlatformMessageRegistry();
+		pmr.init();
+
+		Locale ptBrLoc = new Locale("pt", "BR");
+		windApp.addResourceBundle(ptBrLoc, new PropertyResourceBundle(getClass().getResourceAsStream("/wind-app-controller-messages-mock.properties")));
+		windApp.setCurrentLocale(ptBrLoc);
+		
+		ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
+		DomainObject dObj = findDomainObject("Conta", windApp);
+		ctx.setOperation(dObj.getOperation("UsesOfFormattingAPI"));
+		ctx.setSessid("TEST_SESSID");
+		ctx.setMeta(dObj);
+		
+		ctx = bean.runOperation(ctx);
+		
+		assertTrue((Boolean) ctx.getSession().get("executed"));
+		
+		assertNotNull(ctx.getSession().get("date_pt_BR"));
+		assertNotNull(ctx.getSession().get("date_en_US"));
+		assertNotNull(ctx.getSession().get("date_hour"));
+		assertNotNull(ctx.getSession().get("clearHour"));
+		
+		assertNotNull(ctx.getSession().get("currency"));
+		assertNotNull(ctx.getSession().get("percent"));
+		assertNotNull(ctx.getSession().get("currency_en_US"));
+		assertNotNull(ctx.getSession().get("percent_en_US"));
+		assertEquals(BigDecimal.valueOf(150), ctx.getSession().get("percent_Of"));
+	}	
 	
 	/**
 	 * <p>
