@@ -14,6 +14,9 @@ import br.com.maisha.terra.lang.WindApplication;
  */
 public interface IStorage {
 
+	/** The name under which the implementation of this interface will be registered within the Application Context.*/
+	public static final String BEAN_NAME = "storage";
+	
 	/**
 	 * 
 	 * @param app
