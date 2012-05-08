@@ -1,18 +1,17 @@
 package br.com.maisha.wind.storage.hibernate;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.EntityMode;
-import org.hibernate.Hibernate;
-import org.hibernate.Query;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.metadata.ClassMetadata;
-import org.hibernate.type.Type;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import br.com.maisha.terra.lang.DomainObject;
@@ -30,9 +29,7 @@ public class HibernateStorage implements IStorage {
 	/** LOG ref. */
 	private static final Logger log = Logger.getLogger(HibernateStorage.class);
 
-	/** Hibernate's Session Factory */
-	private SessionFactory sessionFactory;
-
+	/** Spring`s hibernate template. */
 	private HibernateTemplate hibernateTemplate;
 
 	/*
@@ -53,7 +50,7 @@ public class HibernateStorage implements IStorage {
 	 * ModelReference)
 	 */
 	public void save(ModelReference ref) {
-		getHibernateTemplate().save(ref);
+		getHibernateTemplate().saveOrUpdate(ref);
 	}
 
 	/**
@@ -75,33 +72,42 @@ public class HibernateStorage implements IStorage {
 	 * @param id
 	 * @return
 	 */
-	public ModelReference loadFullEntity(DomainObject dObj, Serializable id) {
+	public Object getById(Class<?> clazz, Serializable id) {
+		return getById(null, clazz, id);
+	}
+
+	/**
+	 * 
+	 * @param appId
+	 * @param clazz
+	 * @param id
+	 * @return
+	 */
+	public ModelReference loadFullEntity(final DomainObject dObj, final Serializable id) {
 		ModelReference ret = null;
-
-		Class<?> clazz = dObj.getObjectClass();
-
-		Session sess = sessionFactory.openSession();
+		final Class<?> clazz = dObj.getObjectClass();
 		try {
-			ret = (ModelReference) sess.get(clazz, id);
 
-			// initialize collections
-			if (ret != null) {
-				ClassMetadata meta = sess.getSessionFactory().getClassMetadata(clazz);
-				for (String propertyName : meta.getPropertyNames()) {
-					Type type = meta.getPropertyType(propertyName);
-					if (type.isCollectionType()) {
-						Hibernate.initialize(meta.getPropertyValue(ret, propertyName, EntityMode.POJO));
+			// load entity initializing collections
+			ret = (ModelReference) getHibernateTemplate().execute(new HibernateCallback() {
+				public Object doInHibernate(Session sess) throws HibernateException, SQLException {
+					
+					ModelReference r = (ModelReference) sess.get(clazz, id);
+					
+					SessionFactory sessionFactory = sess.getSessionFactory();
+					ClassMetadata meta = sessionFactory.getClassMetadata(clazz);
+					for (String propertyName : meta.getPropertyNames()) {
+						if (meta.getPropertyType(propertyName).isCollectionType()) {
+							getHibernateTemplate().initialize(meta.getPropertyValue(r, propertyName, EntityMode.POJO));
+						}
 					}
+					
+					return r;
 				}
-
-				ret.setMeta(dObj);
-			}
+			});
 
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
-		} finally {
-			sess.flush();
-			sess.close();
 		}
 		return ret;
 	}
@@ -151,22 +157,9 @@ public class HibernateStorage implements IStorage {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<ModelReference> filter(ModelReference model, String query, Object... param) {
-		Session sess = sessionFactory.openSession();
-		Transaction transaction = sess.beginTransaction();
-
 		try {
 			if (StringUtils.isNotBlank(query)) {
-				Query q = sess.createQuery(query);
-
-				if (param != null) {
-					int x = 0;
-					for (Object p : param) {
-						q.setParameter(x, p);
-						x++;
-					}
-				}
-
-				List<ModelReference> result = q.list();
+				List<ModelReference> result = hibernateTemplate.find(query, param);
 				if (result != null) {
 					for (ModelReference m : result) {
 						m.setMeta(model.getMeta());
@@ -175,11 +168,7 @@ public class HibernateStorage implements IStorage {
 				return result;
 			}
 		} catch (Exception e) {
-			transaction.rollback();
 			log.error(e.getMessage(), e);
-		} finally {
-			sess.flush();
-			sess.close();
 		}
 		return null;
 	}
@@ -190,7 +179,7 @@ public class HibernateStorage implements IStorage {
 	}
 
 	/** Hibernate session factory */
-	public void setSessionFactory(SessionFactory sessionFactory){
+	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.hibernateTemplate = new HibernateTemplate(sessionFactory);
 	}
 
