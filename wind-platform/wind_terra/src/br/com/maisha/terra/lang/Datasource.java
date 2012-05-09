@@ -12,7 +12,7 @@ package br.com.maisha.terra.lang;
 public class Datasource {
 
 	public static enum RDMBSVendor {
-		postgres("", ""), hsqldb("org.hsqldb.jdbc.JDBCDriver", "org.hibernate.dialect.HSQLDialect");
+		postgres("org.postgresql.Driver", "org.hibernate.dialect.PostgreSQLDialect"), hsqldb("org.hsqldb.jdbc.JDBCDriver", "org.hibernate.dialect.HSQLDialect");
 
 		private String driverClassName;
 		private String hibDialect;

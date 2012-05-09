@@ -18,6 +18,14 @@ public abstract class ModelReference {
 
 	/** Unique identifier of this instance. */
 	public abstract long getId();
+	
+	/** Domain Object`s ref ({@link DomainObject#getRef()} */
+	public abstract String getObjId();
+
+	/** Application Id that owns the Domain Object {@link WindApplication#getAppId())} */
+	public abstract String getAppId();
+	
+	
 
 	/** Property change. */
 	protected PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
