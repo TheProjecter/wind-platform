@@ -1,6 +1,7 @@
 package br.com.maisha.terra.lang;
 
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -262,7 +263,16 @@ public class WindApplication {
 		this.datasource = datasource;
 	}
 
-	
+	/**
+	 * 
+	 * @param beanName
+	 * @param itf
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public <T extends Object> T  getBean(String beanName, Class<T> itf){
+		return (T) getAppCtx().getBean(beanName, itf);
+	}
 
 	
 }
