@@ -65,9 +65,6 @@ public class ApplicationManager implements IApplicationManager {
 	/** Listeners for model changes. */
 	private IAppModelListenerRegistry modelListeners;
 
-	/** Persistent Storage. */
-	private IStorage persistentStorage;
-
 	/** Application Controller. */
 	private IApplicationController appCtrl;
 
@@ -254,7 +251,7 @@ public class ApplicationManager implements IApplicationManager {
 			Properties hibProps = new Properties();
 			hibProps.put("hibernate.dialect", dialect);
 			hibProps.put("hibernate.show_sql", true);
-			hibProps.put("hibernate.hbm2ddl.auto", "create-drop");
+			hibProps.put("hibernate.hbm2ddl.auto", "update");
 			sessionFactory.addPropertyValue("hibernateProperties", hibProps);
 			List<String> classesList = new ArrayList<String>();
 			for (DomainObject dObj : windApp.getDomainObjects()) {
@@ -268,7 +265,7 @@ public class ApplicationManager implements IApplicationManager {
 			// hibernate storage
 			BeanDefinitionBuilder hibernateStorage = BeanDefinitionBuilder.genericBeanDefinition("br.com.maisha.wind.storage.hibernate.HibernateStorage");
 			hibernateStorage.addPropertyReference("sessionFactory", "sessionFactory");
-			springAppCtx.registerBeanDefinition("storage", hibernateStorage.getBeanDefinition());
+			springAppCtx.registerBeanDefinition(IStorage.BEAN_NAME, hibernateStorage.getBeanDefinition());
 		}
 		springAppCtx.setClassLoader(windApp.getClassLoader());
 		springAppCtx.refresh();
@@ -338,16 +335,6 @@ public class ApplicationManager implements IApplicationManager {
 	/** @see ApplicationManager#modelListeners */
 	public void setModelListeners(IAppModelListenerRegistry modelListeners) {
 		this.modelListeners = modelListeners;
-	}
-
-	/** @see ApplicationManager#persistentStorage */
-	public IStorage getPersistentStorage() {
-		return persistentStorage;
-	}
-
-	/** @see ApplicationManager#persistentStorage */
-	public void setPersistentStorage(IStorage persistentStorage) {
-		this.persistentStorage = persistentStorage;
 	}
 
 	/** @see ApplicationManager#appCtrl */

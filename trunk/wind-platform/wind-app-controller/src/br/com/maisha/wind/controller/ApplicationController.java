@@ -87,7 +87,7 @@ public class ApplicationController implements IApplicationController {
 					return ctx;
 				}
 			}
-			
+
 			// run!
 			BasicRule rule = new BasicRule(op);
 			ctx = rule.run(ctx);
@@ -100,7 +100,6 @@ public class ApplicationController implements IApplicationController {
 		}
 		return ctx;
 	}
-
 
 	/**
 	 * 
@@ -486,7 +485,16 @@ public class ApplicationController implements IApplicationController {
 	public ModelReference openObjectInstance(Serializable sessid, ModelReference ref) {
 		ModelReference currentInstance = null;
 		if (ref.getId() > 0) {
-			currentInstance = persistentStorage.loadFullEntity(ref.getMeta(), ref.getId());
+			DomainObject meta = registry.getObject(ref.getAppId(), ref.getObjId());
+			WindApplication app = registry.retrieve(ref.getAppId());
+			
+			if (app == null) {
+				log.error("Unknow Wind Application [" + ref.getAppId() + "]");
+				return null;
+			}
+
+			IStorage storage = app.getBean(IStorage.BEAN_NAME, IStorage.class);
+			currentInstance = storage.loadFullEntity(meta, ref.getId());
 		}
 		modelListenerRegistry.fireEvent(sessid, null, currentInstance, LevelType.Object, ChangeType.InstanceOpened);
 		return currentInstance;
