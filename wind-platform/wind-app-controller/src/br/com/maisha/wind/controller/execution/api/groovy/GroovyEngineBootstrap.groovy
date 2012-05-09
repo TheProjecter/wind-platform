@@ -11,7 +11,6 @@ import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.wind.controller.execution.IEngineBootstrap;
 import br.com.maisha.wind.controller.execution.api.MessageAPI;
 import br.com.maisha.wind.controller.execution.api.PersistenceAPI;
-import br.com.maisha.wind.controller.execution.api.Query;
 
 /**
  * Bootstraps an API for ease the development of business rules written in groovy
