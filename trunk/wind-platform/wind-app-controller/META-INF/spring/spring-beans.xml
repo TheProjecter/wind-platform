@@ -25,7 +25,6 @@
 		<property name="validatorRegisty" ref="validatorRegisty" />
 		<property name="registry" ref="appRegistry"/>
 		<property name="engineManager" ref="windScriptManager"/>
-		<!--  property name="persistentStorage" ref="hibStoreOsgi" / -->
 	</bean>
 
 
@@ -81,7 +80,6 @@
 		<property name="classMaker" ref="appRegistryClassMaker" />
 		<property name="modelListeners" ref="appModelListenerRegistryOsgi" />
 		<property name="appCtrl" ref="applicationController"/>
-		<!--  property name="persistentStorage" ref="hibStoreOsgi" / -->
 	</bean>
 	
 	<bean name="domainObjectEventListener" class="br.com.maisha.wind.controller.listener.DomainObjectEventListener">
