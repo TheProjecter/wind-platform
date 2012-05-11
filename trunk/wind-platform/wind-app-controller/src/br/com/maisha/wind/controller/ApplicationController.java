@@ -279,6 +279,7 @@ public class ApplicationController implements IApplicationController {
 
 			ret = engine.eval(script);
 		} catch (Exception e) {
+			e.printStackTrace();
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 		return ret;
