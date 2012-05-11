@@ -14,7 +14,7 @@ import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 
 /**
- * TODO javadoc
+ * Responsible for a Wind Application
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
@@ -22,15 +22,20 @@ import br.com.maisha.wind.controller.model.ExecutionContext;
 public interface IApplicationController {
 
 	/**
+	 * Executes the operation requested for the given Execution Context.
 	 * 
 	 * @param ctx
-	 * @return
+	 *            Execution Context containing all request info.
+	 * @return The resultant Execution Context.
 	 */
 	ExecutionContext<ModelReference> runOperation(ExecutionContext<ModelReference> ctx);
 
 	/**
+	 * Processes all expressions (declared on the Domain Object)
+	 * based on the current state of the given model instance.
 	 * 
 	 * @param modelInstance
+	 *            Instance to eval.
 	 */
 	void evalExpressions(ModelReference modelInstance);
 
@@ -87,14 +92,16 @@ public interface IApplicationController {
 	ModelReference openObjectInstance(Serializable sessid, ModelReference ref);
 
 	/**
-	 * Configures all labels for all domain objects in every application installed in the platform.
+	 * Configures all labels for all domain objects in every application
+	 * installed in the platform.
 	 * 
 	 * @param context
 	 */
 	void configureAllLabels(BundleContext context);
 
 	/**
-	 * Configures all labels for all domain objects in every application installed in the platform.
+	 * Configures all labels for all domain objects in every application
+	 * installed in the platform.
 	 * 
 	 * @param context
 	 * @param app
