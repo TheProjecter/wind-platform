@@ -1,9 +1,6 @@
 package br.com.maisha.wind.lifecycle.mgmt;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -107,6 +104,7 @@ public class ApplicationManagerTest extends WindTestBasic {
 	 */
 	@Test(expected = NoSuchBeanDefinitionException.class)
 	public void testBuildApplicationContext2() throws Exception {
+		windApp.setDatasource(null);
 		ApplicationContext appCtx = bean.buildApplicationContext(windApp);
 
 		// verifica se o sessionFactory NAO foi criado

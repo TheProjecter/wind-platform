@@ -18,6 +18,8 @@ public class WindTestBasic {
 	/** */
 	protected WindApplicationMockBuilder mockBuilder;
 
+	protected WindApplication windApp;
+	
 	@Before
 	public void before() throws Exception {
 		mockBuilder = new WindApplicationMockBuilder();
@@ -26,6 +28,14 @@ public class WindTestBasic {
 	@After
 	public void after() throws Exception {
 		mockBuilder = null;
+	}
+
+
+	/**
+	 * @see org.springframework.test.AbstractSingleSpringContextTests#getConfigLocations()
+	 */
+	public String[] getConfigLocations() {
+		return new String[] { "/spring-ctx-test.xml" };
 	}
 
 	/**
@@ -48,4 +58,5 @@ public class WindTestBasic {
 
 		return null;
 	}
+
 }
