@@ -11,6 +11,8 @@ import br.com.maisha.terra.ClassMaker;
 import br.com.maisha.terra.IClassMaker;
 import br.com.maisha.terra.ITerraCompiler;
 import br.com.maisha.terra.TerraCompiler;
+import br.com.maisha.terra.lang.Datasource;
+import br.com.maisha.terra.lang.Datasource.RDMBSVendor;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.lifecycle.mgmt.ApplicationManager;
@@ -40,7 +42,9 @@ public class WindApplicationMockBuilder {
 		WindApplication app = new WindApplication();
 		app.setAppId("testApp");
 		app.setName("Wind Mock Application for Tests");
-				
+		
+		app.setDatasource(createDatasource());
+		
 		DomainObject dObj = buildDomainObject(getClass().getResourceAsStream("/br/com/maisha/wind/test/mock/Conta.do"));
 		app.addDomainObject(dObj);
 
@@ -49,6 +53,18 @@ public class WindApplicationMockBuilder {
 		classMaker.makeClasses(app.getClassLoader(), app);
 		
 		return app;
+	}
+
+	/**
+	 * @return
+	 */
+	private Datasource createDatasource() {
+		Datasource ds = new Datasource();
+		ds.setRdbmsVendor(RDMBSVendor.hsqldb.name());
+		ds.setUrl("jdbc:hsqldb:mem:winddb");
+		ds.setUsername("sa");
+		ds.setPassword("");
+		return ds;
 	}
 
 	/**
