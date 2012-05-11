@@ -128,8 +128,8 @@ public class ClassMaker implements IClassMaker {
 
 			createIdField(cc);
 
-			String setIdMethod = "public void setId(long id){this.id = id;}";
-			String getIdMethod = "public long getId(){return this.id;}";
+			String setIdMethod = "public void setId(Long id){this.id = id;}";
+			String getIdMethod = "public Long getId(){return this.id;}";
 
 			cc.addMethod(CtMethod.make(setIdMethod, cc));
 			cc.addMethod(CtMethod.make(getIdMethod, cc));
@@ -296,7 +296,7 @@ public class ClassMaker implements IClassMaker {
 	}
 
 	private void createIdField(CtClass cc) throws CannotCompileException {
-		String id = "private long id; ";
+		String id = "private Long id; ";
 
 		CtField field = CtField.make(id, cc);
 		cc.addField(field);
