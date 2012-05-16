@@ -17,7 +17,7 @@ public abstract class ModelReference {
 	private DomainObject meta;
 
 	/** Unique identifier of this instance. */
-	public abstract long getId();
+	public abstract Long getId();
 	
 	/** Domain Object`s ref ({@link DomainObject#getRef()} */
 	public abstract String getObjId();
