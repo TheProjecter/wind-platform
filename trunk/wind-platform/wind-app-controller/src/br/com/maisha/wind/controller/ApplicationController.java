@@ -95,7 +95,10 @@ public class ApplicationController implements IApplicationController {
 			// fires an event for the interested parts react
 			modelListenerRegistry.fireEvent(ctx.getSessid(), null, ctx.getOperation().getDomainObject(),
 					LevelType.Object, ChangeType.ValueChanged);
+			
+			
 		} catch (Exception e) {
+			e.printStackTrace();
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 		return ctx;
