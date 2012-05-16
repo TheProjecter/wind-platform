@@ -266,6 +266,12 @@ public class ApplicationManager implements IApplicationManager {
 			BeanDefinitionBuilder hibernateStorage = BeanDefinitionBuilder.genericBeanDefinition("br.com.maisha.wind.storage.hibernate.HibernateStorage");
 			hibernateStorage.addPropertyReference("sessionFactory", "sessionFactory");
 			springAppCtx.registerBeanDefinition(IStorage.BEAN_NAME, hibernateStorage.getBeanDefinition());
+			
+			// hibernate template
+			BeanDefinitionBuilder hibernateTemplate = BeanDefinitionBuilder.genericBeanDefinition("org.springframework.orm.hibernate3.HibernateTemplate");
+			hibernateTemplate.addPropertyReference("sessionFactory", "sessionFactory");
+			springAppCtx.registerBeanDefinition("hibernateTemplate", hibernateTemplate.getBeanDefinition());
+		
 		}
 		springAppCtx.setClassLoader(windApp.getClassLoader());
 		springAppCtx.refresh();

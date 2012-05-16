@@ -1,5 +1,7 @@
 package br.com.maisha.wind.controller.execution;
 
+import groovy.lang.Closure;
+
 import org.joor.Reflect;
 
 import br.com.maisha.terra.lang.ModelReference;
@@ -25,8 +27,7 @@ public class BasicRule implements IRule {
 	 */
 	public BasicRule(Operation op) {
 		if (op == null) {
-			throw new IllegalArgumentException(
-					"Operation is a required argument.");
+			throw new IllegalArgumentException("Operation is a required argument.");
 		}
 		this.op = op;
 	}
@@ -53,7 +54,15 @@ public class BasicRule implements IRule {
 	 * @see br.com.maisha.wind.controller.execution.IRule#run(br.com.maisha.wind.controller.model.ExecutionContext)
 	 */
 	public ExecutionContext<ModelReference> run(ExecutionContext<ModelReference> ctx) {
-		return Reflect.on(getRule())
-				.call("execute", ctx).get();
+		ExecutionContext<ModelReference> r = null;
+
+		String type = op.getType();
+		if ("groovy".equals(type)) {
+			Closure<ExecutionContext<ModelReference>> cl = Reflect.on(getRule()).get("execute");
+			ctx = cl.call(ctx);
+		} else {
+			ctx = Reflect.on(getRule()).call("execute", ctx).get();
+		}
+		return ctx;
 	}
 }
