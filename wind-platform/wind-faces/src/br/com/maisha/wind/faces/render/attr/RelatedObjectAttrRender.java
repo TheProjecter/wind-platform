@@ -89,19 +89,20 @@ public class RelatedObjectAttrRender extends BaseAttrRender {
 			l.setLayoutData(labelGd);
 		}
 
-		Label lEmpty = new Label(composite, SWT.NONE);
+		// spacer
+		new Label(composite, SWT.NONE);
 
-		for (Attribute a : relatedAttrs) {
+		for (Attribute relatedAttr : relatedAttrs) {
 			Text text = new Text(composite, SWT.BORDER | SWT.SINGLE);
 			text.setEditable(false);
 
 			// dimensions
 			GridData relGd = getLayoutData();
-			setWidth(relGd, a);
+			setWidth(relGd, relatedAttr);
 			relGd.heightHint = 13;
 			text.setLayoutData(relGd);
 
-			IObservableValue observable = BeansObservables.observeValue(modelInstance, attr.getRef() + "." + a.getRef());
+			IObservableValue observable = BeansObservables.observeValue(modelInstance, attr.getRef() + "." + relatedAttr.getRef());
 			dbctx.bindValue(SWTObservables.observeText(text, SWT.Modify), observable);
 		}
 

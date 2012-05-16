@@ -80,7 +80,7 @@ public class ViewerContentProviderJob extends Job {
 		ctx.setSessid(sessid);
 		ctx = appCtrl.runOperation(ctx);
 
-		setProperty(CONTENT, ctx.getSession().get("content"));
+		setProperty(CONTENT, ctx.getGridData());
 		return Status.OK_STATUS;
 	}
 }
