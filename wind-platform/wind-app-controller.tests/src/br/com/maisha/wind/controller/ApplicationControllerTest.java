@@ -1,28 +1,30 @@
 package br.com.maisha.wind.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
 import java.util.PropertyResourceBundle;
 
+import javax.sql.DataSource;
+
 import org.joor.Reflect;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
-import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-import org.hibernate.SessionFactory;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
-import br.com.maisha.wind.common.listener.AppModelListenerRegistry;
+import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.controller.model.UserMessage.MessageKind;
+import br.com.maisha.wind.controller.rcp.Activator;
 import br.com.maisha.wind.lifecycle.mgmt.ApplicationManager;
 import br.com.maisha.wind.storage.IStorage;
 import br.com.maisha.wind.test.WindTestBasic;
@@ -36,7 +38,7 @@ import br.com.maisha.wind.test.WindTestBasic;
 public class ApplicationControllerTest extends WindTestBasic {
 
 	private ApplicationManager appMgr;
-	private ApplicationController bean;
+	private IApplicationController bean;
 	
 
 	@Before
@@ -50,13 +52,30 @@ public class ApplicationControllerTest extends WindTestBasic {
 		windApp.setAppCtx(appCtx);
 
 		// bean under test
-		bean = new ApplicationController();
-		bean.setModelListener(new AppModelListenerRegistry());
-
+		bean = ServiceProvider.getInstance().getService(IApplicationController.class, Activator.getDefault());
+		
+		
+		
+		
 	}
 
 	@After
 	public void after() throws Exception {
+		// limpa dados inseridos
+		
+		try{
+			if(mockBuilder.getJdbcTemplate() != null){
+				List lst = mockBuilder.getJdbcTemplate().queryForList("select * from conta");
+				System.out.println(">>>>>>>>>>>>>" + lst.size());
+				mockBuilder.getJdbcTemplate().execute("delete from conta");
+				lst = mockBuilder.getJdbcTemplate().queryForList("select * from conta");
+				System.out.println(">>>>>>>>>>>>>" + lst.size());
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		
 		bean = null;
 		windApp = null;
 	}
@@ -102,6 +121,7 @@ public class ApplicationControllerTest extends WindTestBasic {
 	 */
 	@Test
 	public void testMessageAPIGroovyOperation() throws Exception {
+		
 		PlatformMessageRegistry pmr = new PlatformMessageRegistry();
 		pmr.init();
 
@@ -117,9 +137,9 @@ public class ApplicationControllerTest extends WindTestBasic {
 		ctx.setOperation(dObj.getOperation("UsesOfMessageAPI"));
 		ctx.setSessid("TEST_SESSID");
 		ctx.setMeta(dObj);
-
+		
 		ctx = bean.runOperation(ctx);
-
+		
 		assertTrue((Boolean) ctx.getSession().get("executed"));
 		assertNotNull(ctx.getMessages());
 		assertEquals(10, ctx.getMessages().size());
@@ -152,6 +172,7 @@ public class ApplicationControllerTest extends WindTestBasic {
 
 		assertEquals("this is a message key used for tests", ctx.getMessages().get(9).getFormattedMessage());
 		assertEquals(MessageKind.SUCCESS, ctx.getMessages().get(9).getKind());
+		
 	}
 
 	/**
@@ -203,6 +224,55 @@ public class ApplicationControllerTest extends WindTestBasic {
 		assertEquals(BigDecimal.valueOf(150), ctx.getSession().get("percent_Of"));
 	}
 
+	
+	/**
+	 * <p>
+	 * Given that I want to execute a groovy business rule that uses the
+	 * persistence api
+	 * </p>
+	 * <p>
+	 * When I call {@link ApplicationController#runOperation(ExecutionContext)}
+	 * </p>
+	 * <p>
+	 * Then I must check the resulting ExecutionContext with all the uses
+	 * checked
+	 * </p>
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testPersistenceAPIGroovyOperation() throws Exception {
+		DomainObject dObj = findDomainObject("Conta", windApp);
+		ModelReference instance = bean.createNewInstance(dObj);
+		IStorage storage = windApp.getBean(IStorage.BEAN_NAME, IStorage.class);
+		Reflect.on(instance).set("nome", "Itau");
+		Reflect.on(instance).set("tipo", "Credito");
+		Reflect.on(instance).set("saldo", 154.54d);
+		storage.save(instance);
+		
+		PlatformMessageRegistry pmr = new PlatformMessageRegistry();
+		pmr.init();
+
+		Locale ptBrLoc = new Locale("pt", "BR");
+		windApp.addResourceBundle(
+				ptBrLoc,
+				new PropertyResourceBundle(getClass().getResourceAsStream(
+						"/wind-app-controller-messages-mock.properties")));
+		windApp.setCurrentLocale(ptBrLoc);
+
+		ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
+		ctx.setOperation(dObj.getOperation("UsesOfPersistenceAPI"));
+		ctx.setSessid("TEST_SESSID");
+		ctx.setMeta(dObj);
+
+		ctx = bean.runOperation(ctx);
+
+		List cList = (List) ctx.getSession().get("cList");
+		assertNotNull(cList);
+		assertEquals(1, cList.size());
+
+	}	
+	
 	/**
 	 * <p>
 	 * Given that I want to validate the execution of a ExecutionContext
@@ -246,24 +316,32 @@ public class ApplicationControllerTest extends WindTestBasic {
 	 * {@link ApplicationController#openObjectInstance(java.io.Serializable, ModelReference)}
 	 * </p>
 	 * <p>
+	 * Then I must check the fully loaded instance.
 	 * </p>
 	 */
 	@Test
 	public void testOpenObjectInstance() throws Exception {
+		DataSource ds = windApp.getBean("datasource", DataSource.class);
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(ds, false);
+		jdbcTemplate.execute("delete from conta");
+
+		
 		DomainObject dObj = findDomainObject("Conta", windApp);
 		ModelReference instance = bean.createNewInstance(dObj);
 		
+		IStorage storage = windApp.getBean(IStorage.BEAN_NAME, IStorage.class);
 		Reflect.on(instance).set("nome", "Itau");
 		Reflect.on(instance).set("tipo", "Credito");
 		Reflect.on(instance).set("saldo", 154.54d);
-		System.out.println("Find \n\n " + ReflectionToStringBuilder.toString(instance, ToStringStyle.MULTI_LINE_STYLE));
-		
-		IStorage storage = windApp.getBean(IStorage.BEAN_NAME, IStorage.class);
 		storage.save(instance);		
-		List find = storage.filter(instance, "from Conta c");
-		System.out.println("Find \n\n " + ReflectionToStringBuilder.toString(find.get(0), ToStringStyle.MULTI_LINE_STYLE));
 		
+		ModelReference opened = bean.openObjectInstance("TEST_SESSID", instance);
 		
-		// bean.openObjectInstance(1000L, ref);
+		assertNotNull(opened);
+		assertEquals(opened.getAppId(), "testApp");
+		assertEquals(opened.getObjId(), "Conta");
+		assertEquals(Reflect.on(opened).get("nome"), "Itau");
+		assertEquals(Reflect.on(opened).get("tipo"), "Credito");
+		assertEquals(Reflect.on(opened).get("saldo"), 154.54d);
 	}
 }

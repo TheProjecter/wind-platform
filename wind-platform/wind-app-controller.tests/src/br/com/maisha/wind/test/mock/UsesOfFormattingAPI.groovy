@@ -9,7 +9,7 @@ import br.com.maisha.wind.controller.model.ExecutionContext;
 class UsesOfFormattingAPI {
 
 	
-	def execute(ExecutionContext ctx){
+	def execute = { ExecutionContext ctx ->
 		println "Executing UsesOfFormattingAPI#execute(ctx)"
 
 		Date d = new Date()

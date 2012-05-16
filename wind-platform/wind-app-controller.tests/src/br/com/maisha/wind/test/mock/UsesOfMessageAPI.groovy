@@ -12,7 +12,7 @@ import br.com.maisha.wind.controller.model.ExecutionContext;
 class UsesOfMessageAPI {
 
 	
-	def execute(ExecutionContext ctx){
+	def execute = { ExecutionContext ctx ->
 		println "Executing UsesOfMessageAPI#execute(ctx)"
 		
 		//simple message
@@ -47,7 +47,7 @@ class UsesOfMessageAPI {
 		
 		
 		ctx.session.put("executed", true);
-		ctx
+		return ctx
 	}
 	
 }

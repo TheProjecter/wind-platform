@@ -218,17 +218,11 @@ public class ApplicationManagerTest extends WindTestBasic {
 		assertNotNull(saveObject);
 		assertNotNull(saveObject.getGroovyApi());
 		
-		// verifica se a regra Delete conta esta com uma referencia para groovyApi e a executa verificando seu comportamento.
+		// verifica se a regra Delete conta esta com uma referencia para groovyApi 
 		Object deleteObject = appCtx.getBean("DeleteConta");
 		assertNotNull(deleteObject);
 		assertNotNull(deleteObject.getClass().getMethod("getGroovyApi").invoke(deleteObject));
 		
-		ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
-		Method mExecute = deleteObject.getClass().getMethod("execute", ExecutionContext.class);
-		ctx = (ExecutionContext<ModelReference>) mExecute.invoke(deleteObject, ctx);
-		assertTrue ((Boolean)ctx.getSession().get("executed"));
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		assertEquals(sdf.format(new Date()),  ctx.getSession().get("date"));
 	}
 	
 }

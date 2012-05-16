@@ -29,7 +29,7 @@ domain_object Conta "Conta"{
 	
 
 	
-	operation groovy SaveConta "Salvar"{
+	operation java SaveConta "Salvar"{
 		file: br.com.maisha.wind.test.mock.SaveConta
 	}
 	
@@ -43,5 +43,9 @@ domain_object Conta "Conta"{
 	
 	operation groovy UsesOfFormattingAPI "Formatting Demo"{
 		file: br.com.maisha.wind.test.mock.UsesOfFormattingAPI
+	}
+	
+	operation groovy UsesOfPersistenceAPI "Persistence Demo"{
+		file: br.com.maisha.wind.test.mock.UsesOfPersistenceAPI
 	}
 }
