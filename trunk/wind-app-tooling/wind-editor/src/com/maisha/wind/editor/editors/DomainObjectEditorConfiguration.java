@@ -2,7 +2,6 @@ package com.maisha.wind.editor.editors;
 
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
-import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContentAssistant;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
@@ -12,7 +11,6 @@ import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
 
 import com.maisha.wind.editor.contentassistant.DomainObjectContentAssistantProvider;
-import com.maisha.wind.editor.contentassistant.ImportContentAssistantProvider;
 
 /**
  * Editor Configuration.
@@ -107,10 +105,9 @@ public class DomainObjectEditorConfiguration extends SourceViewerConfiguration {
 		assistant.setStatusLineVisible(true);
 		assistant.setProposalPopupOrientation(IContentAssistant.PROPOSAL_OVERLAY);
 		assistant.setContextInformationPopupOrientation(IContentAssistant.CONTEXT_INFO_ABOVE);
-		
-		IContentAssistProcessor tagContentAssistProcessor = new ImportContentAssistantProvider();
-		assistant.setContentAssistProcessor(tagContentAssistProcessor, IDocument.DEFAULT_CONTENT_TYPE);
+
 		assistant.setContentAssistProcessor(new DomainObjectContentAssistantProvider(), IDocument.DEFAULT_CONTENT_TYPE);
+		assistant.setContentAssistProcessor(new DomainObjectContentAssistantProvider(), DomainObjectPartitionScanner.OPERATION_DECLARATION);
 		return assistant;
 
 	}
