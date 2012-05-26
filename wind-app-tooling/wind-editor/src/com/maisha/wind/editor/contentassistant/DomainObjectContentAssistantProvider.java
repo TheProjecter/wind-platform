@@ -2,6 +2,7 @@ package com.maisha.wind.editor.contentassistant;
 
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.ITypedRegion;
 import org.eclipse.jface.text.contentassist.CompletionProposal;
@@ -10,7 +11,6 @@ import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
-import org.eclipse.jface.text.rules.RuleBasedScanner;
 
 /**
  * 
@@ -21,6 +21,20 @@ public class DomainObjectContentAssistantProvider implements IContentAssistProce
 
 	private ICompletionProposal[] NO_COMPLETIONS = {};
 
+	private String findNextestPartition(IDocument doc, int offset) throws BadLocationException {
+		ITypedRegion partition = doc.getPartition(offset);
+		if (IDocument.DEFAULT_CONTENT_TYPE.equals(partition.getType())) {
+			for (int i = offset; i >= 0; i--) {
+				String contentType = doc.getContentType(i);
+				if (!IDocument.DEFAULT_CONTENT_TYPE.equals(contentType)) {
+					return contentType;
+				}
+			}
+
+		}
+		return null;
+	}
+
 	/**
 	 * 
 	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#computeCompletionProposals(org.eclipse.jface.text.ITextViewer,
@@ -29,8 +43,8 @@ public class DomainObjectContentAssistantProvider implements IContentAssistProce
 	public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer, int offset) {
 		try {
 			IDocument doc = viewer.getDocument();
-			ITypedRegion partition = doc.getPartition(offset);
-			System.out.println("Computing completionProposals for " + partition);
+
+			System.out.println("Nextest Partition is: " + findNextestPartition(doc, offset));
 
 			String lastWord = lastWord(doc, offset);
 			String importWord = "domain_object";
@@ -78,7 +92,7 @@ public class DomainObjectContentAssistantProvider implements IContentAssistProce
 
 	@Override
 	public IContextInformation[] computeContextInformation(ITextViewer viewer, int offset) {
-		return new IContextInformation[]{new ContextInformation("cInfo", "Context Info")};
+		return new IContextInformation[] { new ContextInformation("cInfo", "Context Info") };
 	}
 
 	/**
@@ -86,7 +100,7 @@ public class DomainObjectContentAssistantProvider implements IContentAssistProce
 	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getCompletionProposalAutoActivationCharacters()
 	 */
 	public char[] getCompletionProposalAutoActivationCharacters() {
-		return new char[] { 'd', 'o', 'm', 'a', 'i', 'n', '_', 'o',  'b'};
+		return null;
 	}
 
 	@Override
