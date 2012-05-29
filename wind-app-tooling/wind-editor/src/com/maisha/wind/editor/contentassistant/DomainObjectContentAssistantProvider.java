@@ -1,8 +1,10 @@
 package com.maisha.wind.editor.contentassistant;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.ITypedRegion;
 import org.eclipse.jface.text.contentassist.CompletionProposal;
@@ -12,6 +14,9 @@ import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 
+import com.maisha.wind.editor.editors.DomainObjectPartitionScanner;
+import com.maisha.wind.editor.model.TerraModel;
+
 /**
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
@@ -19,15 +24,23 @@ import org.eclipse.jface.text.contentassist.IContextInformationValidator;
  */
 public class DomainObjectContentAssistantProvider implements IContentAssistProcessor {
 
+	/** */
 	private ICompletionProposal[] NO_COMPLETIONS = {};
 
-	private String findNextestPartition(IDocument doc, int offset) throws BadLocationException {
+	/**
+	 * 
+	 * @param doc
+	 * @param offset
+	 * @return
+	 * @throws BadLocationException
+	 */
+	private ITypedRegion findNextestPartition(IDocument doc, int offset) throws BadLocationException {
 		ITypedRegion partition = doc.getPartition(offset);
 		if (IDocument.DEFAULT_CONTENT_TYPE.equals(partition.getType())) {
 			for (int i = offset; i >= 0; i--) {
-				String contentType = doc.getContentType(i);
-				if (!IDocument.DEFAULT_CONTENT_TYPE.equals(contentType)) {
-					return contentType;
+				ITypedRegion region = doc.getPartition(i);
+				if (!IDocument.DEFAULT_CONTENT_TYPE.equals(region.getType())) {
+					return region;
 				}
 			}
 
@@ -44,24 +57,83 @@ public class DomainObjectContentAssistantProvider implements IContentAssistProce
 		try {
 			IDocument doc = viewer.getDocument();
 
-			System.out.println("Nextest Partition is: " + findNextestPartition(doc, offset));
+			ITypedRegion region = findNextestPartition(doc, offset);
+			Integer unclosedBrackets = countUnclosedBrackets(doc, offset, region);
 
-			String lastWord = lastWord(doc, offset);
-			String importWord = "domain_object";
-			if (lastWord != null && lastWord.length() > 0 && importWord.startsWith(lastWord)) {
-				IContextInformation info = new ContextInformation(importWord, importWord + "Info");
-				CompletionProposal completion = new CompletionProposal(importWord, offset, 0, importWord.length(),
-						null, importWord, info, importWord + "INFO");
-
-				return new ICompletionProposal[] { completion };
-			}
+			return findProposals(offset, region, lastWord(doc, offset), unclosedBrackets > 0);
 		} catch (Exception e) {
 			return NO_COMPLETIONS;
 		}
-		return NO_COMPLETIONS;
-
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	private ICompletionProposal[] findProposals(int offset, ITypedRegion region, String lastWord, boolean openBrackets) {
+		List<ICompletionProposal> ret = new ArrayList<ICompletionProposal>();
+
+		String[] propsals = new String[0];
+
+		if (DomainObjectPartitionScanner.ATTRIBUTE_DECLARATION.equals(region.getType()) && openBrackets) {
+			propsals = TerraModel.findAttributeProperties();
+		} else if (DomainObjectPartitionScanner.OPERATION_DECLARATION.equals(region.getType()) && openBrackets) {
+			propsals = TerraModel.findOperationProperties();
+		}else if(DomainObjectPartitionScanner.DOMAIN_OBJECT_DECLARATION.equals(region.getType())){
+			propsals = TerraModel.findDomainObjectKeywords();
+		}
+
+		for (String p : propsals) {
+			if (p.startsWith(lastWord)) {
+				ret.add(toCompletionProposal(p, offset - lastWord.length(), lastWord.length()));
+			}
+		}
+
+		return ret.toArray(new ICompletionProposal[] {});
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	private ICompletionProposal toCompletionProposal(String text, int offset, int replacementLength) {
+		return new CompletionProposal(text, offset, replacementLength, text.length());
+	}
+
+	/**
+	 * 
+	 * @param doc
+	 * @param offset
+	 * @param nextestRegion
+	 * @return
+	 * @throws BadLocationException
+	 */
+	private Integer countUnclosedBrackets(IDocument doc, int offset, ITypedRegion nextestRegion)
+			throws BadLocationException {
+		Integer cntCloses = 0;
+		Integer cntOpenings = 0;
+
+		if (offset > nextestRegion.getOffset()) {
+			for (int i = offset; i >= nextestRegion.getOffset(); i--) {
+				if (doc.getChar(i) == '}') {
+					cntCloses++;
+				}
+
+				if (doc.getChar(i) == '{') {
+					cntOpenings++;
+				}
+			}
+		}
+
+		return cntOpenings - cntCloses;
+	}
+
+	/**
+	 * 
+	 * @param doc
+	 * @param offset
+	 * @return
+	 */
 	private String lastWord(IDocument doc, int offset) {
 		try {
 			for (int n = offset - 1; n >= 0; n--) {
@@ -75,22 +147,11 @@ public class DomainObjectContentAssistantProvider implements IContentAssistProce
 		return "";
 	}
 
-	private String lastIndent(IDocument doc, int offset) {
-		try {
-			int start = offset - 1;
-			while (start >= 0 && doc.getChar(start) != '\n')
-				start--;
-			int end = start;
-			while (end < offset && Character.isSpaceChar(doc.getChar(end)))
-				end++;
-			return doc.get(start + 1, end - start - 1);
-		} catch (BadLocationException e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
-
-	@Override
+	/**
+	 * 
+	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#computeContextInformation(org.eclipse.jface.text.ITextViewer,
+	 *      int)
+	 */
 	public IContextInformation[] computeContextInformation(ITextViewer viewer, int offset) {
 		return new IContextInformation[] { new ContextInformation("cInfo", "Context Info") };
 	}
@@ -103,17 +164,26 @@ public class DomainObjectContentAssistantProvider implements IContentAssistProce
 		return null;
 	}
 
-	@Override
+	/**
+	 * 
+	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getContextInformationAutoActivationCharacters()
+	 */
 	public char[] getContextInformationAutoActivationCharacters() {
 		return null;
 	}
 
-	@Override
+	/**
+	 * 
+	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getErrorMessage()
+	 */
 	public String getErrorMessage() {
 		return null;
 	}
 
-	@Override
+	/**
+	 * 
+	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getContextInformationValidator()
+	 */
 	public IContextInformationValidator getContextInformationValidator() {
 		return null;
 	}

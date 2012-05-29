@@ -39,8 +39,7 @@ public class DomainObjectEditorConfiguration extends SourceViewerConfiguration {
 	 */
 	public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
 		return new String[] { IDocument.DEFAULT_CONTENT_TYPE, DomainObjectPartitionScanner.DOMAIN_OBJECT_DECLARATION,
-				DomainObjectPartitionScanner.OPERATION_DECLARATION,
-				// DomainObjectPartitionScanner.ATTRIBUTE_DECLARATION,
+				DomainObjectPartitionScanner.OPERATION_DECLARATION, DomainObjectPartitionScanner.ATTRIBUTE_DECLARATION,
 				DomainObjectPartitionScanner.VALIDATION_RULE_DECLARATION,
 				DomainObjectPartitionScanner.IMPORT_DECLARATION, DomainObjectPartitionScanner.PACKAGE_DECLARATION };
 
@@ -70,6 +69,10 @@ public class DomainObjectEditorConfiguration extends SourceViewerConfiguration {
 		DefaultDamagerRepairer dr = new DefaultDamagerRepairer(getBasicScanner());
 		reconciler.setDamager(dr, DomainObjectPartitionScanner.DOMAIN_OBJECT_DECLARATION);
 		reconciler.setRepairer(dr, DomainObjectPartitionScanner.DOMAIN_OBJECT_DECLARATION);
+
+		dr = new DefaultDamagerRepairer(getBasicScanner());
+		reconciler.setDamager(dr, DomainObjectPartitionScanner.ATTRIBUTE_DECLARATION);
+		reconciler.setRepairer(dr, DomainObjectPartitionScanner.ATTRIBUTE_DECLARATION);
 
 		dr = new DefaultDamagerRepairer(getBasicScanner());
 		reconciler.setDamager(dr, DomainObjectPartitionScanner.OPERATION_DECLARATION);
@@ -107,7 +110,12 @@ public class DomainObjectEditorConfiguration extends SourceViewerConfiguration {
 		assistant.setContextInformationPopupOrientation(IContentAssistant.CONTEXT_INFO_ABOVE);
 
 		assistant.setContentAssistProcessor(new DomainObjectContentAssistantProvider(), IDocument.DEFAULT_CONTENT_TYPE);
-		assistant.setContentAssistProcessor(new DomainObjectContentAssistantProvider(), DomainObjectPartitionScanner.OPERATION_DECLARATION);
+		assistant.setContentAssistProcessor(new DomainObjectContentAssistantProvider(),
+				DomainObjectPartitionScanner.OPERATION_DECLARATION);
+		assistant.setContentAssistProcessor(new DomainObjectContentAssistantProvider(),
+				DomainObjectPartitionScanner.ATTRIBUTE_DECLARATION);
+		assistant.setContentAssistProcessor(new DomainObjectContentAssistantProvider(),
+				DomainObjectPartitionScanner.DOMAIN_OBJECT_DECLARATION);
 		return assistant;
 
 	}

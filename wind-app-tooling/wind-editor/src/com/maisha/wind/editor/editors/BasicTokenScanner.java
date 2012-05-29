@@ -1,5 +1,9 @@
 package com.maisha.wind.editor.editors;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.eclipse.jface.text.TextAttribute;
 import org.eclipse.jface.text.rules.IRule;
 import org.eclipse.jface.text.rules.IToken;
@@ -9,6 +13,8 @@ import org.eclipse.jface.text.rules.Token;
 import org.eclipse.jface.text.rules.WhitespaceRule;
 import org.eclipse.jface.text.rules.WordRule;
 import org.eclipse.swt.SWT;
+
+import com.maisha.wind.editor.model.TerraModel;
 
 /**
  * Identificador basico de tokens.
@@ -48,7 +54,7 @@ public class BasicTokenScanner extends RuleBasedScanner {
 
 		// Add rule for keyword
 		WordRule keywordRule = new WordRule(new WordDetector());
-		for (String keywordStr : getKeywords()) {
+		for (String keywordStr : TerraModel.findAllKeywords()) {
 			keywordRule.addWord(keywordStr, keywordToken);
 		}
 		rules[2] = keywordRule;
@@ -67,15 +73,6 @@ public class BasicTokenScanner extends RuleBasedScanner {
 		setDefaultReturnToken(token);
 	}
 
-	/**
-	 * Retorna as palavras chaves da linguagem Terra.
-	 * 
-	 * @return Palavras chaves.
-	 */
-	private String[] getKeywords() {
-		return new String[] { "domain_object", "package", "import", "validationRule", "operation", "java", "python",
-				"groovy", "using" };
-	}
 
 	/**
 	 * Retorna as palavras usadas como nomes de propriedades na linguagem Terra.
@@ -83,11 +80,10 @@ public class BasicTokenScanner extends RuleBasedScanner {
 	 * @return Nomes das propriedades.
 	 */
 	private String[] getPropertyNames() {
-		return new String[] { "presentation_type", "text", "radio", "checkbox", "combo", "list", "textarea", "date",
-				"related", "embedded_object", "group", "x", "y", "colspan", "rowspan", "disabled", "icon", "width",
-				"height", "tooltip", "folder", "parent_group", "visibleInEdition", "visibleInGrid", "content", "value",
-				"validValues", "validation", "required", "max_length", "min_length", "range", "mask", "event",
-				"toString", "onetomany", "manytoone", "transient", "class", "file", "validWhen", "is_filter",
-				"validate", "open_filtering", "event_handler", "sequence", "visible", "false" };
+		List<String> allProperties = new ArrayList<String>();
+		allProperties.addAll(Arrays.asList(TerraModel.findAttributeProperties()));
+		allProperties.addAll(Arrays.asList(TerraModel.findDomainObjectProperties()));
+		allProperties.addAll(Arrays.asList(TerraModel.findOperationProperties()));
+		return allProperties.toArray(new String[]{});
 	}
 }
