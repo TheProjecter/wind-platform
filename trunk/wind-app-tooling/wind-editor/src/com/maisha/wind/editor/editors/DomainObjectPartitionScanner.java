@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.eclipse.jface.text.rules.IPredicateRule;
 import org.eclipse.jface.text.rules.IToken;
-import org.eclipse.jface.text.rules.MultiLineRule;
 import org.eclipse.jface.text.rules.RuleBasedPartitionScanner;
 import org.eclipse.jface.text.rules.SingleLineRule;
 import org.eclipse.jface.text.rules.Token;
@@ -32,7 +31,7 @@ public class DomainObjectPartitionScanner extends RuleBasedPartitionScanner {
 		rules.add(new SingleLineRule("import", "", createToken(IMPORT_DECLARATION)));
 		rules.add(new SingleLineRule("domain_object", "{", createToken(DOMAIN_OBJECT_DECLARATION)));
 		rules.add(new SingleLineRule("operation", "{", createToken(OPERATION_DECLARATION)));
-		// rules.add(new AttributeRule(createToken(ATTRIBUTE_DECLARATION)));
+		rules.add(new SingleLineRule("attribute", "{", createToken(ATTRIBUTE_DECLARATION)));
 		rules.add(new SingleLineRule("validationRule", "{", createToken(VALIDATION_RULE_DECLARATION)));
 		
 

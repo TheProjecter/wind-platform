@@ -12,10 +12,9 @@ public class DomainObjectDocumentProvider extends FileDocumentProvider {
 
 		if (document != null) {
 			IDocumentPartitioner partitioner = new DomainObjectPartitioner(new DomainObjectPartitionScanner(),
-					new String[] {
-							DomainObjectPartitionScanner.DOMAIN_OBJECT_DECLARATION,
+					new String[] { DomainObjectPartitionScanner.DOMAIN_OBJECT_DECLARATION,
 							DomainObjectPartitionScanner.OPERATION_DECLARATION,
-							// DomainObjectPartitionScanner.ATTRIBUTE_DECLARATION,
+							DomainObjectPartitionScanner.ATTRIBUTE_DECLARATION,
 							DomainObjectPartitionScanner.VALIDATION_RULE_DECLARATION,
 							DomainObjectPartitionScanner.IMPORT_DECLARATION,
 							DomainObjectPartitionScanner.PACKAGE_DECLARATION });
