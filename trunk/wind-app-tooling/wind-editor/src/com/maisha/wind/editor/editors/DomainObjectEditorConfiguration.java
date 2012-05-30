@@ -1,6 +1,8 @@
 package com.maisha.wind.editor.editors;
 
+import org.eclipse.jface.text.DefaultTextHover;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.ITextHover;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
 import org.eclipse.jface.text.contentassist.IContentAssistant;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
@@ -11,6 +13,8 @@ import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
 
 import com.maisha.wind.editor.contentassistant.DomainObjectContentAssistantProvider;
+import com.maisha.wind.editor.contentassistant.TerraDocInformationControlCreator;
+import com.maisha.wind.editor.hover.TextHover;
 
 /**
  * Editor Configuration.
@@ -116,7 +120,18 @@ public class DomainObjectEditorConfiguration extends SourceViewerConfiguration {
 				DomainObjectPartitionScanner.ATTRIBUTE_DECLARATION);
 		assistant.setContentAssistProcessor(new DomainObjectContentAssistantProvider(),
 				DomainObjectPartitionScanner.DOMAIN_OBJECT_DECLARATION);
+
+		assistant.setInformationControlCreator(new TerraDocInformationControlCreator());
 		return assistant;
 
 	}
+
+	/*
+	 * 
+	 */
+	public ITextHover getTextHover(ISourceViewer sourceViewer, String contentType) {
+		DefaultTextHover textHover = new TextHover(sourceViewer);
+		return textHover;
+	}
+
 }

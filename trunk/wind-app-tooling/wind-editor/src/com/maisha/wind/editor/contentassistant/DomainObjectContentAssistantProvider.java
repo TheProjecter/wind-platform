@@ -3,6 +3,7 @@ package com.maisha.wind.editor.contentassistant;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewer;
@@ -14,6 +15,7 @@ import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 
+import com.maisha.wind.editor.Activator;
 import com.maisha.wind.editor.editors.DomainObjectPartitionScanner;
 import com.maisha.wind.editor.model.TerraModel;
 
@@ -74,12 +76,12 @@ public class DomainObjectContentAssistantProvider implements IContentAssistProce
 		List<ICompletionProposal> ret = new ArrayList<ICompletionProposal>();
 
 		String[] propsals = new String[0];
-
 		if (DomainObjectPartitionScanner.ATTRIBUTE_DECLARATION.equals(region.getType()) && openBrackets) {
 			propsals = TerraModel.findAttributeProperties();
 		} else if (DomainObjectPartitionScanner.OPERATION_DECLARATION.equals(region.getType()) && openBrackets) {
 			propsals = TerraModel.findOperationProperties();
-		}else if(DomainObjectPartitionScanner.DOMAIN_OBJECT_DECLARATION.equals(region.getType())){
+		} else if (DomainObjectPartitionScanner.DOMAIN_OBJECT_DECLARATION.equals(region.getType())
+				|| IDocument.DEFAULT_CONTENT_TYPE.equals(region.getType()) || !openBrackets) {
 			propsals = TerraModel.findDomainObjectKeywords();
 		}
 
@@ -97,7 +99,11 @@ public class DomainObjectContentAssistantProvider implements IContentAssistProce
 	 * @return
 	 */
 	private ICompletionProposal toCompletionProposal(String text, int offset, int replacementLength) {
-		return new CompletionProposal(text, offset, replacementLength, text.length());
+		ImageDescriptor id = Activator.getImageDescriptor("icons/sample.gif");
+		ContextInformation info = new ContextInformation(id.createImage(), "Display", "Information");
+		return new CompletionProposal(text, offset, replacementLength, text.length(), null, text, info,
+				"<b>Param:</b><br/>" + text + " bla bla bla bla");
+
 	}
 
 	/**
