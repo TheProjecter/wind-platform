@@ -14,7 +14,7 @@ public class TerraModel {
 		return new String[] { "x", "y", "colspan", "rowspan", "disabled", "icon", "width", "height", "tooltip",
 				"folder", "parent_group", "visibleInEdition", "visibleInGrid", "content", "value", "validValues",
 				"validation", "required", "max_length", "min_length", "range", "mask", "event", "toString",
-				"onetomany", "manytoone", "transient" };
+				"onetomany", "manytoone", "transient", "presentation_type" };
 	}
 
 	/**
