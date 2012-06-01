@@ -122,6 +122,7 @@ public class DomainObjectEditorConfiguration extends SourceViewerConfiguration {
 				DomainObjectPartitionScanner.DOMAIN_OBJECT_DECLARATION);
 
 		assistant.setInformationControlCreator(new TerraDocInformationControlCreator());
+		assistant.enableColoredLabels(true);
 		return assistant;
 
 	}
@@ -133,5 +134,7 @@ public class DomainObjectEditorConfiguration extends SourceViewerConfiguration {
 		DefaultTextHover textHover = new TextHover(sourceViewer);
 		return textHover;
 	}
+	
+	
 
 }

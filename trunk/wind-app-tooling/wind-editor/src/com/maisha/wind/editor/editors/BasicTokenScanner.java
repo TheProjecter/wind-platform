@@ -15,6 +15,7 @@ import org.eclipse.jface.text.rules.WordRule;
 import org.eclipse.swt.SWT;
 
 import com.maisha.wind.editor.model.TerraModel;
+import com.maisha.wind.editor.model.TerraModel.Proposal;
 
 /**
  * Identificador basico de tokens.
@@ -54,15 +55,15 @@ public class BasicTokenScanner extends RuleBasedScanner {
 
 		// Add rule for keyword
 		WordRule keywordRule = new WordRule(new WordDetector());
-		for (String keywordStr : TerraModel.findAllKeywords()) {
-			keywordRule.addWord(keywordStr, keywordToken);
+		for (Proposal p : TerraModel.findAllKeywords()) {
+			keywordRule.addWord(p.getText(), keywordToken);
 		}
 		rules[2] = keywordRule;
 
 		// Add rule for property names
 		WordRule propertyNameRule = new WordRule(new WordDetector());
-		for (String keywordStr : getPropertyNames()) {
-			propertyNameRule.addWord(keywordStr, propertyNameToken);
+		for (Proposal p : getPropertyNames()) {
+			propertyNameRule.addWord(p.getText(), propertyNameToken);
 		}
 		rules[3] = propertyNameRule;
 
@@ -79,11 +80,11 @@ public class BasicTokenScanner extends RuleBasedScanner {
 	 * 
 	 * @return Nomes das propriedades.
 	 */
-	private String[] getPropertyNames() {
-		List<String> allProperties = new ArrayList<String>();
+	private Proposal[] getPropertyNames() {
+		List<Proposal> allProperties = new ArrayList<Proposal>();
 		allProperties.addAll(Arrays.asList(TerraModel.findAttributeProperties()));
 		allProperties.addAll(Arrays.asList(TerraModel.findDomainObjectProperties()));
 		allProperties.addAll(Arrays.asList(TerraModel.findOperationProperties()));
-		return allProperties.toArray(new String[]{});
+		return allProperties.toArray(new Proposal[]{});
 	}
 }
