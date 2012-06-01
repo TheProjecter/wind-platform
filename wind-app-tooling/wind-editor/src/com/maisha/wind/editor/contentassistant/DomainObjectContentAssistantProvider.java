@@ -1,9 +1,11 @@
 package com.maisha.wind.editor.contentassistant;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewer;
@@ -15,9 +17,9 @@ import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 
-import com.maisha.wind.editor.Activator;
 import com.maisha.wind.editor.editors.DomainObjectPartitionScanner;
 import com.maisha.wind.editor.model.TerraModel;
+import com.maisha.wind.editor.model.TerraModel.Proposal;
 
 /**
  * 
@@ -28,6 +30,13 @@ public class DomainObjectContentAssistantProvider implements IContentAssistProce
 
 	/** */
 	private ICompletionProposal[] NO_COMPLETIONS = {};
+
+	/** Mensagens */
+	private ResourceBundle messages = null;
+
+	public DomainObjectContentAssistantProvider() {
+		messages = ResourceBundle.getBundle("messages");
+	}
 
 	/**
 	 * 
@@ -75,18 +84,21 @@ public class DomainObjectContentAssistantProvider implements IContentAssistProce
 	private ICompletionProposal[] findProposals(int offset, ITypedRegion region, String lastWord, boolean openBrackets) {
 		List<ICompletionProposal> ret = new ArrayList<ICompletionProposal>();
 
-		String[] propsals = new String[0];
+		Proposal[] propsals = new Proposal[0];
 		if (DomainObjectPartitionScanner.ATTRIBUTE_DECLARATION.equals(region.getType()) && openBrackets) {
 			propsals = TerraModel.findAttributeProperties();
 		} else if (DomainObjectPartitionScanner.OPERATION_DECLARATION.equals(region.getType()) && openBrackets) {
 			propsals = TerraModel.findOperationProperties();
 		} else if (DomainObjectPartitionScanner.DOMAIN_OBJECT_DECLARATION.equals(region.getType())
 				|| IDocument.DEFAULT_CONTENT_TYPE.equals(region.getType()) || !openBrackets) {
-			propsals = TerraModel.findDomainObjectKeywords();
+			List<Proposal> proposalsLst = new ArrayList<TerraModel.Proposal>();
+			proposalsLst.addAll(Arrays.asList(TerraModel.findDomainObjectKeywords()));
+			proposalsLst.addAll(Arrays.asList(TerraModel.findDomainObjectProperties()));
+			propsals = proposalsLst.toArray(new Proposal[] {});
 		}
 
-		for (String p : propsals) {
-			if (p.startsWith(lastWord)) {
+		for (Proposal p : propsals) {
+			if (p.getText().startsWith(lastWord)) {
 				ret.add(toCompletionProposal(p, offset - lastWord.length(), lastWord.length()));
 			}
 		}
@@ -98,12 +110,17 @@ public class DomainObjectContentAssistantProvider implements IContentAssistProce
 	 * 
 	 * @return
 	 */
-	private ICompletionProposal toCompletionProposal(String text, int offset, int replacementLength) {
-		ImageDescriptor id = Activator.getImageDescriptor("icons/sample.gif");
-		ContextInformation info = new ContextInformation(id.createImage(), "Display", "Information");
-		return new CompletionProposal(text, offset, replacementLength, text.length(), null, text, info,
-				"<b>Param:</b><br/>" + text + " bla bla bla bla");
-
+	private ICompletionProposal toCompletionProposal(Proposal proposal, int offset, int replacementLength) {
+		String additionalInfo = "";
+		if (messages != null) {
+			try {
+				additionalInfo = messages.getString("br.com.maisha.assistant.info." + proposal.getText());
+			} catch (MissingResourceException mre) {
+				additionalInfo = "";
+			}
+		}
+		return new TerraCompletionProposal(proposal, new CompletionProposal(proposal.getText(), offset,
+				replacementLength, proposal.getText().length(), proposal.getType().createImage(), proposal.getText(), null, additionalInfo));
 	}
 
 	/**
