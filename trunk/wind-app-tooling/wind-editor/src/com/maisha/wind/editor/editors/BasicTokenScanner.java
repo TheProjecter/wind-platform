@@ -45,7 +45,15 @@ public class BasicTokenScanner extends RuleBasedScanner {
 		TextAttribute propertyNameAttribute = new TextAttribute(colorManager.getColor(ColorConstants.PROPERTY_NAME));
 		IToken propertyNameToken = new Token(propertyNameAttribute);
 
-		IRule[] rules = new IRule[4];
+		TextAttribute presentationTypeAttribute = new TextAttribute(colorManager.getColor(ColorConstants.DEFAULT),
+				null, SWT.ITALIC);
+		IToken presentationTypeToken = new Token(presentationTypeAttribute);
+
+		TextAttribute expressionAttribute = new TextAttribute(colorManager.getColor(ColorConstants.EXPRESSION));
+		IToken expressionToken = new Token(expressionAttribute);
+		
+		
+		IRule[] rules = new IRule[6];
 
 		// Add rule for string literal
 		rules[0] = new SingleLineRule("\"", "\"", stringToken, '\\');
@@ -63,17 +71,26 @@ public class BasicTokenScanner extends RuleBasedScanner {
 		// Add rule for property names
 		WordRule propertyNameRule = new WordRule(new WordDetector());
 		for (Proposal p : getPropertyNames()) {
-			propertyNameRule.addWord(p.getText(), propertyNameToken);
+			propertyNameRule.addWord(p.getDisplayText(), propertyNameToken);
 		}
 		rules[3] = propertyNameRule;
 
+		// Add rule for presentation types
+		WordRule presentationTypeRule = new WordRule(new WordDetector());
+		for (Proposal p : TerraModel.findPresentationTypes()) {
+			presentationTypeRule.addWord(p.getDisplayText(), presentationTypeToken);
+		}
+		rules[4] = presentationTypeRule;
+
+		// Add rule for expressions
+		rules[5] = new SingleLineRule("${", "}", expressionToken, '\\');
+		
 		setRules(rules);
 
 		TextAttribute dftTextAttribute = new TextAttribute(colorManager.getColor(ColorConstants.DEFAULT));
 		Token token = new Token(dftTextAttribute);
 		setDefaultReturnToken(token);
 	}
-
 
 	/**
 	 * Retorna as palavras usadas como nomes de propriedades na linguagem Terra.
@@ -85,6 +102,6 @@ public class BasicTokenScanner extends RuleBasedScanner {
 		allProperties.addAll(Arrays.asList(TerraModel.findAttributeProperties()));
 		allProperties.addAll(Arrays.asList(TerraModel.findDomainObjectProperties()));
 		allProperties.addAll(Arrays.asList(TerraModel.findOperationProperties()));
-		return allProperties.toArray(new Proposal[]{});
+		return allProperties.toArray(new Proposal[] {});
 	}
 }

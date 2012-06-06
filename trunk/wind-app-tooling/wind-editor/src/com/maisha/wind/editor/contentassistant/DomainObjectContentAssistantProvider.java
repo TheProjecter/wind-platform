@@ -18,8 +18,10 @@ import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 
 import com.maisha.wind.editor.editors.DomainObjectPartitionScanner;
+import com.maisha.wind.editor.editors.WhitespaceDetector;
 import com.maisha.wind.editor.model.TerraModel;
 import com.maisha.wind.editor.model.TerraModel.Proposal;
+import com.maisha.wind.editor.model.TerraModel.ProposalType;
 
 /**
  * 
@@ -27,6 +29,8 @@ import com.maisha.wind.editor.model.TerraModel.Proposal;
  * 
  */
 public class DomainObjectContentAssistantProvider implements IContentAssistProcessor {
+
+	private static TerraTemplateCompletionProcessor templateProcessor = new TerraTemplateCompletionProcessor();
 
 	/** */
 	private ICompletionProposal[] NO_COMPLETIONS = {};
@@ -68,10 +72,10 @@ public class DomainObjectContentAssistantProvider implements IContentAssistProce
 		try {
 			IDocument doc = viewer.getDocument();
 
-			ITypedRegion region = findNextestPartition(doc, offset);
-			Integer unclosedBrackets = countUnclosedBrackets(doc, offset, region);
+			ITypedRegion nextestPartition = findNextestPartition(doc, offset);
+			Integer unclosedBrackets = countUnclosedBrackets(doc, offset, nextestPartition);
 
-			return findProposals(offset, region, lastWord(doc, offset), unclosedBrackets > 0);
+			return findProposals(viewer, offset, nextestPartition, lastWord(doc, offset), unclosedBrackets > 0);
 		} catch (Exception e) {
 			return NO_COMPLETIONS;
 		}
@@ -81,20 +85,35 @@ public class DomainObjectContentAssistantProvider implements IContentAssistProce
 	 * 
 	 * @return
 	 */
-	private ICompletionProposal[] findProposals(int offset, ITypedRegion region, String lastWord, boolean openBrackets) {
+	private ICompletionProposal[] findProposals(ITextViewer viewer, int offset, ITypedRegion nextestPartition,
+			String lastWord, boolean openBrackets) {
 		List<ICompletionProposal> ret = new ArrayList<ICompletionProposal>();
 
 		Proposal[] propsals = new Proposal[0];
-		if (DomainObjectPartitionScanner.ATTRIBUTE_DECLARATION.equals(region.getType()) && openBrackets) {
-			propsals = TerraModel.findAttributeProperties();
-		} else if (DomainObjectPartitionScanner.OPERATION_DECLARATION.equals(region.getType()) && openBrackets) {
+		if (DomainObjectPartitionScanner.ATTRIBUTE_DECLARATION.equals(nextestPartition.getType()) && openBrackets) {
+
+			// procura por uma propriedade aberta (property_name: ); caso encontre, sugere palavras para essa propriedade.
+			String lastProperty = detectProperty(viewer, offset);
+			if (lastProperty != null && !lastProperty.isEmpty()) {
+				propsals = TerraModel.findProposalsForProperty(lastProperty);
+			} else {
+				propsals = TerraModel.findAttributeProperties();
+			}
+		} else if (DomainObjectPartitionScanner.OPERATION_DECLARATION.equals(nextestPartition.getType())
+				&& openBrackets) {
 			propsals = TerraModel.findOperationProperties();
-		} else if (DomainObjectPartitionScanner.DOMAIN_OBJECT_DECLARATION.equals(region.getType())
-				|| IDocument.DEFAULT_CONTENT_TYPE.equals(region.getType()) || !openBrackets) {
+		} else if (DomainObjectPartitionScanner.IMPORT_DECLARATION.equals(nextestPartition.getType())
+				|| DomainObjectPartitionScanner.PACKAGE_DECLARATION.equals(nextestPartition.getType())) {
+			propsals = new Proposal[] { new Proposal("import", ProposalType.KEYWORD) };
+
+		} else if (DomainObjectPartitionScanner.DOMAIN_OBJECT_DECLARATION.equals(nextestPartition.getType())
+				|| IDocument.DEFAULT_CONTENT_TYPE.equals(nextestPartition.getType()) || !openBrackets) {
 			List<Proposal> proposalsLst = new ArrayList<TerraModel.Proposal>();
-			proposalsLst.addAll(Arrays.asList(TerraModel.findDomainObjectKeywords()));
 			proposalsLst.addAll(Arrays.asList(TerraModel.findDomainObjectProperties()));
 			propsals = proposalsLst.toArray(new Proposal[] {});
+
+			// templates when u are in a dmo declaration
+			ret.addAll(Arrays.asList(templateProcessor.computeCompletionProposals(viewer, offset)));
 		}
 
 		for (Proposal p : propsals) {
@@ -104,6 +123,34 @@ public class DomainObjectContentAssistantProvider implements IContentAssistProce
 		}
 
 		return ret.toArray(new ICompletionProposal[] {});
+	}
+
+	private String detectProperty(ITextViewer viewer, int offset) {
+		StringBuffer lastProperty = new StringBuffer();
+		try {
+			WhitespaceDetector wh = new WhitespaceDetector();
+			
+			int offsetCopy = offset - 1;
+			char ch = ' ';
+			while (ch != ':' && wh.isWhitespace(ch)) {
+				ch = viewer.getDocument().getChar(offsetCopy--);
+			}
+
+			if (ch == ':') {
+				ch = viewer.getDocument().getChar(offsetCopy--);
+				while (wh.isWhitespace(ch)) {
+					ch = viewer.getDocument().getChar(offsetCopy--);
+				}
+
+				while (!wh.isWhitespace(ch)) {
+					lastProperty.append(ch);
+					ch = viewer.getDocument().getChar(offsetCopy--);
+				}
+			}
+		} catch (BadLocationException e) {
+			// nothing
+		}
+		return lastProperty.reverse().toString();
 	}
 
 	/**
@@ -120,7 +167,8 @@ public class DomainObjectContentAssistantProvider implements IContentAssistProce
 			}
 		}
 		return new TerraCompletionProposal(proposal, new CompletionProposal(proposal.getText(), offset,
-				replacementLength, proposal.getText().length(), proposal.getType().createImage(), proposal.getText(), null, additionalInfo));
+				replacementLength, proposal.getText().length(), proposal.getType().createImage(),
+				proposal.getDisplayText(), null, additionalInfo));
 	}
 
 	/**

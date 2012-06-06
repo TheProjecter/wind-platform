@@ -11,7 +11,7 @@ public class WordDetector implements IWordDetector {
 
 	@Override
 	public boolean isWordPart(char c) {
-		return Character.isLetter(c) || '_' == c;
+		return Character.isLetter(c) || '_' == c ;
 	}
 
 }
