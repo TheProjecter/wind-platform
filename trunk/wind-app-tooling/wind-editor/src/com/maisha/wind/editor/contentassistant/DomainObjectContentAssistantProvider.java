@@ -161,7 +161,7 @@ public class DomainObjectContentAssistantProvider implements IContentAssistProce
 		String additionalInfo = "";
 		if (messages != null) {
 			try {
-				additionalInfo = messages.getString("br.com.maisha.assistant.info." + proposal.getText());
+				additionalInfo = messages.getString("br.com.maisha.assistant.info." + proposal.getDisplayText());
 			} catch (MissingResourceException mre) {
 				additionalInfo = "";
 			}
