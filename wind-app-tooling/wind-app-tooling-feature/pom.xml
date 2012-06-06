@@ -13,7 +13,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.maisha.wind</groupId>
 	<artifactId>wind-app-tooling-feature</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<packaging>eclipse-feature</packaging>
 
 
