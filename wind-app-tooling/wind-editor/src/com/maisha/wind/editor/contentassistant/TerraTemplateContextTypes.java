@@ -9,8 +9,7 @@ public class TerraTemplateContextTypes extends TemplateContextType {
 	
 	public static final String DMO_MEMBERS = "dmo-members"; //$NON-NLS-1$
 
-	
-	public static final String ID_STATEMENTS = "haxe-statements"; //$NON-NLS-1$
+	public static final String TERRA_FILES = "terra-files";
 
 	/**
 	 * Default constructor.

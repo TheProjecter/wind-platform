@@ -13,5 +13,41 @@
             id="com.maisha.wind.editor.editors.DomainObjectEditor">
       </editor>
    </extension>
+   
+
+   
+    <extension
+         point="org.eclipse.ui.preferencePages">
+       <page
+	      class="com.maisha.wind.editor.template.TerraTemplatesPreferencePage"
+	      id="com.maisha.wind.editor.editors.TemplatgesPreferencePage"
+	      name="Terra Templates">
+	   </page>
+    </extension>
+
+
+
+     <extension
+        point="org.eclipse.ui.editors.templates">
+     <contextTypeRegistry
+           id="com.maisha.wind.editor.editors.DomainObjectEditor"></contextTypeRegistry>
+     <include
+           file="templates/default-templates.xml"
+           translations="templates/default-templates.properties">
+     </include>
+     <contextType
+           class="com.maisha.wind.editor.contentassistant.TerraTemplateContextTypes"
+           id="terra-files"
+           name="Terra Files"
+           registryId="com.maisha.wind.editor.editors.DomainObjectEditor">
+     </contextType>
+     <contextType
+           class="com.maisha.wind.editor.contentassistant.TerraTemplateContextTypes"
+           id="dmo-members"
+           name="DMO Members"
+           registryId="com.maisha.wind.editor.editors.DomainObjectEditor">
+     </contextType>
+  
+	</extension>
 
 </plugin>
