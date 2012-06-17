@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+	<template name="class" description="Class definition" id="wind.editor.ui.templates.class"
+		context="terra-files" enabled="true" autoinsert="false">class ${name}{
+	${cursor}
+}</template>
+</templates>

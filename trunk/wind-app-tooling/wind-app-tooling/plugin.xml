@@ -29,8 +29,27 @@
          </description>
       </wizard>
   </extension>
+  
+  
 
-
+<extension
+      point = "org.eclipse.ui.newWizards">
+	<category
+	   id = "br.com.maisha.wind.tooling"
+	   name="%NewWizard.category">
+	</category>
+ 	<wizard
+	   id = "br.com.maisha.wind.tooling.new.dmo"
+       name = "%NewWizard.name"
+	   class="br.com.maisha.wind.app.tooling.wizards.NewDmoWizard"
+	   category="br.com.maisha.wind.tooling"
+	   icon="icons/etool16/wind.gif">
+	   
+    		<description>%NewWizard.desc</description>
+	   		<selection class="org.eclipse.core.resources.IResource"/>
+	   		
+	</wizard>
+</extension>
 
 
 
