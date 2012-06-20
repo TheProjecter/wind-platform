@@ -1,6 +1,5 @@
 package br.com.maisha.wind.app.tooling.wizards;
 
-import org.eclipse.core.internal.resources.Folder;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
