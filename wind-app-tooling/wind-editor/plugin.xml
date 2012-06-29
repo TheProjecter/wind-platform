@@ -19,9 +19,16 @@
     <extension
          point="org.eclipse.ui.preferencePages">
        <page
-	      class="com.maisha.wind.editor.template.TerraTemplatesPreferencePage"
+	      class="com.maisha.wind.editor.preferences.template.TerraTemplatesPreferencePage"
 	      id="com.maisha.wind.editor.editors.TemplatgesPreferencePage"
+	      category="com.maisha.wind.preferences.WindMainPreferencePage"
 	      name="Terra Templates">
+	   </page>
+	   
+	   <page
+	      class="com.maisha.wind.editor.preferences.WindMainPreferencePage"
+	      id="com.maisha.wind.preferences.WindMainPreferencePage"
+	      name="Wind Platform">
 	   </page>
     </extension>
 
