@@ -1,11 +1,8 @@
-package br.com.maisha.wind.app.tooling.wizards;
+package br.com.maisha.wind.app.tooling.dialogs;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jdt.core.IJavaElement;
-import org.eclipse.jdt.core.IJavaModel;
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
@@ -21,25 +18,33 @@ import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 
 /**
+ * Dialogo para escolha elementos Java (src folder, package, etc)
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
- * 
  */
-public class PackageFragmentSelectionDialog<T>  {
+public class PackageFragmentSelectionDialog<T> {
 
-	/** */
-	private Shell shell;
+	/** Classes aceitas para filtro. */
+	private Class<?>[] acceptedClasses;
 
-	/** */
-	private Class<?> acceptedClass;
-	
+	/** Tipo esperado como retorno do dialogo. */
+	private Class<?> expectedType;
+
+	/** Dialog. */
+	private ElementTreeSelectionDialog dialog;
+
 	/**
+	 * Construtor
 	 * 
 	 * @param shell
+	 * @param expectedType
 	 */
-	public PackageFragmentSelectionDialog(Shell shell, Class<?> acceptedClass) {
-		this.shell = shell;
-		this.acceptedClass = acceptedClass;
+	public PackageFragmentSelectionDialog(Shell shell, Class<?> expectedType) {
+		this.expectedType = expectedType;
+
+		StandardJavaElementContentProvider provider = new StandardJavaElementContentProvider();
+		ILabelProvider labelProvider = new JavaElementLabelProvider(JavaElementLabelProvider.SHOW_DEFAULT);
+		dialog = new ElementTreeSelectionDialog(shell, labelProvider, provider);
 	}
 
 	/**
@@ -48,12 +53,10 @@ public class PackageFragmentSelectionDialog<T>  {
 	 */
 	@SuppressWarnings("unchecked")
 	public T open() {
-		final Class<?>[] acceptedClasses = new Class<?>[] { IJavaModel.class, IPackageFragmentRoot.class,
-				IJavaProject.class, IJavaElement.class };
-		
+
 		ViewerFilter filter = new ViewerFilter() {
 			public boolean select(Viewer viewer, Object parentElement, Object element) {
-				if(element instanceof IPackageFragmentRoot){
+				if (element instanceof IPackageFragmentRoot) {
 					try {
 						IPackageFragmentRoot pkg = (IPackageFragmentRoot) element;
 						return (pkg.getKind() == IPackageFragmentRoot.K_SOURCE);
@@ -71,12 +74,7 @@ public class PackageFragmentSelectionDialog<T>  {
 			}
 		};
 
-		StandardJavaElementContentProvider provider = new StandardJavaElementContentProvider();
-		ILabelProvider labelProvider = new JavaElementLabelProvider(JavaElementLabelProvider.SHOW_DEFAULT);
-		ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(shell, labelProvider, provider);
 		dialog.setComparator(new JavaElementComparator());
-		dialog.setTitle("Source Folder Selection");
-		dialog.setMessage("Select the source folder for your Domain Object");
 		dialog.setInput(JavaCore.create(ResourcesPlugin.getWorkspace().getRoot()));
 		dialog.addFilter(filter);
 		dialog.setHelpAvailable(false);
@@ -84,8 +82,8 @@ public class PackageFragmentSelectionDialog<T>  {
 			public IStatus validate(Object[] selection) {
 				try {
 					if (selection != null && selection.length == 1) {
-						if (acceptedClass.isAssignableFrom(selection[0].getClass())) {
-							return new Status(Status.OK, "unknow", "");			
+						if (expectedType.isAssignableFrom(selection[0].getClass())) {
+							return new Status(Status.OK, "unknow", "");
 						}
 					}
 				} catch (Exception e) {
@@ -100,6 +98,30 @@ public class PackageFragmentSelectionDialog<T>  {
 			return (T) dialog.getFirstResult();
 		}
 		return null;
+	}
+
+	/**
+	 * 
+	 * @param acceptedClasses
+	 */
+	public void setAcceptedClasses(Class<?>[] acceptedClasses) {
+		this.acceptedClasses = acceptedClasses;
+	}
+	
+	/**
+	 * 
+	 * @param title
+	 */
+	public void setTitle(String title){
+		dialog.setTitle(title);
+	}
+	
+	/**
+	 * 
+	 * @param message
+	 */
+	public void setMessage(String message){
+		dialog.setMessage(message);
 	}
 
 }
