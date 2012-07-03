@@ -37,14 +37,15 @@
       point = "org.eclipse.ui.newWizards">
 	<category
 	   id = "br.com.maisha.wind.tooling"
-	   name="%NewWizard.category">
+	   name="Wind Platform">
 	</category>
  	<wizard
-	   id = "br.com.maisha.wind.tooling.new.dmo"
-       name = "%NewWizard.name"
-	   class="br.com.maisha.wind.app.tooling.wizards.NewDmoWizard"
-	   category="br.com.maisha.wind.tooling"
-	   icon="icons/etool16/wind.gif">
+        category="br.com.maisha.wind.tooling"
+        class="br.com.maisha.wind.app.tooling.wizards.NewDmoWizard"
+        hasPages="false"
+        icon="icons/etool16/wind.gif"
+        id="br.com.maisha.wind.tooling.new.dmo"
+        name="New Domain Object">
 	   
     		<description>%NewWizard.desc</description>
 	   		<selection class="org.eclipse.core.resources.IResource"/>
