@@ -34,6 +34,7 @@ import br.com.maisha.wind.app.tooling.dialogs.PackageFragmentSelectionDialog;
  */
 public class NewDmoWizardPage extends WizardPage {
 
+	
 	/**
 	 * Campo de texto que recebe o source folder onde o arquivo *.dmo sera
 	 * criado.

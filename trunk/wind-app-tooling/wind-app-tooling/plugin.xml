@@ -42,12 +42,11 @@
  	<wizard
         category="br.com.maisha.wind.tooling"
         class="br.com.maisha.wind.app.tooling.wizards.NewDmoWizard"
-        hasPages="false"
         icon="icons/etool16/wind.gif"
         id="br.com.maisha.wind.tooling.new.dmo"
         name="New Domain Object">
 	   
-    		<description>%NewWizard.desc</description>
+    		<description>Creates a new Domain Object file</description>
 	   		<selection class="org.eclipse.core.resources.IResource"/>
 	   		
 	</wizard>
