@@ -2,7 +2,7 @@ package br.com.maisha.wind.sample.domain
 
 domain_object basic "Basic"{
 
-	String name "Name"{
+	attribute String name "Name"{
 		x: 1
 		y: 1
 		required:true
@@ -10,7 +10,7 @@ domain_object basic "Basic"{
 	}
 
 
-    Date birthDate "Data de Nascimento"{
+    attribute Date birthDate "Data de Nascimento"{
         x:1
         y:2
         required:true
