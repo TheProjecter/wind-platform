@@ -67,7 +67,6 @@ public class NewDmoWizardPage extends WizardPage {
 	 * 
 	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
 	 */
-	@Override
 	public void createControl(Composite parent) {
 		Composite panel = new Composite(parent, SWT.NONE);
 		GridLayout panelLayout = new GridLayout(3, false);
