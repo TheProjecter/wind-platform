@@ -28,42 +28,34 @@ public class WindAppPDETemplate extends OptionTemplateSection {
 	}
 
 
-	@Override
 	public void addPages(Wizard wizard) {
 	}
 
-	@Override
 	public String[] getNewFiles() {
 		return new String[0];
 	}
 
-	@Override
 	public String getUsedExtensionPoint() {
 		return "";
 	}
 
-	@Override
 	protected URL getInstallURL() {		
 		return Activator.getDefault().getInstallURL();
 	}
 
-	@Override
 	public String getSectionId() {
 		return "basic-wind-app";
 	}
 
-	@Override
 	protected ResourceBundle getPluginResourceBundle() {
 		Bundle bundle = Platform.getBundle(Activator.PLUGIN_ID);
 		return Platform.getResourceBundle(bundle);
 	}
 
-	@Override
 	protected void updateModel(IProgressMonitor monitor) throws CoreException {
 
 	}
 
-	@Override
 	protected void generateFiles(IProgressMonitor monitor, URL locationUrl)
 			throws CoreException {
 		super.generateFiles(monitor, locationUrl);
@@ -72,7 +64,6 @@ public class WindAppPDETemplate extends OptionTemplateSection {
 
 	}
 
-	@Override
 	public int getNumberOfWorkUnits() {
 		return super.getNumberOfWorkUnits() + 1;
 	}
