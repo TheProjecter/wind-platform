@@ -14,11 +14,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.text.BadLocationException;
-import org.eclipse.jface.text.templates.DocumentTemplateContext;
 import org.eclipse.jface.text.templates.Template;
 import org.eclipse.jface.text.templates.TemplateBuffer;
 import org.eclipse.jface.text.templates.TemplateContext;
@@ -34,6 +33,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
+import br.com.maisha.wind.app.tooling.Activator;
 import br.com.maisha.wind.app.tooling.preferences.template.WindTemplatesContextType;
 import br.com.maisha.wind.app.tooling.preferences.template.WindTemplatesVariableResolver;
 
@@ -57,8 +57,8 @@ public class NewDmoWizard extends Wizard implements INewWizard {
 	 * Construtor default.
 	 */
 	public NewDmoWizard() {
-		setWindowTitle("New Config File");
-
+		setWindowTitle("New Domain Object File");
+		setNeedsProgressMonitor(true);
 	}
 
 	/**
@@ -85,19 +85,27 @@ public class NewDmoWizard extends Wizard implements INewWizard {
 					try {
 						doFinish(container, pkg, dmoName, monitor);
 					} catch (CoreException e) {
+						Platform.getLog(Activator.getDefault().getBundle()).log(e.getStatus());
 						throw new InvocationTargetException(e);
 					} finally {
 						monitor.done();
 					}
 				}
 			};
+
 			try {
 				getContainer().run(true, false, op);
 			} catch (InterruptedException e) {
+				Platform.getLog(Activator.getDefault().getBundle()).log(
+						new Status(Status.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
 				return false;
 			} catch (InvocationTargetException e) {
 				Throwable realException = e.getTargetException();
-				MessageDialog.openError(getShell(), "Error", realException.getMessage());
+				IStatus status = new Status(Status.ERROR, Activator.PLUGIN_ID, e.getMessage(), e);
+				if (realException instanceof CoreException) {
+					status = ((CoreException) realException).getStatus();
+				}
+				Platform.getLog(Activator.getDefault().getBundle()).log(status);
 				return false;
 			}
 
@@ -153,11 +161,11 @@ public class NewDmoWizard extends Wizard implements INewWizard {
 	 * @throws CoreException
 	 */
 	private InputStream openContentStream(String pkgName, String dmoName) throws CoreException {
-		TemplatePersistenceData dmoClassTD = TerraCustomTemplateManager.getInstance().getTemplateStore()
-				.getTemplateData("wind.editor.ui.templates.class");
-		Template template = dmoClassTD.getTemplate();
-
 		try {
+			TemplatePersistenceData dmoClassTD = TerraCustomTemplateManager.getInstance().getTemplateStore()
+					.getTemplateData("wind.editor.ui.templates.class");
+			Template template = dmoClassTD.getTemplate();
+
 			TemplateContext context = new TemplateContext(new WindTemplatesContextType()) {
 				public TemplateBuffer evaluate(Template template) throws BadLocationException, TemplateException {
 					TemplateTranslator translator = new TemplateTranslator();
@@ -188,7 +196,7 @@ public class NewDmoWizard extends Wizard implements INewWizard {
 	 * @throws CoreException
 	 */
 	private void throwCoreException(String message) throws CoreException {
-		IStatus status = new Status(IStatus.ERROR, "sampleeditor", IStatus.OK, message, null);
+		IStatus status = new Status(IStatus.ERROR, "wind-app-tooling", IStatus.OK, message, null);
 		throw new CoreException(status);
 	}
 
