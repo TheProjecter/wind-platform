@@ -2,7 +2,7 @@
 <feature
       id="wind-app-tooling-feature"
       label="Wind Tooling"
-      version="0.0.5"
+      version="0.0.7"
       provider-name="Wind Technologies">
 
    <description>
