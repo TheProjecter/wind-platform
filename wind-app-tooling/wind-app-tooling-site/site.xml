@@ -3,7 +3,7 @@
    <description name="Wind Platform" url="http://www.windplatform.com.br/update-site">
       Description
    </description>
-   <feature url="features/wind-app-tooling-feature_0.0.5.jar" id="wind-app-tooling-feature" version="0.0.5">
+   <feature url="features/wind-app-tooling-feature.jar" id="wind-app-tooling-feature" version="0.0.7">
       <category name="Wind Technologies"/>
    </feature>
    <category-def name="Wind Technologies" label="Wind Technologies">
