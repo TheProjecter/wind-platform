@@ -55,7 +55,7 @@ public class TerraCompiler implements ITerraCompiler {
 	 */
 	private DomainObject getAST(Reader reader) throws IOException, RecognitionException {
 
-		TerraParserParser tokenParser = new TerraParserParser(getTokenStream(reader));
+		TerraParser tokenParser = new TerraParser(getTokenStream(reader));
 		tokenParser.domain_object();
 		DomainObject obj = tokenParser.domainObject;
 		log.debug("Domain Object compiled: " + ToStringBuilder.reflectionToString(obj, ToStringStyle.MULTI_LINE_STYLE));
@@ -72,7 +72,7 @@ public class TerraCompiler implements ITerraCompiler {
 	private TokenStream getTokenStream(Reader reader) throws IOException {
 
 		CharStream charstream = new ANTLRReaderStream(reader);
-		TerraParserLexer lexer = new TerraParserLexer(charstream);
+		TerraLexer lexer = new TerraLexer(charstream);
 
 		TokenStream tokenStream = new CommonTokenStream(lexer);
 
