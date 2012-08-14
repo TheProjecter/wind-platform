@@ -18,5 +18,5 @@ Export-Package: br.com.maisha.wind.common,
  br.com.maisha.wind.common.exception,
  br.com.maisha.wind.common.factory,
  br.com.maisha.wind.common.listener,
- br.com.maisha.wind.common.preferences
- 
+ br.com.maisha.wind.common.preferences,
+ br.com.maisha.wind.common.user
