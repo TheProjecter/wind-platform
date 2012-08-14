@@ -1,16 +1,12 @@
 package br.com.maisha.wind.controller;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.osgi.framework.BundleContext;
-
+import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
-import br.com.maisha.terra.lang.WindApplication;
-import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
-import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
+import br.com.maisha.wind.common.user.IUserContext;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 
 /**
@@ -31,15 +27,6 @@ public interface IApplicationController {
 	ExecutionContext<ModelReference> runOperation(ExecutionContext<ModelReference> ctx);
 
 	/**
-	 * Processes all expressions (declared on the Domain Object)
-	 * based on the current state of the given model instance.
-	 * 
-	 * @param modelInstance
-	 *            Instance to eval.
-	 */
-	void evalExpressions(ModelReference modelInstance);
-
-	/**
 	 * 
 	 * @param ctx
 	 */
@@ -50,15 +37,7 @@ public interface IApplicationController {
 	 * @param dobj
 	 * @return
 	 */
-	List<ModelReference> filter(Serializable sessid, DomainObject dobj);
-
-	/**
-	 * 
-	 * @param instance
-	 * @param attributeName
-	 * @return
-	 */
-	Object getObjectValue(Object instance, String attributeName);
+	List<ModelReference> filter(IUserContext userContext, DomainObject dobj);
 
 	/**
 	 * 
@@ -70,72 +49,41 @@ public interface IApplicationController {
 
 	/**
 	 * 
-	 * @param script
-	 * @param context
-	 * @return
-	 */
-	Object runScript(String script, Map<String, Object> context);
-
-	/**
-	 * 
-	 * @param engineType
-	 * @param script
-	 * @param context
-	 * @return
-	 */
-	Object runScript(String engineType, String script, Map<String, Object> context);
-
-	/**
-	 * 
 	 * @param ref
 	 */
-	ModelReference openObjectInstance(Serializable sessid, ModelReference ref);
-
-	/**
-	 * Configures all labels for all domain objects in every application
-	 * installed in the platform.
-	 * 
-	 * @param context
-	 */
-	void configureAllLabels(BundleContext context);
-
-	/**
-	 * Configures all labels for all domain objects in every application
-	 * installed in the platform.
-	 * 
-	 * @param context
-	 * @param app
-	 * 
-	 */
-	void configureAllLabels(BundleContext context, WindApplication app);
-
-	/**
-	 * 
-	 * @param dObj
-	 * @param ct
-	 * @param level
-	 */
-	void handleObjectEvent(DomainObject dObj, ChangeType ct, LevelType level);
+	ModelReference openObjectInstance(IUserContext userContext, ModelReference ref);
 
 	/**
 	 * Creates a new instance of the given DomainObject.
 	 * 
 	 * @param dObj
+	 * @param userContext
 	 * @return
 	 */
-	ModelReference createNewInstance(DomainObject dObj);
+	ModelReference createNewInstance(IUserContext userContext, DomainObject dObj);
 
 	/**
 	 * 
 	 * @param appId
 	 * @param objectId
 	 */
-	DomainObject openObject(String appId, String objectId, Serializable sessid);
+	DomainObject openObject(String appId, String objectId, IUserContext userContext);
 
 	/**
 	 * 
 	 * @param appId
 	 * @param objectId
 	 */
-	void closeObject(String appId, String objectId, Serializable sessid);
+	void closeObject(String appId, String objectId, IUserContext userContext);
+
+	/**
+	 * Navigates to the DomainObject mentioned as the type of the given
+	 * attribute.
+	 * 
+	 * @param sessid
+	 *            SessionID
+	 * @param originatingAttribute
+	 *            Attribute that originates (or requests) the navigation
+	 */
+	void navigateFrom(IUserContext userContext, Attribute originatingAttribute, ModelReference ref);
 }

@@ -33,7 +33,8 @@
 		interface="br.com.maisha.wind.lifecycle.mgmt.IApplicationManager">
 	</osgi:service>
 	
-	
+	<osgi:service id="scriptExecutorOsgi" ref="scriptExecutor"  
+		interface="br.com.maisha.wind.controller.execution.IScriptExecutor" />
 
 	
 

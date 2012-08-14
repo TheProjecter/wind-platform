@@ -1,23 +1,17 @@
 package br.com.maisha.wind.controller;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.osgi.framework.BundleContext;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
@@ -29,13 +23,15 @@ import br.com.maisha.terra.lang.Validation;
 import br.com.maisha.terra.lang.ValidationRule;
 import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
-import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppModelListenerRegistry;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
-import br.com.maisha.wind.common.preferences.IPreferenceStore;
+import br.com.maisha.wind.common.user.IUserContext;
+import br.com.maisha.wind.common.user.IUserContext.UserData;
 import br.com.maisha.wind.controller.execution.BasicRule;
+import br.com.maisha.wind.controller.execution.IScriptExecutor;
 import br.com.maisha.wind.controller.execution.el.ELListener;
+import br.com.maisha.wind.controller.model.Breadcrumb;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.controller.model.UserMessage;
 import br.com.maisha.wind.controller.model.UserMessage.MessageKind;
@@ -58,6 +54,9 @@ public class ApplicationController implements IApplicationController {
 
 	/** Reference to the script engine manager. */
 	private ScriptEngineManager engineManager;
+
+	/** Script Executor */
+	private IScriptExecutor scriptExecutor;
 
 	/** Model listeners for message model. */
 	private IAppModelListenerRegistry modelListenerRegistry;
@@ -93,12 +92,10 @@ public class ApplicationController implements IApplicationController {
 			ctx = rule.run(ctx);
 
 			// fires an event for the interested parts react
-			modelListenerRegistry.fireEvent(ctx.getSessid(), null, ctx.getOperation().getDomainObject(),
+			modelListenerRegistry.fireEvent(ctx.getUserContext(), null, ctx.getOperation().getDomainObject(),
 					LevelType.Object, ChangeType.ValueChanged);
-			
-			
+
 		} catch (Exception e) {
-			e.printStackTrace();
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}
 		return ctx;
@@ -112,16 +109,16 @@ public class ApplicationController implements IApplicationController {
 
 		// process messages
 		if (ctx.getMessages() != null && !ctx.getMessages().isEmpty()) {
-			modelListenerRegistry.fireEvent(ctx.getSessid(), null, ctx.getMessages(), LevelType.Message,
+			modelListenerRegistry.fireEvent(ctx.getUserContext(), null, ctx.getMessages(), LevelType.Message,
 					ChangeType.Added);
 		}
 
 		// process grid data
-		modelListenerRegistry.fireEvent(ctx.getSessid(), null, ctx.getGridData(), LevelType.GridData,
+		modelListenerRegistry.fireEvent(ctx.getUserContext(), null, ctx.getGridData(), LevelType.GridData,
 				ChangeType.ValueChanged);
 
 		// create a new opened instance
-		return openObjectInstance(ctx.getSessid(), createNewInstance(ctx.getMeta()));
+		return openObjectInstance(ctx.getUserContext(), createNewInstance(ctx.getUserContext(), ctx.getMeta()));
 	}
 
 	/**
@@ -186,117 +183,11 @@ public class ApplicationController implements IApplicationController {
 
 	/**
 	 * 
-	 * @see br.com.maisha.wind.controller.IApplicationController#evalExpressions(br.com.maisha.terra.lang.ModelReference)
-	 */
-	public void evalExpressions(ModelReference modelInstance) {
-		try {
-			if (modelInstance == null) {
-				return;
-			}
-
-			ScriptEngine juelEngine = engineManager.getEngineByName("juel");
-			DomainObject meta = modelInstance.getMeta();
-
-			if (meta == null) {
-				return;
-			}
-
-			log.debug("Evaluating expressions for " + meta.getLabel());
-
-			juelEngine.put("this", modelInstance);
-			juelEngine.put("meta", meta);
-			juelEngine.put("currDate", new Date());
-
-			for (Attribute attr : meta.getAtts()) {
-				for (Map.Entry<String, Property> entry : attr.getProperties().entrySet()) {
-					Property prop = entry.getValue();
-
-					if (prop.getExpression() != null) {
-						Object ret = juelEngine.eval(prop.getExpression());
-
-						if (ret != null) {
-							log.debug("Attribute [" + attr.getLabel() + "] property value [" + prop.getPropName()
-									+ "] evaluated to: " + ret);
-							prop.setValue(ret);
-
-							// se for a propriedade value, setta o valor no
-							// model tambem
-							if (PropertyInfo.VALUE.getPropName().equals(prop.getPropName())) {
-								juelEngine.put("val", ret);
-								juelEngine.eval("${this.set" + StringUtils.capitalize(attr.getRef()) + "(val)}");
-							}
-						}
-					}
-				}
-			}
-		} catch (Exception e) {
-			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
-		}
-	}
-
-	/**
-	 * 
-	 * @see br.com.maisha.wind.controller.IApplicationController#getObjectValue(java.lang.Object,
-	 *      java.lang.String)
-	 */
-	public Object getObjectValue(Object instance, String attributeName) {
-		Object ret = null;
-
-		try {
-			ScriptEngine juelEngine = engineManager.getEngineByName("juel");
-			juelEngine.put("this", instance);
-			ret = juelEngine.eval("${this." + attributeName + "}");
-		} catch (Exception e) {
-			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
-		}
-
-		return ret;
-	}
-
-	/**
-	 * 
-	 * @see br.com.maisha.wind.controller.IApplicationController#runScript(java.lang.String,
-	 *      java.util.Map)
-	 */
-	public Object runScript(String script, Map<String, Object> context) {
-		return runScript("juel", script, context);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * br.com.maisha.wind.controller.IApplicationController#runScript(java.lang
-	 * .String, java.lang.String, java.util.Map)
-	 */
-	public Object runScript(String engineType, String script, Map<String, Object> context) {
-		Object ret = null;
-		try {
-			ScriptEngine engine = engineManager.getEngineByName(engineType);
-
-			if (context != null && !context.isEmpty()) {
-				for (Map.Entry<String, Object> entry : context.entrySet()) {
-					engine.put(entry.getKey(), entry.getValue());
-				}
-			}
-
-			ret = engine.eval(script);
-		} catch (Exception e) {
-			e.printStackTrace();
-			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
-		}
-		return ret;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * br.com.maisha.wind.controller.IApplicationController#filter(br.com.maisha
-	 * .terra.lang.DomainObject)
+	 * @see br.com.maisha.wind.controller.IApplicationController#filter(br.com.maisha.wind.common.user.IUserContext,
+	 *      br.com.maisha.terra.lang.DomainObject)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<ModelReference> filter(Serializable sessid, DomainObject dObj) {
+	public List<ModelReference> filter(IUserContext userContext, DomainObject dObj) {
 		List<ModelReference> ret = Collections.EMPTY_LIST;
 
 		// procura por operacao "filtro"
@@ -314,8 +205,8 @@ public class ApplicationController implements IApplicationController {
 			ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 			ctx.setOperation(filterOp);
 			ctx.setMeta(dObj);
-			ctx.setInstance(createNewInstance(dObj));
-			ctx.setSessid(sessid);
+			ctx.setInstance(createNewInstance(userContext, dObj));
+			ctx.setUserContext(userContext);
 
 			runOperation(ctx);
 			ret = ctx.getGridData();
@@ -363,135 +254,15 @@ public class ApplicationController implements IApplicationController {
 
 	/**
 	 * 
-	 * @see br.com.maisha.wind.controller.IApplicationController#configureAllLabels(org.osgi.framework.BundleContext)
+	 * @see br.com.maisha.wind.controller.IApplicationController#openObjectInstance(br.com.maisha.wind.common.user.IUserContext,
+	 *      br.com.maisha.terra.lang.ModelReference)
 	 */
-	public void configureAllLabels(BundleContext context) {
-		List<WindApplication> apps = registry.retrieve();
-		if (apps != null) {
-			for (WindApplication app : apps) {
-				configureAllLabels(context, app);
-			}
-		}
-	}
-
-	/**
-	 * 
-	 * @see br.com.maisha.wind.controller.IApplicationController#configureAllLabels(org.osgi.framework.BundleContext,
-	 *      br.com.maisha.terra.lang.WindApplication)
-	 */
-	public void configureAllLabels(BundleContext context, WindApplication app) {
-
-		IPreferenceStore prefs = ServiceProvider.getInstance().getService(IPreferenceStore.class, context);
-
-		String strLoc = prefs.get("general", "currentLocale", "pt_BR"); // TODO
-		// constantes
-		String[] spltLoc = strLoc.split("_");
-		Locale loc = new Locale(spltLoc[0], spltLoc[1]);
-
-		List<ResourceBundle> rbs = app.getResouceBundle(loc);
-
-		if (rbs != null) {
-			for (DomainObject dObj : app.getDomainObjects()) {
-				for (Attribute attr : dObj.getAtts()) {
-					for (ResourceBundle rb : rbs) {
-						attr.setI18nLabel(getBundleMessage(rb, attr.getLabel()));
-					}
-				}
-
-				for (Operation op : dObj.getOperations()) {
-					for (ResourceBundle rb : rbs) {
-						op.setI18nLabel(getBundleMessage(rb, op.getLabel()));
-					}
-				}
-			}
-		}
-
-	}
-
-	/**
-	 * 
-	 * @param rb
-	 * @param key
-	 * @return
-	 */
-	private String getBundleMessage(ResourceBundle rb, String key) {
-		String ret = "";
-		try {
-			String label = rb.getString(key);
-			if (label != null) {
-				ret = label;
-			}
-		} catch (MissingResourceException mre) {
-			ret = key;
-		}
-		return ret;
-	}
-
-	/**
-	 * 
-	 * @param dObj
-	 * @param ct
-	 * @param level
-	 */
-	public void handleObjectEvent(DomainObject dObj, ChangeType ct, LevelType level) {
-		// TODO REDESIGN THIS FUNCTIONALITY
-		/*
-		 * try { log.debug("	Handling Domain Object Event Level[ " + level +
-		 * " ] ChangeType[ " + ct + " ]"); String type = "";
-		 * 
-		 * String file = dObj.getPropertyValue(PropertyInfo.EVENT_HANDLER); if
-		 * (StringUtils.isBlank(file)) { return; }
-		 * 
-		 * type = file.substring(file.indexOf(".") + 1); OperationType opType =
-		 * OperationType.valueOf(type);
-		 * 
-		 * String className = file.substring(file.lastIndexOf("/") + 1,
-		 * file.indexOf("."));
-		 * 
-		 * ScriptEngine engine = engineManager.getEngineByName(type); Invocable
-		 * invocable = (Invocable) engine;
-		 * 
-		 * BundleContext bundle = dObj.getApplication().getBundleContext(); URL
-		 * ruleUrl = bundle.getBundle().getEntry("/" + file);
-		 * 
-		 * InputStream is = ruleUrl.openStream(); Reader r = new
-		 * InputStreamReader(is);
-		 * 
-		 * // preparing to execute ExecutionContext<ModelReference> ctx = new
-		 * ExecutionContext<ModelReference>(); ctx.setInstance(currentInstance);
-		 * ctx.setOperation(new Operation(type, className, ct.name()));
-		 * ctx.setMeta(dObj);
-		 * 
-		 * engine.put("model", ctx.getInstance()); engine.put("ctx", ctx);
-		 * engine.put("storage", persistentStorage);
-		 * 
-		 * loadAPI(type, engine); engine.eval(r);
-		 * 
-		 * engine.eval("rule = " + (opType.getUseNewOperator() ? "new " : "") +
-		 * className + "()"); engine.eval("rule.ctx = ctx");
-		 * engine.eval("rule.model = model"); Object result =
-		 * engine.get("rule");
-		 * 
-		 * // execute invocable.invokeMethod(result,
-		 * StringUtils.uncapitalize(ct.name()), ctx); } catch (Exception e) {
-		 * ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e,
-		 * log); }
-		 */
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * br.com.maisha.wind.controller.IApplicationController#openObjectInstance
-	 * (java.io.Serializable, br.com.maisha.terra.lang.ModelReference)
-	 */
-	public ModelReference openObjectInstance(Serializable sessid, ModelReference ref) {
+	public ModelReference openObjectInstance(IUserContext userContext, ModelReference ref) {
 		ModelReference currentInstance = null;
-		if (ref.getId() > 0) {
+		if (ref.getId() != null && ref.getId() > 0) {
 			DomainObject meta = registry.getObject(ref.getAppId(), ref.getObjId());
 			WindApplication app = registry.retrieve(ref.getAppId());
-			
+
 			if (app == null) {
 				log.error("Unknow Wind Application [" + ref.getAppId() + "]");
 				return null;
@@ -500,15 +271,19 @@ public class ApplicationController implements IApplicationController {
 			IStorage storage = app.getBean(IStorage.BEAN_NAME, IStorage.class);
 			currentInstance = storage.loadFullEntity(meta, ref.getId());
 		}
-		modelListenerRegistry.fireEvent(sessid, null, currentInstance, LevelType.Object, ChangeType.InstanceOpened);
+
+		userContext.storeUserData(UserData.OPENED_INSTANCE, currentInstance);
+		modelListenerRegistry
+				.fireEvent(userContext, null, currentInstance, LevelType.Object, ChangeType.InstanceOpened);
 		return currentInstance;
 	}
 
 	/**
 	 * 
-	 * @see br.com.maisha.wind.controller.IApplicationController#createNewInstance(br.com.maisha.terra.lang.DomainObject)
+	 * @see br.com.maisha.wind.controller.IApplicationController#createNewInstance(br.com.maisha.wind.common.user.IUserContext,
+	 *      br.com.maisha.terra.lang.DomainObject)
 	 */
-	public ModelReference createNewInstance(DomainObject dObj) {
+	public ModelReference createNewInstance(IUserContext userContext, DomainObject dObj) {
 		ModelReference instance = null;
 		try {
 			instance = (ModelReference) dObj.getObjectClass().newInstance();
@@ -520,20 +295,39 @@ public class ApplicationController implements IApplicationController {
 			context.put("ref", instance);
 			context.put("appId", dObj.getApplication().getAppId());
 			context.put("objId", dObj.getRef());
-			runScript("${ref.setAppId(appId)}", context);
-			runScript("${ref.setObjId(objId)}", context);
+			scriptExecutor.runScript("${ref.setAppId(appId)}", context);
+			scriptExecutor.runScript("${ref.setObjId(objId)}", context);
 
 			// configures relationships many-to-one with a new HashSet;
 			for (Attribute att : dObj.getAtts()) {
 				if (StringUtils.isNotBlank(att.getPropertyValue(PropertyInfo.ONTOMANY))) {
 					// relationship identified
 					context.put("hSet", new HashSet<Object>());
-					runScript("${ref.set" + StringUtils.capitalize(att.getRef()) + "(hSet)}", context);
+					scriptExecutor.runScript("${ref.set" + StringUtils.capitalize(att.getRef()) + "(hSet)}", context);
 				}
 			}
 
 			// evaluates metaobject attribute expressions
-			evalExpressions(instance);
+			scriptExecutor.evalExpressions(instance);
+
+			// if there is a navigation trail, then we must link this brand new
+			// instance to the instance originating the navigation.
+			Breadcrumb trail = userContext.getUserData(UserData.NAVIGATION_TRAIL);
+			if (trail != null) {
+				Attribute originatingAttribute = trail.getOriginatingAttribute();
+				DomainObject related = registry.getObject(originatingAttribute.getDomainObject().getApplication()
+						.getAppId(), originatingAttribute.getType());
+
+				String mappedByRef = originatingAttribute.getPropertyValue(PropertyInfo.ONTOMANY);
+				Attribute mappedBy = related.getAttribute(mappedByRef);
+				mappedBy.getProperties().put(PropertyInfo.DISABLED.getPropName(),
+						new Property(PropertyInfo.DISABLED.getPropName(), true));
+
+				Map<String, Object> vars = new HashMap<String, Object>();
+				vars.put("ref", instance);
+				vars.put("o", trail.getOriginatingModelRef());
+				scriptExecutor.runScript("${ref.set" + StringUtils.capitalize(mappedBy.getRef()) + "(o)}", vars);
+			}
 
 			// listen for changes in the values of instance attributes and
 			// reevaluate the metaobject
@@ -547,49 +341,66 @@ public class ApplicationController implements IApplicationController {
 
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see
-	 * br.com.maisha.wind.controller.IApplicationController#openObject(java.
-	 * lang.String, java.lang.String, java.io.Serializable)
+	 * @see br.com.maisha.wind.controller.IApplicationController#openObject(java.lang.String,
+	 *      java.lang.String, br.com.maisha.wind.common.user.IUserContext)
 	 */
-	public DomainObject openObject(String appId, String objectId, Serializable sessid) {
+	public DomainObject openObject(String appId, String objectId, IUserContext userContext) {
 		DomainObject obj = registry.getObject(appId, objectId);
-		openObject(obj, sessid);
+		openObject(obj, userContext);
+		userContext.storeUserData(UserData.OPENED_OBJECT, obj);
 		return obj;
 	}
 
 	/**
 	 * 
 	 * @param obj
+	 * @param sessid
 	 */
-	private void openObject(DomainObject obj, Serializable sessid) {
-		modelListenerRegistry.fireEvent(sessid, null, obj, LevelType.Object, ChangeType.BeforeObjectOpen);
-		modelListenerRegistry.fireEvent(sessid, null, obj, LevelType.Object, ChangeType.ObjectOpen);
-		modelListenerRegistry.fireEvent(sessid, null, obj, LevelType.Object, ChangeType.AfterObjectOpen);
+	private void openObject(DomainObject obj, IUserContext userContext) {
+		modelListenerRegistry.fireEvent(userContext, null, obj, LevelType.Object, ChangeType.BeforeObjectOpen);
+		modelListenerRegistry.fireEvent(userContext, null, obj, LevelType.Object, ChangeType.ObjectOpen);
+		modelListenerRegistry.fireEvent(userContext, null, obj, LevelType.Object, ChangeType.AfterObjectOpen);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see
-	 * br.com.maisha.wind.lifecycle.mgmt.IApplicationManager#closeObject(java
-	 * .lang.String, java.lang.String, java.io.Serializable)
+	 * @see br.com.maisha.wind.controller.IApplicationController#closeObject(java.lang.String,
+	 *      java.lang.String, br.com.maisha.wind.common.user.IUserContext)
 	 */
-	public void closeObject(String appId, String objectId, Serializable sessid) {
+	public void closeObject(String appId, String objectId, IUserContext userContext) {
 		DomainObject obj = registry.getObject(appId, objectId);
-		closeObject(obj, sessid);
+		closeObject(obj, userContext);
+	}
+
+	/**
+	 * 
+	 * @see br.com.maisha.wind.controller.IApplicationController#navigateFrom(br.com.maisha.wind.common.user.IUserContext,
+	 *      br.com.maisha.terra.lang.Attribute,
+	 *      br.com.maisha.terra.lang.ModelReference)
+	 */
+	public void navigateFrom(IUserContext userContext, Attribute originatingAttribute, ModelReference ref) {
+		DomainObject originating = originatingAttribute.getDomainObject();
+		final DomainObject related = registry.getObject(originating.getApplication().getAppId(),
+				originatingAttribute.getType());
+
+		Breadcrumb trail = userContext.getUserData(UserData.NAVIGATION_TRAIL);
+		Breadcrumb bc = new Breadcrumb(trail, originatingAttribute, ref);
+		userContext.storeUserData(UserData.NAVIGATION_TRAIL, bc);
+
+		closeObject(originating, userContext);
+		openObject(related, userContext);
 	}
 
 	/**
 	 * 
 	 * @param dObj
 	 */
-	private void closeObject(DomainObject dObj, Serializable sessid) {
-		modelListenerRegistry.fireEvent(sessid, null, dObj, LevelType.Object, ChangeType.BeforeObjectClose);
-		modelListenerRegistry.fireEvent(sessid, null, dObj, LevelType.Object, ChangeType.ObjectClose);
-		modelListenerRegistry.fireEvent(sessid, null, dObj, LevelType.Object, ChangeType.AfterObjectClose);
+	private void closeObject(DomainObject dObj, IUserContext userContext) {
+		modelListenerRegistry.fireEvent(userContext, null, dObj, LevelType.Object, ChangeType.BeforeObjectClose);
+		modelListenerRegistry.fireEvent(userContext, null, dObj, LevelType.Object, ChangeType.ObjectClose);
+		modelListenerRegistry.fireEvent(userContext, null, dObj, LevelType.Object, ChangeType.AfterObjectClose);
 	}
 
 	/** @see #modelListenerRegistry */
@@ -630,5 +441,10 @@ public class ApplicationController implements IApplicationController {
 	/** @see ApplicationController#engineManager */
 	public void setEngineManager(ScriptEngineManager engineManager) {
 		this.engineManager = engineManager;
+	}
+
+	/** @see ApplicationController#scriptExecutor */
+	public void setScriptExecutor(IScriptExecutor scriptExecutor) {
+		this.scriptExecutor = scriptExecutor;
 	}
 }
