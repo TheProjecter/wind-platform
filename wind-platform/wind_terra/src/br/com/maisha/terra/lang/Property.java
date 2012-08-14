@@ -15,7 +15,7 @@ public class Property extends TerraClass {
 	/** */
 	public static enum PresentationType {
 		TEXT("text"), RADIO("radio"), CHECKBOX("checkbox"), COMBO("combo"), LIST("list"), TEXTAREA("textarea"), DATE("date"), RELATED(
-				"RELATED"), EMBEDDEDOBJECT("embedded_object"), GROUP("group");
+				"RELATED"), EMBEDDEDOBJECT("embedded_object"), GROUP("group"), NAVIGATION("navigation");
 
 		private String value;
 

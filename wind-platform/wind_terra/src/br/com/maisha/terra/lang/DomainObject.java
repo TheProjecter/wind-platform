@@ -15,7 +15,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
-public class DomainObject extends TerraClass {
+public class DomainObject extends TerraClass implements Cloneable {
 
 	private String ref;
 
@@ -222,8 +222,9 @@ public class DomainObject extends TerraClass {
 	/**
 	 * Get Method for property missing to use by Groovy.
 	 * <p/>
-	 * This enables you to call <code>meta.<ATTRIBUTE_NAME></code> where "meta" is a reference to this class and <ATTRIBUTE_NAME> is the
-	 * name of the desired attribute.
+	 * This enables you to call <code>meta.<ATTRIBUTE_NAME></code> where "meta"
+	 * is a reference to this class and <ATTRIBUTE_NAME> is the name of the
+	 * desired attribute.
 	 * 
 	 * @param name
 	 *            Attribute name.
@@ -295,4 +296,16 @@ public class DomainObject extends TerraClass {
 		return getRef().hashCode();
 	}
 
+	/**
+	 * 
+	 * @see java.lang.Object#clone()
+	 */
+	public DomainObject clone() {
+		try {
+			return (DomainObject) super.clone();
+		} catch (CloneNotSupportedException e) {
+			return null;
+		}
+
+	}
 }

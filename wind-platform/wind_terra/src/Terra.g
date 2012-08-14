@@ -1,13 +1,19 @@
-grammar TerraParser;
+
+grammar Terra;
+
 
 options {
-  // We're going to output an AST.
   output = AST;
+  
 }
 
+@lexer::header {
+package br.com.maisha.terra;  
+}
 
-@header { 
-package br.com.maisha.terra; 
+@header {
+package br.com.maisha.terra;
+ 
 import java.util.HashMap;
 import java.util.Map;
 import br.com.maisha.terra.lang.Import;
@@ -23,24 +29,27 @@ import br.com.maisha.terra.lang.ValidationRule;
 import br.com.maisha.terra.rcp.Activator;
 import br.com.maisha.wind.common.converter.IConverterService;
 import br.com.maisha.wind.common.factory.ServiceProvider;
+ 	
+}
+ 
+   
+@members {
+		public DomainObject domainObject = null;
+		private String pckg = "";
+		private List<Attribute> atts = new ArrayList<Attribute>();
+		private List<Operation> ops = new ArrayList<Operation>();
+		private Map<String, Property> props = new HashMap<String, Property>();
+		private Map<String, Property> op_props = new HashMap<String, Property>();
+		private Map<String, Property> obj_props = new HashMap<String, Property>();
+		private Map<String, Property> folder_props = new HashMap<String, Property>();
+		private Map<String, Attribute> folder_atts = new HashMap<String, Attribute>();
+		private Map<String, Container> folders = new HashMap<String, Container>();
+		private List<Import> imports = new ArrayList<Import>();
+		private List<Validation> validationRulz = new ArrayList<Validation>();
+		private List<ValidationRule> validationRulzEntry = new ArrayList<ValidationRule>();
+		private List<ValidValue> validValues = new ArrayList<ValidValue>();
 }
 
-@members {
-public DomainObject domainObject = null;
-private String pckg = "";
-private List<Attribute> atts = new ArrayList<Attribute>();
-private List<Operation> ops = new ArrayList<Operation>();
-private Map<String, Property> props = new HashMap<String, Property>();
-private Map<String, Property> op_props = new HashMap<String, Property>();
-private Map<String, Property> obj_props = new HashMap<String, Property>();
-private Map<String, Property> folder_props = new HashMap<String, Property>();
-private Map<String, Attribute> folder_atts = new HashMap<String, Attribute>();
-private Map<String, Container> folders = new HashMap<String, Container>();
-private List<Import> imports = new ArrayList<Import>();
-private List<Validation> validationRulz = new ArrayList<Validation>();
-private List<ValidationRule> validationRulzEntry = new ArrayList<ValidationRule>();
-private List<ValidValue> validValues = new ArrayList<ValidValue>();
-}
 
 
 ASSIGN: '='; 
@@ -57,7 +66,7 @@ PACKAGE:'package';
 IMPORT:'import'; 
 VALIDATION_RULE:	'validationRule';
 PRESENTATION_TYPE: 'presentation_type';
-SUPPORTED_PRESENTATION_TYPES: 'text' | 'radio' | 'checkbox' | 'combo' | 'list' | 'textarea' | 'date' | 'related' | 'embedded_object' | 'group';
+SUPPORTED_PRESENTATION_TYPES: 'text' | 'radio' | 'checkbox' | 'combo' | 'list' | 'textarea' | 'date' | 'related' | 'embedded_object' | 'group' | 'label' | 'navigation';
 PROPERTY:	'x' | 'y' | 'colspan' | 'rowspan' |  'disabled' |  'icon' | 'width' | 'height' | 'tooltip';
 ATTRIBUTE_PROPERTY: 'folder' | 'parent_group' | 'visibleInEdition' | 'visibleInGrid' | 'content' | 'value' | 'validValues' | 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'event' | 'toString' | 'onetomany' | 'manytoone' | 'transient' ;
 OPERATION_PROPERTY: 'class' | 'file' | 'validWhen' | 'is_filter' | 'validate' ;
@@ -65,6 +74,7 @@ OBJECT_PROPERTY: 'open_filtering' | 'event_handler' ;
 FOLDER_PROPERTY: 'sequence' ;
 GENERAL_PROPERTY: 'visible';
 OPERATION: 'operation';
+ATTRIBUTE: 'attribute'; 
 FOLDER : 'Folder'; 
 
 OP_TYPE: 'java' | 'python' | 'groovy';
@@ -73,7 +83,8 @@ NUMBER: INTEGER | FLOAT;
 fragment FLOAT: INTEGER '.' '0'..'9'+;
 fragment INTEGER: '0'..'9' '0'..'9'*;
 NAME: LETTER (LETTER | DIGIT |  '.' | '_' | '/' )+;
-STRING_LITERAL: '"' NONCONTROL_CHAR* '"';
+//STRING_LITERAL: '"' NONCONTROL_CHAR* '"';
+STRING_LITERAL:  ('"' (~'"')* '"');
 
 TYPE2	:	LETTER+;
 
@@ -144,7 +155,7 @@ obj_property: OBJECT_PROPERTY ATTRIBUITION (value|expression) {
 }
 ;
 
-attr	:   type=NAME ref=NAME STRING_LITERAL LEFT_BRACKET attr_body+ RIGHT_BRACKET {
+attr	: ATTRIBUTE type=NAME ref=NAME STRING_LITERAL LEFT_BRACKET attr_body+ RIGHT_BRACKET {
 		Attribute att = new Attribute($type.text, $ref.text, $STRING_LITERAL.text);
 		att.setDomainObject(domainObject);		
 		att.setProperties(props);
