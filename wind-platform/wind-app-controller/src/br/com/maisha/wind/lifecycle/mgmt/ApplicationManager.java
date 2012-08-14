@@ -9,8 +9,10 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
@@ -24,6 +26,7 @@ import org.springframework.context.support.GenericApplicationContext;
 
 import br.com.maisha.terra.IClassMaker;
 import br.com.maisha.terra.ITerraCompiler;
+import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.Datasource;
 import br.com.maisha.terra.lang.Datasource.RDMBSVendor;
 import br.com.maisha.terra.lang.DomainObject;
@@ -32,11 +35,13 @@ import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.terra.lang.ResourceBundleEntry;
 import br.com.maisha.terra.lang.WindApplication;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
+import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppModelListenerRegistry;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
-import br.com.maisha.wind.controller.IApplicationController;
+import br.com.maisha.wind.common.preferences.IPreferenceStore;
 import br.com.maisha.wind.controller.execution.BasicRule;
+import br.com.maisha.wind.controller.execution.IScriptExecutor;
 import br.com.maisha.wind.controller.rcp.Activator;
 import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
 import br.com.maisha.wind.storage.IStorage;
@@ -65,8 +70,8 @@ public class ApplicationManager implements IApplicationManager {
 	/** Listeners for model changes. */
 	private IAppModelListenerRegistry modelListeners;
 
-	/** Application Controller. */
-	private IApplicationController appCtrl;
+	/** Script Executor. */
+	private IScriptExecutor scriptExecutor;
 
 	/**
 	 * 
@@ -87,7 +92,7 @@ public class ApplicationManager implements IApplicationManager {
 				+ script;
 		script = script + "\nreturn writer.toString()";
 
-		Object ret = appCtrl.runScript("groovy", script, null);
+		Object ret = scriptExecutor.runScript("groovy", script, null);
 		return ret != null ? ret.toString() : "";
 	}
 
@@ -121,7 +126,7 @@ public class ApplicationManager implements IApplicationManager {
 			log.debug("		App: [" + app.getAppId() + "] " + app.getName());
 
 			// compile it's domain objects
-			Enumeration<URL> e = context.getBundle().findEntries("/", "*.do", true);
+			Enumeration<URL> e = context.getBundle().findEntries("/", "*.dmo", true);
 			if (e != null) {
 				while (e.hasMoreElements()) {
 					// TODO ignore duplicated entries on this iteration
@@ -165,7 +170,7 @@ public class ApplicationManager implements IApplicationManager {
 			app.setBundleContext(context);
 
 			// configure objects labels
-			appCtrl.configureAllLabels(context, app);
+			configureAllLabels(context, app);
 
 			// build a spring application context for this wind application
 			app.setAppCtx(buildApplicationContext(app));
@@ -181,6 +186,61 @@ public class ApplicationManager implements IApplicationManager {
 
 	}
 
+	
+	/**
+	 * 
+	 * @param rb
+	 * @param key
+	 * @return
+	 */
+	private String getBundleMessage(ResourceBundle rb, String key) {
+		String ret = "";
+		try {
+			String label = rb.getString(key);
+			if (label != null) {
+				ret = label;
+			}
+		} catch (MissingResourceException mre) {
+			ret = key;
+		}
+		return ret;
+	}
+
+	/**
+	 * 
+	 * @param context
+	 * @param app
+	 */
+	private void configureAllLabels(BundleContext context, WindApplication app) {
+
+		IPreferenceStore prefs = ServiceProvider.getInstance().getService(IPreferenceStore.class, context);
+
+		String strLoc = prefs.get("general", "currentLocale", "pt_BR"); // TODO
+		// constantes
+		String[] spltLoc = strLoc.split("_");
+		Locale loc = new Locale(spltLoc[0], spltLoc[1]);
+
+		List<ResourceBundle> rbs = app.getResouceBundle(loc);
+
+		if (rbs != null) {
+			for (DomainObject dObj : app.getDomainObjects()) {
+				for (Attribute attr : dObj.getAtts()) {
+					for (ResourceBundle rb : rbs) {
+						attr.setI18nLabel(getBundleMessage(rb, attr.getLabel()));
+					}
+				}
+
+				for (Operation op : dObj.getOperations()) {
+					for (ResourceBundle rb : rbs) {
+						op.setI18nLabel(getBundleMessage(rb, op.getLabel()));
+					}
+				}
+			}
+		}
+
+	}
+
+	
 	/**
 	 * Constructs an Spring Application Context for the given Wind Application
 	 * <p/>
@@ -343,8 +403,8 @@ public class ApplicationManager implements IApplicationManager {
 		this.modelListeners = modelListeners;
 	}
 
-	/** @see ApplicationManager#appCtrl */
-	public void setAppCtrl(IApplicationController appCtrl) {
-		this.appCtrl = appCtrl;
+	/** @see ApplicationManager#scriptExecutor */
+	public void setScriptExecutor(IScriptExecutor scriptExecutor) {
+		this.scriptExecutor = scriptExecutor;
 	}
 }

@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
-import br.com.maisha.wind.controller.IApplicationController;
+import br.com.maisha.wind.controller.execution.IScriptExecutor;
 import br.com.maisha.wind.controller.rcp.Activator;
 
 /**
@@ -36,10 +36,10 @@ public class ELListener implements PropertyChangeListener {
 		}
 		try {
 			log.debug("Property changed [" + evt.getPropertyName() + "]... revaluating meta model expressions");
-			IApplicationController appController = ServiceProvider.getInstance().getService(
-					IApplicationController.class, Activator.getDefault().getBundle().getBundleContext());
+			IScriptExecutor se = ServiceProvider.getInstance().getService(
+					IScriptExecutor.class, Activator.getDefault().getBundle().getBundleContext());
 
-			appController.evalExpressions((ModelReference) evt.getSource());
+			se.evalExpressions((ModelReference) evt.getSource());
 		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}

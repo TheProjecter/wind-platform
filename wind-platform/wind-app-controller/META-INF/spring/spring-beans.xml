@@ -8,23 +8,30 @@
 	<bean name="appModelListenerRegistryCtrl" scope="singleton"
 		class="br.com.maisha.wind.common.listener.AppModelListenerRegistry" />
 
-	
-	<bean name="groovyEngineFactory" class="org.codehaus.groovy.jsr223.GroovyScriptEngineFactory"/>
-	<bean name="windScriptManager" class="br.com.maisha.wind.controller.execution.WindScriptEngineManager">
+
+	<bean name="groovyEngineFactory" class="org.codehaus.groovy.jsr223.GroovyScriptEngineFactory" />
+	<bean name="windScriptManager"
+		class="br.com.maisha.wind.controller.execution.WindScriptEngineManager">
 		<property name="factories">
 			<list>
 				<ref bean="groovyEngineFactory" />
 			</list>
 		</property>
-	</bean>	
+	</bean>
 
-	
+
+	<bean name="scriptExecutor" scope="singleton"
+		class="br.com.maisha.wind.controller.execution.ScriptExecutor">
+		<property name="engineManager" ref="windScriptManager" />
+	</bean>
+
 	<bean name="applicationController" scope="singleton"
 		class="br.com.maisha.wind.controller.ApplicationController">
 		<property name="modelListener" ref="appModelListenerRegistryOsgi" />
 		<property name="validatorRegisty" ref="validatorRegisty" />
-		<property name="registry" ref="appRegistry"/>
-		<property name="engineManager" ref="windScriptManager"/>
+		<property name="registry" ref="appRegistry" />
+		<property name="engineManager" ref="windScriptManager" />
+		<property name="scriptExecutor" ref="scriptExecutor" />
 	</bean>
 
 
@@ -66,7 +73,7 @@
 
 
 
-	<bean name="appRegistry" scope="singleton" 
+	<bean name="appRegistry" scope="singleton"
 		class="br.com.maisha.wind.lifecycle.registry.ApplicationRegistry" />
 
 
@@ -79,16 +86,10 @@
 		<property name="appCfgReader" ref="appCfgReader" />
 		<property name="classMaker" ref="appRegistryClassMaker" />
 		<property name="modelListeners" ref="appModelListenerRegistryOsgi" />
-		<property name="appCtrl" ref="applicationController"/>
-	</bean>
-	
-	<bean name="domainObjectEventListener" class="br.com.maisha.wind.controller.listener.DomainObjectEventListener">
-		<property name="appCtrl" ref="applicationController"/>
-		<property name="appModelListenerRegisty" ref="appModelListenerRegistryOsgi"/>
+		<property name="scriptExecutor" ref="scriptExecutor" />
 	</bean>
 
 
-	
 </beans>
 
 

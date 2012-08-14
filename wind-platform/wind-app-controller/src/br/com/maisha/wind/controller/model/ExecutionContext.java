@@ -1,6 +1,5 @@
 package br.com.maisha.wind.controller.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,9 +8,11 @@ import java.util.Map;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
+import br.com.maisha.wind.common.user.IUserContext;
 
 /**
- * Encapsulates all information collected during the process of execute an operation.
+ * Encapsulates all information collected during the process of execute an
+ * operation.
  * 
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
@@ -39,8 +40,8 @@ public class ExecutionContext<T> {
 	/** Rules can use this map to store data between executions. */
 	private Map<String, Object> session = new HashMap<String, Object>();
 
-	/** Id of the user's session. */
-	private Serializable sessid;
+	/** User Data. */
+	private IUserContext userContext;
 
 	/** @see #operation */
 	public Operation getOperation() {
@@ -112,14 +113,14 @@ public class ExecutionContext<T> {
 		this.session = session;
 	}
 
-	/** @see #sessid */
-	public Serializable getSessid() {
-		return sessid;
+	/** @see ExecutionContext#userContext */
+	public IUserContext getUserContext() {
+		return userContext;
 	}
 
-	/** @see #sessid */
-	public void setSessid(Serializable sessid) {
-		this.sessid = sessid;
+	/** @see ExecutionContext#userContext */
+	public void setUserContext(IUserContext userContext) {
+		this.userContext = userContext;
 	}
 
 }
