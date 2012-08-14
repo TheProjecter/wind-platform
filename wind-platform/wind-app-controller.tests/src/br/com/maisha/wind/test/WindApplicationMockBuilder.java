@@ -57,7 +57,7 @@ public class WindApplicationMockBuilder {
 		
 		app.setDatasource(createDatasource());
 		
-		DomainObject dObj = buildDomainObject(getClass().getResourceAsStream("/br/com/maisha/wind/test/mock/Conta.do"));
+		DomainObject dObj = buildDomainObject(getClass().getResourceAsStream("/br/com/maisha/wind/test/mock/Conta.dmo"));
 		app.addDomainObject(dObj);
 
 		dObj.setApplication(app);

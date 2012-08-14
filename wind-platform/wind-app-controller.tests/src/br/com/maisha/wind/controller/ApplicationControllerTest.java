@@ -21,6 +21,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.wind.common.factory.ServiceProvider;
+import br.com.maisha.wind.common.user.CommonUserContext;
 import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.controller.model.UserMessage.MessageKind;
@@ -96,7 +97,7 @@ public class ApplicationControllerTest extends WindTestBasic {
 		ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 		DomainObject dObj = findDomainObject("Conta", windApp);
 		ctx.setOperation(dObj.getOperation("SaveConta"));
-		ctx.setSessid("TEST_SESSID");
+		ctx.setUserContext(new CommonUserContext("TEST_SESSID"));
 
 		ctx = bean.runOperation(ctx);
 
@@ -135,7 +136,7 @@ public class ApplicationControllerTest extends WindTestBasic {
 		ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 		DomainObject dObj = findDomainObject("Conta", windApp);
 		ctx.setOperation(dObj.getOperation("UsesOfMessageAPI"));
-		ctx.setSessid("TEST_SESSID");
+		ctx.setUserContext(new CommonUserContext("TEST_SESSID"));
 		ctx.setMeta(dObj);
 		
 		ctx = bean.runOperation(ctx);
@@ -205,7 +206,7 @@ public class ApplicationControllerTest extends WindTestBasic {
 		ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 		DomainObject dObj = findDomainObject("Conta", windApp);
 		ctx.setOperation(dObj.getOperation("UsesOfFormattingAPI"));
-		ctx.setSessid("TEST_SESSID");
+		ctx.setUserContext(new CommonUserContext("TEST_SESSID"));
 		ctx.setMeta(dObj);
 
 		ctx = bean.runOperation(ctx);
@@ -243,7 +244,7 @@ public class ApplicationControllerTest extends WindTestBasic {
 	@Test
 	public void testPersistenceAPIGroovyOperation() throws Exception {
 		DomainObject dObj = findDomainObject("Conta", windApp);
-		ModelReference instance = bean.createNewInstance(dObj);
+		ModelReference instance = bean.createNewInstance(new CommonUserContext("TEST_SESSID"), dObj);
 		IStorage storage = windApp.getBean(IStorage.BEAN_NAME, IStorage.class);
 		Reflect.on(instance).set("nome", "Itau");
 		Reflect.on(instance).set("tipo", "Credito");
@@ -262,7 +263,7 @@ public class ApplicationControllerTest extends WindTestBasic {
 
 		ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 		ctx.setOperation(dObj.getOperation("UsesOfPersistenceAPI"));
-		ctx.setSessid("TEST_SESSID");
+		ctx.setUserContext(new CommonUserContext("TEST_SESSID"));
 		ctx.setMeta(dObj);
 
 		ctx = bean.runOperation(ctx);
@@ -292,7 +293,7 @@ public class ApplicationControllerTest extends WindTestBasic {
 		ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 		DomainObject dObj = findDomainObject("Conta", windApp);
 		ctx.setOperation(dObj.getOperation("SaveConta"));
-		ctx.setSessid("TEST_SESSID");
+		ctx.setUserContext(new CommonUserContext("TEST_SESSID"));
 		ctx.setMeta(dObj);
 
 		// popula os dados submetidos a validacao
@@ -327,7 +328,7 @@ public class ApplicationControllerTest extends WindTestBasic {
 
 		
 		DomainObject dObj = findDomainObject("Conta", windApp);
-		ModelReference instance = bean.createNewInstance(dObj);
+		ModelReference instance = bean.createNewInstance(new CommonUserContext("TEST_SESSID"), dObj);
 		
 		IStorage storage = windApp.getBean(IStorage.BEAN_NAME, IStorage.class);
 		Reflect.on(instance).set("nome", "Itau");
@@ -335,7 +336,7 @@ public class ApplicationControllerTest extends WindTestBasic {
 		Reflect.on(instance).set("saldo", 154.54d);
 		storage.save(instance);		
 		
-		ModelReference opened = bean.openObjectInstance("TEST_SESSID", instance);
+		ModelReference opened = bean.openObjectInstance(new CommonUserContext("TEST_SESSID"), instance);
 		
 		assertNotNull(opened);
 		assertEquals(opened.getAppId(), "testApp");
