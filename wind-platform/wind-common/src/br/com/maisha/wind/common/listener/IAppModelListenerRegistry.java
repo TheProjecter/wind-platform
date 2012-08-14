@@ -1,10 +1,9 @@
 package br.com.maisha.wind.common.listener;
 
-import java.io.Serializable;
-
 import br.com.maisha.wind.common.component.Component;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
+import br.com.maisha.wind.common.user.IUserContext;
 
 /**
  * 
@@ -21,16 +20,16 @@ public interface IAppModelListenerRegistry extends Component {
 
 	/**
 	 * 
-	 * @param sessid
+	 * @param userContext
 	 * @param listener
 	 */
-	void registerSessionAppModelListener(Serializable sessid, IAppRegistryListener listener);
+	void registerSessionAppModelListener(IUserContext userContext, IAppRegistryListener listener);
 
 	/**
 	 * 
-	 * @param sessid
+	 * @param userContext
 	 */
-	void removeSessionAppModelListener(Serializable sessid, IAppRegistryListener listener);
+	void removeSessionAppModelListener(IUserContext userContext, IAppRegistryListener listener);
 
 	/**
 	 * 
@@ -48,11 +47,11 @@ public interface IAppModelListenerRegistry extends Component {
 	void fireEvent(Object oldValue, Object newValue, LevelType level, ChangeType change);
 
 	/**
-	 * @param sessid
+	 * @param userContext
 	 * @param oldValue
 	 * @param newValue
 	 * @param level
 	 * @param change
 	 */
-	void fireEvent(Serializable sessid, Object oldValue, Object newValue, LevelType level, ChangeType change);
+	void fireEvent(IUserContext userContext, Object oldValue, Object newValue, LevelType level, ChangeType change);
 }
