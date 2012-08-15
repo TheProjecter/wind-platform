@@ -105,7 +105,7 @@ public class HibernateStorage implements IStorage {
 					return r;
 				}
 			});
-
+			getHibernateTemplate().evict(ret);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
