@@ -14,6 +14,8 @@ import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppModelListenerRegistry;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
+import br.com.maisha.wind.common.user.CommonUserContext;
+import br.com.maisha.wind.common.user.IUserContext;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
 
@@ -59,9 +61,10 @@ public class WorkbenchWindowListener implements IWindowListener {
 	 */
 	public void windowClosed(IWorkbenchWindow window) {
 		log.debug("Wind Closed");
-		IAppModelListenerRegistry modelListenerReg = ServiceProvider.getInstance().getService(IAppModelListenerRegistry.class,
-				Activator.getDefault().getBundle().getBundleContext());
-		modelListenerReg.removeSessionAppModelListener(RWT.getSessionStore().getId(), listener);
+		IAppModelListenerRegistry modelListenerReg = ServiceProvider.getInstance().getService(
+				IAppModelListenerRegistry.class, Activator.getDefault().getBundle().getBundleContext());
+		modelListenerReg.removeSessionAppModelListener(
+				(IUserContext) RWT.getSessionStore().getAttribute(IUserContext.USER_CONTEXT), listener);
 	}
 
 	/**
@@ -79,12 +82,16 @@ public class WorkbenchWindowListener implements IWindowListener {
 	public void windowOpened(IWorkbenchWindow window) {
 		log.debug("Wind Opened");
 
-		String sessid = RWT.getSessionStore().getId();
+		// creates a UserContext and stores it at session scope
+		RWT.getSessionStore().setAttribute(IUserContext.USER_CONTEXT,
+				new CommonUserContext(RWT.getSessionStore().getId()));
 
 		// register app model listener to react to it's changes...
-		IAppModelListenerRegistry modelListenerReg = ServiceProvider.getInstance().getService(IAppModelListenerRegistry.class,
-				Activator.getDefault().getBundle().getBundleContext());
+		IAppModelListenerRegistry modelListenerReg = ServiceProvider.getInstance().getService(
+				IAppModelListenerRegistry.class, Activator.getDefault().getBundle().getBundleContext());
 		listener = new FacesAppModelListener(Display.getCurrent());
-		modelListenerReg.registerSessionAppModelListener(RWT.getSessionStore().getId(), listener);
+		modelListenerReg.registerSessionAppModelListener(
+				(IUserContext) RWT.getSessionStore().getAttribute(IUserContext.USER_CONTEXT), listener);
+
 	}
 }

@@ -15,7 +15,7 @@ import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.factory.ServiceProvider;
-import br.com.maisha.wind.controller.IApplicationController;
+import br.com.maisha.wind.controller.execution.IScriptExecutor;
 import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
@@ -34,14 +34,14 @@ public class GridViewLabelProvider extends CellLabelProvider implements ITableLa
 	private ValueWriter writer = new ValueWriter();
 
 	/** */
-	private IApplicationController appCtrl;
+	private IScriptExecutor se;
 
 	/** */
 	private IApplicationRegistry registry;
 
 	public GridViewLabelProvider(Map<Integer, String> properties) {
 		this.properties = properties;
-		this.appCtrl = ServiceProvider.getInstance().getService(IApplicationController.class,
+		this.se = ServiceProvider.getInstance().getService(IScriptExecutor.class,
 				Activator.getDefault().getBundle().getBundleContext());
 		this.registry = ServiceProvider.getInstance().getService(IApplicationRegistry.class,
 				Activator.getDefault().getBundle().getBundleContext());
@@ -106,15 +106,15 @@ public class GridViewLabelProvider extends CellLabelProvider implements ITableLa
 		 */
 		public String write(ModelReference ref) {
 
-			String appId = appCtrl.getObjectValue(ref, "appId") + "";
-			String objId = appCtrl.getObjectValue(ref, "objId") + "";
+			String appId = se.getObjectValue(ref, "appId") + "";
+			String objId = se.getObjectValue(ref, "objId") + "";
 
 			DomainObject meta = registry.getObject(appId, objId);
 			StringBuffer sb = new StringBuffer();
 			if (meta != null) {
 				for (Attribute attr : meta.getAtts()) {
 					if (attr.getPropertyValue(PropertyInfo.TOSTRING)) {
-						sb.append(write(appCtrl.getObjectValue(ref, attr.getRef())));
+						sb.append(write(se.getObjectValue(ref, attr.getRef())));
 					}
 				}
 			}

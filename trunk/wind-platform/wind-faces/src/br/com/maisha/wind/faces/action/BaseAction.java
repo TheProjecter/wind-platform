@@ -25,12 +25,12 @@ import br.com.maisha.terra.lang.Operation;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
+import br.com.maisha.wind.common.user.IUserContext;
 import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.rcp.RCPUtil;
-import br.com.maisha.wind.faces.util.Constants;
 import br.com.maisha.wind.faces.view.GridView;
 
 /**
@@ -65,7 +65,8 @@ public class BaseAction extends Action implements IWorkbenchAction {
 
 		String iconPath = op.getPropertyValue(PropertyInfo.ICON);
 		if (iconPath != null) {
-			Bundle bundle = Platform.getBundle(op.getDomainObject().getApplication().getBundleContext().getBundle().getSymbolicName());
+			Bundle bundle = Platform.getBundle(op.getDomainObject().getApplication().getBundleContext().getBundle()
+					.getSymbolicName());
 			URL imgUrl = bundle.getEntry(iconPath);
 			if (imgUrl != null) {
 				setImageDescriptor(ImageDescriptor.createFromURL(imgUrl));
@@ -83,7 +84,8 @@ public class BaseAction extends Action implements IWorkbenchAction {
 	public void runWithEvent(Event event) {
 		log.debug("Running Action " + op);
 
-		// AggregateValidationStatus ag = new AggregateValidationStatus(dbctx, AggregateValidationStatus.MAX_SEVERITY);
+		// AggregateValidationStatus ag = new AggregateValidationStatus(dbctx,
+		// AggregateValidationStatus.MAX_SEVERITY);
 		// ag.addChangeListener(new IChangeListener() {
 		// public void handleChange(ChangeEvent event) {
 		// IObservable obs = event.getObservable();
@@ -95,7 +97,8 @@ public class BaseAction extends Action implements IWorkbenchAction {
 		// if(binding.getTarget() instanceof ISWTObservable){
 		// ISWTObservable swtObservable = (ISWTObservable) binding.getTarget();
 		// Control control = (Control) swtObservable.getWidget();
-		// ControlDecoration decoration = new ControlDecoration(control, SWT.RIGHT | SWT.BOTTOM);
+		// ControlDecoration decoration = new ControlDecoration(control,
+		// SWT.RIGHT | SWT.BOTTOM);
 		// FieldDecoration fieldDecoration = FieldDecorationRegistry
 		// .getDefault().getFieldDecoration(
 		// FieldDecorationRegistry.DEC_ERROR);
@@ -107,7 +110,7 @@ public class BaseAction extends Action implements IWorkbenchAction {
 		// });
 
 		final ExecutionContext<ModelReference> exeCtx = new ExecutionContext<ModelReference>();
-		exeCtx.setSessid(RWT.getSessionStore().getId());
+		exeCtx.setUserContext((IUserContext) RWT.getSessionStore().getAttribute(IUserContext.USER_CONTEXT));
 		try {
 			List<?> selection = null;
 			ISelectionService selServ = RCPUtil.getWorkbenchWindow().getSelectionService();
@@ -167,8 +170,8 @@ public class BaseAction extends Action implements IWorkbenchAction {
 		 */
 		public IStatus run(IProgressMonitor monitor) {
 			try {
-				final IApplicationController appCtrl = ServiceProvider.getInstance().getService(IApplicationController.class,
-						Activator.getDefault().getBundle().getBundleContext());
+				final IApplicationController appCtrl = ServiceProvider.getInstance().getService(
+						IApplicationController.class, Activator.getDefault().getBundle().getBundleContext());
 
 				// configure execution context....
 				monitor.beginTask("Configuring context...", 100);
@@ -186,8 +189,7 @@ public class BaseAction extends Action implements IWorkbenchAction {
 				// process the changes occurred at the execution context...
 				display.syncExec(new Runnable() {
 					public void run() {
-						ModelReference ref = appCtrl.processExecutionContext(ctx);
-						RWT.getSessionStore().setAttribute(Constants.OPENED_INSTANCE, ref);
+						appCtrl.processExecutionContext(ctx);
 					}
 				});
 

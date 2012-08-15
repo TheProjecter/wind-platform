@@ -14,12 +14,13 @@ import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
+import br.com.maisha.wind.common.user.IUserContext;
+import br.com.maisha.wind.common.user.IUserContext.UserData;
 import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.rcp.Application;
 import br.com.maisha.wind.faces.render.IRender;
 import br.com.maisha.wind.faces.render.attr.IAttributeRender;
-import br.com.maisha.wind.faces.util.Constants;
 
 /**
  * Implementacao default de {@link IPresentationProvider}
@@ -101,12 +102,13 @@ public class PresentationProvider implements IPresentationProvider {
 		IApplicationController appCtrl = ServiceProvider.getInstance().getService(IApplicationController.class,
 				Activator.getDefault().getBundle().getBundleContext());
 
-		DomainObject openedObject = (DomainObject) RWT.getSessionStore().getAttribute(Constants.OPENED_DOMAIN_OBJECT);
+		IUserContext userContext = (IUserContext) RWT.getSessionStore().getAttribute(IUserContext.USER_CONTEXT);
+		
+		DomainObject openedObject = userContext.getUserData(UserData.OPENED_OBJECT);
 		if (openedObject != null) {
-			appCtrl.closeObject(appId, objectId, RWT.getSessionStore().getId());
+			appCtrl.closeObject(appId, objectId, userContext);
 		}
-		openedObject = appCtrl.openObject(appId, objectId, RWT.getSessionStore().getId());
-		RWT.getSessionStore().setAttribute(Constants.OPENED_DOMAIN_OBJECT, openedObject);
+		openedObject = appCtrl.openObject(appId, objectId, userContext);
 	}
 
 	/**
