@@ -1,26 +1,41 @@
 package br.com.maisha.wind.faces.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.rwt.RWT;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.part.ViewPart;
 import org.springframework.beans.BeanUtils;
 
+import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
+import br.com.maisha.terra.lang.Property;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
+import br.com.maisha.wind.common.user.IUserContext;
 import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.faces.IPresentationProvider;
 import br.com.maisha.wind.faces.action.BaseAction;
 import br.com.maisha.wind.faces.action.ClearEditionViewAction;
+import br.com.maisha.wind.faces.action.FowardNavigationAction;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.render.IRender;
 import br.com.maisha.wind.faces.render.layout.BaseLayoutRender;
@@ -42,6 +57,12 @@ public class EditionView extends ViewPart implements IRender {
 
 	/** Parent composite that holds contents and folders. */
 	private Composite parent;
+
+	/** Form */
+	private ScrolledForm form;
+
+	/** Eclipse Forms Toolkit. */
+	private FormToolkit toolkit;
 
 	/** Presentantion Provider */
 	private IPresentationProvider presProvider;
@@ -75,7 +96,11 @@ public class EditionView extends ViewPart implements IRender {
 	 * @see org.eclipse.ui.part.WorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
 	 */
 	public void createPartControl(final Composite parent) {
-		this.parent = parent;
+		parent.setLayout(new FillLayout(SWT.VERTICAL));
+		toolkit = new FormToolkit(parent.getDisplay());
+		form = toolkit.createScrolledForm(parent);
+
+		this.parent = form.getBody();
 		this.parent.setLayout(new GridLayout(1, true));
 
 		this.presProvider = ServiceProvider.getInstance().getService(IPresentationProvider.class,
@@ -116,7 +141,6 @@ public class EditionView extends ViewPart implements IRender {
 
 		if (LevelType.Object.equals(level) && ChangeType.InstanceOpened.equals(ct)) {
 			log.debug("Loading instance in the EditionView... ");
-
 			BeanUtils.copyProperties(model, modelInstance);
 		} else if (LevelType.Object.equals(level) && ChangeType.ObjectOpen.equals(ct)) {
 			try {
@@ -125,10 +149,12 @@ public class EditionView extends ViewPart implements IRender {
 				final DomainObject object = (DomainObject) model;
 				setPartName(object.getLabel());
 
-				modelInstance = appController.createNewInstance(object);
+				IUserContext userContext = (IUserContext) RWT.getSessionStore().getAttribute(IUserContext.USER_CONTEXT);
+				modelInstance = appController.createNewInstance(userContext, object);
 
 				createUserInterface(object);
 				configureDefaultToolBar(object);
+
 			} catch (Exception e) {
 				ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 			}
@@ -144,6 +170,10 @@ public class EditionView extends ViewPart implements IRender {
 	 * @throws PartInitException
 	 */
 	private void createUserInterface(DomainObject model) throws PartInitException {
+		form.setText(model.getLabel());
+
+		// set up head client
+		createHeadClient(model);
 
 		// set up layout...
 		baseLayoutRender.render(model, this.parent, this.modelInstance);
@@ -152,16 +182,55 @@ public class EditionView extends ViewPart implements IRender {
 		folderLayoutRender.render(model, this.parent, this.modelInstance);
 
 		// render operations
-		final IToolBarManager tbm = getViewSite().getActionBars().getToolBarManager();
-		tbm.removeAll();
+		form.getToolBarManager().removeAll();
 		for (Operation op : model.getOperations()) {
 			if (op.getPropertyValue(PropertyInfo.VISIBLE_OP)) {
-				createOperationUI(op, model, tbm);
+				createOperationUI(op, model, form.getToolBarManager());
 			}
 		}
-		getViewSite().getActionBars().updateActionBars();
 
 		parent.layout();
+		toolkit.decorateFormHeading(form.getForm());
+	}
+
+	/**
+	 * Sets up Head Client area with breadcrumb and navigation action.
+	 * 
+	 * @param model
+	 *            Domain Object being rendered.
+	 */
+	private void createHeadClient(DomainObject model) {
+		// get attributes with navigation as presentation type
+		List<Attribute> attrsToNavigate = new ArrayList<Attribute>();
+		for (Attribute attr : model.getAtts()) {
+			if (Property.PresentationType.NAVIGATION.getValue().equals(
+					attr.getPropertyValue(PropertyInfo.PRESENTATION_TYPE))) {
+				attrsToNavigate.add(attr);
+			}
+		}
+
+		if (form.getForm().getHeadClient() != null) {
+			form.getForm().getHeadClient().dispose();
+		}
+
+		Composite headClient = toolkit.createComposite(form.getForm().getHead());
+		headClient.setBackground(null);
+		headClient.setLayout(new GridLayout(2, false));
+
+		Composite bread = toolkit.createComposite(headClient, SWT.BORDER);
+		bread.setLayout(new RowLayout(SWT.HORIZONTAL));
+		toolkit.createHyperlink(bread, "Orcamento", SWT.NONE).setBackground(null);
+		toolkit.createLabel(bread, "/").setBackground(null);
+		toolkit.createHyperlink(bread, "Categoria", SWT.NONE).setBackground(null);
+
+		if (attrsToNavigate != null && attrsToNavigate.size() > 0) {
+			ToolBar navigationToolbar = new ToolBar(headClient, SWT.NONE);
+			ToolBarManager tbm = new ToolBarManager(navigationToolbar);
+			tbm.add(new FowardNavigationAction(attrsToNavigate));
+			tbm.update(true);
+		}
+
+		form.setHeadClient(headClient);
 	}
 
 	/**
@@ -174,16 +243,17 @@ public class EditionView extends ViewPart implements IRender {
 		log.debug("Rendering Operation [ " + op + " ]");
 		IAction act = new BaseAction(op, modelInstance);
 		tbm.add(act);
+		tbm.update(true);
 	}
 
 	/**
 	 * 
 	 */
 	private void configureDefaultToolBar(DomainObject object) {
-		IToolBarManager tbm = getViewSite().getActionBars().getToolBarManager();
+		IToolBarManager tbm = form.getToolBarManager();
 		IAction clearEditionView = new ClearEditionViewAction(object);
 		tbm.add(clearEditionView);
-		getViewSite().getActionBars().updateActionBars();
+		tbm.update(true);
 	}
 
 }

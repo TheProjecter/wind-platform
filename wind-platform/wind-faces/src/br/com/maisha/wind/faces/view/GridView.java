@@ -26,6 +26,7 @@ import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
+import br.com.maisha.wind.common.user.IUserContext;
 import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.faces.IPresentationProvider;
@@ -34,7 +35,6 @@ import br.com.maisha.wind.faces.action.PDFPrintAction;
 import br.com.maisha.wind.faces.action.PrintAction;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.render.IRender;
-import br.com.maisha.wind.faces.util.Constants;
 
 /**
  * 
@@ -93,8 +93,9 @@ public class GridView extends ViewPart implements IRender {
 				IStructuredSelection sel = (IStructuredSelection) event.getSelection();
 				if (!sel.isEmpty()) {
 					Map<String, Object> map = (Map<String, Object>) sel.getFirstElement();
-					ModelReference ref = appCtrl.openObjectInstance(RWT.getSessionStore().getId(), (ModelReference) map.get("REF"));
-					RWT.getSessionStore().setAttribute(Constants.OPENED_INSTANCE, ref);
+					IUserContext userContext = (IUserContext) RWT.getSessionStore().getAttribute(
+							IUserContext.USER_CONTEXT);
+					appCtrl.openObjectInstance(userContext, (ModelReference) map.get("REF"));
 				}
 			}
 		});
@@ -145,7 +146,8 @@ public class GridView extends ViewPart implements IRender {
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.IRender#render(br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType,
-	 *      br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType, java.lang.Object)
+	 *      br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType,
+	 *      java.lang.Object)
 	 */
 	public void render(final LevelType level, final ChangeType ct, final Object model) {
 		if (LevelType.Object.equals(level)) {
@@ -158,10 +160,11 @@ public class GridView extends ViewPart implements IRender {
 			}
 		}
 
-		if (ct.equals(ChangeType.ObjectOpen) || (LevelType.GridData.equals(level) && ct.equals(ChangeType.ValueChanged))) {
+		if (ct.equals(ChangeType.ObjectOpen)
+				|| (LevelType.GridData.equals(level) && ct.equals(ChangeType.ValueChanged))) {
 			log.debug("Updating grid view... ");
-			LoadGridDataJob job = new LoadGridDataJob(PlatformMessageRegistry.getInstance().getMessage("wind_faces.gridView.loadData"),
-					level, model, Display.getCurrent());
+			LoadGridDataJob job = new LoadGridDataJob(PlatformMessageRegistry.getInstance().getMessage(
+					"wind_faces.gridView.loadData"), level, model, Display.getCurrent());
 			job.schedule();
 		}
 	}
@@ -205,7 +208,9 @@ public class GridView extends ViewPart implements IRender {
 					List<ModelReference> data = null;
 					if (LevelType.Object.equals(level)) {
 						if (dObj.getPropertyValue(PropertyInfo.OPEN_FILTERING)) {
-							data = appCtrl.filter(RWT.getSessionStore().getId(), dObj);
+							IUserContext userContext = (IUserContext) RWT.getSessionStore().getAttribute(
+									IUserContext.USER_CONTEXT);
+							data = appCtrl.filter(userContext, dObj);
 						}
 					} else if (LevelType.GridData.equals(level)) {
 						data = (ArrayList<ModelReference>) model;
@@ -215,7 +220,8 @@ public class GridView extends ViewPart implements IRender {
 					List<Map<String, Object>> dataMap = appCtrl.toMap(dObj, data);
 					viewer.setInput(dataMap);
 
-					// updates print action - TODO dont think here it's the best place
+					// updates print action - TODO dont think here it's the best
+					// place
 					printAction.configure(dataMap, dObj);
 					exportPDFAction.configure(dataMap, dObj);
 					exportExcelAction.configure(dataMap, dObj);
@@ -223,10 +229,11 @@ public class GridView extends ViewPart implements IRender {
 					// total results
 					String contentDescription = "";
 					if (dataMap.size() > 0) {
-						contentDescription = PlatformMessageRegistry.getInstance().getMessage("wind_faces.gridview.totalResults",
-								new Object[] { dataMap.size() });
+						contentDescription = PlatformMessageRegistry.getInstance().getMessage(
+								"wind_faces.gridview.totalResults", new Object[] { dataMap.size() });
 					} else {
-						contentDescription = PlatformMessageRegistry.getInstance().getMessage("wind_faces.gridview.noResults");
+						contentDescription = PlatformMessageRegistry.getInstance().getMessage(
+								"wind_faces.gridview.noResults");
 					}
 					setContentDescription(contentDescription);
 

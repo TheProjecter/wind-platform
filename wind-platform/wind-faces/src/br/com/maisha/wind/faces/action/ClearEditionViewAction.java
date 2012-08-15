@@ -8,13 +8,12 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 
 import br.com.maisha.terra.lang.DomainObject;
-import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
+import br.com.maisha.wind.common.user.IUserContext;
 import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.faces.rcp.Activator;
-import br.com.maisha.wind.faces.util.Constants;
 
 /**
  * 
@@ -42,7 +41,8 @@ public class ClearEditionViewAction extends Action implements IWorkbenchAction {
 
 		String labelClear = PlatformMessageRegistry.getInstance().getMessage("wind_faces.messageview.clear");
 
-		setImageDescriptor(ImageDescriptor.createFromImage(Activator.getImageDescriptor("icons/clear.gif").createImage()));
+		setImageDescriptor(ImageDescriptor.createFromImage(Activator.getImageDescriptor("icons/clear.gif")
+				.createImage()));
 
 		setDescription(labelClear);
 		setText(labelClear);
@@ -68,8 +68,8 @@ public class ClearEditionViewAction extends Action implements IWorkbenchAction {
 	 */
 	public void runWithEvent(Event event) {
 		try {
-			ModelReference ref = appController.openObjectInstance(RWT.getSessionStore().getId(), appController.createNewInstance(object));
-			RWT.getSessionStore().setAttribute(Constants.OPENED_INSTANCE, ref);
+			IUserContext userContext = (IUserContext) RWT.getSessionStore().getAttribute(IUserContext.USER_CONTEXT);
+			appController.openObjectInstance(userContext, appController.createNewInstance(userContext, object));
 		} catch (Exception e) {
 			ExceptionHandler.getInstance().handle(Activator.getSymbolicName(), e, log);
 		}

@@ -1,7 +1,5 @@
 package br.com.maisha.wind.faces.render.attr;
 
-import java.io.Serializable;
-
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -16,6 +14,7 @@ import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Operation;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.factory.ServiceProvider;
+import br.com.maisha.wind.common.user.IUserContext;
 import br.com.maisha.wind.controller.IApplicationController;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 import br.com.maisha.wind.faces.rcp.Activator;
@@ -29,7 +28,8 @@ import br.com.maisha.wind.faces.rcp.Activator;
 public class ViewerContentProviderJob extends Job {
 
 	/** Name of the job property that holds the resulting content. */
-	public static final QualifiedName CONTENT = new QualifiedName(ViewerContentProviderJob.class.getSimpleName(), "result");
+	public static final QualifiedName CONTENT = new QualifiedName(ViewerContentProviderJob.class.getSimpleName(),
+			"result");
 
 	/** Attribute represented by a combo */
 	private Attribute attribute;
@@ -37,7 +37,7 @@ public class ViewerContentProviderJob extends Job {
 	/** Application Controller ref. */
 	private IApplicationController appCtrl;
 
-	private Serializable sessid;
+	private IUserContext userContext;
 
 	/**
 	 * Constructor configures job name.
@@ -48,7 +48,7 @@ public class ViewerContentProviderJob extends Job {
 	public ViewerContentProviderJob(String name, Attribute attribute) {
 		super(name);
 		this.attribute = attribute;
-		sessid = RWT.getSessionStore().getId();
+		userContext = (IUserContext) RWT.getSessionStore().getAttribute(IUserContext.USER_CONTEXT);
 		appCtrl = ServiceProvider.getInstance().getService(IApplicationController.class,
 				Activator.getDefault().getBundle().getBundleContext());
 	}
@@ -56,7 +56,8 @@ public class ViewerContentProviderJob extends Job {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.core.runtime.jobs.Job#run(org.eclipse.core.runtime.IProgressMonitor)
+	 * @see org.eclipse.core.runtime.jobs.Job#run(org.eclipse.core.runtime.
+	 * IProgressMonitor)
 	 */
 	public IStatus run(IProgressMonitor monitor) {
 		DomainObject dObj = attribute.getDomainObject();
@@ -77,7 +78,7 @@ public class ViewerContentProviderJob extends Job {
 		ExecutionContext<ModelReference> ctx = new ExecutionContext<ModelReference>();
 		ctx.setMeta(attribute.getDomainObject());
 		ctx.setOperation(op);
-		ctx.setSessid(sessid);
+		ctx.setUserContext(userContext);
 		ctx = appCtrl.runOperation(ctx);
 
 		setProperty(CONTENT, ctx.getGridData());

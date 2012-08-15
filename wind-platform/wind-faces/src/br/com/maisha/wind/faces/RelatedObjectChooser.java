@@ -25,6 +25,7 @@ import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.controller.IApplicationController;
+import br.com.maisha.wind.controller.execution.IScriptExecutor;
 import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.faces.render.attr.ViewerContentProviderJob;
@@ -52,6 +53,8 @@ public class RelatedObjectChooser extends TitleAreaDialog {
 	private TableViewer viewer;
 
 	/** */
+	private IScriptExecutor se;
+	
 	private IApplicationController appCtrl;
 
 	/** */
@@ -70,6 +73,9 @@ public class RelatedObjectChooser extends TitleAreaDialog {
 		this.attr = attr;
 		this.instance = instance;
 		this.dObj = dObj;
+		se = ServiceProvider.getInstance().getService(IScriptExecutor.class,
+				Activator.getDefault().getBundle().getBundleContext());
+		
 		appCtrl = ServiceProvider.getInstance().getService(IApplicationController.class,
 				Activator.getDefault().getBundle().getBundleContext());
 	}
@@ -142,7 +148,7 @@ public class RelatedObjectChooser extends TitleAreaDialog {
 		context.put("related", this.related);
 		context.put("dObj", this.instance);
 
-		appCtrl.runScript(" ${dObj.set" + StringUtils.capitalize(attr.getRef()) + "(related) }", context);
+		se.runScript(" ${dObj.set" + StringUtils.capitalize(attr.getRef()) + "(related) }", context);
 
 		super.okPressed();
 	}

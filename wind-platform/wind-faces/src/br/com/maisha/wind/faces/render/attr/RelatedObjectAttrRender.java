@@ -52,11 +52,13 @@ public class RelatedObjectAttrRender extends BaseAttrRender {
 	/**
 	 * 
 	 * @see br.com.maisha.wind.faces.render.attr.IAttributeRender#render(br.com.maisha.terra.lang.Attribute,
-	 *      org.eclipse.swt.widgets.Composite, br.com.maisha.terra.lang.ModelReference)
+	 *      org.eclipse.swt.widgets.Composite,
+	 *      br.com.maisha.terra.lang.ModelReference)
 	 */
 	public void render(final Attribute attr, Composite parent, final ModelReference modelInstance) {
 		// queries app registry for the related object...
-		final DomainObject related = registry.getObject(attr.getDomainObject().getApplication().getAppId(), attr.getType());
+		final DomainObject related = registry.getObject(attr.getDomainObject().getApplication().getAppId(),
+				attr.getType());
 
 		List<Attribute> relatedAttrs = new ArrayList<Attribute>();
 		Property presType = attr.getProperty(PropertyInfo.PRESENTATION_TYPE.getPropName());
@@ -73,8 +75,9 @@ public class RelatedObjectAttrRender extends BaseAttrRender {
 		composite.setLayoutData(gd);
 
 		GridLayout layout = new GridLayout(relatedAttrs.size() + 1, false);
-
 		layout.horizontalSpacing = 5;
+		layout.marginWidth = 0;
+		layout.marginHeight = 0;
 		composite.setLayout(layout);
 
 		final DataBindingContext dbctx = new DataBindingContext();
@@ -84,8 +87,9 @@ public class RelatedObjectAttrRender extends BaseAttrRender {
 			FontData fd = l.getFont().getFontData()[0];
 			Font font = Graphics.getFont(fd.getName(), 10, fd.getStyle());
 			l.setFont(font);
-			GridData labelGd = new GridData(GridData.BEGINNING, GridData.END, false, false);
+			GridData labelGd = new GridData(GridData.BEGINNING, GridData.END, true, true);
 			labelGd.heightHint = 10;
+			setWidth(labelGd, a);
 			l.setLayoutData(labelGd);
 		}
 
@@ -102,7 +106,8 @@ public class RelatedObjectAttrRender extends BaseAttrRender {
 			relGd.heightHint = 13;
 			text.setLayoutData(relGd);
 
-			IObservableValue observable = BeansObservables.observeValue(modelInstance, attr.getRef() + "." + relatedAttr.getRef());
+			IObservableValue observable = BeansObservables.observeValue(modelInstance, attr.getRef() + "."
+					+ relatedAttr.getRef());
 			dbctx.bindValue(SWTObservables.observeText(text, SWT.Modify), observable);
 		}
 
@@ -113,8 +118,8 @@ public class RelatedObjectAttrRender extends BaseAttrRender {
 
 			public void widgetSelected(SelectionEvent e) {
 				// opens the dialog for choosing...
-				RelatedObjectChooser chooser = new RelatedObjectChooser(attr, modelInstance, related, e.widget.getDisplay()
-						.getActiveShell());
+				RelatedObjectChooser chooser = new RelatedObjectChooser(attr, modelInstance, related, e.widget
+						.getDisplay().getActiveShell());
 				chooser.setBlockOnOpen(true);
 				chooser.open();
 			}
@@ -126,6 +131,9 @@ public class RelatedObjectAttrRender extends BaseAttrRender {
 		});
 
 		bt.setEnabled(!attr.getPropertyValue(PropertyInfo.DISABLED));
+
+		composite.pack(true);
+		composite.layout();
 	}
 
 	/** @see #registry */

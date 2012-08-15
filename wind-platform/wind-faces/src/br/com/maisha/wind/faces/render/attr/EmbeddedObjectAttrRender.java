@@ -18,6 +18,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -38,7 +39,9 @@ import br.com.maisha.terra.lang.Property.PresentationType;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.factory.ServiceProvider;
+import br.com.maisha.wind.common.user.IUserContext;
 import br.com.maisha.wind.controller.IApplicationController;
+import br.com.maisha.wind.controller.execution.IScriptExecutor;
 import br.com.maisha.wind.faces.IPresentationProvider;
 import br.com.maisha.wind.faces.rcp.Activator;
 import br.com.maisha.wind.lifecycle.registry.IApplicationRegistry;
@@ -76,6 +79,8 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 
 	/** Controller. */
 	private IApplicationController controller;
+	
+	private IScriptExecutor  se;
 
 	/**
 	 * 
@@ -90,6 +95,9 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 		// spring-beans.xml it fails to get a instance of juel script engine
 		this.controller = ServiceProvider.getInstance().getService(IApplicationController.class,
 				Activator.getDefault().getBundle().getBundleContext());
+		
+		this.se = ServiceProvider.getInstance().getService(IScriptExecutor.class,
+				Activator.getDefault().getBundle().getBundleContext());
 	}
 
 	/**
@@ -99,7 +107,7 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 	 */
 	public void render(final Attribute attr, Composite parent, final ModelReference modelInstance) {
 		try {
-
+			final IUserContext userContext = (IUserContext) RWT.getSessionStore().getAttribute(IUserContext.USER_CONTEXT);
 			final DomainObject related = registry.getObject(attr.getDomainObject().getApplication().getAppId(), attr.getType());
 
 			new Label(parent, SWT.NONE);
@@ -110,6 +118,8 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 
 			GridData gd = getLayoutData(GridData.FILL_HORIZONTAL);
 			group.setLayoutData(gd);
+			setColspan(gd, attr);
+			setRowspan(gd, attr);
 
 			Composite fields = new Composite(group, SWT.NONE);
 			GridLayout layout = new GridLayout(6, false);
@@ -130,7 +140,7 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 
 				public void widgetSelected(SelectionEvent e) {
 					try {
-						ModelReference input = controller.createNewInstance(related);
+						ModelReference input = controller.createNewInstance(userContext, related);
 						BeanUtils.copyProperties(ref, input);
 
 						// do the relationship
@@ -139,13 +149,13 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 						context.put("related", input);
 						context.put("parent", modelInstance);
 						context.put("relatedPropertyName", relatedPropertyName);
-						controller.runScript("${related.set" + StringUtils.capitalize(relatedPropertyName) + "(parent)}", context);
+						se.runScript("${related.set" + StringUtils.capitalize(relatedPropertyName) + "(parent)}", context);
 
 						gridSet.add(input);
 						grid.setInput(gridSet);
 
 						// clear
-						ModelReference clearedInstance = controller.createNewInstance(related);
+						ModelReference clearedInstance = controller.createNewInstance(userContext, related);
 						BeanUtils.copyProperties(clearedInstance, ref);
 
 					} catch (Exception ex) {
@@ -187,7 +197,7 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 
 			// render attribute fields
 			Map<Integer, String> attNames = new HashMap<Integer, String>();
-			ref = controller.createNewInstance(related);
+			ref = controller.createNewInstance(userContext, related);
 			int i = 0;
 			for (Attribute rAttr : related.getAtts()) {
 				String presentationType = rAttr.getPropertyValue(PropertyInfo.PRESENTATION_TYPE);
@@ -282,7 +292,7 @@ public class EmbeddedObjectAttrRender extends BaseAttrRender {
 		 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
 		 */
 		public String getColumnText(Object element, int columnIndex) {
-			return appCtrl.getObjectValue(element, attNames.get(columnIndex)) + "";
+			return se.getObjectValue(element, attNames.get(columnIndex)) + "";
 		}
 
 	}

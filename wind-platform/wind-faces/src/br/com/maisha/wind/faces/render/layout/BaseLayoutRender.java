@@ -145,6 +145,7 @@ public class BaseLayoutRender implements ILayoutRender {
 			}
 		}
 
+		parent.pack();
 		parent.layout();
 		return parent;
 
@@ -169,7 +170,7 @@ public class BaseLayoutRender implements ILayoutRender {
 	private Attribute createInvisibleAttr() {
 		Attribute invisible = new Attribute(null, null, "Invisible");
 		invisible.setProperties(new HashMap<String, Property>());
-		Property visibility = new Property(PropertyInfo.VISIBLE_IN_EDITION.getPropName(), false);
+		Property visibility = new Property(PropertyInfo.VISIBLE_IN_EDITION.getPropName(), true);
 		invisible.getProperties().put(visibility.getPropName(), visibility);
 		return invisible;
 	}
@@ -183,6 +184,11 @@ public class BaseLayoutRender implements ILayoutRender {
 	private void createAttributeUI(Attribute attr, Composite parent, ModelReference modelInstance) {
 		String presentationType = attr.getPropertyValue(PropertyInfo.PRESENTATION_TYPE);
 
+		if(Property.PresentationType.NAVIGATION.equals(presentationType)){
+			// we must skip navigation presentation
+			return;
+		}
+		
 		IAttributeRender attrRender = presProvider.getAttributeRender(presentationType);
 		if (attrRender == null) {
 			// try to use TEXT as default...

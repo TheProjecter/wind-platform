@@ -26,7 +26,6 @@ public class GroupLayoutRender extends BaseLayoutRender {
 
 	/**
 	 * 
-	 * @param groupRef
 	 */
 	public GroupLayoutRender(Attribute groupAttr) {
 		super();
@@ -50,7 +49,11 @@ public class GroupLayoutRender extends BaseLayoutRender {
 		Group group = new Group(parent, SWT.SHADOW_IN);
 		group.setText(groupAttr.getLabel());
 		group.setLayout(new GridLayout(1, false));
-		group.setLayoutData(new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false));
+		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.horizontalAlignment = GridData.BEGINNING;
+		gd.grabExcessHorizontalSpace = true;
+		group.setLayoutData(gd);
+
 		return super.layout(groupAtts, group, modelInstance);
 	}
 
