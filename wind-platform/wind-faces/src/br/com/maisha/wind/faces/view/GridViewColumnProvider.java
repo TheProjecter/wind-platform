@@ -1,6 +1,8 @@
 package br.com.maisha.wind.faces.view;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jface.viewers.TableViewer;
@@ -24,7 +26,10 @@ import br.com.maisha.terra.lang.PropertyInfo;
  */
 public class GridViewColumnProvider {
 
-	/** Key used to store a reference for the {@link Attribute} in respective column */
+	/**
+	 * Key used to store a reference for the {@link Attribute} in respective
+	 * column
+	 */
 	public static final String ATTRIBUTE_COLUMN_DATA_KEY = "attr";
 
 	/** Domain Object */
@@ -45,6 +50,22 @@ public class GridViewColumnProvider {
 	}
 
 	/**
+	 * 
+	 * @param dObj
+	 * @return
+	 */
+	public List<Attribute> getGridAttributes() {
+		List<Attribute> atts = new ArrayList<Attribute>();
+		for (Attribute attr : dObj.getAtts()) {
+			if (!attr.getPropertyValue(PropertyInfo.VISIBLE_IN_GRID) || attr.isGroupAttribute()) {
+				continue;
+			}
+			atts.add(attr);
+		}
+		return atts;
+	}
+
+	/**
 	 * Do column creation
 	 */
 	public void createColumns() {
@@ -57,10 +78,7 @@ public class GridViewColumnProvider {
 
 		Map<Integer, String> map = new HashMap<Integer, String>();
 		int i = 0;
-		for (Attribute attr : dObj.getAtts()) {
-			if (!attr.getPropertyValue(PropertyInfo.VISIBLE_IN_GRID) || attr.isGroupAttribute()) {
-				continue;
-			}
+		for (Attribute attr : getGridAttributes()) {
 
 			TableViewerColumn col = new TableViewerColumn(viewer, SWT.NONE);
 			col.getColumn().setText(attr.getI18nLabel());
