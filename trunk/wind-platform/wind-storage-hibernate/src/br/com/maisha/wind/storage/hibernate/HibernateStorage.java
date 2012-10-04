@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.EntityMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -17,7 +18,9 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.WindApplication;
+import br.com.maisha.wind.common.search.Condition;
 import br.com.maisha.wind.storage.IStorage;
+import br.com.maisha.wind.storage.hibernate.criteria.CriteriaTransformer;
 
 /**
  * 
@@ -89,11 +92,11 @@ public class HibernateStorage implements IStorage {
 		try {
 
 			// load entity initializing collections
-			ret = (ModelReference) getHibernateTemplate().execute(new HibernateCallback() {
-				public Object doInHibernate(Session sess) throws HibernateException, SQLException {
-					
+			ret =  getHibernateTemplate().execute(new HibernateCallback<ModelReference>() {
+				public ModelReference doInHibernate(Session sess) throws HibernateException, SQLException {
+
 					ModelReference r = (ModelReference) sess.get(clazz, id);
-					
+
 					SessionFactory sessionFactory = sess.getSessionFactory();
 					ClassMetadata meta = sessionFactory.getClassMetadata(clazz);
 					for (String propertyName : meta.getPropertyNames()) {
@@ -101,7 +104,7 @@ public class HibernateStorage implements IStorage {
 							getHibernateTemplate().initialize(meta.getPropertyValue(r, propertyName, EntityMode.POJO));
 						}
 					}
-					
+
 					return r;
 				}
 			});
@@ -139,7 +142,7 @@ public class HibernateStorage implements IStorage {
 	@SuppressWarnings("unchecked")
 	public List<ModelReference> getAll(DomainObject dObj) {
 
-		List<ModelReference> result = getHibernateTemplate().loadAll(dObj.getObjectClass());
+		List<ModelReference> result = (List<ModelReference>) getHibernateTemplate().loadAll(dObj.getObjectClass());
 		if (result != null) {
 			for (ModelReference m : result) {
 				m.setMeta(dObj);
@@ -171,6 +174,31 @@ public class HibernateStorage implements IStorage {
 			log.error(e.getMessage(), e);
 		}
 		return null;
+	}
+
+	/**
+	 * @see br.com.maisha.wind.storage.IStorage#search(br.com.maisha.terra.lang.DomainObject,
+	 *      java.util.List)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ModelReference> search(final DomainObject dObj, final List<Condition> conditions) {
+
+		List<ModelReference> ret = hibernateTemplate.execute(new HibernateCallback<List<ModelReference>>() {
+
+			public List<ModelReference> doInHibernate(Session sess) throws HibernateException, SQLException {
+				Criteria crt = sess.createCriteria(dObj.getObjectClass());
+
+				if (conditions != null && !conditions.isEmpty()) {
+					for (Condition condition : conditions) {
+						crt.add(CriteriaTransformer.toCriterion(condition));
+					}
+				}
+				return crt.list();
+			}
+		});
+
+		return ret;
 	}
 
 	/** @see HibernateStorage#hibernateTemplate */
