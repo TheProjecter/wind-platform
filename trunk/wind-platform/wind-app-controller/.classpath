@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry exported="true" kind="lib" path="lib/commons-pool.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-dbcp.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/joor-0.9.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/juel-engine.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/juel-2.2.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jython.jar"/>

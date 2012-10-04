@@ -31,13 +31,7 @@ public class WindTestBasic {
 	}
 
 
-	/**
-	 * @see org.springframework.test.AbstractSingleSpringContextTests#getConfigLocations()
-	 */
-	public String[] getConfigLocations() {
-		return new String[] { "/spring-ctx-test.xml" };
-	}
-
+ 
 	/**
 	 * Finds a Domain Object that matches the given Ref.
 	 * 

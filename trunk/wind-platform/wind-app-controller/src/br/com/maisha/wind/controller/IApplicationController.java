@@ -6,6 +6,7 @@ import java.util.Map;
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
+import br.com.maisha.wind.common.search.Condition;
 import br.com.maisha.wind.common.user.IUserContext;
 import br.com.maisha.wind.controller.model.ExecutionContext;
 
@@ -37,8 +38,16 @@ public interface IApplicationController {
 	 * @param dobj
 	 * @return
 	 */
-	List<ModelReference> filter(IUserContext userContext, DomainObject dobj);
+	List<ModelReference> search(IUserContext userContext, DomainObject dobj);
 
+	/**
+	 * @param userCtx
+	 * @param dObj
+	 * @param queryConditions
+	 * @return
+	 */
+	List<ModelReference> search(IUserContext userCtx, DomainObject dObj, List<Condition> queryConditions);
+	
 	/**
 	 * 
 	 * @param obj
@@ -80,10 +89,28 @@ public interface IApplicationController {
 	 * Navigates to the DomainObject mentioned as the type of the given
 	 * attribute.
 	 * 
-	 * @param sessid
-	 *            SessionID
+	 * @param userContext
+	 *            User Context
 	 * @param originatingAttribute
 	 *            Attribute that originates (or requests) the navigation
+	 * @param ref
+	 *            Originating Model Reference Instance
 	 */
-	void navigateFrom(IUserContext userContext, Attribute originatingAttribute, ModelReference ref);
+	void navigateForward(IUserContext userContext, Attribute originatingAttribute, ModelReference ref);
+
+	/**
+	 * Navigates "backward" to the given Domain Object, selecting the given
+	 * model reference instance.
+	 * 
+	 * @param userContext
+	 *            User Context
+	 * @param originatingDomainObject
+	 *            Domain Object originating (or requests) the navigation
+	 * @param destinationDomainObject
+	 *            Domain Object to go to.
+	 * @param destinationInstance
+	 *            Instance to select.
+	 */
+	void navigateBackward(IUserContext userContext, Attribute originatinAttribute, ModelReference destinationInstance);
+
 }
