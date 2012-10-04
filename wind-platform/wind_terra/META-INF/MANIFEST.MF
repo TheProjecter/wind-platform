@@ -17,9 +17,9 @@ Require-Bundle: wind_common;bundle-version="1.0.0",
  com.springsource.org.apache.commons.lang;bundle-version="2.4.0",
  org.apache.log4j;bundle-version="1.2.13",
  wind_lib;bundle-version="1.0.0",
- org.springframework.context;bundle-version="2.5.6",
- org.springframework.beans;bundle-version="2.5.6",
- org.springframework.core;bundle-version="2.5.6"
+ org.springframework.context,
+ org.springframework.beans,
+ org.springframework.core
 Export-Package: br.com.maisha.terra,
  br.com.maisha.terra.lang
 
