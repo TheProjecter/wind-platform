@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.WindApplication;
+import br.com.maisha.wind.common.search.Condition;
 
 /**
  * 
@@ -69,6 +70,14 @@ public interface IStorage {
 	 * @return
 	 */
 	List<ModelReference> filter(ModelReference model, String query, Object... param);
+	
+	/**
+	 * 
+	 * @param dObj
+	 * @param conditions
+	 * @return
+	 */
+	List<ModelReference> search(DomainObject dObj, List<Condition> conditions);
 
 	/**
 	 * 

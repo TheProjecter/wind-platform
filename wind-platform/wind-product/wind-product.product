@@ -5,13 +5,14 @@
 
    <configIni use="default">
       <linux>/wind-product/config.ini</linux>
+      <macosx>/wind-product/config.ini</macosx>
    </configIni>
 
    <launcherArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
-   <launcher>
+   <launcher name="wind">
       <solaris/>
       <win useIco="false">
          <bmp/>
@@ -36,6 +37,7 @@
       <plugin id="com.springsource.org.apache.commons.collections" autoStart="true" startLevel="0" />
       <plugin id="com.springsource.org.apache.commons.lang" autoStart="true" startLevel="0" />
       <plugin id="com.springsource.org.apache.commons.logging" autoStart="true" startLevel="0" />
+      <plugin id="groovy-all" autoStart="true" startLevel="0" />
       <plugin id="hibernate" autoStart="true" startLevel="0" />
       <plugin id="javax.servlet" autoStart="true" startLevel="0" />
       <plugin id="javax.servlet.source" autoStart="true" startLevel="0" />
@@ -111,6 +113,7 @@
       <plugin id="org.eclipse.rap.ui.views.source" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.rap.ui.workbench" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.rap.ui.workbench.source" autoStart="true" startLevel="0" />
+      <plugin id="org.hsqldb.hsqldb" autoStart="true" startLevel="0" />
       <plugin id="org.junit" autoStart="true" startLevel="0" />
       <plugin id="org.junit.source" autoStart="true" startLevel="0" />
       <plugin id="org.mortbay.jetty.server" autoStart="true" startLevel="0" />
@@ -121,9 +124,12 @@
       <plugin id="org.springframework.beans" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.context" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.core" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.jdbc" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.orm" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.osgi.core" autoStart="true" startLevel="0" />
       <plugin id="org.springframework.osgi.extender" autoStart="true" startLevel="1" />
       <plugin id="org.springframework.osgi.io" autoStart="true" startLevel="0" />
+      <plugin id="org.springframework.transaction" autoStart="true" startLevel="0" />
       <plugin id="wind-basic-sample" autoStart="true" startLevel="0" />
       <plugin id="wind-digester" autoStart="true" startLevel="0" />
       <plugin id="wind-faces.rap.mask" autoStart="true" startLevel="0" />
