@@ -26,6 +26,7 @@ import br.com.maisha.wind.common.exception.ExceptionHandler;
 import br.com.maisha.wind.common.listener.IAppModelListenerRegistry;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
+import br.com.maisha.wind.common.search.Condition;
 import br.com.maisha.wind.common.user.IUserContext;
 import br.com.maisha.wind.common.user.IUserContext.UserData;
 import br.com.maisha.wind.controller.execution.BasicRule;
@@ -183,14 +184,13 @@ public class ApplicationController implements IApplicationController {
 
 	/**
 	 * 
-	 * @see br.com.maisha.wind.controller.IApplicationController#filter(br.com.maisha.wind.common.user.IUserContext,
+	 * @see br.com.maisha.wind.controller.IApplicationController#search(br.com.maisha.wind.common.user.IUserContext,
 	 *      br.com.maisha.terra.lang.DomainObject)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<ModelReference> filter(IUserContext userContext, DomainObject dObj) {
+	public List<ModelReference> search(IUserContext userContext, DomainObject dObj) {
 		List<ModelReference> ret = Collections.EMPTY_LIST;
 
-		// procura por operacao "filtro"
 		Operation filterOp = null;
 		List<Operation> ops = dObj.getOperations();
 		for (Operation op : ops) {
@@ -215,6 +215,17 @@ public class ApplicationController implements IApplicationController {
 			ret = persistentStorage.getAll(dObj);
 		}
 
+		return ret;
+	}
+
+	/**
+	 * 
+	 * @see br.com.maisha.wind.controller.IApplicationController#search(br.com.maisha.wind.common.user.IUserContext,
+	 *      br.com.maisha.terra.lang.DomainObject, java.util.List)
+	 */
+	public List<ModelReference> search(IUserContext userCtx, DomainObject dObj, List<Condition> queryConditions) {
+		List<ModelReference> ret = null;
+		ret = persistentStorage.search(dObj, queryConditions);
 		return ret;
 	}
 
@@ -258,7 +269,7 @@ public class ApplicationController implements IApplicationController {
 	 *      br.com.maisha.terra.lang.ModelReference)
 	 */
 	public ModelReference openObjectInstance(IUserContext userContext, ModelReference ref) {
-		ModelReference currentInstance = null;
+		ModelReference currentInstance = ref;
 		if (ref.getId() != null && ref.getId() > 0) {
 			DomainObject meta = registry.getObject(ref.getAppId(), ref.getObjId());
 			WindApplication app = registry.retrieve(ref.getAppId());
@@ -376,11 +387,11 @@ public class ApplicationController implements IApplicationController {
 
 	/**
 	 * 
-	 * @see br.com.maisha.wind.controller.IApplicationController#navigateFrom(br.com.maisha.wind.common.user.IUserContext,
+	 * @see br.com.maisha.wind.controller.IApplicationController#navigateForward(br.com.maisha.wind.common.user.IUserContext,
 	 *      br.com.maisha.terra.lang.Attribute,
 	 *      br.com.maisha.terra.lang.ModelReference)
 	 */
-	public void navigateFrom(IUserContext userContext, Attribute originatingAttribute, ModelReference ref) {
+	public void navigateForward(IUserContext userContext, Attribute originatingAttribute, ModelReference ref) {
 		DomainObject originating = originatingAttribute.getDomainObject();
 		final DomainObject related = registry.getObject(originating.getApplication().getAppId(),
 				originatingAttribute.getType());
@@ -391,6 +402,30 @@ public class ApplicationController implements IApplicationController {
 
 		closeObject(originating, userContext);
 		openObject(related, userContext);
+	}
+
+	/**
+	 * 
+	 * @see br.com.maisha.wind.controller.IApplicationController#navigateBackward(br.com.maisha.wind.common.user.IUserContext,
+	 *      br.com.maisha.terra.lang.DomainObject,
+	 *      br.com.maisha.terra.lang.ModelReference)
+	 */
+	public void navigateBackward(IUserContext userContext, Attribute destinationAttribute,
+			ModelReference destinationInstance) {
+
+		Breadcrumb trail = userContext.getUserData(UserData.NAVIGATION_TRAIL);
+		Breadcrumb destinationBc = trail;
+		if (destinationBc != null) {
+			while (!destinationBc.getOriginatingAttribute().equals(destinationAttribute)) {
+				destinationBc = destinationBc.getPrevious();
+			}
+		}
+		userContext
+				.storeUserData(UserData.NAVIGATION_TRAIL, destinationBc == null ? null : destinationBc.getPrevious());
+
+		DomainObject currentObject = userContext.getUserData(UserData.OPENED_OBJECT);
+		closeObject(currentObject, userContext);
+		openObject(destinationAttribute.getDomainObject(), userContext);
 	}
 
 	/**

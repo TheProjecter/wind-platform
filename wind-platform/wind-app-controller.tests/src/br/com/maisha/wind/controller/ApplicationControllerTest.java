@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.PropertyResourceBundle;
@@ -21,6 +22,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import br.com.maisha.terra.lang.DomainObject;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.wind.common.factory.ServiceProvider;
+import br.com.maisha.wind.common.search.Condition;
 import br.com.maisha.wind.common.user.CommonUserContext;
 import br.com.maisha.wind.controller.message.PlatformMessageRegistry;
 import br.com.maisha.wind.controller.model.ExecutionContext;
@@ -40,7 +42,6 @@ public class ApplicationControllerTest extends WindTestBasic {
 
 	private ApplicationManager appMgr;
 	private IApplicationController bean;
-	
 
 	@Before
 	public void before() throws Exception {
@@ -54,29 +55,21 @@ public class ApplicationControllerTest extends WindTestBasic {
 
 		// bean under test
 		bean = ServiceProvider.getInstance().getService(IApplicationController.class, Activator.getDefault());
-		
-		
-		
-		
+
 	}
 
 	@After
 	public void after() throws Exception {
 		// limpa dados inseridos
-		
-		try{
-			if(mockBuilder.getJdbcTemplate() != null){
-				List lst = mockBuilder.getJdbcTemplate().queryForList("select * from conta");
-				System.out.println(">>>>>>>>>>>>>" + lst.size());
+
+		try {
+			if (mockBuilder.getJdbcTemplate() != null) {
 				mockBuilder.getJdbcTemplate().execute("delete from conta");
-				lst = mockBuilder.getJdbcTemplate().queryForList("select * from conta");
-				System.out.println(">>>>>>>>>>>>>" + lst.size());
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		bean = null;
 		windApp = null;
 	}
@@ -122,7 +115,7 @@ public class ApplicationControllerTest extends WindTestBasic {
 	 */
 	@Test
 	public void testMessageAPIGroovyOperation() throws Exception {
-		
+
 		PlatformMessageRegistry pmr = new PlatformMessageRegistry();
 		pmr.init();
 
@@ -138,9 +131,9 @@ public class ApplicationControllerTest extends WindTestBasic {
 		ctx.setOperation(dObj.getOperation("UsesOfMessageAPI"));
 		ctx.setUserContext(new CommonUserContext("TEST_SESSID"));
 		ctx.setMeta(dObj);
-		
+
 		ctx = bean.runOperation(ctx);
-		
+
 		assertTrue((Boolean) ctx.getSession().get("executed"));
 		assertNotNull(ctx.getMessages());
 		assertEquals(10, ctx.getMessages().size());
@@ -173,7 +166,7 @@ public class ApplicationControllerTest extends WindTestBasic {
 
 		assertEquals("this is a message key used for tests", ctx.getMessages().get(9).getFormattedMessage());
 		assertEquals(MessageKind.SUCCESS, ctx.getMessages().get(9).getKind());
-		
+
 	}
 
 	/**
@@ -225,7 +218,6 @@ public class ApplicationControllerTest extends WindTestBasic {
 		assertEquals(BigDecimal.valueOf(150), ctx.getSession().get("percent_Of"));
 	}
 
-	
 	/**
 	 * <p>
 	 * Given that I want to execute a groovy business rule that uses the
@@ -250,7 +242,7 @@ public class ApplicationControllerTest extends WindTestBasic {
 		Reflect.on(instance).set("tipo", "Credito");
 		Reflect.on(instance).set("saldo", 154.54d);
 		storage.save(instance);
-		
+
 		PlatformMessageRegistry pmr = new PlatformMessageRegistry();
 		pmr.init();
 
@@ -272,8 +264,8 @@ public class ApplicationControllerTest extends WindTestBasic {
 		assertNotNull(cList);
 		assertEquals(1, cList.size());
 
-	}	
-	
+	}
+
 	/**
 	 * <p>
 	 * Given that I want to validate the execution of a ExecutionContext
@@ -307,7 +299,6 @@ public class ApplicationControllerTest extends WindTestBasic {
 
 	}
 
-
 	/**
 	 * <p>
 	 * Given that I want to open an object instance
@@ -326,23 +317,49 @@ public class ApplicationControllerTest extends WindTestBasic {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(ds, false);
 		jdbcTemplate.execute("delete from conta");
 
-		
 		DomainObject dObj = findDomainObject("Conta", windApp);
 		ModelReference instance = bean.createNewInstance(new CommonUserContext("TEST_SESSID"), dObj);
-		
+
 		IStorage storage = windApp.getBean(IStorage.BEAN_NAME, IStorage.class);
 		Reflect.on(instance).set("nome", "Itau");
 		Reflect.on(instance).set("tipo", "Credito");
 		Reflect.on(instance).set("saldo", 154.54d);
-		storage.save(instance);		
-		
+		storage.save(instance);
+
 		ModelReference opened = bean.openObjectInstance(new CommonUserContext("TEST_SESSID"), instance);
-		
+
 		assertNotNull(opened);
 		assertEquals(opened.getAppId(), "testApp");
 		assertEquals(opened.getObjId(), "Conta");
 		assertEquals(Reflect.on(opened).get("nome"), "Itau");
 		assertEquals(Reflect.on(opened).get("tipo"), "Credito");
 		assertEquals(Reflect.on(opened).get("saldo"), 154.54d);
+	}
+
+	/**
+	 * <p>
+	 * Given that I want to query a Domain Object named Person where Person.name
+	 * eq 'Freitas'
+	 * </p>
+	 * <p>
+	 * When I call
+	 * {@link IApplicationController#search(br.com.maisha.wind.common.user.IUserContext, DomainObject)}
+	 * passing this criteria.
+	 * </p>
+	 * <p>
+	 * Then I must receive the matching instances back.
+	 * </p>
+	 * 
+	 * @throws Exception
+	 */
+	public void testSearch() throws Exception {
+
+		Condition nameCondition = new Condition("name", Condition.Operator.EQ, "Freitas");
+		List<Condition> criteria = new ArrayList<Condition>();
+		criteria.add(nameCondition);
+		
+		DomainObject dObj = findDomainObject("Conta", windApp);
+		
+		bean.search(new CommonUserContext("SESSION_ID"), dObj, criteria);
 	}
 }

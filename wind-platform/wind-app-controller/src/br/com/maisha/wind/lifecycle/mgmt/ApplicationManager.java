@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -81,7 +82,7 @@ public class ApplicationManager implements IApplicationManager {
 	 */
 	private String readAppCfg(BundleContext context) throws Exception {
 		URL appCfg = context.getBundle().getEntry("/META-INF/wind-app.cfg");
-		if(appCfg == null){
+		if (appCfg == null) {
 			throw new IllegalArgumentException("Wind Application Cfg File not found");
 		}
 		StringWriter writer = new StringWriter();
@@ -102,14 +103,14 @@ public class ApplicationManager implements IApplicationManager {
 	 * @return
 	 * @throws Exception
 	 */
-	private WindApplication buildWindApplication( BundleContext bCtx) throws Exception{
+	private WindApplication buildWindApplication(BundleContext bCtx) throws Exception {
 		String appCfg = readAppCfg(bCtx);
-		if(StringUtils.isBlank(appCfg)){
-			throw new IllegalArgumentException("Invalid Wind Application Cfg: "+appCfg);
+		if (StringUtils.isBlank(appCfg)) {
+			throw new IllegalArgumentException("Invalid Wind Application Cfg: " + appCfg);
 		}
 		return appCfgReader.read(new ByteArrayInputStream(appCfg.getBytes()));
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -186,7 +187,6 @@ public class ApplicationManager implements IApplicationManager {
 
 	}
 
-	
 	/**
 	 * 
 	 * @param rb
@@ -240,7 +240,6 @@ public class ApplicationManager implements IApplicationManager {
 
 	}
 
-	
 	/**
 	 * Constructs an Spring Application Context for the given Wind Application
 	 * <p/>
@@ -273,15 +272,32 @@ public class ApplicationManager implements IApplicationManager {
 				springAppCtx.registerBeanDefinition(operation.getRef() + "Rule",
 						wrapperBeanDefinition.getBeanDefinition());
 			}
+
+			// data providers
+			for (Attribute attr : domainObject.getAtts()) {
+				String content = attr.getPropertyValue(PropertyInfo.CONTENT);
+				if (StringUtils.isNotBlank(content)) {
+					try {
+						BeanDefinitionBuilder dataProviderBeanDefinition = BeanDefinitionBuilder
+								.genericBeanDefinition(content);
+						springAppCtx.registerBeanDefinition(attr.getRef() + "_DataProvider",
+								dataProviderBeanDefinition.getBeanDefinition());
+					} catch (Exception e) {
+						log.error("Could not define [" + content + "] as a Data Provider.");
+					}
+				}
+			}
 		}
-		
-		// maybe this should be more flexible in the future when we add support for other languages
-		BeanDefinitionBuilder groovyApiBootstrap = BeanDefinitionBuilder.genericBeanDefinition("br.com.maisha.wind.controller.execution.api.groovy.GroovyEngineBootstrap");
+
+		// maybe this should be more flexible in the future when we add support
+		// for other languages
+		BeanDefinitionBuilder groovyApiBootstrap = BeanDefinitionBuilder
+				.genericBeanDefinition("br.com.maisha.wind.controller.execution.api.groovy.GroovyEngineBootstrap");
 		groovyApiBootstrap.setAutowireMode(Autowire.BY_NAME.value());
 		groovyApiBootstrap.setInitMethodName("bootstrap");
 		springAppCtx.registerBeanDefinition("groovyApi", groovyApiBootstrap.getBeanDefinition());
-		
 
+		Properties hibProps = new Properties();
 		Datasource ds = windApp.getDatasource();
 		if (ds != null) {
 			RDMBSVendor vendor = null;
@@ -303,12 +319,12 @@ public class ApplicationManager implements IApplicationManager {
 			datasource.addPropertyValue("username", ds.getUsername());
 			datasource.addPropertyValue("password", ds.getPassword());
 			springAppCtx.registerBeanDefinition("datasource", datasource.getBeanDefinition());
-			
-			//session factory
+
+			// session factory
 			BeanDefinitionBuilder sessionFactory = BeanDefinitionBuilder
 					.genericBeanDefinition("org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean");
 			sessionFactory.addPropertyReference("dataSource", "datasource");
-			Properties hibProps = new Properties();
+
 			hibProps.put("hibernate.dialect", dialect);
 			hibProps.put("hibernate.show_sql", true);
 			hibProps.put("hibernate.hbm2ddl.auto", "update");
@@ -321,18 +337,27 @@ public class ApplicationManager implements IApplicationManager {
 			}
 			sessionFactory.addPropertyValue("annotatedClasses", classesList);
 			springAppCtx.registerBeanDefinition("sessionFactory", sessionFactory.getBeanDefinition());
-			
+
 			// hibernate storage
-			BeanDefinitionBuilder hibernateStorage = BeanDefinitionBuilder.genericBeanDefinition("br.com.maisha.wind.storage.hibernate.HibernateStorage");
+			BeanDefinitionBuilder hibernateStorage = BeanDefinitionBuilder
+					.genericBeanDefinition("br.com.maisha.wind.storage.hibernate.HibernateStorage");
 			hibernateStorage.addPropertyReference("sessionFactory", "sessionFactory");
 			springAppCtx.registerBeanDefinition(IStorage.BEAN_NAME, hibernateStorage.getBeanDefinition());
-			
+
 			// hibernate template
-			BeanDefinitionBuilder hibernateTemplate = BeanDefinitionBuilder.genericBeanDefinition("org.springframework.orm.hibernate3.HibernateTemplate");
+			BeanDefinitionBuilder hibernateTemplate = BeanDefinitionBuilder
+					.genericBeanDefinition("org.springframework.orm.hibernate3.HibernateTemplate");
 			hibernateTemplate.addPropertyReference("sessionFactory", "sessionFactory");
 			springAppCtx.registerBeanDefinition("hibernateTemplate", hibernateTemplate.getBeanDefinition());
-		
+
+			// JPA
+			Set<String> pkgsToScan = new HashSet<String>();
+			for (DomainObject dObj : windApp.getDomainObjects()) {
+				pkgsToScan.add(dObj.getPckg());
+			}
+
 		}
+
 		springAppCtx.setClassLoader(windApp.getClassLoader());
 		springAppCtx.refresh();
 
