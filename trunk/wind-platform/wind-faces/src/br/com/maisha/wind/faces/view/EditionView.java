@@ -1,12 +1,15 @@
 package br.com.maisha.wind.faces.view;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -14,8 +17,13 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.forms.events.HyperlinkEvent;
+import org.eclipse.ui.forms.events.IHyperlinkListener;
 import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.part.ViewPart;
 import org.springframework.beans.BeanUtils;
@@ -31,7 +39,9 @@ import br.com.maisha.wind.common.factory.ServiceProvider;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.ChangeType;
 import br.com.maisha.wind.common.listener.IAppRegistryListener.LevelType;
 import br.com.maisha.wind.common.user.IUserContext;
+import br.com.maisha.wind.common.user.IUserContext.UserData;
 import br.com.maisha.wind.controller.IApplicationController;
+import br.com.maisha.wind.controller.model.Breadcrumb;
 import br.com.maisha.wind.faces.IPresentationProvider;
 import br.com.maisha.wind.faces.action.BaseAction;
 import br.com.maisha.wind.faces.action.ClearEditionViewAction;
@@ -47,7 +57,7 @@ import br.com.maisha.wind.faces.render.layout.ILayoutRender;
  * @author Paulo Freitas (pfreitas1@gmail.com)
  * 
  */
-public class EditionView extends ViewPart implements IRender {
+public class EditionView extends ViewPart implements IRender, ISelectionListener {
 
 	/** View's ID. */
 	public static final String ID = "br.com.maisha.wind.faces.view.editionView";
@@ -78,6 +88,8 @@ public class EditionView extends ViewPart implements IRender {
 
 	/** This one renders as Folder. */
 	private ILayoutRender folderLayoutRender;
+
+	private FowardNavigationAction forwardAction;
 
 	/*
 	 * (non-Javadoc)
@@ -113,6 +125,10 @@ public class EditionView extends ViewPart implements IRender {
 		folderLayoutRender = new FolderLayoutRender();
 
 		presProvider.registerRender(this);
+
+		// add this view as a selection listener to the workbench page
+		getSite().getPage().addSelectionListener(GridView.ID, (ISelectionListener) this);
+
 	}
 
 	/**
@@ -217,20 +233,69 @@ public class EditionView extends ViewPart implements IRender {
 		headClient.setBackground(null);
 		headClient.setLayout(new GridLayout(2, false));
 
-		Composite bread = toolkit.createComposite(headClient, SWT.BORDER);
-		bread.setLayout(new RowLayout(SWT.HORIZONTAL));
-		toolkit.createHyperlink(bread, "Orcamento", SWT.NONE).setBackground(null);
-		toolkit.createLabel(bread, "/").setBackground(null);
-		toolkit.createHyperlink(bread, "Categoria", SWT.NONE).setBackground(null);
+		IUserContext userCtx = (IUserContext) RWT.getSessionStore().getAttribute(IUserContext.USER_CONTEXT);
+		Breadcrumb navTrail = userCtx.getUserData(UserData.NAVIGATION_TRAIL);
+
+		if (navTrail != null) {
+			Composite breadComposite = toolkit.createComposite(headClient, SWT.BORDER);
+			breadComposite.setLayout(new RowLayout(SWT.HORIZONTAL));
+
+			List<Breadcrumb> breadCrumbs = new ArrayList<Breadcrumb>();
+			breadCrumbs.add(navTrail);
+
+			Breadcrumb previous = navTrail.getPrevious();
+			while (previous != null) {
+				breadCrumbs.add(previous);
+				previous = previous.getPrevious();
+			}
+
+			Collections.reverse(breadCrumbs);
+			for (Iterator<Breadcrumb> i = breadCrumbs.iterator(); i.hasNext();) {
+				Breadcrumb breadcrumb = i.next();
+				createBreadcrumb(breadcrumb, breadComposite, i.hasNext());
+			}
+
+		}
 
 		if (attrsToNavigate != null && attrsToNavigate.size() > 0) {
 			ToolBar navigationToolbar = new ToolBar(headClient, SWT.NONE);
 			ToolBarManager tbm = new ToolBarManager(navigationToolbar);
-			tbm.add(new FowardNavigationAction(attrsToNavigate));
+			forwardAction = new FowardNavigationAction(attrsToNavigate);
+			forwardAction.setEnabled(false);
+			tbm.add(forwardAction);
 			tbm.update(true);
 		}
 
 		form.setHeadClient(headClient);
+	}
+
+	/**
+	 * @param navTrail
+	 * @param bread
+	 * @param addSlash
+	 */
+	private void createBreadcrumb(final Breadcrumb navTrail, Composite bread, boolean addSlash) {
+		String label = navTrail.getOriginatingAttribute().getDomainObject().getLabel();
+
+		final Hyperlink hyperlink = toolkit.createHyperlink(bread, label, SWT.NONE);
+		hyperlink.setBackground(null);
+		if (addSlash) {
+			toolkit.createLabel(bread, "/").setBackground(null);
+		}
+		
+		//hyperlink action
+		hyperlink.addHyperlinkListener(new IHyperlinkListener() {
+			public void linkExited(HyperlinkEvent e) {
+			}
+
+			public void linkEntered(HyperlinkEvent e) {
+			}
+
+			public void linkActivated(HyperlinkEvent e) {
+				IUserContext userContext = (IUserContext) RWT.getSessionStore().getAttribute(IUserContext.USER_CONTEXT);
+				appController.navigateBackward(userContext, navTrail.getOriginatingAttribute(), navTrail.getOriginatingModelRef());
+			}
+		});
 	}
 
 	/**
@@ -254,6 +319,19 @@ public class EditionView extends ViewPart implements IRender {
 		IAction clearEditionView = new ClearEditionViewAction(object);
 		tbm.add(clearEditionView);
 		tbm.update(true);
+	}
+
+	/**
+	 * @see org.eclipse.ui.ISelectionListener#selectionChanged(org.eclipse.ui.IWorkbenchPart,
+	 *      org.eclipse.jface.viewers.ISelection)
+	 */
+	@Override
+	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+		// if there is a selection at grid view, then we must enable forward
+		// action
+		if (!selection.isEmpty()) {
+			forwardAction.setEnabled(true);
+		}
 	}
 
 }

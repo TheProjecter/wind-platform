@@ -95,7 +95,8 @@ public class PresentationProvider implements IPresentationProvider {
 
 	/**
 	 * 
-	 * @see br.com.maisha.wind.faces.IPresentationProvider#processMenu(java.lang.String, java.lang.String)
+	 * @see br.com.maisha.wind.faces.IPresentationProvider#processMenu(java.lang.String,
+	 *      java.lang.String)
 	 */
 	public void processMenu(String appId, String objectId) {
 		log.debug("Processing menu click at [" + objectId + "]");
@@ -103,12 +104,17 @@ public class PresentationProvider implements IPresentationProvider {
 				Activator.getDefault().getBundle().getBundleContext());
 
 		IUserContext userContext = (IUserContext) RWT.getSessionStore().getAttribute(IUserContext.USER_CONTEXT);
-		
+
 		DomainObject openedObject = userContext.getUserData(UserData.OPENED_OBJECT);
 		if (openedObject != null) {
 			appCtrl.closeObject(appId, objectId, userContext);
 		}
 		openedObject = appCtrl.openObject(appId, objectId, userContext);
+
+		// clean navigation trail
+		// TODO talvez a camada de apresentacao nao seja o melhor lugar pra
+		// fazer isso. Alem disso, temoss que gerar o navigation history tambem
+		userContext.storeUserData(UserData.NAVIGATION_TRAIL, null);
 	}
 
 	/**

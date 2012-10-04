@@ -7,8 +7,7 @@
 
 
 
-	<bean name="presentationProvider" 
-		class="br.com.maisha.wind.faces.PresentationProvider">
+	<bean name="presentationProvider" class="br.com.maisha.wind.faces.PresentationProvider">
 		<property name="render">
 			<set>
 				<ref bean="menuRenderer" />
@@ -24,6 +23,7 @@
 				<entry key="related" value-ref="relatedRender" />
 				<entry key="embedded_object" value-ref="embeddedObjectRender" />
 				<entry key="group" value-ref="attributeGroupRender" />
+				<entry key="list" value-ref="selectMultipleListAttrRender" />
 			</map>
 		</property>
 	</bean>
@@ -55,9 +55,11 @@
 		class="br.com.maisha.wind.faces.render.attr.EmbeddedObjectAttrRender">
 		<property name="presentationProvider" ref="presentationProvider" />
 		<property name="registry" ref="appRegistryOsgi"></property>
-		</bean>
+	</bean>
 	<bean name="attributeGroupRender"
 		class="br.com.maisha.wind.faces.render.attr.AttributeGroupRender" />
+	<bean name="selectMultipleListAttrRender"
+		class="br.com.maisha.wind.faces.render.attr.SelectMultipleListAttr" />
 
 
 

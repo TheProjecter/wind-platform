@@ -92,7 +92,7 @@ public class FowardNavigationAction extends Action implements SelectionListener 
 		IUserContext userContext = (IUserContext) RWT.getSessionStore().getAttribute(IUserContext.USER_CONTEXT);
 		ModelReference openedInstance = userContext.getUserData(UserData.OPENED_INSTANCE);
 		
-		appCtrl.navigateFrom(userContext, (Attribute) e.widget.getData(), openedInstance);
+		appCtrl.navigateForward(userContext, (Attribute) e.widget.getData(), openedInstance);
 	}
 
 }

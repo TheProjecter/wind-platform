@@ -17,7 +17,8 @@ Bundle-ClassPath: .,
  lib/commons-dbcp.jar,
  lib/commons-pool.jar,
  lib/postgresql-8.3-603.jdbc3.jar,
- lib/antlr-runtime-3.1.1.jar
+ lib/antlr-runtime-3.1.1.jar,
+ lib/joor-0.9.2.jar
 Export-Package: com.lowagie.text;uses:="com.lowagie.text.pdf",
  com.lowagie.text.factories;uses:="com.lowagie.text",
  com.lowagie.text.html;
@@ -193,6 +194,7 @@ Export-Package: com.lowagie.text;uses:="com.lowagie.text.pdf",
  org.apache.commons.jocl,
  org.apache.commons.pool,
  org.apache.commons.pool.impl,
+ org.joor,
  org.postgresql,
  org.postgresql.core,
  org.postgresql.core.types,
