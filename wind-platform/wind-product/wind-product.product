@@ -4,11 +4,10 @@
 <product name="Wind Platform" uid="br.com.wind.maisha.product" id="wind_common.wind_common_product" application="org.eclipse.ui.ide.workbench" version="0.1" useFeatures="true" includeLaunchers="true">
 
    <configIni use="default">
-      <linux>/wind-product/config.ini</linux>
-      <macosx>/wind-product/config.ini</macosx>
    </configIni>
 
    <launcherArgs>
+      <programArgs>-console</programArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
@@ -143,6 +142,9 @@
       <plugin id="wind_lib" autoStart="true" startLevel="1" />
       <plugin id="wind_preferences" autoStart="true" startLevel="0" />
       <plugin id="wind_terra" autoStart="true" startLevel="1" />
+      <property name="eclipse.ignoreApp" value="true" />
+      <property name="org.osgi.service.http.port" value="7070" />
+      <property name="osgi.noShutdown" value="true" />
    </configurations>
 
 </product>
