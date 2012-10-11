@@ -9,8 +9,7 @@
  ******************************************************************************/
 package br.com.maisha.wind.faces.api.data;
 
-import java.io.Serializable;
-import java.util.Map;
+import java.util.List;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.ModelReference;
@@ -32,6 +31,6 @@ public interface IDataProvider {
 	 * @param instance
 	 * @return
 	 */
-	Map<Serializable, Object> getData(Attribute attr, ModelReference instance);
+	List<Item> getData(Attribute attr, ModelReference instance);
 
 }
