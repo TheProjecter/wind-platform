@@ -329,7 +329,7 @@ public class EditionView extends ViewPart implements IRender, ISelectionListener
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		// if there is a selection at grid view, then we must enable forward
 		// action
-		if (!selection.isEmpty()) {
+		if (!selection.isEmpty() && forwardAction != null) {
 			forwardAction.setEnabled(true);
 		}
 	}

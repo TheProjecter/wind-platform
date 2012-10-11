@@ -9,39 +9,33 @@
  ******************************************************************************/
 package br.com.maisha.wind.faces.render.attr;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.UpdateSetStrategy;
+import org.eclipse.core.databinding.beans.BeanProperties;
 import org.eclipse.core.databinding.beans.BeansObservables;
-import org.eclipse.core.databinding.observable.list.IObservableList;
-import org.eclipse.core.databinding.observable.list.ListDiff;
-import org.eclipse.core.databinding.property.INativePropertyListener;
-import org.eclipse.core.databinding.property.IProperty;
-import org.eclipse.core.databinding.property.ISimplePropertyListener;
-import org.eclipse.core.databinding.property.NativePropertyListener;
-import org.eclipse.jface.databinding.swt.WidgetListProperty;
+import org.eclipse.core.databinding.conversion.IConverter;
+import org.eclipse.core.databinding.observable.list.WritableList;
+import org.eclipse.core.databinding.observable.set.IObservableSet;
+import org.eclipse.jface.databinding.viewers.IViewerObservableSet;
+import org.eclipse.jface.databinding.viewers.ViewerProperties;
+import org.eclipse.jface.databinding.viewers.ViewerSupport;
 import org.eclipse.jface.layout.RowDataFactory;
 import org.eclipse.jface.layout.RowLayoutFactory;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ISelectionProvider;
+import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.ui.IWorkbenchPart;
 
 import br.com.maisha.terra.lang.Attribute;
 import br.com.maisha.terra.lang.ModelReference;
 import br.com.maisha.terra.lang.Property.PresentationType;
 import br.com.maisha.terra.lang.PropertyInfo;
 import br.com.maisha.wind.faces.api.data.IDataProvider;
+import br.com.maisha.wind.faces.api.data.Item;
 
 /**
  * @author Paulo Freitas (pfreitas1@gmail.com)
@@ -72,135 +66,73 @@ public class SelectMultipleListAttr extends BaseAttrRender {
 		Composite container = new Composite(parent, SWT.NONE);
 		RowLayoutFactory.fillDefaults().fill(true).type(SWT.VERTICAL).applyTo(container);
 
-		List<Button> checkboxes = new ArrayList<Button>();
 		String dataProviderClass = attr.getPropertyValue(PropertyInfo.CONTENT);
 		if (StringUtils.isNotBlank(dataProviderClass)) {
 			IDataProvider dataProvider = (IDataProvider) attr.getDomainObject().getApplication().getAppCtx()
 					.getBean(attr.getRef() + "_DataProvider");
+			List<Item> data = dataProvider.getData(attr, modelInstance);
 
-			final DataBindingContext dbctx = new DataBindingContext();
+			// configures CheckboxTree
+			CheckboxTableViewer checkboxTree = CheckboxTableViewer.newCheckList(container, SWT.NONE);
+			RowDataFactory.swtDefaults().applyTo(checkboxTree.getTable());
 
-			Map<Serializable, Object> data = dataProvider.getData(attr, modelInstance);
-			for (Map.Entry<Serializable, Object> e : data.entrySet()) {
+			// data binding
+			DataBindingContext dbctx = new DataBindingContext();
+			ViewerSupport.bind(checkboxTree, new WritableList(data, Item.class),
+					BeanProperties.value(Item.class, "value"));
 
-				Button checkbox = new Button(container, SWT.CHECK);
-				checkbox.setData(e.getKey());
-				checkbox.setText(String.valueOf(e.getValue()));
-				RowDataFactory.swtDefaults().applyTo(checkbox);
-				checkboxes.add(checkbox);
+			IViewerObservableSet target = ViewerProperties.checkedElements(Item.class).observe(checkboxTree);
+			IObservableSet model = BeansObservables.observeSet(modelInstance, attr.getRef());
 
-			}
-			
-			container.setData(checkboxes);
-			
-			// configure value binding
-			IObservableList observable = BeansObservables.observeList(modelInstance, attr.getRef());
-			dbctx.bindList(new MultipleListWidgetProperty().observe(container), observable);
+			UpdateSetStrategy targetToModel = new UpdateSetStrategy();
+			targetToModel.setConverter(new ItemToLongConverter());
+
+			UpdateSetStrategy modelToTarget = new UpdateSetStrategy();
+			modelToTarget.setConverter(new LongToItemConverter());
+
+			dbctx.bindSet(target, model, targetToModel, modelToTarget);
+
 		}
 	}
 
-	class MultipleListWidgetProperty extends WidgetListProperty {
-
-		
-		/**
-		 * @see org.eclipse.core.databinding.property.list.IListProperty#getElementType()
-		 */
-		public Object getElementType() {
+	/**
+	 * @author Paulo Freitas (pfreitas1@gmail.com)
+	 * 
+	 */
+	private final class ItemToLongConverter implements IConverter {
+		public Object getToType() {
 			return Long.class;
 		}
 
-		/**
-		 * @see org.eclipse.core.databinding.property.list.SimpleListProperty#doGetList(java.lang.Object)
-		 */
-		@Override
-		protected List<?> doGetList(Object source) {
-			List<Long> items = new ArrayList<Long>();
-			if(source instanceof Composite){
-				List<Button> checkboxes = (List<Button>) ((Composite)source).getData();
-				for(Button c : checkboxes){
-					if(c.getSelection()){
-						items.add((Long) c.getData());
-					}
-				}
-			} 
-//			updateList(source, null;)
-			return items;
+		public Object getFromType() {
+			return Item.class;
 		}
 
-		/**
-		 * @see org.eclipse.core.databinding.property.list.SimpleListProperty#doSetList(java.lang.Object,
-		 *      java.util.List,
-		 *      org.eclipse.core.databinding.observable.list.ListDiff)
-		 */
-		@Override
-		protected void doSetList(Object source, List list, ListDiff diff) {
-			// TODO Auto-generated method stub
-			System.out.println(source);
+		public Object convert(Object fromObject) {
+			return ((Item) fromObject).getId();
 		}
-
-		/**
-		 * @see org.eclipse.core.databinding.property.list.SimpleListProperty#adaptListener(org.eclipse.core.databinding.property.ISimplePropertyListener)
-		 */
-		@Override
-		public INativePropertyListener adaptListener(ISimplePropertyListener listener) {
-			return new MyNativeListener(this, listener);
-		}
-
 	}
-	
-	class MyNativeListener extends NativePropertyListener implements SelectionListener
-	{
 
-		/**
-		 * @param property
-		 * @param listener
-		 */
-		public MyNativeListener(IProperty property, ISimplePropertyListener listener) {
-			super(property, listener);
+	/**
+	 * @author Paulo Freitas (pfreitas1@gmail.com)
+	 * 
+	 */
+	private final class LongToItemConverter implements IConverter {
+		public Object getToType() {
+			return Item.class;
 		}
 
-		/**
-		 * @see org.eclipse.core.databinding.property.NativePropertyListener#doAddTo(java.lang.Object)
-		 */
-		@Override
-		protected void doAddTo(Object source) {
-			if(source instanceof Composite){
-				List<Button> checkboxes = (List<Button>) ((Composite)source).getData();
-				for(Button c : checkboxes){
-					c.addSelectionListener(this);
-				}
+		public Object getFromType() {
+			return Object.class;
+		}
+
+		public Object convert(Object fromObject) {
+			Item item = null;
+			if (fromObject instanceof Long) {
+				item = new Item((Long) fromObject, "");
 			}
-			System.out.println(source);
+			return item;
 		}
-
-		/**
-		 * @see org.eclipse.core.databinding.property.NativePropertyListener#doRemoveFrom(java.lang.Object)
-		 */
-		@Override
-		protected void doRemoveFrom(Object source) {
-			if(source instanceof Composite){
-				List<Button> checkboxes = (List<Button>) ((Composite)source).getData();
-				for(Button c : checkboxes){
-					c.removeSelectionListener(this);
-				}
-			}
-			System.out.println(source);
-		}
-		
-	 	/**
-	 	 * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
-	 	 */
-	 	@Override
-	 	public void widgetSelected(SelectionEvent e) {
-	 		System.out.println(e);
-	 	}
-	 	
-	 	/**
-	 	 * @see org.eclipse.swt.events.SelectionListener#widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent)
-	 	 */
-	 	@Override
-	 	public void widgetDefaultSelected(SelectionEvent e) {
-	 		widgetSelected(e);
-	 	}
 	}
+
 }

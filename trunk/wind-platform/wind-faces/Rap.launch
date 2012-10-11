@@ -38,5 +38,5 @@
 <booleanAttribute key="tracing" value="false"/>
 <booleanAttribute key="useCustomFeatures" value="false"/>
 <booleanAttribute key="useDefaultConfigArea" value="true"/>
-<stringAttribute key="workspace_bundles" value="auditoria-unimed@default:default,hibernate@default:default,org.junit@default:default,wind-digester@1:default,wind-faces.rap.mask@default:default,wind-storage-hibernate@1:default,wind-storage@1:default,wind_about@default:default,wind_app_controller@default:default,wind_common@default:default,wind_configuration@default:false,wind_data_exporter@default:default,wind_faces@default:default,wind_html_provider@default:default,wind_lib@default:default,wind_terra@default:true"/>
+<stringAttribute key="workspace_bundles" value="auditoria-unimed@default:default,hibernate@default:default,wind-digester@1:default,wind-faces.rap.mask@default:default,wind-storage-hibernate@1:default,wind-storage@1:default,wind_about@default:default,wind_app_controller@default:default,wind_common@default:default,wind_configuration@default:false,wind_data_exporter@default:default,wind_faces@default:default,wind_html_provider@default:default,wind_lib@default:default,wind_terra@default:true"/>
 </launchConfiguration>

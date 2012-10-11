@@ -80,6 +80,12 @@ public class GridViewColumnProvider {
 		int i = 0;
 		for (Attribute attr : getGridAttributes()) {
 
+			// skip some columns
+			if ("list".equals(attr.getPropertyValue(PropertyInfo.PRESENTATION_TYPE))
+					|| attr.getPropertyValue(PropertyInfo.ONTOMANY) != null) {
+				continue;
+			}
+
 			TableViewerColumn col = new TableViewerColumn(viewer, SWT.NONE);
 			col.getColumn().setText(attr.getI18nLabel());
 			col.getColumn().setResizable(true);

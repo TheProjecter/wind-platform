@@ -60,6 +60,7 @@ public class ClassMaker implements IClassMaker {
 	public ClassMaker() {
 		typeMap.put("Date", "java.util.Date");
 		typeMap.put("List", "java.util.List");
+		typeMap.put("Set", "java.util.Set");
 	}
 
 	/*
@@ -186,8 +187,7 @@ public class ClassMaker implements IClassMaker {
 
 					AnnotationsAttribute fieldAnnotation = new AnnotationsAttribute(cp, AnnotationsAttribute.visibleTag);
 
-					if("List".equals(att.getType())){
-//						   @CollectionTable(name="Nicknames", joinColumns=@JoinColumn(name="user_id"))
+					if("Set".equals(att.getType())){
 						Map<String, MemberValue> params = new HashMap<String, MemberValue>();
 						params.put("targetClass", new  ClassMemberValue(Long.class.getName(), cp));
 						fieldAnnotation.addAnnotation(createAnnoation(cp, "javax.persistence.ElementCollection", params));

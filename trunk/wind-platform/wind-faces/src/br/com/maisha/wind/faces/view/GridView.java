@@ -109,9 +109,9 @@ public class GridView extends ViewPart implements IRender, ISelectionListener {
 		viewer.setContentProvider(new GridViewContentProvider());
 		viewer.setComparator(new GridViewComparator());
 
-		GridViewPatternFilter filter = new GridViewPatternFilter();
-		viewer.addFilter(filter);
-		searchTextBox.addTraverseListener(new SearchBoxListener(viewer, filter));		
+//		GridViewPatternFilter filter = new GridViewPatternFilter();
+//		viewer.addFilter(filter);
+//		searchTextBox.addTraverseListener(new SearchBoxListener(viewer, filter));		
 		
 		getSite().setSelectionProvider(viewer);
 		getSite().getPage().addSelectionListener(GridView.ID, this);
