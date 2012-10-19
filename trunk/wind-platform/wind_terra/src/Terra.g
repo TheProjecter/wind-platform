@@ -69,7 +69,7 @@ PRESENTATION_TYPE: 'presentation_type';
 SUPPORTED_PRESENTATION_TYPES: 'text' | 'radio' | 'checkbox' | 'combo' | 'list' | 'textarea' | 'date' | 'related' | 'embedded_object' | 'group' | 'label' | 'navigation';
 PROPERTY:	'x' | 'y' | 'colspan' | 'rowspan' |  'disabled' |  'icon' | 'width' | 'height' | 'tooltip';
 ATTRIBUTE_PROPERTY: 'folder' | 'parent_group' | 'visibleInEdition' | 'visibleInGrid' | 'content' | 'value' | 'validValues' | 'validation' | 'required' | 'max_length' | 'min_length' | 'range' | 'mask' | 'event' | 'toString' | 'onetomany' | 'manytoone' | 'transient' ;
-OPERATION_PROPERTY: 'class' | 'file' | 'validWhen' | 'is_filter' | 'validate' ;
+OPERATION_PROPERTY: 'class' | 'file' | 'validWhen' | 'validate' ;
 OBJECT_PROPERTY: 'open_filtering' | 'event_handler' ;
 FOLDER_PROPERTY: 'sequence' ;
 GENERAL_PROPERTY: 'visible';
