@@ -1,0 +1,9 @@
+# Introduction #
+
+Wind Faces is the platform presentation module. The first implementation of it is based on [Eclipse RAP](http://eclipsesource.com/en/eclipse/eclipse-rap/). However as it's coded following a commom interface, it's possible to have many other sorts of impl.
+The user interface is builded at runtime by reading and interpreting domain objects strutcture.
+
+
+# Details #
+
+TODO, describe the commom faces interface and the basic path to code a new impl.

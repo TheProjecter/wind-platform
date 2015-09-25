@@ -1,0 +1,27 @@
+# Introduction #
+In this section will be presented the platform's application registry, how it holds app data and how it communicate to the other modules.
+Wind App Registry is basically a repository that holds metadata of all running applications. All changes in the model causes the fire of events to the registered listeners. Then each listener is reponsible to react in it's own way.
+
+# Data Structure #
+
+## How to Store Data ##
+
+## How to Retrieve Data ##
+
+
+# Listening to Model Changes #
+To listen to app metadata changes a class must implement an interface from the wind-common bundle. Then register it using a service from the wind-app-registry. Whenever a change to the application metadata model occurs all listeners will got notified. Based on the type of the event recieved the listener will react in a proper way.
+
+The event types are divided in two levels. The first level defines where the change ocurred, it may be:
+
+  * Application
+  * Object
+  * Property
+  * Operation
+
+The second level defines what have changed, it may be:
+  * Item added
+  * Item removed
+  * Item property value changed
+
+The listener also got a reference to the old and new values.

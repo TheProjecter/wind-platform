@@ -1,0 +1,1 @@
+<wiki:gadget url="http://wind-platform.googlecode.com/svn/trunk/wind-platform/documentation/wiki\_vimeo/gcVideo.xml" up\_video="http://vimeo.com/19453197" width="640" height="360" />

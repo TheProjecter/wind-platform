@@ -1,0 +1,57 @@
+# Validation #
+
+Validação deve ser:
+  * Por Operação;
+  * Possibilitar definir regras de validação que podem ser referenciadas por varias operações
+  * Validação de tipo fica no attributo e é realizada pelo databinding.
+  * Validação regex
+  * Flag na operação indica se os dados devem ser validados.
+
+## Exemplo de uso de validação ##
+
+```
+operation python CalculateCapacity "Passengers Capacity"{
+   file: CalculateCapacity.py
+   validate: true
+   validWhen: {
+	"key.erro1": ${this.capacity > 50 && this.weight < 48778},
+	"key.erro2": ${this.destiny == this.source},
+   }
+}
+```
+
+## Define a validation rule at object level ##
+It is also possible to define validation rules outside of an operation (at object's level). Then this validation rule is available to all operations of that object.
+
+```
+
+package br.com.maisha.wind.sample
+
+import location
+domain_object airbus "A 380" {
+
+Double weight "Weight"{
+x: 1
+y: 1
+width: 50
+}
+
+
+...
+
+
+operation python CalculateCapacity "Passengers Capacity"{
+  file: CalculateCapacity.py
+  validWhen: {
+	rule1,
+	rule2,
+  }
+}
+
+validation rule1 {
+   "key.erro1": ${this.capacity > 50 && this.weight < 48778}
+}
+
+}
+
+```

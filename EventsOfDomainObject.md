@@ -1,0 +1,40 @@
+# Introduction #
+
+While user is manipulating a Domain Object some events are generated. This events are captured by the Wind Platform and give  application bundle a chance to react to it.
+
+
+# Events fired by Domain Object #
+
+A Domain Object can trigger the following events during its manipulation:
+
+  * Before Open
+  * After Open
+  * Before Close
+  * After Close
+
+
+To handle an event, user must specify a EventHandler at object level. The EventHandler get called when an event occurs and can do something in response.
+
+## Configure EventHandler at Domain Object level ##
+
+The snippet bellow demonstrates how to nominate an EventHandler for a Domain Object.
+
+```
+
+domain_object preferences "Preferences" {
+
+   event_handler: /br/com/maisha/preferences/handler/PreferencesEventHandler.py
+
+...
+
+}
+
+```
+
+An EventHandler can be written in Java, Groovy or Python as these are the languages supported by the platform.
+
+**Note**
+
+---
+
+Once an EventHandler **does not** run in UI-Thread it can not do changes to the UI Widgets directly. To change a widget an EventHandler must change the meta (Domain Object).

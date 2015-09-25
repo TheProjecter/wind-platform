@@ -1,0 +1,39 @@
+# Introduction #
+
+A **Business Rule** is a small and well-defined unit of code. It has a purpose, or goal to modify the **Domain Model** producing a result.
+It is a good practice to design a Business Rule in a way it has a Single Responsability. The advantage is the ease in testing, bug identification and correction and reusability.
+In many cases, each Business Rule is part of a bigger picture. A business process can use the same business rules in different ways in order to produce different results. Thus, simple and well-defined rules are easier to be reusable.
+
+
+# Business Rules #
+A Business Rule can be written in Groovy or Python.
+
+It must define two variables, named **ctx** and **model**, that receives a reference to ExecutionContext and Model Instance respectively.
+```
+class Action{
+    def ctx
+    def model
+}
+```
+
+It must implement a method with name **execute** that will be called by the execution engine. This is where the logic goes.
+
+```
+def execute(){
+   ctx.save(model)
+}
+```
+
+## Rule API ##
+The Rule API is a portion of methods available to the developer that writes business rules.
+
+Listed bellow are the main areas (sub-APIs), of the Rule API:
+
+  * [Persistence](Persistence.md)
+  * Data Access, Validation and Manipulation
+  * Integration with other systems (Message Queue, Webservices, etc)
+  * Communication (Email, SMS, Fax)
+  * [Messages and Log](MessagingAndLogging.md)
+  * XML and JSON Parsing
+  * Chart and Report generation
+
